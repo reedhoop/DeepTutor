@@ -1,24 +1,16 @@
 import type { Metadata } from "next";
-import { Geist, Lora } from "next/font/google";
 import "./globals.css";
 import ThemeScript from "@/components/ThemeScript";
 import ToastViewport from "@/components/common/ToastViewport";
 import { AppShellProvider } from "@/context/AppShellContext";
 import { I18nClientBridge } from "@/i18n/I18nClientBridge";
 
-// Geist matches the public site (deeptutor.info) and stays crisp at the
-// small UI sizes the composer/toolbars use, unlike the rounder Jakarta.
-const fontSans = Geist({
-  subsets: ["latin"],
-  display: "swap",
-  variable: "--font-sans",
-});
-
-const fontSerif = Lora({
-  subsets: ["latin"],
-  display: "swap",
-  variable: "--font-serif",
-});
+// NOTE: next/font/google (Geist, Lora) is intentionally not used here. The
+// Turbopack font loader (@vercel/turbopack-next/internal/font/google/font)
+// hangs on this Windows dev box and breaks every route's compile (500 / hang).
+// Font CSS variables (--font-sans / --font-serif) are defined in globals.css
+// with system-font fallbacks. Restore the Geist/Lora imports once the loader
+// is fixed.
 
 export const metadata: Metadata = {
   title: "DeepTutor",
@@ -42,7 +34,6 @@ export default function RootLayout({
       lang="en"
       suppressHydrationWarning
       data-scroll-behavior="smooth"
-      className={`${fontSans.variable} ${fontSerif.variable}`}
     >
       <head>
         <ThemeScript />

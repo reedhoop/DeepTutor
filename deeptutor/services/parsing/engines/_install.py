@@ -50,6 +50,9 @@ ENGINE_PIP_SPECS: dict[str, list[str]] = {
         "docling-slim[format-iwork,format-opendocument,format-video]>=2.123.1",
     ],
     "liteparse": ["liteparse>=2.14.2"],
+    # PP-StructureV3 lives in paddleocr (3.x).  Pulls paddlepaddle (large) — a
+    # deliberate opt-in local engine, not part of the default install.
+    "pp_structurev3": ["paddleocr"],
 }
 
 # Engine id -> console-script argv that downloads its model weights. The script

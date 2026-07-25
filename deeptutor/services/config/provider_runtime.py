@@ -8,7 +8,6 @@ from typing import Any
 from urllib.parse import urlparse
 
 from deeptutor.services.imagegen.config import ImagegenConfig
-from deeptutor.services.keypool import primary_api_key
 from deeptutor.services.model_selection import LLMSelection, apply_llm_selection_to_catalog
 from deeptutor.services.provider_registry import (
     NANOBOT_LLM_PROVIDERS,
@@ -96,7 +95,6 @@ SEARCH_PROVIDERS: dict[str, SearchProviderSpec] = {
         supports_answer=True,
     ),
     "serper": SearchProviderSpec(label="Serper", requires_api_key=True, soft_fallback=False),
-    "serply": SearchProviderSpec(label="Serply", requires_api_key=True, soft_fallback=False),
     "firecrawl": SearchProviderSpec(label="Firecrawl", requires_api_key=True, soft_fallback=False),
     # China-hosted engines. Doubao is the one that writes its own answer: Ark
     # exposes web search only as a tool on a Doubao model, never standalone.
@@ -296,6 +294,11 @@ class VoiceProviderSpec:
     OpenAI-compatible cluster all share ``openai_compat`` and differ only by
     ``auth_style`` (Azure uses ``api-key``) and STT ``request_style``
     (OpenRouter uses base64-JSON).
+
+    ``preset_models`` is an optional list of known model+voice combinations
+    that the frontend can offer as one-click additions.  Each entry is a
+    dict with keys ``model`` (model id), ``voice`` (voice identifier, may be
+    empty), and ``label`` (short human-readable name shown in the UI).
     """
 
     label: str
@@ -306,6 +309,7 @@ class VoiceProviderSpec:
     default_voice: str = ""  # TTS only
     request_style: str = STT_MULTIPART  # STT only
     is_local: bool = False
+    preset_models: tuple[dict[str, str], ...] = ()  # TTS-only quick-add presets
 
 
 # Voice providers either use the shared OpenAI-compatible adapter or a native
@@ -342,6 +346,55 @@ TTS_PROVIDERS: dict[str, VoiceProviderSpec] = {
         default_api_base="https://api.siliconflow.cn/v1",
         default_model="FunAudioLLM/CosyVoice2-0.5B",
         default_voice="FunAudioLLM/CosyVoice2-0.5B:alex",
+        preset_models=(
+            # --- CosyVoice2-0.5B: 8 system preset voices ---
+            {
+                "model": "FunAudioLLM/CosyVoice2-0.5B",
+                "voice": "FunAudioLLM/CosyVoice2-0.5B:anna",
+                "label": "Anna (沉稳女声)",
+            },
+            {
+                "model": "FunAudioLLM/CosyVoice2-0.5B",
+                "voice": "FunAudioLLM/CosyVoice2-0.5B:bella",
+                "label": "Bella (激情女声)",
+            },
+            {
+                "model": "FunAudioLLM/CosyVoice2-0.5B",
+                "voice": "FunAudioLLM/CosyVoice2-0.5B:claire",
+                "label": "Claire (温柔女声)",
+            },
+            {
+                "model": "FunAudioLLM/CosyVoice2-0.5B",
+                "voice": "FunAudioLLM/CosyVoice2-0.5B:diana",
+                "label": "Diana (欢快女声)",
+            },
+            {
+                "model": "FunAudioLLM/CosyVoice2-0.5B",
+                "voice": "FunAudioLLM/CosyVoice2-0.5B:alex",
+                "label": "Alex (沉稳男声)",
+            },
+            {
+                "model": "FunAudioLLM/CosyVoice2-0.5B",
+                "voice": "FunAudioLLM/CosyVoice2-0.5B:benjamin",
+                "label": "Benjamin (低沉男声)",
+            },
+            {
+                "model": "FunAudioLLM/CosyVoice2-0.5B",
+                "voice": "FunAudioLLM/CosyVoice2-0.5B:charles",
+                "label": "Charles (磁性男声)",
+            },
+            {
+                "model": "FunAudioLLM/CosyVoice2-0.5B",
+                "voice": "FunAudioLLM/CosyVoice2-0.5B:david",
+                "label": "David (欢快男声)",
+            },
+            # --- MOSS-TTSD-v0.5: dual-voice cloning (no preset voice) ---
+            {
+                "model": "fnlp/MOSS-TTSD-v0.5",
+                "voice": "",
+                "label": "MOSS-TTSD (双人克隆)",
+            },
+        ),
     ),
     "azure_openai": VoiceProviderSpec(
         label="Azure OpenAI",
@@ -552,7 +605,7 @@ class NormalizedProviderConfig:
     """Normalized provider configuration input."""
 
     name: str
-    api_key: str | list[str] = ""
+    api_key: str = ""
     api_base: str | None = None
     api_version: str | None = None
     extra_headers: dict[str, str] | None = None
@@ -567,7 +620,7 @@ class ResolvedLLMConfig:
     provider_mode: str
     binding_hint: str | None = None
     binding: str = "openai"
-    api_key: str | list[str] = ""
+    api_key: str = ""
     base_url: str | None = None
     effective_url: str | None = None
     api_version: str | None = None
@@ -589,7 +642,7 @@ class ResolvedEmbeddingConfig:
     provider_mode: str
     binding_hint: str | None = None
     binding: str = "openai"
-    api_key: str | list[str] = ""
+    api_key: str = ""
     base_url: str | None = None
     effective_url: str | None = None
     api_version: str | None = None
@@ -631,12 +684,6 @@ class ResolvedSearchConfig:
 
 def _as_str(value: Any) -> str:
     return str(value).strip() if value is not None else ""
-
-
-def _as_api_key(value: Any) -> str | list[str]:
-    if isinstance(value, list):
-        return [key for item in value if (key := _as_str(item))]
-    return _as_str(value)
 
 
 def _to_headers(value: Any) -> dict[str, str]:
@@ -738,7 +785,7 @@ def _collect_provider_pool(catalog: dict[str, Any]) -> dict[str, NormalizedProvi
             continue
         providers[name] = NormalizedProviderConfig(
             name=name,
-            api_key=_as_api_key(profile.get("api_key")),
+            api_key=_as_str(profile.get("api_key")),
             api_base=_as_str(profile.get("base_url")) or None,
             api_version=_as_str(profile.get("api_version")) or None,
             extra_headers=_to_headers(profile.get("extra_headers")) or None,
@@ -750,14 +797,14 @@ def _choose_resolved_provider(
     *,
     hint: str | None,
     model: str,
-    api_key: str | list[str],
+    api_key: str,
     api_base: str | None,
     provider_pool: dict[str, NormalizedProviderConfig],
 ) -> ProviderSpec:
     explicit_spec = find_by_name(hint) if hint else None
     detected_gateway = find_gateway(
         provider_name=None,
-        api_key=primary_api_key(api_key),
+        api_key=api_key or None,
         api_base=api_base or None,
     )
     # Keep backward compatibility: old `binding=openai` should not block
@@ -814,30 +861,22 @@ def resolve_llm_runtime_config(
     """
     catalog_service = service or get_model_catalog_service()
     loaded = _with_personal_llm_profiles(_load_catalog(catalog))
-    # Parse the payload once: ``apply_llm_selection_to_catalog`` would otherwise
-    # re-parse it, so a malformed selection would be validated (and rejected)
-    # from two places. ``from_payload`` is idempotent on an already-parsed value.
-    selection = LLMSelection.from_payload(llm_selection)
-    loaded = apply_llm_selection_to_catalog(loaded, selection)
+    loaded = apply_llm_selection_to_catalog(loaded, llm_selection)
 
     profile, model = _active_profile_and_model(loaded, catalog_service, service_name)
     resolved_model = _as_str((model or {}).get("model"))
+    if not resolved_model:
+        resolved_model = "gpt-4o-mini"
 
     binding_hint_raw = _as_str((profile or {}).get("binding"))
     binding_hint = canonical_provider_name(binding_hint_raw)
 
-    active_api_key = _as_api_key((profile or {}).get("api_key"))
+    active_api_key = _as_str((profile or {}).get("api_key"))
     active_api_base = _as_str((profile or {}).get("base_url"))
     active_api_version = _as_str((profile or {}).get("api_version"))
     configured_wire_api = _as_str((profile or {}).get("wire_api")) or "auto"
     configured_api_format = (profile or {}).get("api_format")
     reasoning_effort = _as_str((model or {}).get("reasoning_effort")) or None
-    # Per-conversation override (#641): an explicit reasoning_effort on the
-    # caller's LLMSelection takes precedence over the profile/model default
-    # resolved above. The model/global config value stays the fallback when
-    # no override is present, preserving today's behavior.
-    if selection is not None and selection.reasoning_effort:
-        reasoning_effort = selection.reasoning_effort
     active_extra_headers = _to_headers((profile or {}).get("extra_headers"))
     context_window = _coerce_optional_int((model or {}).get("context_window"))
     if context_window is None:
@@ -914,7 +953,7 @@ def _collect_embedding_provider_pool(
             continue
         providers[name] = NormalizedProviderConfig(
             name=name,
-            api_key=_as_api_key(profile.get("api_key")),
+            api_key=_as_str(profile.get("api_key")),
             api_base=_as_str(profile.get("base_url")) or None,
             api_version=_as_str(profile.get("api_version")) or None,
             extra_headers=_to_headers(profile.get("extra_headers")) or None,
@@ -1023,7 +1062,7 @@ def resolve_embedding_runtime_config(
     binding_hint_raw = _as_str((profile or {}).get("binding"))
     binding_hint = _canonical_embedding_provider_name(binding_hint_raw)
 
-    active_api_key = _as_api_key((profile or {}).get("api_key"))
+    active_api_key = _as_str((profile or {}).get("api_key"))
     active_api_base = _as_str((profile or {}).get("base_url"))
     active_api_version = _as_str((profile or {}).get("api_version"))
     active_extra_headers = _to_headers((profile or {}).get("extra_headers"))
@@ -1078,10 +1117,8 @@ def resolve_embedding_runtime_config(
         dimension=dimension,
         send_dimensions=send_dimensions,
         request_timeout=60,
-        # Some providers (e.g. Volcengine Ark plan tier) enforce very low RPM limits;
-        # allow per-profile batch_size/batch_delay in the embedding profile, defaults unchanged
-        batch_size=_clamp_batch_size(profile),
-        batch_delay=_clamp_batch_delay(profile),
+        batch_size=10,
+        batch_delay=0.0,
     )
 
 
@@ -1467,17 +1504,3 @@ __all__ = [
     "resolve_search_runtime_config",
     "search_provider_state",
 ]
-
-
-def _clamp_batch_size(profile: dict | None) -> int:
-    try:
-        return max(1, int((profile or {}).get("batch_size", 10)))
-    except Exception:
-        return 10
-
-
-def _clamp_batch_delay(profile: dict | None) -> float:
-    try:
-        return max(0.0, float((profile or {}).get("batch_delay", 0.0)))
-    except Exception:
-        return 0.0

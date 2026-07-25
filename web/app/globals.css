@@ -23,6 +23,14 @@
      keep bg essentially white, save the visible warmth for accents. */
   :root {
     color-scheme: light;
+    /* Font stacks defined here instead of next/font/google. The Turbopack
+       font loader (next/font/google -> @vercel/turbopack-next/internal/font/google/font)
+       hangs on this Windows dev box, breaking every route's compile. System
+       stacks keep the CSS variable contract (Tailwind font-sans/font-serif)
+       intact. Revert to next/font/google once the loader is fixed. */
+    --font-sans: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue",
+      Arial, "Noto Sans", "PingFang SC", "Microsoft YaHei", sans-serif;
+    --font-serif: Georgia, Cambria, "Times New Roman", Times, "Songti SC", serif;
     --background: #fdfcf9;
     --foreground: #1c1816;
     --card: #ffffff;

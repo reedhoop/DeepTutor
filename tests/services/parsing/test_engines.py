@@ -5,12 +5,9 @@ from pathlib import Path
 import subprocess
 import zipfile
 
-import httpx
 import pytest
 
 from deeptutor.services.parsing.engines import factory
-from deeptutor.services.parsing.engines.docling.config import DoclingConfig
-from deeptutor.services.parsing.engines.tika.config import TikaConfig
 from deeptutor.services.parsing.types import ParserError
 
 
@@ -21,8 +18,9 @@ def test_known_engines() -> None:
         "docling",
         "markitdown",
         "pymupdf4llm",
-        "liteparse",
-        "tika",
+        "ovisocr2",
+        "paddleocr_vl",
+        "pp_structurev3",
     }
 
 
@@ -34,8 +32,9 @@ def test_list_engines_reports_metadata_and_availability() -> None:
         "docling",
         "markitdown",
         "pymupdf4llm",
-        "liteparse",
-        "tika",
+        "ovisocr2",
+        "paddleocr_vl",
+        "pp_structurev3",
     }
     assert engines["text_only"]["available"] is True
     assert engines["text_only"]["needs_local_models"] is False
@@ -45,9 +44,13 @@ def test_list_engines_reports_metadata_and_availability() -> None:
     assert engines["mineru"]["needs_local_models"] is True
     assert engines["markitdown"]["needs_local_models"] is False
     assert engines["pymupdf4llm"]["needs_local_models"] is False
-    assert engines["liteparse"]["needs_local_models"] is False
-    assert engines["tika"]["available"] is True
-    assert engines["tika"]["needs_local_models"] is False
+    # vLLM-backed engines are always available (no local import needed).
+    assert engines["ovisocr2"]["available"] is True
+    assert engines["ovisocr2"]["needs_local_models"] is False
+    assert engines["paddleocr_vl"]["available"] is True
+    assert engines["paddleocr_vl"]["needs_local_models"] is False
+    # PP-StructureV3 is a local pipeline — availability depends on the install.
+    assert engines["pp_structurev3"]["needs_local_models"] is True
 
 
 def test_get_parser_unknown_raises() -> None:
@@ -876,7 +879,13 @@ def test_install_manager_spec_allowlist() -> None:
     )
 
     # Only optional pip-backed engines are installable; built-in / external are not.
-    assert installable_engines() == {"pymupdf4llm", "markitdown", "docling", "liteparse"}
+    assert installable_engines() == {
+        "pymupdf4llm",
+        "markitdown",
+        "docling",
+        "liteparse",
+        "pp_structurev3",
+    }
     assert ENGINE_PIP_SPECS["markitdown"] == ["markitdown[all]>=0.1.7"]
     assert ENGINE_PIP_SPECS["pymupdf4llm"] == ["pymupdf4llm>=1.28.2"]
     assert ENGINE_PIP_SPECS["liteparse"] == ["liteparse>=2.14.2"]
@@ -884,6 +893,7 @@ def test_install_manager_spec_allowlist() -> None:
         "docling[xbrl]>=2.123.1",
         "docling-slim[format-iwork,format-opendocument,format-video]>=2.123.1",
     ]
+    assert ENGINE_PIP_SPECS["pp_structurev3"] == ["paddleocr"]
     assert "text_only" not in ENGINE_PIP_SPECS
     assert "mineru" not in ENGINE_PIP_SPECS
 

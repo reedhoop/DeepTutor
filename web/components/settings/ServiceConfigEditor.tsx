@@ -705,30 +705,120 @@ export function ServiceConfigEditor({ service }: { service: ServiceName }) {
                   </div>
                 )}
 
-                {service !== "search" && (
-                  <div>
-                    {activeModel && (!isCodexOAuth || isBoundManagedCodex) && (
-                      <div className="mb-2.5 flex items-center justify-between gap-2 border-b border-[var(--border)]/60 pb-2">
-                        <div className="min-w-0 truncate text-[13px] font-medium text-[var(--foreground)]">
-                          {(activeModel.name || "").trim() || t("Model")}
-                        </div>
+            {service !== "search" && (
+              <div className="rounded-xl border border-[var(--border)] p-5">
+                <div className="mb-4 flex items-center justify-between gap-2">
+                  <div className="text-[13px] font-medium text-[var(--foreground)]">
+                    {t("Models")}
+                  </div>
+                  {!isCodexOAuth && (
+                    <div className="flex items-center gap-2">
+                      {service === "llm" &&
+                        activeProfile.binding === "codebuddy" && (
+                          <button
+                            type="button"
+                            onClick={() => void syncProviderModels()}
+                            disabled={modelsSyncing}
+                            className="inline-flex items-center gap-1 rounded-lg border border-[var(--border)]/50 px-2.5 py-1 text-[12px] text-[var(--muted-foreground)] transition-colors hover:border-[var(--border)] hover:text-[var(--foreground)] disabled:opacity-40"
+                          >
+                            <RefreshCw
+                              className={`h-3 w-3 ${modelsSyncing ? "animate-spin" : ""}`}
+                            />
+                            {t("Sync models")}
+                          </button>
+                        )}
+                      <button
+                        type="button"
+                        onClick={() => addModel(service)}
+                        className="inline-flex items-center gap-1 rounded-lg border border-[var(--border)]/50 px-2.5 py-1 text-[12px] text-[var(--muted-foreground)] transition-colors hover:border-[var(--border)] hover:text-[var(--foreground)]"
+                      >
+                        <Plus className="h-3 w-3" />
+                        {t("Model")}
+                      </button>
+                      <button
+                        onClick={() => removeActiveModel(service)}
+                        disabled={!activeModel}
+                        className="inline-flex items-center gap-1 text-[11px] text-[var(--muted-foreground)]/40 transition-colors hover:text-red-500 disabled:opacity-30"
+                      >
+                        <Trash2 className="h-3 w-3" />
+                        {t("Delete")}
+                      </button>
+                    </div>
+                  )}
+                </div>
+                {/* Preset model quick-add chips (TTS only) */}
+                {service === "tts" && (() => {
+                  const currentProvider = (providers.tts || []).find(
+                    (p) => p.value === activeProfile?.binding,
+                  );
+                  const presets = currentProvider?.preset_models ?? [];
+                  if (presets.length === 0) return null;
+                  // Deduplicate: hide presets whose model+voice already exist
+                  const existing = new Set(
+                    activeProfile.models.map(
+                      (m) => `${m.model}|${m.voice ?? ""}`,
+                    ),
+                  );
+                  const available = presets.filter(
+                    (p) => !existing.has(`${p.model}|${p.voice ?? ""}`),
+                  );
+                  if (available.length === 0) return null;
+                  return (
+                    <div className="mb-3 flex flex-wrap items-center gap-1.5">
+                      <span className="text-[11px] text-[var(--muted-foreground)]">
+                        {t("Quick add")}
+                      </span>
+                      {available.map((preset) => (
                         <button
+                          key={`${preset.model}:${preset.voice}`}
                           type="button"
-                          onClick={() => setExpandedModelId(null)}
-                          className="inline-flex items-center gap-1 rounded-lg border border-[var(--border)]/50 px-2.5 py-1 text-[12px] text-[var(--muted-foreground)] transition-colors hover:border-[var(--border)] hover:text-[var(--foreground)]"
+                          onClick={() => {
+                            const modelId = `tts-model-${Date.now()}`;
+                            mutateCatalog((next) => {
+                              const target = next.services.tts;
+                              const profile =
+                                target.profiles.find(
+                                  (item) =>
+                                    item.id === target.active_profile_id,
+                                ) ?? null;
+                              if (!profile) return;
+                              profile.models.push({
+                                id: modelId,
+                                name: preset.label,
+                                model: preset.model,
+                                voice: preset.voice,
+                                response_format: "mp3",
+                              });
+                              target.active_model_id = modelId;
+                            });
+                          }}
+                          className="inline-flex items-center gap-1 rounded-full border border-[var(--primary)]/30 bg-[var(--primary)]/5 px-2.5 py-0.5 text-[11.5px] text-[var(--primary)] transition-colors hover:border-[var(--primary)]/60 hover:bg-[var(--primary)]/10"
                         >
-                          <X className="h-3 w-3" />
-                          {t("Close")}
+                          {preset.label}
                         </button>
-                      </div>
-                    )}
-                    {activeModel && (!isCodexOAuth || isBoundManagedCodex) && (
-                      <div className="grid gap-4 sm:grid-cols-2">
-                        {!isCodexOAuth && (
-                          <div>
-                            <div className="mb-1.5 text-[12px] text-[var(--muted-foreground)]">
-                              {t("Model ID")}
-                            </div>
+                      ))}
+                    </div>
+                  );
+                })()}
+                {activeProfile.models.length > 0 && (
+                  <div className="mb-4 flex flex-wrap items-center gap-1.5">
+                    {activeProfile.models.map((model, index) => {
+                      const isActive =
+                        model.id === draft.services[service].active_model_id;
+                      const label =
+                        (model.name || "").trim() ||
+                        defaultModelLabel(language, index + 1);
+                      const metric =
+                        service === "llm"
+                          ? formatCompactTokens(model.context_window)
+                          : service === "embedding"
+                            ? formatDimensionBadge(model.dimension)
+                            : service === "tts"
+                              ? formatVoiceBadge(model.voice)
+                              : "";
+                      return (
+                        <div key={model.id} className="min-w-0">
+                          {editingModelId === model.id && !isCodexOAuth ? (
                             <input
                               className={inputClass}
                               value={activeModel.model}

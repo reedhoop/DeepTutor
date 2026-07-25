@@ -233,6 +233,12 @@ export async function persistUiSettingsPatch(
   });
 }
 
+export type TtsPresetModel = {
+  model: string;
+  voice: string;
+  label: string;
+};
+
 export type ProviderOption = {
   value: string;
   label: string;
@@ -253,7 +259,8 @@ export type ProviderOption = {
   requires_api_key?: boolean;
   requires_base_url?: boolean;
   soft_fallback?: boolean;
-  status?: "supported" | "deprecated" | "legacy";
+  status?: "supported" | "deprecated" | "legacy";,
+  preset_models?: TtsPresetModel[];,
 };
 
 export type SystemStatus = {
