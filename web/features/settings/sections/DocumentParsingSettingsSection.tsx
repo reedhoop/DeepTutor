@@ -46,6 +46,8 @@ type Readiness = { ready: boolean; reason: string; message: string };
 
 type DocumentParsingPayload = {
   engine: string;
+  routing_mode?: string;
+  fallback_engine?: string;
   engines: Record<string, Record<string, unknown>>;
   available_engines: EngineMeta[];
   readiness: Record<string, Readiness>;
@@ -235,6 +237,13 @@ export default function DocumentParsingSettingsPage() {
   const handleSelectEngine = (id: string) =>
     putDocumentParsing({ engine: id });
 
+  // Routing settings are scalar fields; optimistic-update them locally and
+  // persist via the same PUT endpoint (server response replaces state).
+  const putRouting = (patch: Record<string, unknown>) => {
+    setData((prev) => (prev ? { ...prev, ...patch } : prev));
+    void putDocumentParsing(patch);
+  };
+
   return (
     <div>
       <SettingsPageHeader
@@ -270,6 +279,56 @@ export default function DocumentParsingSettingsPage() {
                 )}
               </p>
             </header>
+            <div className="mb-4 rounded-xl border border-[var(--border)] bg-[var(--card)] px-4 py-3">
+              <div className="flex flex-wrap items-center justify-between gap-3">
+                <div className="min-w-0">
+                  <div className="text-[13px] font-medium text-[var(--foreground)]">
+                    {t("Parsing route", "解析路由")}
+                  </div>
+                  <p className="mt-0.5 text-[12px] text-[var(--muted-foreground)]">
+                    {t(
+                      "routing_desc",
+                      "Auto 按文档类型(扫描图/图文/文本)自动选最匹配的引擎；Manual 始终用上方选中的引擎。",
+                    )}
+                  </p>
+                </div>
+                <select
+                  value={data.routing_mode || "manual"}
+                  onChange={(e) => putRouting({ routing_mode: e.target.value })}
+                  className={nativeSelectClass}
+                >
+                  <option value="manual">
+                    {t("Manual (active engine)", "手动（当前引擎）")}
+                  </option>
+                  <option value="auto">
+                    {t("Auto (per-document)", "自动（按文档）")}
+                  </option>
+                </select>
+              </div>
+              {data.routing_mode === "auto" && (
+                <div className="mt-3 flex flex-wrap items-center justify-between gap-3 border-t border-[var(--border)] pt-3">
+                  <span className="text-[12px] text-[var(--muted-foreground)]">
+                    {t("Fallback engine", "回退引擎")}
+                  </span>
+                  <select
+                    value={data.fallback_engine || ""}
+                    onChange={(e) =>
+                      putRouting({ fallback_engine: e.target.value })
+                    }
+                    className={nativeSelectClass}
+                  >
+                    <option value="">
+                      {t("Active engine (default)", "当前引擎（默认）")}
+                    </option>
+                    {data.available_engines.map((e) => (
+                      <option key={e.id} value={e.id}>
+                        {e.name}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              )}
+            </div>
             <BusyContext.Provider value={busyRef.current}>
             <div className="flex flex-col gap-2">
               {data.available_engines.map((engine) => (

@@ -192,3 +192,30 @@ def normalize_external_engines(engines_in: dict[str, Any]) -> Dict[str, Any]:
         ),
     }
     return out
+
+
+# ── Auto-routing (local overlay feature) ──────────────────────────────────
+# When routing_mode == "auto", the ParseService picks the best engine *per
+# document* instead of always using the single active engine. Defaults live
+# here so the upstream ``runtime_settings`` stays untouched (only gains the
+# routing_mode/fallback_engine keys via the runtime overlay). Manual is the
+# default — it leaves parsing behaviour 100% unchanged.
+VALID_ROUTING_MODES = ("manual", "auto")
+DEFAULT_ROUTING_MODE = "manual"
+DEFAULT_FALLBACK_ENGINE = ""
+
+
+def normalize_routing(settings: dict[str, Any]) -> Dict[str, Any]:
+    """Validate + normalize the routing_mode / fallback_engine settings.
+
+    ``routing_mode`` is coerced to a known mode; ``fallback_engine`` must be a
+    real engine id (from the upstream ``factory.KNOWN_ENGINES``) or it is
+    dropped to "" (meaning "use the active engine").
+    """
+    from deeptutor.services.parsing.engines import factory
+
+    raw_mode = str(settings.get("routing_mode") or DEFAULT_ROUTING_MODE).strip().lower()
+    mode = raw_mode if raw_mode in VALID_ROUTING_MODES else DEFAULT_ROUTING_MODE
+    raw_fb = str(settings.get("fallback_engine") or "").strip().lower()
+    fallback = raw_fb if raw_fb in factory.KNOWN_ENGINES else DEFAULT_FALLBACK_ENGINE
+    return {"routing_mode": mode, "fallback_engine": fallback}

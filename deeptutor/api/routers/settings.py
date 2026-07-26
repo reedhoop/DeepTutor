@@ -300,6 +300,8 @@ class DocumentParsingUpdate(BaseModel):
 
     engine: Optional[str] = None
     engines: Optional[dict[str, dict]] = None
+    routing_mode: Optional[str] = None
+    fallback_engine: Optional[str] = None
 
 
 class DocumentParsingTest(BaseModel):
@@ -973,6 +975,8 @@ def _document_parsing_payload() -> dict[str, Any]:
     mineru_slice = engines.get("mineru", {})
     return {
         "engine": full.get("engine"),
+        "routing_mode": full.get("routing_mode", "manual"),
+        "fallback_engine": full.get("fallback_engine", ""),
         "engines": redacted,
         "available_engines": available,
         "readiness": readiness,
@@ -1044,7 +1048,14 @@ async def update_document_parsing_settings(payload: DocumentParsingUpdate):
         engines[name].update(merged)
 
     new_engine = payload.engine or full.get("engine")
-    service.save_document_parsing({"engine": new_engine, "engines": engines})
+    patch = {"engine": new_engine, "engines": engines}
+    # Our routing settings (local overlay) — pass through when present so the
+    # active engine switch doesn't wipe them.
+    if payload.routing_mode is not None:
+        patch["routing_mode"] = payload.routing_mode
+    if payload.fallback_engine is not None:
+        patch["fallback_engine"] = payload.fallback_engine
+    service.save_document_parsing(patch)
     return _document_parsing_payload()
 
 

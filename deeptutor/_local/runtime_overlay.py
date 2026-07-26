@@ -20,3 +20,11 @@ def apply_runtime_overlay(ns: Dict[str, Any]) -> None:
     ns["DEFAULT_DOCUMENT_PARSING_SETTINGS"]["engines"].update(
         _ld.DEFAULT_EXTERNAL_ENGINE_SLICES
     )
+    # Our routing defaults (manual by default — zero behaviour change).
+    # ``setdefault`` keeps any value the user already persisted.
+    ns["DEFAULT_DOCUMENT_PARSING_SETTINGS"].setdefault(
+        "routing_mode", _ld.DEFAULT_ROUTING_MODE
+    )
+    ns["DEFAULT_DOCUMENT_PARSING_SETTINGS"].setdefault(
+        "fallback_engine", _ld.DEFAULT_FALLBACK_ENGINE
+    )

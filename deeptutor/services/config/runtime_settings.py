@@ -951,7 +951,15 @@ class RuntimeSettingsService:
         if engine not in _DOCUMENT_PARSING_ENGINES:
             engine = _DEFAULT_DOCUMENT_PARSING_ENGINE
 
-        return {"version": 2, "engine": engine, "engines": engines_out}
+        # Our routing settings — merged via the local overlay.
+        routing = _ld.normalize_routing(settings)
+
+        return {
+            "version": 2,
+            "engine": engine,
+            "engines": engines_out,
+            **routing,
+        }
 
     def _normalize_mineru_engine(self, settings: dict[str, Any]) -> dict[str, Any]:
         mode = _string(settings.get("mode")).lower()

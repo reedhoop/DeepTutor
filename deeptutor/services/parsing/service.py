@@ -70,6 +70,29 @@ class ParseService:
         supported = get_parser(engine_name).supported_formats()
         return not supported or _matches_supported_format(source_path, supported)
 
+    def _resolve_auto_engine(self, source_path: Path) -> Optional[str]:
+        """Resolve the engine for ``source_path`` when routing_mode == "auto".
+
+        Delegates to the local overlay router. Wrapped in try/except so a
+        routing failure (import error, probe error) can never break parsing —
+        we simply fall back to the active engine.
+        """
+        try:
+            from deeptutor._local.engine_router import resolve_engine
+
+            settings = load_document_parsing_settings()
+            mode = str(settings.get("routing_mode") or "manual").strip().lower()
+            if mode != "auto":
+                return None
+            fallback = (
+                str(settings.get("fallback_engine") or "").strip().lower()
+                or self.active_engine()
+            )
+            return resolve_engine(source_path, fallback=fallback, routing_mode=mode)
+        except Exception as exc:  # pragma: no cover - defensive
+            logger.warning("Auto engine routing failed; using active engine: %s", exc)
+            return None
+
     def parse(
         self,
         source_path: str | Path,
@@ -88,7 +111,11 @@ class ParseService:
         if not source_path.is_file():
             raise ParserError(f"File to parse not found: {source_path}")
 
-        engine_name = (engine or self.active_engine()).strip().lower()
+        engine_name = (
+            engine
+            or self._resolve_auto_engine(source_path)
+            or self.active_engine()
+        ).strip().lower()
         parser = get_parser(engine_name)
         config = parser.resolve_config()
 
