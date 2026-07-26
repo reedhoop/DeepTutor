@@ -121,15 +121,21 @@ const nextConfig = {
   // `.next-deeptutor/standalone/server.js` directly.
   outputFileTracingRoot: __dirname,
 
-  // web/proxy.ts clones request bodies before rewriting them. Keep enough room
-  // for individual large-body endpoints that still use Proxy. Knowledge-base
-  // create/upload batches use dedicated streaming route handlers instead, so
-  // their total size is not coupled to this in-memory clone limit.
+  // web/proxy.ts (the Next.js middleware) forwards /api/* and /ws/* to the
+  // backend by buffering and re-issuing the request. Next caps the buffered
+  // request body at 10MB by default, but the backend accepts uploads up to
+  // 200MB (DocumentValidator.MAX_FILE_SIZE). Raise the proxy cap to match (plus
+  // multipart overhead headroom) so knowledge-base document uploads aren't
+  // silently truncated when they pass through the proxy.
   experimental: {
     proxyClientMaxBodySize: 210 * 1024 * 1024,
-    // Agentic reads and full-draft edits routinely exceed Next's 30-second
-    // rewrite default; the browser remains responsible for cancelling them.
-    proxyTimeout: 30 * 60 * 1000,
+    // Run Next's internal worker pools (type-check, static-paths) as Worker
+    // *threads* instead of forked child processes. In this sandbox the forked
+    // child processes spawned by jest-worker keep exiting non-zero on
+    // recompile ("Jest worker encountered N child process exceptions"), which
+    // breaks dev type-checking on every route navigation. Worker threads
+    // avoid the separate-process spawn and keep type-checking working.
+    workerThreads: true,
   },
 
   // Move dev indicator to bottom-right corner
