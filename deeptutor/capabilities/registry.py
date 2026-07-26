@@ -5,6 +5,7 @@ from __future__ import annotations
 from deeptutor.capabilities.explore_context import ExploreContextCapability
 from deeptutor.capabilities.mastery import MasteryLoopCapability
 from deeptutor.capabilities.socratic import SocraticLoopCapability
+from deeptutor.capabilities.feynman import FeynmanLoopCapability
 from deeptutor.capabilities.obsidian import ObsidianCapability
 from deeptutor.capabilities.protocol import LoopCapability
 from deeptutor.capabilities.solve import SolveLoopCapability
@@ -18,6 +19,7 @@ LOOP_CAPABILITIES: tuple[LoopCapability, ...] = (
     SubagentCapability(),
     ExploreContextCapability(),
     SocraticLoopCapability(),
+    FeynmanLoopCapability(),
 )
 
 

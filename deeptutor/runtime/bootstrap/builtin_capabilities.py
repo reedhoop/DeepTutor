@@ -44,6 +44,7 @@ BUILTIN_CAPABILITY_CLASSES: dict[str, str] = {
     "course_study": "deeptutor.capabilities.course_study.mode:CourseStudyCapability",
     "immersive_watching": "deeptutor.capabilities.watching.mode:ImmersiveWatchingCapability",
     "socratic_tutor": "deeptutor.capabilities.socratic.capability:SocraticTutorCapability",
+    "feynman_tutor": "deeptutor.capabilities.feynman.capability:FeynmanTutorCapability",
 }
 
 

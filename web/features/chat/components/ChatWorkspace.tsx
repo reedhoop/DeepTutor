@@ -26,6 +26,7 @@ import {
   MessageSquare,
   MessagesSquare,
   Microscope,
+  Presentation,
   PenLine,
   type LucideIcon,
 } from "lucide-react";
@@ -186,6 +187,236 @@ const ResearchConfigPanel = dynamic(
 /*  Type & data definitions                                           */
 /* ------------------------------------------------------------------ */
 
+type ToolName =
+  | "brainstorm"
+  | "geogebra_analysis"
+  | "web_search"
+  | "code_execution"
+  | "reason"
+  | "paper_search"
+  | "imagegen"
+  | "videogen";
+
+interface ToolDef {
+  name: ToolName;
+  label: string;
+  icon: LucideIcon;
+}
+
+const ALL_TOOLS: ToolDef[] = [
+  { name: "brainstorm", label: "Brainstorm", icon: Lightbulb },
+  { name: "geogebra_analysis", label: "GeoGebra", icon: Compass },
+  { name: "web_search", label: "Web Search", icon: Globe },
+  { name: "code_execution", label: "Code", icon: Code2 },
+  { name: "reason", label: "Reason", icon: Sparkles },
+  { name: "paper_search", label: "Arxiv Search", icon: FileSearch },
+  { name: "imagegen", label: "Image Gen", icon: ImageIcon },
+  { name: "videogen", label: "Video Gen", icon: Clapperboard },
+];
+
+interface CapabilityDef {
+  value: string;
+  label: string;
+  description: string;
+  icon: LucideIcon;
+  allowedTools: ToolName[];
+  defaultTools: ToolName[];
+  // Loop-engine capabilities run on the chat agent loop (solve / mastery) rather
+  // than a bespoke pipeline. They are collapsed into the "More" flyout in the
+  // capability picker instead of listed directly. Driven by the loop-capability
+  // registry on the backend; mirrored here as a static flag.
+  loopEngine?: boolean;
+}
+
+const CAPABILITIES: CapabilityDef[] = [
+  {
+    value: "",
+    label: "Chat",
+    description: "Flexible conversation with any tool",
+    icon: MessageSquare,
+    allowedTools: [
+      "brainstorm",
+      "geogebra_analysis",
+      "web_search",
+      "code_execution",
+      "reason",
+      "paper_search",
+      "imagegen",
+      "videogen",
+    ],
+    defaultTools: [],
+  },
+  {
+    value: "deep_solve",
+    label: "Solve",
+    description: "Multi-step reasoning & problem solving",
+    icon: BrainCircuit,
+    allowedTools: ["web_search", "code_execution", "reason"],
+    defaultTools: ["web_search", "code_execution", "reason"],
+    loopEngine: true,
+  },
+  {
+    value: "deep_question",
+    label: "Quiz",
+    description: "Auto-validated question generation",
+    icon: PenLine,
+    allowedTools: ["web_search", "code_execution"],
+    defaultTools: ["web_search", "code_execution"],
+  },
+  {
+    value: "deep_research",
+    label: "Research",
+    description: "Comprehensive multi-agent research",
+    icon: Microscope,
+    allowedTools: ["web_search", "paper_search", "code_execution"],
+    defaultTools: ["web_search", "paper_search", "code_execution"],
+  },
+  {
+    value: "visualize",
+    label: "Visualize",
+    description:
+      "Generate charts, diagrams, interactive pages, or math animations",
+    icon: BarChart3,
+    allowedTools: [],
+    defaultTools: [],
+  },
+  {
+    value: "mastery_path",
+    label: "Mastery Path",
+    description: "Mastery-based tutoring with a hard gate",
+    icon: GraduationCap,
+    // The mastery tools (status/quiz/grade/assess/build) auto-mount server-side
+    // when this capability is active; rag auto-mounts when a KB is attached.
+    // These are only the extra optional tools the tutor may also reach for.
+    allowedTools: ["web_search", "code_execution"],
+    defaultTools: [],
+    loopEngine: true,
+  },
+  {
+    value: "socratic_tutor",
+    label: "Socratic Tutoring",
+    description: "Guide by questioning, never hand over the answer",
+    icon: MessagesSquare,
+    // Socratic tutoring reuses the full chat tool surface and shapes the
+    // tutor's replies via a guardrail system block (no dedicated tools).
+    allowedTools: ["web_search", "code_execution", "reason"],
+    defaultTools: [],
+    loopEngine: true,
+  },
+  {
+    value: "feynman_tutor",
+    label: "Feynman Tutoring",
+    description: "Learn by explaining in your own words; the tutor checks clarity, gaps, and misunderstandings",
+    icon: Presentation,
+    // Feynman tutoring reuses the full chat tool surface and shapes the
+    // tutor's replies via a Feynman-style system block (no dedicated tools).
+    allowedTools: ["web_search", "code_execution", "reason"],
+    defaultTools: [],
+    loopEngine: true,
+  },
+];
+
+interface KnowledgeBase {
+  name: string;
+  is_default?: boolean;
+  metadata?: {
+    /** Connected-source kind, e.g. "obsidian" | "subagent". */
+    type?: string;
+    /** Backend of a connected subagent: "claude_code" | "codex" | "partner". */
+    agent_kind?: string;
+  };
+}
+
+interface PendingAttachment {
+  type: string;
+  filename: string;
+  base64?: string;
+  previewUrl?: string;
+  size?: number;
+  mimeType?: string;
+}
+
+/* ------------------------------------------------------------------ */
+/*  Helpers                                                           */
+/* ------------------------------------------------------------------ */
+
+function getCapability(value: string | null): CapabilityDef {
+  return CAPABILITIES.find((c) => c.value === (value || "")) ?? CAPABILITIES[0];
+}
+
+/**
+ * Read the context-window measurement a finished turn attached to its
+ * `result` event. Scanned newest-first because one turn can emit several
+ * results (a consulted subagent emits its own) and only the chat loop's
+ * closing one carries the budget; older backends emit none at all, and the
+ * measurement is allowed to degrade to "absent" rather than fail a turn.
+ */
+function readContextBudget(
+  events: StreamEvent[] | undefined,
+): ContextBudget | null {
+  if (!events) return null;
+  for (let i = events.length - 1; i >= 0; i -= 1) {
+    const ev = events[i];
+    if (ev.type !== "result") continue;
+    const meta = ev.metadata?.metadata as Record<string, unknown> | undefined;
+    const budget = meta?.context_budget as ContextBudget | undefined;
+    if (
+      budget &&
+      typeof budget.window === "number" &&
+      typeof budget.used_tokens === "number" &&
+      Array.isArray(budget.segments)
+    ) {
+      return budget;
+    }
+  }
+  return null;
+}
+
+/* ------------------------------------------------------------------ */
+/*  Chat page                                                         */
+/* ------------------------------------------------------------------ */
+
+export default function ChatPage() {
+  const params = useParams<{ sessionId?: string[] }>();
+  const router = useRouter();
+  const { t } = useTranslation();
+  const sessionIdParam = params.sessionId?.[0] ?? null;
+  const { setActiveSessionId, language: appLanguage } = useAppShell();
+
+  const {
+    state,
+    setTools,
+    setCapability,
+    setKBs,
+    setLLMSelection,
+    setMasteryPathId,
+    setPersonaSelection,
+    sendMessage,
+    cancelStreamingTurn,
+    submitUserReply,
+    regenerateLastMessage,
+    deleteTurn,
+    editMessage,
+    switchBranch,
+    newSession,
+    loadSession,
+    showCachedSession,
+    renameSessionTitle,
+  } = useUnifiedChat();
+
+  const [knowledgeBases, setKnowledgeBases] = useState<KnowledgeBase[]>([]);
+  // A connected agent to preselect once it loads, from `?agent=<name>` on the
+  // URL (the partner list page links here to drop straight into a chat with a
+  // partner). Captured once at first client render — the URL is rewritten to
+  // `/home/<sessionId>` as soon as the new session is created, dropping the
+  // query — so we can't read it later from the live search params.
+  const pendingAgentRef = useRef<string | null | undefined>(undefined);
+  if (pendingAgentRef.current === undefined) {
+    pendingAgentRef.current =
+      typeof window === "undefined"
+        ? null
+        : new URLSearchParams(window.location.search).get("agent");
+  }
   const agentPreselectDoneRef = useRef(false);
   const {
     options: llmOptions,
