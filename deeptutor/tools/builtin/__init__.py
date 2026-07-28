@@ -1703,6 +1703,204 @@ class CronTool(_PromptHintsMixin, BaseTool):
         return ToolResult(content=outcome.text, success=outcome.ok, metadata=outcome.meta)
 
 
+class CurriculumKnowledgeTool(_PromptHintsMixin, BaseTool):
+    """Look up the K12-KGraph curriculum knowledge graph.
+
+    Backs Phase 2 of the K12-KGraph → DeepTutor integration: when the student
+    references a specific concept/skill, the tutor verifies it against the
+    bundled curriculum graph (definition / prerequisites / chapter path /
+    teaching evidence) instead of answering from memory. Matching uses
+    strategy B (lexical cascade + semantic fallback) and *never* auto-answers
+    from an ambiguous or weak match — it returns ranked candidates so the
+    model can confirm with the student.
+    """
+
+    def get_definition(self) -> ToolDefinition:
+        return ToolDefinition(
+            name="curriculum_knowledge",
+            description=(
+                "在 K12 课程标准知识图谱（K12-KGraph）中查询某个概念或技能的"
+                "定义、前置知识、所属章节路径或教学证据。当学生的提问涉及具体"
+                "学科概念时，优先用本工具查证，再给出符合课标的引导。"
+            ),
+            parameters=[
+                ToolParameter(
+                    name="concept",
+                    type="string",
+                    description="要查询的概念、技能或术语，如「勾股定理」「函数」「中点四边形」。",
+                ),
+                ToolParameter(
+                    name="query_type",
+                    type="string",
+                    description="查询类型：definition 定义 / prerequisites 前置知识 / path 章节路径 / evidence 教学证据。",
+                    required=True,
+                    enum=["definition", "prerequisites", "path", "evidence"],
+                ),
+                ToolParameter(
+                    name="subject",
+                    type="string",
+                    description=(
+                        "可选学科过滤：math 数学 / physics 物理 / chemistry 化学 / biology 生物。"
+                        "用于消歧多义术语（如「函数」在数学与物理中含义不同），默认不过滤。"
+                    ),
+                    required=False,
+                    enum=["math", "physics", "chemistry", "biology"],
+                ),
+            ],
+        )
+
+    async def execute(self, **kwargs: Any) -> ToolResult:
+        from deeptutor.services.kgraph import get_kg, is_confident, grade_info_of_id
+
+        concept = str(kwargs.get("concept") or "").strip()
+        query_type = str(kwargs.get("query_type") or "definition").strip().lower()
+        subject = str(kwargs.get("subject") or "").strip().lower()
+        if subject and subject not in {"math", "physics", "chemistry", "biology"}:
+            subject = ""
+        if not concept:
+            return ToolResult(
+                content="未提供要查询的概念（concept 不能为空）。",
+                success=False,
+            )
+        if query_type not in {"definition", "prerequisites", "path", "evidence"}:
+            query_type = "definition"
+
+        kg = get_kg()
+        cands = await kg.resolve(concept, top_k=5, subject=subject or None)
+
+        if not cands:
+            return ToolResult(
+                content=(
+                    f"在课程标准知识图谱中未找到与「{concept}」相关的概念，"
+                    "可能是生僻术语或未收录的知识点。"
+                ),
+                metadata={"status": "no_match", "concept": concept},
+                success=True,
+            )
+
+        # Ambiguous / weak match → surface candidates, never guess.
+        if not is_confident(cands):
+            lines = [
+                f"未找到与「{concept}」精确对应的概念，以下是候选"
+                "（请确认学生想查询哪一个）："
+            ]
+            for i, c in enumerate(cands, 1):
+                node = kg.get_node(c["id"]) or {}
+                snippet = (node.get("properties", {}) or {}).get("definition", "")[:60]
+                line = f"{i}. {c['name']}（id={c['id']}，匹配方式={c['method']}）"
+                if snippet:
+                    line += f"：{snippet}"
+                lines.append(line)
+            return ToolResult(
+                content="\n".join(lines),
+                metadata={
+                    "status": "ambiguous",
+                    "concept": concept,
+                    "candidates": [
+                        {"id": c["id"], "name": c["name"], "score": c["score"], "method": c["method"]}
+                        for c in cands
+                    ],
+                },
+                success=True,
+            )
+
+        # Confident match → dispatch by query_type.
+        top = cands[0]
+        nid = top["id"]
+        logger.info(
+            "[K12-KGraph] curriculum_knowledge tool matched: concept=%s method=%s query_type=%s",
+            top["name"], top.get("method"), query_type,
+        )
+        if query_type == "prerequisites":
+            prereqs = kg.prerequisites_data(nid)
+            content = self._fmt_prerequisites(top["name"], prereqs)
+            payload = {"name": top["name"], "prerequisites": prereqs}
+        elif query_type == "path":
+            chain = kg.path_data(nid)
+            content = self._fmt_path(top["name"], chain)
+            payload = {"name": top["name"], "path": chain}
+        elif query_type == "evidence":
+            ev = kg.evidence_data(nid)
+            content = self._fmt_evidence(ev)
+            payload = ev
+        else:  # definition
+            data = kg.definition_data(nid)
+            content = self._fmt_definition(data)
+            payload = data
+
+        grade = grade_info_of_id(nid)
+        return ToolResult(
+            content=content,
+            sources=[{
+                "type": "k12_kg",
+                "concept": top["name"],
+                "node_id": nid,
+                "query_type": query_type,
+                **{k: v for k, v in grade.items() if v},  # grade, semester, grade_semester
+            }],
+            metadata={
+                "status": "matched",
+                "query_type": query_type,
+                "match": {"id": nid, "name": top["name"], "score": top["score"], "method": top["method"]},
+                "data": payload,
+            },
+            success=True,
+        )
+
+    @staticmethod
+    def _fmt_definition(d: dict[str, Any]) -> str:
+        out = [f"概念：{d.get('name', '')}"]
+        definition = (d.get("definition") or "").strip()
+        out.append(f"定义：{definition}" if definition else "定义：（知识图谱中暂无该概念的详细定义）")
+        aliases = d.get("aliases") or []
+        if aliases:
+            out.append("别名：" + "、".join(aliases))
+        importance = (d.get("importance") or "").strip()
+        if importance:
+            out.append(f"重要性：{importance}")
+        examples = d.get("examples") or []
+        if examples:
+            out.append("示例：")
+            for ex in examples:
+                if ex:
+                    out.append(f"- {ex}")
+        return "\n".join(out)
+
+    @staticmethod
+    def _fmt_prerequisites(name: str, prereqs: list[dict[str, Any]]) -> str:
+        if not prereqs:
+            return f"「{name}」未记录前置知识（可能是基础概念）。"
+        out = [f"「{name}」的前置知识："]
+        for i, p in enumerate(prereqs, 1):
+            snippet = (p.get("definition") or "").strip()[:80]
+            out.append(f"{i}. {p.get('name', '')}" + (f" — {snippet}" if snippet else ""))
+        return "\n".join(out)
+
+    @staticmethod
+    def _fmt_path(name: str, chain: list[dict[str, Any]]) -> str:
+        if not chain:
+            return f"「{name}」未记录章节归属。"
+        # chain is upward (parent → grandparent); present as breadcrumb root→leaf.
+        crumbs = " > ".join(c.get("name", "") for c in reversed(chain))
+        return f"「{name}」在课程体系中的位置：\n{crumbs} > {name}"
+
+    @staticmethod
+    def _fmt_evidence(ev: dict[str, Any]) -> str:
+        name = ev.get("name", "")
+        evidences = ev.get("evidences") or []
+        relations = ev.get("relations") or []
+        if not evidences and not relations:
+            return f"「{name}」暂无教学证据/出处记录。"
+        lines = [f"「{name}」的教学证据/出处："]
+        for e in evidences:
+            lines.append(f"- {e}")
+        if relations:
+            lines.append("关联说明：")
+            for r in relations:
+                lines.append(f"- {r}")
+        return "\n".join(lines)
+
+
 # Compatibility surface for callers that enumerate implementation classes
 # (notably the Settings API).  The sequence itself is import-cheap; classes are
 # resolved one at a time while it is iterated.  Runtime registration uses the

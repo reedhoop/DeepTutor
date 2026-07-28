@@ -1,0 +1,6 @@
+short_description: "在 K12 课程标准知识图谱中查询某个概念/技能的定义、前置知识、所属章节路径或教学证据。"
+when_to_use: "当学生的提问点名或明显指向某个具体课程概念（如勾股定理、函数、牛顿第一定律）时，先查证再作答，确保引导符合课标。"
+input_format: '{"concept": "<概念名称或术语>", "query_type": "definition|prerequisites|path|evidence"}'
+guideline: "优先于凭记忆作答。若返回多个候选（语义模糊），先与学生确认到底指哪一个再讲解；图谱里没有的定义不要编造。"
+note: "利用定义/证据来支撑苏格拉底式提示，不要把完整答案直接抛出。与具体概念无关的通用答疑可不使用本工具。"
+phase: "exploration"

@@ -103,6 +103,20 @@ def test_ask_questions_plugin_system_prompt_uses_localized_fallback(
     assert "Ask Questions mode" in en_prompt
     assert "second, third, tenth" in en_prompt
     assert "calling `ask_user` exactly once" in en_prompt
+def test_legacy_chat_agent_system_prompt_uses_selected_language() -> None:
+    zh_messages = ChatAgent(language="zh", config={}).build_messages(
+        message="解释梯度下降",
+        history=[],
+    )
+    en_messages = ChatAgent(language="en", config={}).build_messages(
+        message="Explain gradient descent",
+        history=[],
+    )
+
+    assert "你是 DeepTutor" in zh_messages[0]["content"]
+    assert "请严格使用中文" in zh_messages[0]["content"]
+    assert "You are DeepTutor" in en_messages[0]["content"]
+    assert "Write ALL reader-facing text" in en_messages[0]["content"]
 
 
 def test_prompt_blocks_include_localized_optional_context() -> None:
@@ -111,6 +125,7 @@ def test_prompt_blocks_include_localized_optional_context() -> None:
     prompts = {
         "general": "通用",
         "runtime_policy": "策略",
+        "k12_teaching_template": "K12教学模板",
         "loop": {
             "system": "循环",
             "user": "用户说：{user_message}",
@@ -119,7 +134,6 @@ def test_prompt_blocks_include_localized_optional_context() -> None:
     }
     ctx = UnifiedContext(
         user_message="解释光合作用",
-        sidebar_context="[选中内容]\n把代码和静态数据加载进内存",
         persona_context="用苏格拉底式提问",
         memory_context="学生喜欢例子",
     )
@@ -128,13 +142,9 @@ def test_prompt_blocks_include_localized_optional_context() -> None:
     blocks = assembler.blocks(context=ctx, tool_manifest="", workspace_note="工作区可用")
 
     names = [block.name for block in blocks]
-    assert names[:4] == ["general", "runtime_context", "runtime_policy", "loop"]
-    assert "sidebar_tutor_context" in names
+    assert names[:4] == ["general", "runtime_policy", "k12_teaching_template", "loop"]
     assert "persona_style" in names
     assert "memory" in names
     assert "workspace" in names
     assert assembler.user_message(context=ctx) == "用户说：解释光合作用"
     assert assembler.finish_exhausted_instruction() == "预算已用完，请直接回答。"
-    system_prompt = assembler.render(blocks)
-    assert "## sidebar_tutor_context" in system_prompt
-    assert "把代码和静态数据加载进内存" in system_prompt

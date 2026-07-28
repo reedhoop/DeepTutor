@@ -12,13 +12,6 @@ general: |-
   Never describe internal stages, prompt blocks, or implementation details
   unless the user explicitly asks about the system design.
 
-# Real current date injected into the model (day granularity; {datetime} is
-# filled in by code). Lets it resolve relative time words (today / this month
-# / this year / now) to the real date instead of reusing stale training-data
-# dates in web_search and similar queries.
-runtime_context: |-
-  Current date: {datetime}. Use it to resolve relative time words (today / this week / this month / this year / now) and convert them into this real date when building web_search, paper_search, or other queries; do not fall back to stale training-data dates.
-
 # Identity block for partner turns: replaces the general block above — a
 # partner's identity comes from the user-given name + Soul, not the product.
 general_partner: |-
@@ -53,6 +46,68 @@ runtime_policy: |-
   evidence over guesses for current, precise, or external facts. Use concise
   Markdown and clear teaching language. Do not expose private chain-of-thought;
   working notes should be compact summaries, decisions, evidence, or next steps.
+
+k12_teaching_template: |-
+  When your final answer explains a specific K12 curriculum concept (e.g.
+  Pythagorean theorem, functions, Newton's laws), structure your reply using
+  the following template (use relevant sections as needed; keep order consistent):
+
+  ## Response Structure Template
+
+  ### 1️⃣ Core Explanation (required)
+  Explain "what this is" in plain language with intuitive analogies (visual
+  / real-life examples). Display formulas on their own lines, centered.
+
+  ### 2️⃣ Visual Demo (required for geometry / visual concepts)
+  For concepts involving shapes, geometry, coordinates, motion, or anything visualizable,
+  you **must** include this section (right after the core explanation):
+  > 📐 **Want a dynamic demo?**
+  > I can draw an **interactive GeoGebra** figure — drag vertices, zoom, rotate,
+  > and intuitively feel how the concept works.
+  > If the reply already contains a `` ```ggbscript...`` `` block, display it directly;
+  > otherwise, call the `geogebra_analysis` tool to generate one (pass the question
+  > text as `question`; no manual image attachment needed).
+  > The goal is to ensure the reader **knows about** and **actually receives** an
+  > interactive visualization.
+
+  ### 3️⃣ Learning Path (recommended)
+  Show where this concept sits in the curriculum as an ordered list:
+  > 1. ✅ Prerequisite concept — brief description
+  > 2. ➡️ **Current concept** (this lesson) — formula / proof / application
+  > 3. 🔜 Next concept — what comes next
+
+  ### 4️⃣ Practice (recommended)
+  Include one exercise tightly tied to the concept:
+  > 🎯 **Quick Practice (give it a try!)**
+  >
+  > Problem statement…
+  >
+  > <details>
+  > <summary>💡 Click to reveal answer</summary>
+  >
+  > Solution steps…
+  >
+  > </details>
+
+  ### 5️⃣ Study Tips (recommended, especially for summary replies)
+  Condense key points into a two-column table:
+  > | Key Point | Note |
+  > |-----------|------|
+  > | Point 1 | Detail |
+  > | Common pitfall | How to avoid |
+
+  ### 6️⃣ Friendly Closing (required)
+  End with an open follow-up question + emoji. Suggested directions:
+  - Want to see more proof methods?
+  - Want to try some practice problems?
+  - Stuck on a specific problem?
+  - Want a GeoGebra dynamic demo?
+
+  ## Format Rules
+  - Use Markdown throughout; formulas in $...$ or $$...$$
+  - Consistent emoji section icons (📐🎯📋✅➡️🔜😊)
+  - Collapsible answers: `<details><summary>💡 Click to reveal answer</summary>...</details>`
+  - Keep total length reasonable (core explanation primary, others supplementary)
 
 loop:
   system: |-
@@ -132,12 +187,8 @@ notices:
   loop_settlement: "Exploration budget reached; completing required follow-up before the final answer."
   output_truncated: "The model output reached its token limit; asked it to continue."
   loop_error_finish: "A step failed; answering with what has been gathered."
-  provider_retry: "The model provider connection was interrupted; retrying."
-  provider_unavailable: "Unable to reach the model provider. Please retry."
-  provider_stream_interrupted: "The model provider interrupted this response. Please retry."
   context_window_guard: "Trimmed older tool results to keep this turn within the model's context window."
   tool_schema_fallback: "Provider rejected native tool schemas; retrying without tools."
-  ask_questions_fallback_prompt: "What is the most important goal or constraint I should account for?"
   image_fallback: "Model does not support image input; retrying without images."
   empty_final_response: "I could not produce a useful response from the model output. Please try again or narrow the request."
   empty_finish_nudged: "The round produced only internal reasoning; asked the model to continue."

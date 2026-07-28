@@ -630,6 +630,10 @@ class AgenticChatPipeline:
             return False
 
     def _compose_enabled_tools(self, context: UnifiedContext) -> list[str]:
+        # Lazy import: keep kgraph optional at module load so the chat pipeline
+        # still imports if the K12-KGraph data layer is absent (P0 decoupling).
+        from deeptutor.services.kgraph import is_available as curriculum_kb_available
+
         is_partner = self._is_partner_turn(context)
         composed = compose_enabled_tools(
             registry=self.tool_lookup,
@@ -653,6 +657,9 @@ class AgenticChatPipeline:
                 has_deferred_tools=getattr(self, "_deferred_loader", None) is not None,
                 has_exec=getattr(self, "_exec_enabled", False),
                 has_code=getattr(self, "_exec_enabled", False),
+                # The bundled K12-KGraph curriculum KB auto-mounts the
+                # curriculum_knowledge lookup tool when its data is present.
+                has_curriculum_kb=curriculum_kb_available(),
                 # Reaching a mastery topic is a chat-wide affordance, not part
                 # of any capability: the learner names what they are studying
                 # and gets a card that opens the real study screen. Only the
@@ -1309,23 +1316,41 @@ class AgenticChatPipeline:
         context: UnifiedContext,
         stream: StreamBus,
     ) -> str:
-        # Only traditional RAG KBs are pre-seeded. PageIndex and capability-owned
-        # KBs are read with their tools inside the reasoning loop.
-        kbs = self._coexisting_rag_kbs(context)
+        # Seed every selected KB except those owned by an exclusive capability
+        # (an Obsidian vault is read agentically via its own tools, not seeded).
+        # Co-selected LlamaIndex KBs are still seeded so their context reaches
+        # the model even when a vault owns the turn (issue #650).
+        owned = self._capability_owned_kbs(context)
+        kbs = [kb for kb in self._selected_kbs(context) if kb not in owned]
         query = (context.user_message or "").strip()
-        if not kbs or not query:
-            return ""
-        if len(kbs) > KB_SEED_MAX_KBS:
-            kbs = kbs[:KB_SEED_MAX_KBS]
-        results = await asyncio.gather(*(self._seed_search_one_kb(kb, query, stream) for kb in kbs))
+
         sections: list[str] = []
         sources: list[dict[str, Any]] = []
-        for kb, result in zip(kbs, results, strict=False):
-            if result is None:
-                continue
-            text, kb_sources = result
-            sections.append(f"## {kb}\n{text}")
-            sources.extend(kb_sources)
+
+        # --- user-attached KBs (existing rag surface) ----------------------
+        if kbs and query:
+            if len(kbs) > KB_SEED_MAX_KBS:
+                kbs = kbs[:KB_SEED_MAX_KBS]
+            results = await asyncio.gather(*(self._seed_search_one_kb(kb, query, stream) for kb in kbs))
+            for kb, result in zip(kbs, results, strict=False):
+                if result is None:
+                    continue
+                text, kb_sources = result
+                sections.append(f"## {kb}\n{text}")
+                sources.extend(kb_sources)
+
+        # --- course KB (Phase 1 RAG) ---------------------------------------
+        # Strategy-isolated & swappable: the *what* lives in
+        # deeptutor.services.course_kb_seed; this only appends the section and
+        # applies capability gating (e.g. excluded under Socratic). Injects even
+        # when there are no user KBs attached.
+        course_section, course_sources = await self._retrieve_course_kb_seed_block(
+            query, context, stream
+        )
+        if course_section:
+            sections.append(course_section)
+            sources.extend(course_sources)
+
         if not sections:
             return ""
         if sources:
@@ -1378,6 +1403,94 @@ class AgenticChatPipeline:
         if len(text) > KB_SEED_CHARS_PER_KB:
             text = text[:KB_SEED_CHARS_PER_KB].rstrip() + "\n...[truncated]"
         return text, list(result.get("sources") or [])
+
+    async def _retrieve_course_kb_seed_block(
+        self,
+        query: str,
+        context: UnifiedContext,
+        stream: StreamBus,  # noqa: ARG002 - kept for signature symmetry with _seed_search_one_kb
+    ) -> tuple[str, list[dict[str, Any]]]:
+        """Course-KB seed (Phase 1 RAG) — STRATEGY-ISOLATED, swappable.
+
+        The retrieval strategy itself lives in
+        ``deeptutor.services.course_kb_seed`` (see its module docstring for the
+        single swap point). This method only decides *whether* to inject
+        (capability gating) and *how* to render the section; the *what* is fully
+        delegated to the active strategy.
+
+        Returns ``(section_text, sources)``; both are empty when nothing should
+        be seeded.
+        """
+        # Lazy import: keep the course-KB strategy layer optional at module load
+        # (P0 decoupling — deleting kgraph/course_kb_seed must not break import).
+        from deeptutor.services.course_kb_seed import get_active_course_kb_seed_strategy
+
+        # D2: exclude under the Socratic capability. Socratic already drives the
+        # student via the on-demand curriculum_knowledge tool; seeding the course
+        # KB into the user message would short-circuit the questioning.
+        if self._course_kb_seed_blocked_by_capability(context):
+            return "", []
+        if not query:
+            return "", []
+
+        strategy = get_active_course_kb_seed_strategy()
+        if strategy is None or not strategy.available():
+            return "", []
+        try:
+            # subject=None for now: a subject hint (e.g. from the session's
+            # course context or recent messages) can be threaded here later to
+            # disambiguate cross-subject terms like 函数 (P2-2 follow-up).
+            seed = await strategy.build_seed(query, KB_SEED_CHARS_PER_KB, subject=None)
+        except Exception as exc:  # noqa: BLE001
+            logger.warning("course-KB seed strategy failed: %s", exc)
+            return "", []
+        if not seed:
+            return "", []
+        section = f"## {strategy.display_name()}\n{seed}"
+        # Observability: surface which K12-KGraph concepts were actually seeded
+        # so the frontend / a log grep can tell the turn used course-KB data.
+        concepts = getattr(strategy, "matched_concepts", lambda: [])()
+        node_ids = getattr(strategy, "matched_node_ids", lambda: [])()
+        # Resolve grade info from node IDs for trace display.
+        from deeptutor.services.kgraph import grade_info_of_id as _gi
+
+        grade_infos = [_gi(nid) for nid in node_ids]
+        grade_semester = (
+            "、".join(g["grade_semester"] for g in grade_infos if g.get("grade_semester"))
+            or None
+        )
+        sources = [
+            {
+                "type": "course_kb",
+                "name": strategy.display_name(),
+                "strategy": type(strategy).__name__,
+                "title": "、".join(concepts) if concepts else strategy.display_name(),
+                "concepts": concepts,
+                **({"grade_semester": grade_semester} if grade_semester else {}),
+            }
+        ]
+        logger.info(
+            "[K12-KGraph] course-KB seed injected: query=%r concepts=%s",
+            query,
+            concepts,
+        )
+        return section, sources
+
+    @staticmethod
+    def _course_kb_seed_blocked_by_capability(context: UnifiedContext) -> bool:
+        """Capability gating for the course-KB seed (D2: exclude Socratic).
+
+        The Socratic capability (name ``socratic`` / ``socratic_tutor``) owns
+        its own curriculum grounding through the on-demand tool, so the passive
+        seed must be suppressed there. Add further capability names here if a
+        future capability should also opt out of the course-KB seed.
+        """
+        blocked = {"socratic", "socratic_tutor"}
+        for cap in active_loop_capabilities(context):
+            name = getattr(cap, "name", "") or ""
+            if name in blocked:
+                return True
+        return False
 
     # ---- emissions / context guard --------------------------------------
 

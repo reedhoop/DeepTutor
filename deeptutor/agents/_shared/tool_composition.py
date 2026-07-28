@@ -56,6 +56,7 @@ _CONDITIONAL_MOUNT_FLAGS: dict[str, str] = {
     "load_tools": "has_deferred_tools",
     "exec": "has_exec",
     "code_execution": "has_code",
+    "curriculum_knowledge": "has_curriculum_kb",
     "mastery_topics": "has_mastery_topics",
     "mastery_sessions": "has_mastery_nav",
     "mastery_open_session": "has_mastery_nav",
@@ -146,6 +147,8 @@ class ToolMountFlags:
     has_deferred_tools: bool = False
     has_exec: bool = False
     has_code: bool = False
+    #: The bundled K12-KGraph curriculum knowledge base is available.
+    has_curriculum_kb: bool = False
     #: The learner has at least one mastery topic to be sent back to.
     has_mastery_nav: bool = False
     #: …and this turn is not itself a mastery turn. The tutoring surface has

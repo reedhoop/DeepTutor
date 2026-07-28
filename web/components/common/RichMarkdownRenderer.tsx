@@ -57,6 +57,10 @@ const GeogebraOpenCTA = dynamic(
   () => import("@/components/common/GeogebraOpenCTA"),
   { ssr: false, loading: () => null },
 );
+const KgOpenCTA = dynamic(
+  () => import("@/components/common/KgOpenCTA"),
+  { ssr: false, loading: () => null },
+);
 
 type PluginBundle = {
   remarkMath?: unknown;
@@ -475,6 +479,25 @@ export default function RichMarkdownRenderer({
               title={ggbTitle}
               className={gap}
             />
+          </div>
+        );
+      }
+
+      if (lang === "kgraph" && enableCode) {
+        // Backend (or the tutor) may emit ```kgraph[概念名] to surface a
+        // "view this concept's knowledge card" CTA inline. Clicking opens
+        // (or focuses) a KG browser tab in the right-hand SessionViewerPanel.
+        const kgMeta = /language-kgraph\[([^\]]*)\]/.exec(
+          blockClassName || "",
+        );
+        const kgConceptName = (kgMeta?.[1]?.trim() || raw.trim() || "").replace(
+          /\n/g,
+          " ",
+        );
+        const kgTitle = kgConceptName || undefined;
+        return (
+          <div {...lineProps}>
+            <KgOpenCTA concept={kgConceptName} title={kgTitle} className={gap} />
           </div>
         );
       }

@@ -1,6 +1,5 @@
 import { apiFetch, apiUrl } from "@/lib/api";
 import { invalidateClientCache, withClientCache } from "@/lib/client-cache";
-import type { ImaKnowledgeBaseOption } from "@/lib/ima-connection";
 
 const KNOWLEDGE_CACHE_PREFIX = "knowledge:";
 
@@ -26,8 +25,6 @@ export interface RagProviderSummary {
   description: string;
   /** Whether the engine is ready to use (e.g. its API key is set). */
   configured?: boolean;
-  /** Actionable reason when configured is false. */
-  readiness_reason?: string;
   /** Whether the engine needs an API key configured before use. */
   requires_api_key?: boolean;
   /** Retrieval modes this engine supports (empty for mode-less engines). */
@@ -41,13 +38,7 @@ export interface RagProviderSummary {
 }
 
 export interface PageIndexConfig {
-  api_key_set: boolean;
-  configured: boolean;
-}
-
-/** Account-level Tencent IMA credentials, shared by every `ima` KB. */
-export interface ImaAccountConfig {
-  client_id: string;
+  api_base_url: string;
   api_key_set: boolean;
   configured: boolean;
 }
@@ -72,9 +63,6 @@ export interface LlamaIndexConfig {
   /** Chunk geometry — applies to documents indexed after the change. */
   chunk_size: number;
   chunk_overlap: number;
-  /** Bounded multimodal LLM work during image-heavy indexing. */
-  image_description_concurrency: number;
-  image_description_timeout_seconds: number;
 }
 
 export interface GraphRagConfig {
@@ -88,21 +76,6 @@ export interface LightRagConfig {
   version: number;
   top_k: number;
   response_type: string;
-  /** Frozen documents LightRAG parses in parallel while indexing. */
-  max_concurrent_files: number;
-  /** Concurrent LLM calls LightRAG's internal queue issues. */
-  llm_model_max_async: number;
-  /** Extra extraction passes per chunk, to recover missed entities. */
-  entity_extract_max_gleaning: number;
-  /** Stable catalog reference, or empty strings for the global active chat model. */
-  llm_profile_id: string;
-  llm_model_id: string;
-}
-
-export interface LightRagServerConfig {
-  server_url: string;
-  api_key_set: boolean;
-  configured: boolean;
 }
 
 export interface PreflightCheck {
@@ -131,16 +104,6 @@ export interface ModelOption {
 export interface ModelKindOptions {
   active: { profile_id: string | null; model_id: string | null };
   options: ModelOption[];
-}
-
-export interface GraphRagModelCompatibility {
-  status: "compatible" | "incompatible" | "unverifiable";
-  compatible: boolean | null;
-  code: string;
-  message: string;
-  model: string;
-  binding: string;
-  retryable: boolean;
 }
 
 /** Map of service kind ("llm" | "embedding") → its options + active selection. */
@@ -227,11 +190,6 @@ export async function listKnowledgeBases(options?: { force?: boolean }) {
       const response = await apiFetch(apiUrl("/api/knowledge-bases"), {
         cache: "no-store",
       });
-      if (!response.ok) {
-        throw new Error(
-          await readErrorDetail(response, "Failed to list knowledge bases"),
-        );
-      }
       const data = await response.json();
       return Array.isArray(data)
         ? data
@@ -255,11 +213,6 @@ export async function listRagProviders(options?: { force?: boolean }) {
           cache: "no-store",
         },
       );
-      if (!response.ok) {
-        throw new Error(
-          await readErrorDetail(response, "Failed to list RAG providers"),
-        );
-      }
       const data = await response.json();
       return Array.isArray(data?.providers) ? data.providers : [];
     },
@@ -279,11 +232,6 @@ export async function getKnowledgeUploadPolicy(options?: { force?: boolean }) {
           cache: "no-store",
         },
       );
-      if (!response.ok) {
-        throw new Error(
-          await readErrorDetail(response, "Failed to load upload policy"),
-        );
-      }
       const data = await response.json();
       return normalizeUploadPolicy(data);
     },
@@ -323,6 +271,7 @@ export async function getPageIndexConfig(options?: {
 export async function updatePageIndexConfig(payload: {
   /** Omit to keep the stored key, "" to clear it, any value to replace it. */
   api_key?: string;
+  api_base_url?: string;
 }): Promise<PageIndexConfig> {
   const res = await apiFetch(apiUrl(PAGEINDEX_CONFIG_PATH), {
     method: "PUT",
@@ -337,48 +286,6 @@ export async function updatePageIndexConfig(payload: {
   // The provider list's `configured` flag depends on this; refresh it.
   invalidateKnowledgeCaches();
   return (await res.json()) as PageIndexConfig;
-}
-
-const IMA_CONFIG_PATH = "/api/knowledge-bases/rag-pipelines/ima/config";
-
-export async function getImaConfig(options?: {
-  force?: boolean;
-}): Promise<ImaAccountConfig> {
-  return withClientCache<ImaAccountConfig>(
-    `${KNOWLEDGE_CACHE_PREFIX}ima-config`,
-    async () => {
-      const response = await apiFetch(apiUrl(IMA_CONFIG_PATH), {
-        cache: "no-store",
-      });
-      if (!response.ok) {
-        throw new Error(
-          await readErrorDetail(response, "Failed to read Tencent IMA config"),
-        );
-      }
-      return (await response.json()) as ImaAccountConfig;
-    },
-    { force: options?.force, ttlMs: 15_000 },
-  );
-}
-
-export async function updateImaConfig(payload: {
-  client_id?: string;
-  /** Omit to keep the stored key, "" to clear it, any value to replace it. */
-  api_key?: string;
-}): Promise<ImaAccountConfig> {
-  const res = await apiFetch(apiUrl(IMA_CONFIG_PATH), {
-    method: "PUT",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(payload),
-  });
-  if (!res.ok) {
-    throw new Error(
-      await readErrorDetail(res, "Failed to update Tencent IMA config"),
-    );
-  }
-  // The provider list's `configured` flag depends on this; refresh it.
-  invalidateKnowledgeCaches();
-  return (await res.json()) as ImaAccountConfig;
 }
 
 const LLAMAINDEX_CONFIG_PATH =
@@ -520,26 +427,6 @@ export async function getEngineModelOptions(
   return (await res.json()) as ModelOptionsByKind;
 }
 
-export async function testGraphRagModelCompatibility(
-  profileId: string,
-  modelId: string,
-): Promise<GraphRagModelCompatibility> {
-  const res = await apiFetch(
-    apiUrl("/api/knowledge-bases/rag-pipelines/graphrag/model-compatibility"),
-    {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ profile_id: profileId, model_id: modelId }),
-    },
-  );
-  if (!res.ok) {
-    throw new Error(
-      await readErrorDetail(res, "Failed to test GraphRAG compatibility"),
-    );
-  }
-  return (await res.json()) as GraphRagModelCompatibility;
-}
-
 export async function setEngineActiveModel(
   kind: string,
   profileId: string,
@@ -654,7 +541,7 @@ export interface KnowledgeTaskResponse {
   noop?: boolean;
 }
 
-export async function readErrorDetail(
+async function readErrorDetail(
   res: Response,
   fallback: string,
 ): Promise<string> {
@@ -681,16 +568,10 @@ export async function createKnowledgeBase(payload: {
   name: string;
   provider: string;
   files: File[];
-  pageindexMode?: "flash" | "standard";
-  searchMode?: string;
 }): Promise<KnowledgeTaskResponse> {
   const form = new FormData();
   form.append("name", payload.name);
   form.append("rag_provider", payload.provider);
-  if (payload.pageindexMode) {
-    form.append("pageindex_mode", payload.pageindexMode);
-  }
-  if (payload.searchMode) form.append("search_mode", payload.searchMode);
   appendFilesWithPaths(form, payload.files);
 
   const res = await apiFetch(apiUrl("/api/knowledge-bases"), {
@@ -725,37 +606,6 @@ export async function connectObsidianVault(payload: {
     status: string;
     name: string;
     vault_path: string;
-  };
-}
-
-export async function connectMarginNote4Library(payload: {
-  name: string;
-  description?: string;
-}): Promise<{ status: string; name: string; db_path?: string }> {
-  const res = await apiFetch(
-    apiUrl("/api/knowledge-bases/connect-marginnote4"),
-    {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      // `db_path` is deliberately not sent: leaving it blank keeps one rule for
-      // where the store lives (derived from the name), which is what lets the
-      // pairing endpoints, the Add-on's syncs and the capability binding agree.
-      body: JSON.stringify({
-        name: payload.name,
-        description: payload.description ?? "",
-      }),
-    },
-  );
-  if (!res.ok) {
-    throw new Error(
-      await readErrorDetail(res, "Failed to connect MarginNote 4 library"),
-    );
-  }
-  invalidateKnowledgeCaches();
-  return (await res.json()) as {
-    status: string;
-    name: string;
-    db_path?: string;
   };
 }
 
@@ -839,121 +689,6 @@ export interface LightRagServerProbe {
   api_version: string | null;
   /** Set when the server can't be connected (unreachable, bad key, …). */
   error: string | null;
-}
-
-export interface WeKnoraProbe {
-  ok: boolean;
-  base_url: string;
-  knowledge_base_id: string;
-  reachable: boolean;
-  credentials_ok: boolean;
-  knowledge_base_found: boolean;
-  knowledge_base_name: string | null;
-  error: string | null;
-}
-
-export interface ImaKnowledgeBasePage {
-  knowledge_bases: ImaKnowledgeBaseOption[];
-  next_cursor: string;
-  is_end: boolean;
-}
-
-export interface ImaProbe {
-  knowledge_base_id: string;
-  ok: boolean;
-  credentials_ok: boolean;
-  knowledge_base_name: string | null;
-  description: string | null;
-  error: string | null;
-}
-
-export async function listImaKnowledgeBases(payload: {
-  /** Empty falls back to the account credentials stored on the engine page. */
-  clientId?: string;
-  apiKey?: string;
-  cursor?: string;
-  limit?: number;
-}): Promise<ImaKnowledgeBasePage> {
-  const res = await apiFetch(apiUrl("/api/knowledge-bases/list-ima"), {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      client_id: payload.clientId ?? "",
-      api_key: payload.apiKey ?? "",
-      cursor: payload.cursor ?? "",
-      limit: payload.limit ?? 20,
-    }),
-    skipAuthRedirect: true,
-  });
-  if (!res.ok) {
-    throw new Error(
-      await readErrorDetail(res, "Failed to read Tencent IMA knowledge bases"),
-    );
-  }
-  return (await res.json()) as ImaKnowledgeBasePage;
-}
-
-export async function probeImaKnowledgeBase(payload: {
-  clientId?: string;
-  apiKey?: string;
-  knowledgeBaseId: string;
-}): Promise<ImaProbe> {
-  const res = await apiFetch(apiUrl("/api/knowledge-bases/probe-ima"), {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      client_id: payload.clientId ?? "",
-      api_key: payload.apiKey ?? "",
-      knowledge_base_id: payload.knowledgeBaseId,
-    }),
-    skipAuthRedirect: true,
-  });
-  if (!res.ok) {
-    throw new Error(
-      await readErrorDetail(res, "Failed to verify Tencent IMA knowledge base"),
-    );
-  }
-  return (await res.json()) as ImaProbe;
-}
-
-export async function connectImaKnowledgeBase(payload: {
-  name: string;
-  /** Empty binds the KB to the account credentials instead of pinning a copy. */
-  clientId?: string;
-  apiKey?: string;
-  knowledgeBaseId: string;
-}): Promise<{
-  status: string;
-  name: string;
-  knowledge_base_id: string;
-  rag_provider: string;
-}> {
-  const res = await apiFetch(apiUrl("/api/knowledge-bases/connect-ima"), {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      name: payload.name,
-      client_id: payload.clientId ?? "",
-      api_key: payload.apiKey ?? "",
-      knowledge_base_id: payload.knowledgeBaseId,
-    }),
-    skipAuthRedirect: true,
-  });
-  if (!res.ok) {
-    throw new Error(
-      await readErrorDetail(
-        res,
-        "Failed to connect Tencent IMA knowledge base",
-      ),
-    );
-  }
-  invalidateKnowledgeCaches();
-  return (await res.json()) as {
-    status: string;
-    name: string;
-    knowledge_base_id: string;
-    rag_provider: string;
-  };
 }
 
 export async function probeLightRagServer(payload: {
@@ -1077,15 +812,11 @@ export async function connectWeKnora(payload: {
 export async function uploadKnowledgeBaseFiles(
   name: string,
   files: File[],
-  options?: { provider?: string; destSubdir?: string },
+  options?: { provider?: string },
 ): Promise<KnowledgeTaskResponse> {
   const form = new FormData();
   appendFilesWithPaths(form, files);
   if (options?.provider) form.append("rag_provider", options.provider);
-  // Places the batch under an existing KB folder. A folder pick reports paths
-  // relative to the chosen directory, so its ancestors are not in the payload
-  // — this is how the caller says where the subtree belongs (#866).
-  if (options?.destSubdir) form.append("dest_subdir", options.destSubdir);
 
   const res = await apiFetch(
     apiUrl(`/api/knowledge-bases/${encodeURIComponent(name)}/upload`),
@@ -1227,230 +958,84 @@ export async function deleteKnowledgeBase(name: string): Promise<void> {
   invalidateKnowledgeCaches();
 }
 
-// ── GitHub sources ───────────────────────────────────────────────────
+/* ------------------------------------------------------------------ */
+/*  K12-KGraph curriculum knowledge browser                            */
+/* ------------------------------------------------------------------ */
 
-export interface GitHubSource {
+export interface KgCandidate {
   id: string;
-  repo: string;
-  branch: string;
-  path: string;
-  glob: string;
-  enabled: boolean;
-  last_synced_sha: string;
-  last_synced_at: string;
-  last_sync_status: string;
-  last_sync_error: string | null;
-  files_synced: number;
-  added_at: string;
+  name: string;
+  label: string;
+  score: number;
+  method: string;
 }
 
-export interface AddGitHubSourcePayload {
-  repo: string;
-  branch?: string;
-  path?: string;
-  glob?: string;
-}
-
-export interface GitHubSyncResult {
-  source_id: string;
-  repo: string;
-  ok: boolean;
-  skipped: boolean;
-  files_added: number;
-  files_updated: number;
-  files_removed: number;
-  error: string | null;
-}
-
-export async function listGitHubSources(
-  kbName: string,
-): Promise<GitHubSource[]> {
-  const res = await apiFetch(
-    apiUrl(`/api/knowledge-bases/${encodeURIComponent(kbName)}/github-sources`),
-  );
-  if (!res.ok) {
-    throw new Error(
-      await readErrorDetail(
-        res,
-        `Failed to list GitHub sources (${res.status})`,
-      ),
-    );
-  }
-  return (await res.json()) as GitHubSource[];
-}
-
-export async function addGitHubSource(
-  kbName: string,
-  payload: AddGitHubSourcePayload,
-): Promise<GitHubSource> {
-  const res = await apiFetch(
-    apiUrl(`/api/knowledge-bases/${encodeURIComponent(kbName)}/github-source`),
-    {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        repo: payload.repo,
-        branch: payload.branch ?? "main",
-        path: payload.path ?? "",
-        glob: payload.glob ?? "*.md",
-      }),
-    },
-  );
-  if (!res.ok) {
-    throw new Error(
-      await readErrorDetail(res, `Failed to add GitHub source (${res.status})`),
-    );
-  }
-  invalidateKnowledgeCaches();
-  return (await res.json()) as GitHubSource;
-}
-
-export async function removeGitHubSource(
-  kbName: string,
-  sourceId: string,
-): Promise<void> {
-  const res = await apiFetch(
-    apiUrl(
-      `/api/knowledge-bases/${encodeURIComponent(kbName)}/github-source/${encodeURIComponent(sourceId)}`,
-    ),
-    { method: "DELETE" },
-  );
-  if (!res.ok) {
-    throw new Error(
-      await readErrorDetail(
-        res,
-        `Failed to remove GitHub source (${res.status})`,
-      ),
-    );
-  }
-  invalidateKnowledgeCaches();
-}
-
-export async function syncGitHubSources(
-  kbName: string,
-): Promise<GitHubSyncResult[]> {
-  const res = await apiFetch(
-    apiUrl(`/api/knowledge-bases/${encodeURIComponent(kbName)}/sync-github`),
-    { method: "POST" },
-  );
-  if (!res.ok) {
-    throw new Error(
-      await readErrorDetail(res, `GitHub sync failed (${res.status})`),
-    );
-  }
-  const body = await res.json();
-  return (body.results ?? []) as GitHubSyncResult[];
-}
-
-// ── Web sources ──────────────────────────────────────────────────────
-
-export interface WebSource {
+export interface KgLiteConcept {
   id: string;
-  url: string;
-  max_depth: number;
-  max_pages: number;
-  enabled: boolean;
-  page_count: number;
-  last_synced_at: string;
-  last_sync_status: string;
-  last_sync_error: string | null;
-  added_at: string;
+  name: string;
+  label: string;
 }
 
-export interface AddWebSourcePayload {
-  url: string;
-  max_depth?: number;
-  max_pages?: number;
+export interface KgPathEntry {
+  id: string;
+  name: string;
+  label: string;
+  relation: string;
 }
 
-export interface WebSyncSourceResult {
-  source_id: string;
-  url: string;
-  ok: boolean;
-  page_count: number;
-  pages_added: number;
-  pages_updated: number;
-  pages_removed: number;
-  pages_unchanged: number;
-  error: string | null;
+export interface KgConcept {
+  id: string;
+  name: string;
+  label: string;
+  available: boolean;
+  definition: string;
+  aliases: string[];
+  importance: string;
+  examples: string[];
+  prerequisites: KgLiteConcept[];
+  path: KgPathEntry[];
+  evidence: { evidences: string[]; relations: string[] };
 }
 
-export interface WebSyncResult {
-  ok: boolean;
-  message: string;
-  results: WebSyncSourceResult[];
-}
-
-export async function listWebSources(
-  kbName: string,
-  options?: { signal?: AbortSignal },
-): Promise<WebSource[]> {
-  const res = await apiFetch(
-    apiUrl(`/api/knowledge-bases/${encodeURIComponent(kbName)}/web-sources`),
-    { signal: options?.signal },
-  );
+export async function kgAvailable(): Promise<{
+  available: boolean;
+  node_count: number;
+}> {
+  const res = await apiFetch(apiUrl("/api/v1/kg/available"));
   if (!res.ok) {
-    throw new Error(
-      await readErrorDetail(res, `Failed to list web sources (${res.status})`),
-    );
+    throw new Error(await readErrorDetail(res, `KG status failed (${res.status})`));
   }
-  return (await res.json()) as WebSource[];
+  return (await res.json()) as { available: boolean; node_count: number };
 }
 
-export async function addWebSource(
-  kbName: string,
-  payload: AddWebSourcePayload,
-): Promise<WebSource> {
-  const res = await apiFetch(
-    apiUrl(`/api/knowledge-bases/${encodeURIComponent(kbName)}/web-source`),
-    {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        url: payload.url,
-        max_depth: payload.max_depth ?? 3,
-        max_pages: payload.max_pages ?? 200,
-      }),
-    },
-  );
+export async function kgSearch(
+  q: string,
+  options?: { subject?: string; top_k?: number },
+): Promise<{ query: string; candidates: KgCandidate[]; available: boolean }> {
+  const params = new URLSearchParams();
+  params.set("q", q);
+  if (options?.subject) params.set("subject", options.subject);
+  if (options?.top_k) params.set("top_k", String(options.top_k));
+  const res = await apiFetch(apiUrl(`/api/v1/kg/search?${params.toString()}`));
   if (!res.ok) {
-    throw new Error(
-      await readErrorDetail(res, `Failed to add web source (${res.status})`),
-    );
+    throw new Error(await readErrorDetail(res, `KG search failed (${res.status})`));
   }
-  invalidateKnowledgeCaches();
-  return (await res.json()) as WebSource;
+  const data = (await res.json()) as {
+    query: string;
+    candidates: KgCandidate[];
+    available: boolean;
+  };
+  return {
+    query: data.query,
+    candidates: data.candidates ?? [],
+    available: data.available,
+  };
 }
 
-export async function removeWebSource(
-  kbName: string,
-  sourceId: string,
-): Promise<void> {
-  const res = await apiFetch(
-    apiUrl(
-      `/api/knowledge-bases/${encodeURIComponent(kbName)}/web-source/${encodeURIComponent(sourceId)}`,
-    ),
-    { method: "DELETE" },
-  );
+export async function kgConcept(id: string): Promise<KgConcept> {
+  const res = await apiFetch(apiUrl(`/api/v1/kg/concept/${encodeURIComponent(id)}`));
   if (!res.ok) {
-    throw new Error(
-      await readErrorDetail(res, `Failed to remove web source (${res.status})`),
-    );
+    throw new Error(await readErrorDetail(res, `KG concept failed (${res.status})`));
   }
-  invalidateKnowledgeCaches();
-}
-
-export async function syncWebSources(kbName: string): Promise<WebSyncResult> {
-  const res = await apiFetch(
-    apiUrl(`/api/knowledge-bases/${encodeURIComponent(kbName)}/sync-web`),
-    {
-      method: "POST",
-    },
-  );
-  if (!res.ok) {
-    throw new Error(
-      await readErrorDetail(res, `Web sync failed (${res.status})`),
-    );
-  }
-  return (await res.json()) as WebSyncResult;
+  return (await res.json()) as KgConcept;
 }

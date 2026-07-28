@@ -1,0 +1,25 @@
+{"id":"kb-001","query":"勾股定理","subject":null,"expect":{"confident":true,"concept_id":"math_8b_rjb_cpt11","subject_prefix":"math","prereqs_subset":["math_4b_rjb_cpt32"]},"note":"定理精确匹配（exact）"}
+{"id":"kb-002","query":"勾股定理逆定理","subject":null,"expect":{"confident":true,"concept_id":"math_8b_rjb_cpt11","subject_prefix":"math"},"note":"子串匹配到同一概念（单候选→confident）"}
+{"id":"kb-003","query":"一次函数","subject":null,"expect":{"confident":true,"concept_id":"math_8b_rjb_cpt50","subject_prefix":"math","prereqs_subset":["math_8b_rjb_cpt48","math_8b_rjb_cpt57"]},"note":"前置知识链路回归"}
+{"id":"kb-004","query":"二次函数","subject":null,"expect":{"confident":true,"concept_id":"math_9a_rjb_cpt16","subject_prefix":"math"},"note":"数学概念精确匹配"}
+{"id":"kb-005","query":"相似三角形","subject":null,"expect":{"confident":true,"concept_id":"math_9b_rjb_cpt13","subject_prefix":"math"},"note":"数学概念精确匹配"}
+{"id":"kb-006","query":"因式分解","subject":null,"expect":{"confident":true,"concept_id":"math_8a_rjb_cpt59","subject_prefix":"math","prereqs_subset":["math_8a_rjb_cpt56","math_8a_rjb_cpt57"]},"note":"多前置知识子集回归"}
+{"id":"kb-007","query":"平行线","subject":null,"expect":{"confident":true,"concept_id":"math_4a_rjb_cpt22","subject_prefix":"math"},"note":"低年级数学概念"}
+{"id":"kb-008","query":"有理数","subject":null,"expect":{"confident":true,"concept_id":"math_7a_rjb_cpt6","subject_prefix":"math"},"note":"七年级数学概念"}
+{"id":"kb-009","query":"整式加减","subject":null,"expect":{"confident":true,"concept_id":"math_7a_rjb_cpt37","subject_prefix":"math"},"note":"单候选子串匹配→confident"}
+{"id":"kb-010","query":"牛顿第一定律","subject":null,"expect":{"confident":true,"concept_id":"physics_8b_rjb_cpt23","subject_prefix":"physics","prereqs_subset":["physics_8b_rjb_cpt22"]},"note":"物理定律+前置"}
+{"id":"kb-011","query":"欧姆定律","subject":null,"expect":{"confident":true,"concept_id":"physics_9_rjb_cpt76","subject_prefix":"physics","prereqs_subset":["physics_9_rjb_cpt38"]},"note":"物理定律+前置"}
+{"id":"kb-012","query":"浮力","subject":null,"expect":{"confident":true,"concept_id":"physics_8b_rjb_cpt51","subject_prefix":"physics"},"note":"物理概念精确匹配"}
+{"id":"kb-013","query":"压强","subject":null,"expect":{"confident":true,"concept_id":"chemistry_xzxbx1_rjb_cpt46","subject_prefix":"chemistry"},"note":"压强在本图谱归入化学概念（验证 id 前缀，不臆测学科）"}
+{"id":"kb-014","query":"光的反射","subject":null,"expect":{"confident":true,"concept_id":"physics_8a_rjb_cpt73","subject_prefix":"physics"},"note":"物理光学概念"}
+{"id":"kb-015","query":"导体和绝缘体","subject":null,"expect":{"confident":true,"concept_id":"physics_9_rjb_cpt36","subject_prefix":"physics"},"note":"物理电学概念"}
+{"id":"kb-016","query":"化学方程式","subject":null,"expect":{"confident":true,"concept_id":"chemistry_9a_rjb_cpt278","subject_prefix":"chemistry","prereqs_subset":["chemistry_9a_rjb_cpt280"]},"note":"化学核心概念+前置"}
+{"id":"kb-017","query":"质量守恒定律","subject":null,"expect":{"confident":true,"concept_id":"chemistry_9a_rjb_cpt198","subject_prefix":"chemistry"},"note":"化学定律"}
+{"id":"kb-018","query":"溶液","subject":null,"expect":{"confident":true,"concept_id":"chemistry_9b_rjb_cpt78","subject_prefix":"chemistry","prereqs_subset":["chemistry_9b_rjb_cpt79"]},"note":"化学概念+前置"}
+{"id":"kb-019","query":"光合作用","subject":null,"expect":{"confident":true,"concept_id":"biology_7a_rjb_cpt4","subject_prefix":"biology","prereqs_subset":["biology_7a_rjb_cpt52"]},"note":"生物概念+前置"}
+{"id":"kb-020","query":"细胞","subject":null,"expect":{"confident":true,"concept_id":"biology_7a_rjb_cpt11","subject_prefix":"biology"},"note":"生物基础概念"}
+{"id":"kb-021","query":"函数","subject":null,"expect":{"confident":true,"concept_id":"math_8b_rjb_cpt43","subject_prefix":"math","prereqs_subset":["math_8b_rjb_cpt40","math_8b_rjb_cpt42"]},"note":"多义词-本图谱中精确命中数学函数"}
+{"id":"kb-022","query":"勾股定理","subject":"math","expect":{"confident":true,"concept_id":"math_8b_rjb_cpt11","subject_prefix":"math"},"note":"学科消歧正向：math 下精确命中"}
+{"id":"kb-neg-001","query":"三角形内角和","subject":null,"expect":{"confident":false,"concept_id":null},"note":"歧义负例：子串0.7命中多个无清晰胜者"}
+{"id":"kb-neg-002","query":"酸碱中和","subject":null,"expect":{"confident":false,"concept_id":null},"note":"歧义负例：多个同分候选，不臆测"}
+{"id":"kb-neg-003","query":"函数","subject":"physics","expect":{"confident":false,"concept_id":null},"note":"学科消歧负向：physics 下无匹配（过滤掉数学函数）"}

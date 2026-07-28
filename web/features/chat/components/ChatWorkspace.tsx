@@ -56,6 +56,10 @@ import {
   GeogebraTabProvider,
   useGeogebraTabOpener,
 } from "@/context/GeogebraTabContext";
+import {
+  KgTabProvider,
+  useKgTabOpener,
+} from "@/context/KgTabContext"; // === K12-KGraph: KG browser tab — local addition, NOT in upstream (DeepTutor fork only) ===
 import { BookmarkPlus, Download, PanelRight } from "lucide-react";
 import {
   useChatStateAdapter,
@@ -1725,3 +1729,769 @@ export default function ChatPage() {
       if (selectedAgent && subagentBudget) {
         config = { ...(config ?? {}), subagent_consult_budget: subagentBudget };
       }
+
+      const memoryPayload = [...memoryReferencesPayload];
+      const messageContent =
+        content ||
+        (selectedNotebookRecords.length ||
+        selectedBookReferences.length ||
+        selectedHistorySessions.length ||
+        selectedAgentSessions.length ||
+        selectedQuestionEntries.length ||
+        memoryPayload.length
+          ? t("Please use the selected context to help with this request.")
+          : "") ||
+        (attachments.some((a) => a.type === "image")
+          ? t("Please analyze the attached image(s).")
+          : "");
+      // Persona is NOT passed per-call here: it is a session-level
+      // preference (state.personaSelection) that sendMessage resolves and
+      // sends with every turn.
+      sendMessage(
+        messageContent,
+        extraAttachments,
+        config,
+        notebookReferencesPayload,
+        historyReferencesPayload,
+        { bookReferences: bookReferencesPayload },
+        questionNotebookReferencesPayload,
+        undefined,
+        memoryPayload,
+      );
+      shouldAutoScrollRef.current = true;
+      setAttachments([]);
+      setSelectedBookReferences([]);
+      setSelectedNotebookRecords([]);
+      setSelectedHistorySessions([]);
+      setSelectedAgentSessions([]);
+      setSelectedQuestionEntries([]);
+      setSelectedMemoryFiles([]);
+    },
+    [
+      attachments,
+      bookReferencesPayload,
+      historyReferencesPayload,
+      isQuizMode,
+      isResearchMode,
+      isVisualizeMode,
+      memoryReferencesPayload,
+      notebookReferencesPayload,
+      questionNotebookReferencesPayload,
+      quizConfig,
+      quizPdf,
+      researchConfig,
+      researchValidation,
+      selectedAgent,
+      selectedHistorySessions.length,
+      selectedAgentSessions.length,
+      selectedMemoryFiles.length,
+      selectedBookReferences.length,
+      selectedNotebookRecords.length,
+      selectedQuestionEntries.length,
+      sendMessage,
+      shouldAutoScrollRef,
+      state.isStreaming,
+      subagentBudget,
+      t,
+      visualizeConfig,
+    ],
+  );
+
+  const handleConfirmOutline = useCallback(
+    (
+      outline: OutlineItem[],
+      _topic: string,
+      originalConfig?: Record<string, unknown> | null,
+      originalSnapshot?: MessageRequestSnapshot | null,
+    ) => {
+      const config: Record<string, unknown> = {
+        ...(originalConfig ?? {
+          mode: researchConfig.mode,
+          depth: researchConfig.depth,
+        }),
+        confirmed_outline: outline,
+      };
+      const requestSnapshotOverride: MessageRequestSnapshot | undefined =
+        originalSnapshot
+          ? {
+              ...originalSnapshot,
+              content: _topic,
+              capability: "deep_research",
+              config,
+            }
+          : undefined;
+      sendMessage(
+        _topic,
+        originalSnapshot?.attachments ?? [],
+        config,
+        originalSnapshot?.notebookReferences,
+        originalSnapshot?.historyReferences,
+        {
+          displayUserMessage: false,
+          persistUserMessage: false,
+          requestSnapshotOverride,
+          bookReferences: originalSnapshot?.bookReferences,
+        },
+        originalSnapshot?.questionNotebookReferences,
+        originalSnapshot?.persona,
+        originalSnapshot?.memoryReferences,
+      );
+      shouldAutoScrollRef.current = true;
+    },
+    [researchConfig, sendMessage, shouldAutoScrollRef],
+  );
+
+  const handleRegenerateMessage = useCallback(() => {
+    regenerateLastMessage();
+  }, [regenerateLastMessage]);
+
+  const handleToggleKB = useCallback(
+    (name: string) => {
+      const current = state.knowledgeBases;
+      setKBs(
+        current.includes(name)
+          ? current.filter((kb) => kb !== name)
+          : [...current, name],
+      );
+    },
+    [setKBs, state.knowledgeBases],
+  );
+
+  // Real knowledge bases and connected subagents render as separate composer
+  // controls even though both travel through the knowledge_bases request path.
+  const kbOptions = useMemo(
+    () => knowledgeBases.filter((kb) => kb.metadata?.type !== "subagent"),
+    [knowledgeBases],
+  );
+  const agentOptions = useMemo(
+    () =>
+      knowledgeBases
+        .filter((kb) => kb.metadata?.type === "subagent")
+        .map((kb) => ({ name: kb.name, kind: kb.metadata?.agent_kind })),
+    [knowledgeBases],
+  );
+  const selectedKbOnly = useMemo(
+    () => state.knowledgeBases.filter((n) => !agentNameSet.has(n)),
+    [state.knowledgeBases, agentNameSet],
+  );
+  const handleSelectAgent = useCallback(
+    (name: string | null) => {
+      // Single-select: clear any selected agent, then set the new one (if any).
+      const withoutAgents = state.knowledgeBases.filter(
+        (n) => !agentNameSet.has(n),
+      );
+      setKBs(name ? [...withoutAgents, name] : withoutAgents);
+    },
+    [setKBs, state.knowledgeBases, agentNameSet],
+  );
+  // Honor `?agent=<name>` once its connection KB has loaded: preselect it so a
+  // partner opened from the partner list starts the chat already targeting it.
+  useEffect(() => {
+    if (agentPreselectDoneRef.current) return;
+    const name = pendingAgentRef.current;
+    if (!name || !agentNameSet.has(name)) return;
+    agentPreselectDoneRef.current = true;
+    handleSelectAgent(name);
+  }, [agentNameSet, handleSelectAgent]);
+  const handleSelectNotebookPicker = useCallback(() => {
+    setShowNotebookPicker(true);
+  }, []);
+  const handleSelectBookPicker = useCallback(() => {
+    setShowBookPicker(true);
+  }, []);
+  const handleSelectHistoryPicker = useCallback(() => {
+    setShowHistoryPicker(true);
+  }, []);
+  const handleSelectAgentsPicker = useCallback(() => {
+    setShowAgentsPicker(true);
+  }, []);
+  const handleSelectQuestionBankPicker = useCallback(() => {
+    setShowQuestionBankPicker(true);
+  }, []);
+  const handleSelectPersonaPicker = useCallback(() => {
+    // The @space "Persona" entry now opens the session persona selector.
+    setPersonaSelectorOpen(true);
+  }, []);
+  const handleSelectMemoryPicker = useCallback(() => {
+    setShowMemoryPicker(true);
+  }, []);
+  const handleRemoveHistory = useCallback((sessionId: string) => {
+    setSelectedHistorySessions((prev) =>
+      prev.filter((item) => item.sessionId !== sessionId),
+    );
+  }, []);
+  const handleRemoveAgent = useCallback((sessionId: string) => {
+    setSelectedAgentSessions((prev) =>
+      prev.filter((item) => item.sessionId !== sessionId),
+    );
+  }, []);
+  const handleRemoveNotebook = useCallback((notebookId: string) => {
+    setSelectedNotebookRecords((prev) =>
+      prev.filter((record) => record.notebookId !== notebookId),
+    );
+  }, []);
+  const handleRemoveBookReference = useCallback((bookId: string) => {
+    setSelectedBookReferences((prev) =>
+      prev.filter((record) => record.bookId !== bookId),
+    );
+  }, []);
+  const handleRemoveQuestion = useCallback((entryId: number) => {
+    setSelectedQuestionEntries((prev) =>
+      prev.filter((entry) => entry.id !== entryId),
+    );
+  }, []);
+  const handleClearPersona = useCallback(() => {
+    setPersonaSelection("");
+  }, [setPersonaSelection]);
+
+  const handleToggleMemoryFile = useCallback((file: SpaceMemoryFile) => {
+    setSelectedMemoryFiles((prev) =>
+      prev.includes(file)
+        ? prev.filter((item) => item !== file)
+        : [...prev, file],
+    );
+  }, []);
+
+  const handleCloseNotebookPicker = useCallback(() => {
+    setShowNotebookPicker(false);
+  }, []);
+  const handleCloseBookPicker = useCallback(() => {
+    setShowBookPicker(false);
+  }, []);
+  const handleApplyBookReferences = useCallback(
+    (references: SelectedBookReference[]) => {
+      setSelectedBookReferences(references);
+    },
+    [],
+  );
+  const handleApplyNotebookRecords = useCallback(
+    (records: SelectedRecord[]) => {
+      setSelectedNotebookRecords(records);
+    },
+    [],
+  );
+  const handleCloseHistoryPicker = useCallback(() => {
+    setShowHistoryPicker(false);
+  }, []);
+  const handleApplyHistorySessions = useCallback(
+    (sessions: SelectedHistorySession[]) => {
+      setSelectedHistorySessions(sessions);
+    },
+    [],
+  );
+  const handleCloseAgentsPicker = useCallback(() => {
+    setShowAgentsPicker(false);
+  }, []);
+  const handleApplyAgentSessions = useCallback(
+    (sessions: SelectedHistorySession[]) => {
+      setSelectedAgentSessions(sessions);
+    },
+    [],
+  );
+  const handleCloseQuestionBankPicker = useCallback(() => {
+    setShowQuestionBankPicker(false);
+  }, []);
+  const handleApplyQuestionEntries = useCallback(
+    (entries: SelectedQuestionEntry[]) => {
+      setSelectedQuestionEntries(entries);
+    },
+    [],
+  );
+  const handleCloseMemoryPicker = useCallback(() => {
+    setShowMemoryPicker(false);
+  }, []);
+  const handleApplyMemoryFiles = useCallback((files: SpaceMemoryFile[]) => {
+    setSelectedMemoryFiles(files);
+  }, []);
+  const handleCloseSaveModal = useCallback(() => {
+    setShowSaveModal(false);
+  }, []);
+
+  const handleDownloadMarkdown = useCallback(() => {
+    if (!state.messages.length) return;
+    const title =
+      state.messages
+        .find((msg) => msg.role === "user")
+        ?.content.trim()
+        .slice(0, 80) || "Chat Session";
+    downloadChatMarkdown(state.messages, { title });
+  }, [state.messages]);
+
+  return (
+    <QuizFollowupProvider>
+      <GeogebraTabProvider>
+        {/* === K12-KGraph: KG browser tab (local addition, not in upstream) === */}
+        <KgTabProvider>
+          <QuizFollowupBridge viewerPanelRef={viewerPanelRef} />
+          <GeogebraTabBridge viewerPanelRef={viewerPanelRef} />
+          <KgTabBridge viewerPanelRef={viewerPanelRef} />
+        <SubagentTabWatcher
+          messages={state.messages}
+          viewerPanelRef={viewerPanelRef}
+        />
+        <div
+          // When the preview drawer is open AND the viewport is wide enough,
+          // push the chat content to the left by the drawer's width so the two
+          // panels live side-by-side (matches Claude desktop). On smaller
+          // screens the drawer overlays — squeezing a phone-width chat into
+          // the remaining ~30 px would be useless. The actual padding +
+          // transition lives in `chat-preview-shell` (globals.css) so we can
+          // hand-tune it without fighting Tailwind's arbitrary-value parser.
+          data-preview-open={previewSource ? "true" : "false"}
+          data-viewer-open={viewerPanelOpen ? "true" : "false"}
+          className="chat-preview-shell flex h-full flex-col overflow-hidden bg-[var(--background)]"
+        >
+          <div className="mx-auto flex w-full max-w-[960px] flex-wrap items-center justify-between gap-x-3 gap-y-1.5 px-6 pt-3 pb-0">
+            <div className="group/title min-w-0 flex flex-1 items-center gap-2">
+              {sessionTitleEditing ? (
+                <input
+                  ref={titleInputRef}
+                  value={sessionTitleDraft}
+                  onChange={(event) => setSessionTitleDraft(event.target.value)}
+                  onBlur={() => void commitSessionTitleEdit()}
+                  onKeyDown={handleSessionTitleKeyDown}
+                  disabled={sessionTitleSaving}
+                  aria-label={t("Session title")}
+                  className="min-w-0 flex-1 rounded-xl border border-[var(--border)] bg-[var(--background)] px-3 py-1.5 font-serif text-[17px] font-semibold tracking-[-0.01em] text-[var(--foreground)] shadow-sm outline-none transition focus:border-[var(--ring)] focus:ring-2 focus:ring-[var(--ring)]/20 disabled:opacity-60"
+                  maxLength={100}
+                />
+              ) : (
+                <button
+                  type="button"
+                  onClick={startSessionTitleEdit}
+                  disabled={!canRenameSession}
+                  title={
+                    canRenameSession
+                      ? t("Click to rename session")
+                      : t("Start a conversation to rename")
+                  }
+                  className="inline-flex min-w-0 max-w-full items-center gap-2 rounded-xl px-2 py-1 text-left font-serif text-[17px] font-semibold tracking-[-0.01em] text-[var(--foreground)] transition hover:bg-[var(--muted)]/55 disabled:cursor-default disabled:hover:bg-transparent"
+                >
+                  <span className="truncate">{displaySessionTitle}</span>
+                  {canRenameSession ? (
+                    <PenLine className="h-3.5 w-3.5 shrink-0 text-[var(--muted-foreground)] opacity-0 transition-opacity group-hover/title:opacity-100" />
+                  ) : null}
+                </button>
+              )}
+              {sessionTitleSaving ? (
+                <span className="shrink-0 text-xs text-[var(--muted-foreground)]">
+                  {t("Saving...")}
+                </span>
+              ) : null}
+              {sessionTitleError ? (
+                <span className="shrink-0 text-xs text-[var(--destructive)]">
+                  {sessionTitleError}
+                </span>
+              ) : null}
+            </div>
+            <div className="flex shrink-0 items-center gap-0.5">
+              <HeaderActionButton
+                onClick={() => setShowSaveModal(true)}
+                disabled={!chatSavePayload}
+                icon={BookmarkPlus}
+                label={t("Save to Notebook")}
+              />
+              <HeaderActionButton
+                onClick={handleDownloadMarkdown}
+                disabled={!state.messages.length}
+                icon={Download}
+                label={t("Download Markdown")}
+                title={t("Download chat history as Markdown")}
+              />
+              <HeaderActionButton
+                onClick={toggleViewerPanel}
+                active={viewerPanelOpen}
+                icon={PanelRight}
+                label={t("Activity")}
+                title={t("Session activity, attachments & previews")}
+              />
+            </div>
+          </div>
+          <div className="flex w-full flex-1 min-h-0 flex-col">
+            {sessionLoading ? (
+              <div className="flex w-full flex-1 min-h-0 justify-center px-6">
+                <div className="h-full w-full max-w-[960px]">
+                  <SessionLoadingView onCancel={cancelSessionLoad} />
+                </div>
+              </div>
+            ) : !hasMessages ? (
+              <div className="flex w-full flex-1 min-h-0 items-end justify-center pb-14 animate-fade-in px-6">
+                <div className="w-full max-w-[960px] flex items-center justify-center gap-4">
+                  <img
+                    src="/logo_black.png"
+                    alt="DeepTutor"
+                    width={40}
+                    height={40}
+                    className="h-10 w-10 select-none"
+                    draggable={false}
+                  />
+                  <h1 className="font-serif text-[40px] font-medium leading-[1.1] tracking-[-0.015em] text-[var(--foreground)]">
+                    {t(welcomeGreeting)}
+                  </h1>
+                </div>
+              </div>
+            ) : (
+              // Positioned wrapper spanning exactly the scrollport, so the
+              // turn navigator can overlay the left gutter without living
+              // inside the masked scroll container (its top/bottom fade
+              // would clip the rail's ends).
+              <div className="relative flex w-full flex-1 min-h-0 flex-col">
+                <div
+                  ref={messagesContainerRef}
+                  data-chat-scroll-root="true"
+                  onScroll={handleMessagesScroll}
+                  onClick={handleMessagesClick}
+                  // `both-edges` reserves the scrollbar gutter on both sides so
+                  // the inner mx-auto column centers on the same axis as the
+                  // header and composer (siblings outside this scrollport) on
+                  // classic-scrollbar platforms; plain `stable` would shift it
+                  // ~half a scrollbar-width left of them.
+                  className={`w-full flex-1 min-h-0 overflow-y-auto [scrollbar-gutter:stable_both-edges] ${hasMessages ? "pt-6" : "pt-2 pb-6"}`}
+                  style={
+                    hasMessages
+                      ? (() => {
+                          // The bottom 40 px of the messages area fades to
+                          // transparent so content "dissolves" into the composer
+                          // gutter. Without enough bottom padding, the fade
+                          // overlaps the last assistant paragraph and looks like
+                          // a stuck scroll — the user reaches scrollHeight but
+                          // can still see only a faded sliver of text. paddingBottom
+                          // is sized so the fade falls over empty space.
+                          const maskImage =
+                            "linear-gradient(to bottom, transparent 0px, #000 32px, #000 calc(100% - 40px), transparent 100%)";
+                          return {
+                            paddingBottom: "48px",
+                            WebkitMaskImage: maskImage,
+                            maskImage,
+                          };
+                        })()
+                      : undefined
+                  }
+                >
+                  <div
+                    data-chat-column="true"
+                    className="mx-auto w-full max-w-[960px] space-y-9 px-6"
+                  >
+                    <ChatMessageList
+                      messages={state.messages}
+                      isStreaming={state.isStreaming}
+                      sessionId={state.sessionId}
+                      language={state.language}
+                      onCopyAssistantMessage={copyAssistantMessage}
+                      onRegenerateMessage={handleRegenerateMessage}
+                      onConfirmOutline={handleConfirmOutline}
+                      onPreviewAttachment={handlePreviewMessageAttachment}
+                      onDeleteTurn={deleteTurn}
+                      selectedBranches={state.selectedBranches}
+                      onEditMessage={editMessage}
+                      onSwitchBranch={switchBranch}
+                      onSubmitUserReply={submitUserReply}
+                    />
+                    <div
+                      ref={messagesEndRef}
+                      className="h-px w-full shrink-0"
+                    />
+                  </div>
+                </div>
+                <TurnNavigator
+                  entries={chatOutline}
+                  scrollRootRef={messagesContainerRef}
+                  onJump={jumpToTurn}
+                  onJumpToBottom={resumeFollowingLatest}
+                />
+              </div>
+            )}
+
+            <ChatComposer
+              composerRef={composerRef}
+              capMenuRef={capMenuRef}
+              capBtnRef={capBtnRef}
+              spaceMenuRef={spaceMenuRef}
+              spaceBtnRef={spaceBtnRef}
+              dragCounter={dragCounter}
+              dragging={dragging}
+              capMenuOpen={capMenuOpen}
+              spaceMenuOpen={spaceMenuOpen}
+              hasMessages={hasMessages}
+              attachments={attachments}
+              attachmentError={attachmentError}
+              activeCap={activeCap}
+              knowledgeBases={kbOptions}
+              connectedAgents={agentOptions}
+              selectedAgent={selectedAgent}
+              onSelectAgent={handleSelectAgent}
+              subagentBudget={subagentBudget}
+              onSubagentBudgetChange={setSubagentBudget}
+              llmOptions={llmOptions}
+              activeLLMDefault={activeLLMDefault}
+              llmSelection={state.llmSelection}
+              llmOptionsLoading={llmOptionsLoading}
+              llmOptionsError={llmOptionsError}
+              contextBudget={contextBudget}
+              selectedBookReferences={selectedBookReferences}
+              selectedNotebookRecords={selectedNotebookRecords}
+              selectedHistorySessions={selectedHistorySessions}
+              selectedAgentSessions={selectedAgentSessions}
+              selectedQuestionEntries={selectedQuestionEntries}
+              notebookReferenceGroups={notebookReferenceGroups}
+              selectedPersona={null}
+              selectedMemoryFiles={selectedMemoryFiles}
+              selectedKnowledgeBases={selectedKbOnly}
+              isStreaming={state.isStreaming}
+              isVisualizeMode={isVisualizeMode}
+              capabilityNeedsConfig={capabilityNeedsConfig}
+              capabilityConfigConfirmed={capabilityConfigConfirmed}
+              onRequestConfigConfirm={ensureActivityPanelOpen}
+              capabilities={CAPABILITIES}
+              onSetCapMenuOpen={setCapMenuOpen}
+              onSetSpaceMenuOpen={setSpaceMenuOpen}
+              onToggleKB={handleToggleKB}
+              onSelectLLM={setLLMSelection}
+              onSelectNotebookPicker={handleSelectNotebookPicker}
+              onSelectBookPicker={handleSelectBookPicker}
+              onSelectHistoryPicker={handleSelectHistoryPicker}
+              onSelectAgentsPicker={handleSelectAgentsPicker}
+              onSelectQuestionBankPicker={handleSelectQuestionBankPicker}
+              onSelectPersonaPicker={handleSelectPersonaPicker}
+              onSelectMemoryPicker={handleSelectMemoryPicker}
+              onClearPersona={handleClearPersona}
+              personaSelection={state.personaSelection}
+              onPersonaSelectionChange={setPersonaSelection}
+              personaSelectorOpen={personaSelectorOpen}
+              onPersonaSelectorOpenChange={setPersonaSelectorOpen}
+              onToggleMemoryFile={handleToggleMemoryFile}
+              onSend={handleSend}
+              onRemoveAttachment={removeAttachment}
+              onPreviewAttachment={handlePreviewPendingAttachment}
+              onRemoveHistory={handleRemoveHistory}
+              onRemoveAgent={handleRemoveAgent}
+              onRemoveBookReference={handleRemoveBookReference}
+              onRemoveNotebook={handleRemoveNotebook}
+              onRemoveQuestion={handleRemoveQuestion}
+              onDragEnter={handleDragEnter}
+              onDragLeave={handleDragLeave}
+              onDragOver={handleDragOver}
+              onDrop={handleDrop}
+              onPaste={handlePaste}
+              onAddFiles={handleAddFiles}
+              onSelectCapability={handleSelectCapability}
+              onCancelStreaming={cancelStreamingTurn}
+              prefillInputRef={prefillInputRef}
+            />
+            <div
+              aria-hidden="true"
+              className="shrink-0"
+              style={{
+                flexGrow: hasMessages ? 0 : 1.4,
+                transition: "flex-grow 650ms cubic-bezier(0.16, 1, 0.3, 1)",
+              }}
+            />
+          </div>
+          <NotebookRecordPicker
+            open={showNotebookPicker}
+            onClose={handleCloseNotebookPicker}
+            onApply={handleApplyNotebookRecords}
+          />
+          <BookReferencePicker
+            open={showBookPicker}
+            initialReferences={selectedBookReferences}
+            onClose={handleCloseBookPicker}
+            onApply={handleApplyBookReferences}
+          />
+          <HistorySessionPicker
+            open={showHistoryPicker}
+            onClose={handleCloseHistoryPicker}
+            onApply={handleApplyHistorySessions}
+          />
+          <MyAgentsPicker
+            open={showAgentsPicker}
+            onClose={handleCloseAgentsPicker}
+            onApply={handleApplyAgentSessions}
+          />
+          <QuestionBankPicker
+            open={showQuestionBankPicker}
+            onClose={handleCloseQuestionBankPicker}
+            onApply={handleApplyQuestionEntries}
+          />
+          <MemoryPicker
+            open={showMemoryPicker}
+            initialFiles={selectedMemoryFiles}
+            onClose={handleCloseMemoryPicker}
+            onApply={handleApplyMemoryFiles}
+          />
+          <SaveToNotebookModal
+            open={showSaveModal}
+            payload={chatSavePayload}
+            messages={chatSaveMessages}
+            onClose={handleCloseSaveModal}
+          />
+          <FilePreviewDrawer
+            open={previewSource !== null}
+            source={previewSource}
+            onClose={handleClosePreview}
+          />
+          <SessionViewerPanel
+            ref={viewerPanelRef}
+            open={viewerPanelOpen && previewSource === null}
+            sessionId={state.sessionId}
+            activity={sessionActivity}
+            configSection={capabilityConfigSection}
+            onClose={() => setViewerOpen(false)}
+            onAutoOpen={() => setViewerOpen(true)}
+          />
+        </div>
+        </KgTabProvider>
+      </GeogebraTabProvider>
+    </QuizFollowupProvider>
+  );
+}
+
+/**
+ * Bridges the SessionViewerPanel's imperative ``openQuizFollowupTab`` into
+ * the QuizFollowupController so descendants (QuizViewer) can call
+ * ``controller.openFollowupTab(...)`` without prop-drilling the panel ref
+ * through several layers of components.
+ */
+function QuizFollowupBridge({
+  viewerPanelRef,
+}: {
+  viewerPanelRef: React.MutableRefObject<SessionViewerPanelHandle | null>;
+}) {
+  const controller = useQuizFollowupController();
+  useEffect(() => {
+    controller.setOpenTabHandler((ctx) => {
+      viewerPanelRef.current?.openQuizFollowupTab(ctx);
+    });
+    return () => controller.setOpenTabHandler(null);
+  }, [controller, viewerPanelRef]);
+  return null;
+}
+
+/**
+ * Same shape as QuizFollowupBridge, for the GeoGebra-tab opener exposed
+ * to in-message CTAs (the ``ggbscript`` markdown fence becomes a card
+ * that calls ``controller.openTab(...)`` here).
+ */
+function GeogebraTabBridge({
+  viewerPanelRef,
+}: {
+  viewerPanelRef: React.MutableRefObject<SessionViewerPanelHandle | null>;
+}) {
+  const controller = useGeogebraTabOpener();
+  useEffect(() => {
+    if (!controller) return;
+    controller.setOpenHandler((payload) => {
+      viewerPanelRef.current?.openGeogebraTab(payload);
+    });
+    return () => controller.setOpenHandler(null);
+  }, [controller, viewerPanelRef]);
+  return null;
+}
+
+/**
+ * Same shape as GeogebraTabBridge, for the K12-KGraph browser tab opener
+ * exposed to in-message kgraph CTAs (the fence card calls
+ * controller.openTab(...) here).
+ */
+function KgTabBridge({
+  viewerPanelRef,
+}: {
+  viewerPanelRef: React.MutableRefObject<SessionViewerPanelHandle | null>;
+}) {
+  const controller = useKgTabOpener();
+  useEffect(() => {
+    if (!controller) return;
+    controller.setOpenHandler((payload) => {
+      viewerPanelRef.current?.openKgTab(payload.concept);
+    });
+    return () => controller.setOpenHandler(null);
+  }, [controller, viewerPanelRef]);
+  return null;
+}
+
+/**
+ * Watches the turn's messages for connected-subagent runs and mirrors each
+ * (grouped by the consult's call id) into its own side-viewer tab — opening +
+ * focusing the panel when a consult starts, then live-refreshing as the
+ * agent's native events stream in. Keeps the chat trace compact while the full
+ * run shows in the sidebar.
+ */
+function SubagentTabWatcher({
+  messages,
+  viewerPanelRef,
+}: {
+  messages: { events?: StreamEvent[] }[];
+  viewerPanelRef: React.MutableRefObject<SessionViewerPanelHandle | null>;
+}) {
+  useEffect(() => {
+    // Group by turn so all of one turn's consults (DeepTutor may ask the agent
+    // several questions in a row, each its own tool call) land in one tab as a
+    // single running dialogue; fall back to the call id when no turn is set.
+    const groups = new Map<string, { label: string; events: StreamEvent[] }>();
+    for (const msg of messages) {
+      for (const ev of msg.events ?? []) {
+        const meta = (ev.metadata ?? {}) as Record<string, unknown>;
+        if (meta.trace_kind !== "subagent_event") continue;
+        const key = String(meta.turn_id || meta.call_id || meta.trace_id || "");
+        if (!key) continue;
+        const existing = groups.get(key);
+        const label = String(
+          meta.subagent_name || existing?.label || "Subagent",
+        );
+        if (existing) {
+          existing.label = label;
+          existing.events.push(ev);
+        } else {
+          groups.set(key, { label, events: [ev] });
+        }
+      }
+    }
+    for (const [key, group] of groups) {
+      viewerPanelRef.current?.openSubagentTab(key, group.label, group.events);
+    }
+  }, [messages, viewerPanelRef]);
+  return null;
+}
+
+/**
+ * Header action button that auto-collapses to icon-only when the chat
+ * column gets squeezed (Viewer panel open, narrow viewport, etc.). The
+ * label stays as the button's `title` so hovering an icon still reveals
+ * what it does. Optional `active` flag paints the button with a primary
+ * tint, used by the panel-toggle buttons to surface their on/off state.
+ */
+// Claude-style icon-only header action: bare 16px glyph, function revealed
+// by an instant tooltip; active state gets a primary tint.
+function HeaderActionButton({
+  onClick,
+  disabled,
+  active,
+  icon: Icon,
+  label,
+  title,
+}: {
+  onClick: () => void;
+  disabled?: boolean;
+  active?: boolean;
+  icon: LucideIcon;
+  label: string;
+  title?: string;
+}) {
+  return (
+    <Tooltip label={title ?? label} side="bottom">
+      <button
+        onClick={onClick}
+        disabled={disabled}
+        aria-label={label}
+        aria-pressed={active}
+        className={`inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-lg transition-[background-color,color,transform] duration-150 active:scale-90 disabled:cursor-not-allowed disabled:opacity-40 ${
+          active
+            ? "bg-[var(--primary)]/10 text-[var(--primary)]"
+            : "text-[var(--muted-foreground)] hover:bg-[var(--muted)]/55 hover:text-[var(--foreground)] disabled:hover:bg-transparent disabled:hover:text-[var(--muted-foreground)]"
+        }`}
+      >
+        <Icon size={16} strokeWidth={1.7} className="shrink-0" />
+      </button>
+    </Tooltip>
+  );
+}

@@ -71,6 +71,7 @@ class ChatPromptAssembler:
             PromptBlock("general", self._general_block(context)),
             PromptBlock("runtime_context", self._runtime_context_block()),
             PromptBlock("runtime_policy", self._t("runtime_policy")),
+            PromptBlock("k12_teaching_template", self._t("k12_teaching_template")),
             PromptBlock("loop", self._t("loop.system")),
         ]
         # Capability playbooks sit high so they frame the whole turn when active;

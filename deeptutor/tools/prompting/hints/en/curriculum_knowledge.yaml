@@ -1,0 +1,6 @@
+short_description: "Look up a K12 curriculum concept in the K12-KGraph knowledge graph — definition, prerequisites, chapter path, or teaching evidence."
+when_to_use: "Use whenever the student's message names or clearly implies a specific curriculum concept or skill (e.g. Pythagorean theorem, function, Newton's first law). Verify against the graph before answering so your guidance stays syllabus-accurate."
+input_format: '{"concept": "<concept name or term>", "query_type": "definition|prerequisites|path|evidence"}'
+guideline: "Prefer this over answering from memory. If resolve() returns multiple candidates (ambiguous), confirm with the student which one they mean before teaching. Never invent a definition the graph does not contain."
+note: "Use the returned definition / evidence to ground Socratic hints — do not dump the full answer. For generic study help that is not concept-specific, skip this tool."
+phase: "exploration"

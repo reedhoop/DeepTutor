@@ -31,12 +31,12 @@ import {
   Activity,
   AlertCircle,
   ArrowRight,
+  BookOpen,
   Compass,
   Download,
   ExternalLink,
   FileUp,
   Globe,
-  GraduationCap,
   Loader2,
   MessageSquarePlus,
   NotebookPen,
@@ -100,6 +100,10 @@ const ChatMarkdownNoteTabBody = dynamic(
 const Geogebra = dynamic(() => import("@/components/Geogebra"), {
   ssr: false,
 });
+const KgTabBody = dynamic(
+  () => import("@/components/chat/home/KgTabBody"),
+  { ssr: false },
+);
 
 const ANIM_MS = 220;
 
@@ -150,12 +154,6 @@ type ViewerTab =
       context: QuizFollowupTabContext;
     }
   | {
-      kind: "selection-tutor";
-      id: string;
-      label: string;
-      context: QuizFollowupTabContext;
-    }
-  | {
       kind: "geogebra";
       id: string;
       label: string;
@@ -167,6 +165,12 @@ type ViewerTab =
       label: string;
       callId: string;
       events: StreamEvent[];
+    }
+  | {
+      kind: "kg";
+      id: string;
+      label: string;
+      concept?: string;
     };
 
 export interface SessionViewerPanelHandle {
@@ -176,11 +180,6 @@ export interface SessionViewerPanelHandle {
   openMarkdownNoteTab(): void;
   /** Opens (or focuses) the follow-up chat tab for a quiz question. */
   openQuizFollowupTab(context: QuizFollowupTabContext): void;
-  /** Opens an independent Little Tutor thread grounded in selected chat text. */
-  openSelectionTutorTab(
-    selection: SelectionTutorContext,
-    language: string,
-  ): void;
   /** Opens (or focuses) an interactive GeoGebra applet tab. */
   openGeogebraTab(payload: GeogebraTabPayload): void;
   /** Opens (first time) or live-updates a connected subagent's run tab. */
@@ -188,6 +187,8 @@ export interface SessionViewerPanelHandle {
   /** Opens the panel and switches to the Activity home (where the
    *  capability-config card lives). */
   focusActivityHome(): void;
+  /** Opens (or focuses) the K12-KGraph browser tab, optionally focused on a concept. */
+  openKgTab(concept?: string): void;
 }
 
 interface SessionViewerPanelProps {
@@ -215,16 +216,16 @@ function quizFollowupTabIdFor(questionKey: string): string {
   return `quiz-followup:${questionKey}`;
 }
 
-function selectionTutorTabIdFor(questionKey: string): string {
-  return `selection-tutor:${questionKey}`;
-}
-
 function geogebraTabIdFor(payloadId: string): string {
   return `geogebra:${payloadId}`;
 }
 
 function subagentTabIdFor(callId: string): string {
   return `subagent:${callId}`;
+}
+
+function kgTabIdFor(concept?: string): string {
+  return `kg:${concept ?? "browse"}`;
 }
 
 function hostnameFor(url: string): string {
@@ -430,65 +431,6 @@ function SessionViewerPanelInner(
     [onAutoOpen],
   );
 
-  const openSelectionTutorTab = useCallback(
-    (selection: SelectionTutorContext, language: string) => {
-      const selectedText = normalizeSelectedText(selection.selectedText);
-      if (!selectedText) return;
-      const questionKey = selectionTutorKey(
-        selectedText,
-        sessionId,
-        selection.sourceMessageId,
-      );
-      const id = selectionTutorTabIdFor(questionKey);
-      const context: QuizFollowupTabContext = {
-        questionKey,
-        question: {
-          question_id: questionKey,
-          question: selectedText,
-          question_type: "concept",
-          correct_answer: "",
-          explanation: "",
-        },
-        userAnswer: "",
-        isCorrect: null,
-        answerImages: [],
-        aiJudgment: "",
-        parentQuizSessionId: null,
-        notebookEntryId: null,
-        followupSessionId: null,
-        language,
-        tabLabel: t("Little Tutor"),
-        tutorSelection: {
-          selectedText,
-          parentSessionId: sessionId,
-          sourceMessageId: selection.sourceMessageId,
-          sourceMessageText: selection.sourceMessageText,
-          sourceMessageRole: selection.sourceMessageRole,
-        },
-      };
-
-      setTabs((prev) => {
-        const existingIdx = prev.findIndex((tab) => tab.id === id);
-        const tab: ViewerTab = {
-          kind: "selection-tutor",
-          id,
-          label: t("Little Tutor"),
-          context,
-        };
-        if (existingIdx >= 0) {
-          const next = [...prev];
-          next[existingIdx] = tab;
-          setActiveTabId(id);
-          return next;
-        }
-        setActiveTabId(id);
-        return [...prev, tab];
-      });
-      onAutoOpen();
-    },
-    [onAutoOpen, sessionId, t],
-  );
-
   const openGeogebraTab = useCallback(
     (payload: GeogebraTabPayload) => {
       setTabs((prev) => {
@@ -556,6 +498,32 @@ function SessionViewerPanelInner(
     onAutoOpen();
   }, [onAutoOpen]);
 
+  // The K12-KGraph browser tab. Self-contained: the body talks straight to
+  // /api/v1/kg/*. When a concept is given we dedupe on it so repeated CTAs
+  // refocus the same tab instead of spawning copies.
+  const openKgTab = useCallback(
+    (concept?: string) => {
+      const id = kgTabIdFor(concept);
+      setTabs((prev) => {
+        const existingIdx = prev.findIndex((tab) => tab.id === id);
+        if (existingIdx >= 0) {
+          setActiveTabId(id);
+          return prev;
+        }
+        const next: ViewerTab = {
+          kind: "kg",
+          id,
+          label: concept || t("kg.tabTitle", "课程知识"),
+          concept,
+        };
+        setActiveTabId(id);
+        return [...prev, next];
+      });
+      onAutoOpen();
+    },
+    [onAutoOpen, t],
+  );
+
   useImperativeHandle(
     ref,
     () => ({
@@ -563,20 +531,20 @@ function SessionViewerPanelInner(
       openWebTab,
       openMarkdownNoteTab,
       openQuizFollowupTab,
-      openSelectionTutorTab,
       openGeogebraTab,
       openSubagentTab,
       focusActivityHome,
+      openKgTab,
     }),
     [
       openFileTab,
       openWebTab,
       openMarkdownNoteTab,
       openQuizFollowupTab,
-      openSelectionTutorTab,
       openGeogebraTab,
       openSubagentTab,
       focusActivityHome,
+      openKgTab,
     ],
   );
 
@@ -694,11 +662,6 @@ function SessionViewerPanelInner(
             key={activeTab.context.questionKey}
             context={activeTab.context}
           />
-        ) : activeTab?.kind === "selection-tutor" ? (
-          <QuizFollowupTabBody
-            key={activeTab.context.questionKey}
-            context={activeTab.context}
-          />
         ) : activeTab?.kind === "geogebra" ? (
           <GeogebraTabBody key={activeTab.id} script={activeTab.script} />
         ) : activeTab?.kind === "subagent" ? (
@@ -707,6 +670,8 @@ function SessionViewerPanelInner(
             tabEvents={activeTab.events}
             sessionId={sessionId}
           />
+        ) : activeTab?.kind === "kg" ? (
+          <KgTabBody key={activeTab.id} concept={activeTab.concept} />
         ) : (
           <ActivityHome
             activity={activity}
@@ -787,6 +752,13 @@ function TabBar({
                     : tab.kind === "geogebra"
                       ? Compass
                       : Paperclip;
+              : tab.kind === "quiz-followup"
+                ? MessageSquarePlus
+                : tab.kind === "geogebra"
+                  ? Compass
+                  : tab.kind === "kg"
+                    ? BookOpen
+                    : Paperclip;
           return (
             <div
               key={tab.id}
@@ -850,6 +822,7 @@ function ActivityHome({
   onOpenAttachment,
   onOpenWebTab,
   onOpenLocalFile,
+  onOpenKg,
 }: {
   activity: SessionActivity;
   open: boolean;
@@ -857,6 +830,7 @@ function ActivityHome({
   onOpenAttachment: (a: MessageAttachment) => void;
   onOpenWebTab: (url: string) => void;
   onOpenLocalFile: (file: File) => void;
+  onOpenKg?: (concept?: string) => void;
 }) {
   return (
     <div className="h-full overflow-y-auto px-3 py-3">
@@ -869,6 +843,7 @@ function ActivityHome({
       <ActivityOpener
         onOpenWebTab={onOpenWebTab}
         onOpenLocalFile={onOpenLocalFile}
+        onOpenKg={onOpenKg}
       />
     </div>
   );
@@ -878,9 +853,11 @@ function ActivityHome({
 function ActivityOpener({
   onOpenWebTab,
   onOpenLocalFile,
+  onOpenKg,
 }: {
   onOpenWebTab: (url: string) => void;
   onOpenLocalFile: (file: File) => void;
+  onOpenKg?: (concept?: string) => void;
 }) {
   const { t } = useTranslation();
   const [urlInput, setUrlInput] = useState("");
@@ -944,6 +921,16 @@ function ActivityOpener({
         <FileUp size={13} strokeWidth={1.8} />
         {t("Open a local file")}
       </button>
+      {onOpenKg ? (
+        <button
+          type="button"
+          onClick={() => onOpenKg()}
+          className="inline-flex w-full items-center justify-center gap-2 rounded-lg border border-[var(--border)]/55 bg-[var(--background)] px-3 py-1.5 text-[12px] font-medium text-[var(--muted-foreground)] transition-colors hover:border-[var(--primary)]/35 hover:text-[var(--primary)]"
+        >
+          <BookOpen size={13} strokeWidth={1.8} />
+          {t("kg.browseEntry", "浏览课程知识图谱")}
+        </button>
+      ) : null}
       <input
         ref={fileInputRef}
         type="file"
