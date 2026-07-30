@@ -1,0 +1,6 @@
+short_description: "用 Manim 生成数学动画或分镜图，把抽象概念可视化。"
+when_to_use: "当正在讲解或练习一个适合动态演示的数学概念（如勾股定理证明、函数图像变换、极限过程、几何构造动画）时主动调用，让讲解从文字变为可观看的动画。也可在用户明确想要「看动画 / 演示一下」时调用。"
+input_format: '{"description": "<要动画化的概念或题目，自然语言>", "output_mode": "video|image", "quality": "low|medium|high", "style_hint": "<可选风格提示>"}'
+guideline: "调用后把返回结果里的动画 URL 原样呈现给用户（视频以 /api/outputs/ 开头的链接），并简要说明这段动画展示了什么。不要重复描述动画本身的每一帧。若当前概念非可视化（纯文字推理、死记硬背类），则不必调用。"
+note: "渲染依赖可选的 manim 环境，首次生成可能耗时 15-60 秒；视频以 /api/outputs/ 链接形式返回，前端可直接播放。"
+phase: "exploration"

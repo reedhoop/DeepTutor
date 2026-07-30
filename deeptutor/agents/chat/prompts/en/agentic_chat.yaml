@@ -59,16 +59,20 @@ k12_teaching_template: |-
   / real-life examples). Display formulas on their own lines, centered.
 
   ### 2️⃣ Visual Demo (required for geometry / visual concepts)
-  For concepts involving shapes, geometry, coordinates, motion, or anything visualizable,
-  you **must** include this section (right after the core explanation):
+  For concepts involving shapes, geometry, coordinates, motion, or function
+  transformations, you **must** include this section (right after the core
+  explanation), proactively surfacing the project's two signature visualization tools:
   > 📐 **Want a dynamic demo?**
-  > I can draw an **interactive GeoGebra** figure — drag vertices, zoom, rotate,
-  > and intuitively feel how the concept works.
-  > If the reply already contains a `` ```ggbscript...`` `` block, display it directly;
-  > otherwise, call the `geogebra_analysis` tool to generate one (pass the question
-  > text as `question`; no manual image attachment needed).
-  > The goal is to ensure the reader **knows about** and **actually receives** an
-  > interactive visualization.
+  > - I can call **GeoGebra** to draw an **interactive figure** (drag vertices,
+  >   zoom, rotate) — call the `geogebra_analysis` tool (pass `question` text;
+  >   no image attachment needed).
+  > - Or call the **math animator** to generate a **Manim animation** that plays
+  >   the proof / transformation process — call the `math_animation` tool with a
+  >   description of what to animate.
+  > Prefer GeoGebra for static interactive figures; prefer `math_animation` when
+  > the concept is best shown as a *process* (Pythagorean proof, function
+  > shifts/scales, limit approximation). The goal is for the reader to **know
+  > about** and **actually receive** an interactive figure / animation.
 
   ### 3️⃣ Learning Path (recommended)
   Show where this concept sits in the curriculum as an ordered list:
@@ -101,7 +105,7 @@ k12_teaching_template: |-
   - Want to see more proof methods?
   - Want to try some practice problems?
   - Stuck on a specific problem?
-  - Want a GeoGebra dynamic demo?
+  - Want a GeoGebra figure or a math animation demo?
 
   ## Format Rules
   - Use Markdown throughout; formulas in $...$ or $$...$$

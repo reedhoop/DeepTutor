@@ -42,6 +42,12 @@ class VisionSolverAgent(BaseAgent):
         self._prompt = prompt_file.read_text(encoding="utf-8") if prompt_file.exists() else ""
         if not self._prompt:
             self.logger.warning("geogebra prompt missing: %s", prompt_file)
+        text_prompt_file = Path(__file__).parent / "prompts" / "geogebra_text.md"
+        self._text_prompt = (
+            text_prompt_file.read_text(encoding="utf-8") if text_prompt_file.exists() else ""
+        )
+        if not self._text_prompt:
+            self.logger.warning("geogebra text prompt missing: %s", text_prompt_file)
 
     # ==================== Public API ====================
 
@@ -58,7 +64,23 @@ class VisionSolverAgent(BaseAgent):
         constraints / geometric_relations / ...), and ``image_is_reference``.
         """
         if not image_base64:
-            return {"has_image": False, "final_ggb_commands": []}
+            # Text-only mode: the user asked about a geometry concept but
+            # uploaded no figure. Build a basic schematic from the question
+            # text via a text LLM instead of failing outright.
+            self.logger.info("geogebra analysis (text-only) - session: %s", session_id)
+            analysis = await self._analyze_text(question_text)
+            commands = _coerce_commands(analysis.get("commands"))
+            if not commands:
+                self.logger.info("geogebra analysis (text-only) - empty commands")
+            self.logger.info(
+                "geogebra analysis (text-only) completed - commands: %d", len(commands)
+            )
+            return {
+                "has_image": False,
+                "final_ggb_commands": commands,
+                "analysis_output": analysis,
+                "image_is_reference": False,
+            }
 
         self.logger.info("geogebra analysis - session: %s", session_id)
         analysis = await self._analyze(question_text, image_base64)
@@ -92,6 +114,34 @@ class VisionSolverAgent(BaseAgent):
         return f"```ggbscript[{page_id};{title}]\n{content}\n```"
 
     # ==================== Internals ====================
+
+    async def _analyze_text(self, question_text: str) -> dict[str, Any]:
+        """Generate GeoGebra commands from a text description (no image)."""
+        if not self._text_prompt:
+            return {}
+        prompt = self._text_prompt.replace("{{ question_text }}", question_text or "")
+        response = await self._call_text_llm(prompt)
+        try:
+            data = self._extract_json(response)
+        except (json.JSONDecodeError, ValueError):
+            self.logger.warning(
+                "geogebra text analysis - JSON parse failed: %s", response[:300]
+            )
+            return {}
+        return data if isinstance(data, dict) else {}
+
+    async def _call_text_llm(self, prompt: str, temperature: float = 0.3) -> str:
+        messages = [{"role": "user", "content": [{"type": "text", "text": prompt}]}]
+        chunks: list[str] = []
+        async for chunk in self.stream_llm(
+            user_prompt="",
+            system_prompt="",
+            messages=messages,
+            temperature=temperature,
+            model=self.get_model(),
+        ):
+            chunks.append(chunk)
+        return "".join(chunks)
 
     async def _analyze(
         self,

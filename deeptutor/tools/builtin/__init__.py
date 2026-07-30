@@ -6,6 +6,7 @@ import asyncio
 import json
 import logging
 import sys
+import uuid
 from typing import Any
 
 from deeptutor.core.tool_protocol import BaseTool, ToolDefinition, ToolParameter, ToolResult
@@ -602,9 +603,10 @@ class GeoGebraAnalysisTool(_PromptHintsMixin, BaseTool):
         return ToolDefinition(
             name="geogebra_analysis",
             description=(
-                "Analyze a math problem image, detect geometric elements, "
-                "and generate validated GeoGebra commands for visualization. "
-                "Requires an attached image."
+                "Generate validated GeoGebra commands to visualize a geometry "
+                "concept or math problem. Accepts an optional attached image "
+                "(preferred for precise reconstruction); if no image is given, "
+                "it builds a basic schematic from the question text."
             ),
             parameters=[
                 ToolParameter(
@@ -632,19 +634,6 @@ class GeoGebraAnalysisTool(_PromptHintsMixin, BaseTool):
         # chat pipeline; never accept an LLM-provided override.
         language = kwargs.get("language") or "zh"
 
-        if not image_base64:
-            return ToolResult(
-                content="No image provided. This tool requires an image attachment.",
-                success=False,
-            )
-
-        # VisionSolverAgent expects a fully-qualified ``data:image/<fmt>;base64,…``
-        # URI for the OpenAI image_url shape. The chat pipeline injects this
-        # form already, but defensively normalize for any other caller (or a
-        # hallucinated kwarg) so we don't silently fall through 4 empty stages.
-        if not image_base64.startswith("data:"):
-            image_base64 = f"data:image/png;base64,{image_base64}"
-
         llm_config = get_llm_config()
         agent = VisionSolverAgent(
             api_key=llm_config.api_key,
@@ -652,19 +641,32 @@ class GeoGebraAnalysisTool(_PromptHintsMixin, BaseTool):
             language=language,
         )
 
+        # Normalize a bare base64 blob into a data URI for the vision path; the
+        # chat pipeline already injects the data: form, but defensively accept
+        # either. When no image is present the agent falls back to text-only
+        # generation from the question text.
+        if image_base64 and not image_base64.startswith("data:"):
+            image_base64 = f"data:image/png;base64,{image_base64}"
+
         try:
             result = await agent.process(
                 question_text=question,
-                image_base64=image_base64,
+                image_base64=image_base64 or None,
             )
         except Exception as exc:
             logger.exception("GeoGebra analysis pipeline failed")
             return ToolResult(content=f"Analysis pipeline error: {exc}", success=False)
 
-        if not result.get("has_image"):
-            return ToolResult(content="No image was processed.", success=False)
-
         final_commands = result.get("final_ggb_commands", [])
+        if not final_commands:
+            # Neither vision nor text mode produced a usable figure.
+            if result.get("has_image"):
+                return ToolResult(content="No geometry could be extracted from the image.", success=False)
+            return ToolResult(
+                content="无法从当前描述生成几何图形。请补充更具体的几何要素描述，或上传一张配图。",
+                success=False,
+            )
+
         ggb_block = agent.format_ggb_block(final_commands)
 
         analysis = result.get("analysis_output") or {}
@@ -689,17 +691,167 @@ class GeoGebraAnalysisTool(_PromptHintsMixin, BaseTool):
         content_parts: list[str] = []
         if summary_parts:
             content_parts.append("\n".join(summary_parts))
+        if not result.get("has_image"):
+            content_parts.append(
+                "（以下图形为根据文字描述生成的基础示意图，非精确还原；如需精确图形请上传配图。）"
+            )
         content_parts.append(ggb_block or "(No GeoGebra commands generated.)")
 
         return ToolResult(
             content="\n\n".join(content_parts),
             metadata={
-                "has_image": True,
+                "has_image": bool(result.get("has_image")),
+                "text_only": not bool(result.get("has_image")),
                 "commands_count": len(final_commands),
                 "final_ggb_commands": final_commands,
                 "image_is_reference": result.get("image_is_reference", False),
                 "constraints_count": len(constraints),
                 "relations_count": len(relations),
+            },
+        )
+
+
+class MathAnimationTool(_PromptHintsMixin, BaseTool):
+    """Generate a math animation (Manim) for a concept or problem description.
+
+    This is the chat-accessible bridge to the ``math_animator`` deep-mode
+    capability: instead of switching the whole session into animation mode, the
+    LLM can invoke this tool inline to produce a short video or storyboard image
+    that illustrates the current concept — directly serving the "coach" goal of
+    making abstract math visible.
+    """
+
+    def get_definition(self) -> ToolDefinition:
+        return ToolDefinition(
+            name="math_animation",
+            description=(
+                "Generate a math animation or storyboard image (via Manim) that "
+                "visually illustrates a math concept or problem. Use it to make "
+                "abstract ideas concrete — e.g. animate the proof of the "
+                "Pythagorean theorem, function transformations, or limit processes."
+            ),
+            parameters=[
+                ToolParameter(
+                    name="description",
+                    type="string",
+                    description="What to animate, in natural language (the concept or problem).",
+                ),
+                ToolParameter(
+                    name="output_mode",
+                    type="string",
+                    description="\"video\" (default) or \"image\" (a single storyboard frame).",
+                    required=False,
+                    default="video",
+                ),
+                ToolParameter(
+                    name="quality",
+                    type="string",
+                    description="Render quality: \"low\" | \"medium\" | \"high\".",
+                    required=False,
+                    default="medium",
+                ),
+                ToolParameter(
+                    name="style_hint",
+                    type="string",
+                    description="Optional style note, e.g. \"clean blue-white, minimal\".",
+                    required=False,
+                    default="",
+                ),
+            ],
+        )
+
+    async def execute(self, **kwargs: Any) -> ToolResult:
+        import importlib.util
+
+        description = (kwargs.get("description") or "").strip()
+        if not description:
+            return ToolResult(content="Missing required parameter: description.", success=False)
+
+        if importlib.util.find_spec("manim") is None:
+            return ToolResult(
+                content=(
+                    "math_animation requires the optional `manim` dependency. "
+                    "Install it with `pip install 'deeptutor[math-animator]'`."
+                ),
+                success=False,
+            )
+
+        from deeptutor.agents.math_animator.pipeline import MathAnimatorPipeline
+        from deeptutor.agents.math_animator.request_config import (
+            validate_math_animator_request_config,
+        )
+        from deeptutor.services.llm.config import get_llm_config
+
+        llm_config = get_llm_config()
+        request_config = validate_math_animator_request_config(
+            {
+                "output_mode": kwargs.get("output_mode") or "video",
+                "quality": kwargs.get("quality") or "medium",
+                "style_hint": kwargs.get("style_hint") or "",
+            }
+        )
+
+        # Injected by the chat pipeline via _augment_tool_kwargs.
+        turn_id = kwargs.get("turn_id") or str(uuid.uuid4())
+        language = kwargs.get("language") or "zh"
+        attachments = kwargs.get("attachments") or []
+
+        pipeline = MathAnimatorPipeline(
+            api_key=llm_config.api_key,
+            base_url=llm_config.base_url,
+            api_version=getattr(llm_config, "api_version", None),
+            language=language,
+        )
+
+        try:
+            result = await pipeline.run(
+                turn_id=turn_id,
+                user_input=description,
+                history_context=str(kwargs.get("history_context") or ""),
+                request_config=request_config,
+                attachments=attachments,
+            )
+        except Exception as exc:
+            logger.exception("Math animation pipeline failed")
+            return ToolResult(content=f"Animation pipeline error: {exc}", success=False)
+
+        render_result = result.get("render_result")
+        summary = result.get("summary")
+        summary_text = getattr(summary, "summary_text", "") if summary else ""
+
+        artifacts = getattr(render_result, "artifacts", []) if render_result else []
+        artifact_entries = [
+            {
+                "url": getattr(a, "url", ""),
+                "type": getattr(a, "type", ""),
+                "filename": getattr(a, "filename", ""),
+                "label": getattr(a, "label", ""),
+                "content_type": getattr(a, "content_type", ""),
+            }
+            for a in artifacts
+        ]
+        primary = artifact_entries[0] if artifact_entries else None
+
+        content_lines: list[str] = []
+        if summary_text:
+            content_lines.append(summary_text)
+        if primary:
+            content_lines.append("")
+            content_lines.append(f"🎬 动画已生成：{primary['url']}")
+            if len(artifact_entries) > 1:
+                for extra in artifact_entries[1:]:
+                    content_lines.append(f"附加产物：{extra['url']}")
+        else:
+            content_lines.append("(未生成可见产物，请调整描述后重试。)")
+
+        return ToolResult(
+            content="\n".join(content_lines),
+            metadata={
+                "artifacts": artifact_entries,
+                "output_mode": request_config.output_mode,
+                "quality": request_config.quality,
+                "code": result.get("code", ""),
+                "summary": summary.model_dump() if summary else None,
             },
         )
 
@@ -1928,6 +2080,7 @@ USER_TOGGLEABLE_TOOL_NAMES: tuple[str, ...] = (
     "paper_search",
     "reason",
     "geogebra_analysis",
+    "math_animation",
     "imagegen",
     "videogen",
 )

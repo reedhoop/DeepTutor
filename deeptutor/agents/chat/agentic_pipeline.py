@@ -1264,6 +1264,14 @@ class AgenticChatPipeline:
                     mime = getattr(first_image, "mime_type", "") or "image/png"
                     kwargs["image_base64"] = f"data:{mime};base64,{raw_b64}"
             kwargs["language"] = context.language or "zh"
+        elif tool_name == "math_animation":
+            # Bridge to the math_animator deep-mode capability: surface the
+            # session turn id (so rendered artifacts land in the right task
+            # workspace and get a /api/outputs URL) plus language/attachments.
+            kwargs.setdefault("turn_id", str(context.metadata.get("turn_id", "") or ""))
+            kwargs.setdefault("language", context.language or "zh")
+            if not kwargs.get("attachments"):
+                kwargs["attachments"] = list(context.attachments or [])
         for cap in self._active_loop_capabilities(context):
             kwargs = cap.augment_kwargs(tool_name, kwargs, context)
         return kwargs

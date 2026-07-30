@@ -68,6 +68,7 @@ BUILTIN_TOOL_SPECS: tuple[BuiltinToolSpec, ...] = (
             ("cron", "CronTool"),
             ("geogebra_analysis", "GeoGebraAnalysisTool"),
             ("curriculum_knowledge", "CurriculumKnowledgeTool"),
+            ("math_animation", "MathAnimationTool"),
         ),
     ),
     BuiltinToolSpec("exec", "deeptutor.tools.exec_tool:ExecTool"),

@@ -1,0 +1,6 @@
+short_description: "Generate a math animation or storyboard image with Manim to visualize an abstract concept."
+when_to_use: "Proactively call when explaining or practicing a math concept that benefits from motion (e.g. Pythagorean theorem proof, function transformations, limit processes, geometric constructions), turning text into a watchable animation. Also call when the user explicitly asks to 'see an animation / demo'."
+input_format: '{"description": "<the concept or problem to animate, in natural language>", "output_mode": "video|image", "quality": "low|medium|high", "style_hint": "<optional style note>"}'
+guideline: "After calling, present the returned animation URL verbatim (a video link starting with /api/outputs/) and briefly state what the animation shows. Do not narrate every frame. Skip the call for purely verbal/rote concepts."
+note: "Rendering relies on the optional manim environment and may take 15-60s on first generation; videos are returned as /api/outputs/ links the frontend can play directly."
+phase: "exploration"
