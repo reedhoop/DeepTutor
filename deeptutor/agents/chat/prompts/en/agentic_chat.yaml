@@ -74,6 +74,15 @@ k12_teaching_template: |-
   > shifts/scales, limit approximation). The goal is for the reader to **know
   > about** and **actually receive** an interactive figure / animation.
 
+  **⚠️ Rendering hard rule (must follow)**: after you call `geogebra_analysis`,
+  the tool result contains a ```` ```ggbscript[…] ```` fenced block — you **must**
+  copy that block (fence markers included) **verbatim into your final answer** so
+  the frontend renders an interactive, draggable GeoGebra figure inline in the
+  chat. **Never** replace it with a link like "paste into GeoGebra online" or a
+  plain-text description, and never leave out the code block — otherwise the
+  figure will not appear. If multiple ggbscript blocks are returned, include the
+  main one in the answer.
+
   ### 3️⃣ Learning Path (recommended)
   Show where this concept sits in the curriculum as an ordered list:
   > 1. ✅ Prerequisite concept — brief description
