@@ -53,10 +53,10 @@ const LazyCodeBlock = dynamic(() => import("./RichCodeBlock"), {
   loading: () => null,
 });
 
-const GeogebraOpenCTA = dynamic(
-  () => import("@/components/common/GeogebraOpenCTA"),
-  { ssr: false, loading: () => null },
-);
+const InlineGeogebra = dynamic(() => import("@/components/Geogebra"), {
+  ssr: false,
+  loading: () => null,
+});
 const KgOpenCTA = dynamic(
   () => import("@/components/common/KgOpenCTA"),
   { ssr: false, loading: () => null },
@@ -461,22 +461,22 @@ export default function RichMarkdownRenderer({
       }
 
       if (lang === "ggbscript" && enableCode) {
-        // Backend emits ```ggbscript[page_id;title]. We don't render the
-        // applet inline anymore — the chat answer stays text-only and we
-        // surface a CTA card. Clicking it opens (or focuses) a GeoGebra
-        // tab inside the right-hand SessionViewerPanel where the user can
-        // interact with the figure without the chat scroll fighting it.
+        // Backend emits ```ggbscript[page_id;title]. Render the interactive
+        // GeoGebra applet inline in the chat answer: the Geogebra component
+        // loads the engine from geogebra.org's CDN and drives it via
+        // evalCommand, so the figure sits right where the explanation is
+        // instead of behind a click-through CTA.
         const metaMatch = /language-ggbscript\[([^;\]]*)(?:;([^\]]*))?\]/.exec(
           blockClassName || "",
         );
-        const ggbPayloadId = metaMatch?.[1]?.trim() || undefined;
         const ggbTitle = metaMatch?.[2]?.trim() || undefined;
         return (
           <div {...lineProps}>
-            <GeogebraOpenCTA
+            <InlineGeogebra
               script={raw}
-              payloadId={ggbPayloadId}
               title={ggbTitle}
+              width={560}
+              height={420}
               className={gap}
             />
           </div>
