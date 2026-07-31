@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import asyncio
+import importlib.util
 import json
 import logging
 import sys
@@ -2074,15 +2075,24 @@ COMING_SOON_TOOL_NAMES: tuple[str, ...] = tuple(
 # automatically by the chat pipeline under per-tool context gates and is
 # locked-on from the user's perspective. Ordering here is the canonical
 # display order for the settings page.
-USER_TOGGLEABLE_TOOL_NAMES: tuple[str, ...] = (
+# math_animation is only user-toggleable when manim is installed (its spec is
+# always registered, but the class's execute() guards on the optional
+# dependency). Build the tuple so it stays adjacent to geogebra_analysis in
+# the settings UI order.
+_manim_available = importlib.util.find_spec("manim") is not None
+_TOGGLEABLE_BASE: tuple[str, ...] = (
     "brainstorm",
     "web_search",
     "paper_search",
     "reason",
     "geogebra_analysis",
-    "math_animation",
     "imagegen",
     "videogen",
+)
+USER_TOGGLEABLE_TOOL_NAMES: tuple[str, ...] = (
+    *_TOGGLEABLE_BASE[:5],
+    *(["math_animation"] if _manim_available else ()),
+    *_TOGGLEABLE_BASE[5:],
 )
 
 # Built-in tools the chat agent loop auto-mounts under context gates (a KB

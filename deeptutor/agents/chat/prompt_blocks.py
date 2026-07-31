@@ -71,9 +71,16 @@ class ChatPromptAssembler:
             PromptBlock("general", self._general_block(context)),
             PromptBlock("runtime_context", self._runtime_context_block()),
             PromptBlock("runtime_policy", self._t("runtime_policy")),
-            PromptBlock("k12_teaching_template", self._t("k12_teaching_template")),
-            PromptBlock("loop", self._t("loop.system")),
         ]
+        # The K12 teaching template is only meaningful when the K12 curriculum
+        # knowledge graph is actually available — skip it otherwise so we don't
+        # burn ~1.2k tokens on every turn for servers/users without the course KB.
+        from deeptutor.services.kgraph import is_available as curriculum_kb_available
+        if curriculum_kb_available():
+            blocks.append(
+                PromptBlock("k12_teaching_template", self._t("k12_teaching_template"))
+            )
+        blocks.append(PromptBlock("loop", self._t("loop.system")))
         # Capability playbooks sit high so they frame the whole turn when active;
         # empty blocks are omitted by ``system_prompt``'s join.
         blocks.extend(capability_blocks or [])
@@ -207,17 +214,6 @@ class ChatPromptAssembler:
                 "The round budget ran out before every gap was closed. Stop "
                 "calling tools and answer now with what you have, noting "
                 "briefly what remains uncertain."
-            ),
-        )
-
-    def settle_exhausted_instruction(self) -> str:
-        return self._t(
-            "loop.settle_exhausted",
-            default=(
-                "The exploration round budget is exhausted. Do not start new "
-                "searches or optional work. Complete only protocol steps, state "
-                "transitions, or user interactions already made necessary by "
-                "the work above, then provide the final user-facing answer."
             ),
         )
 

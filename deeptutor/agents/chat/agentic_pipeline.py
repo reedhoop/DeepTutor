@@ -441,9 +441,6 @@ class AgenticChatPipeline:
     def _finish_exhausted_instruction(self) -> str:
         return self._prompt_assembler.finish_exhausted_instruction()
 
-    def _settle_exhausted_instruction(self) -> str:
-        return self._prompt_assembler.settle_exhausted_instruction()
-
     def _tool_manifest(self, enabled_tools: list[str]) -> str:
         names = list(enabled_tools)
         if self._deferred_loader is not None:
@@ -1445,10 +1442,11 @@ class AgenticChatPipeline:
         if strategy is None or not strategy.available():
             return "", []
         try:
-            # subject=None for now: a subject hint (e.g. from the session's
-            # course context or recent messages) can be threaded here later to
-            # disambiguate cross-subject terms like 函数 (P2-2 follow-up).
-            seed = await strategy.build_seed(query, KB_SEED_CHARS_PER_KB, subject=None)
+            # Best-effort subject hint disambiguates cross-subject terms
+            # (e.g. 函数 in math vs physics). Falls back to None (cross-subject
+            # matching) when the query carries no hint.
+            subject_hint = self._infer_subject_hint(query)
+            seed = await strategy.build_seed(query, KB_SEED_CHARS_PER_KB, subject=subject_hint)
         except Exception as exc:  # noqa: BLE001
             logger.warning("course-KB seed strategy failed: %s", exc)
             return "", []
@@ -1483,6 +1481,30 @@ class AgenticChatPipeline:
             concepts,
         )
         return section, sources
+
+    # Best-effort subject hint for disambiguating cross-subject course-KB seeds
+    # (e.g. 函数 means different things in math vs physics). When the query
+    # carries no hint we return None and let the strategy match across all
+    # subjects. Pure keyword heuristic — safe to yield None when unsure.
+    _SUBJECT_HINT_KEYWORDS: dict[str, list[str]] = {
+        "math": ["数学", "函数", "方程", "几何", "三角", "代数", "概率", "微积分", "导数", "积分", "向量", "矩阵", "集合", "不等式", "数列", "角度", "圆形", "相似", "勾股定理"],
+        "physics": ["力学", "电场", "磁场", "电路", "运动", "能量", "牛顿", "波动", "光学", "声学", "热学", "量子", "原子物理", "电荷", "电势"],
+        "chemistry": ["化学", "元素", "分子", "反应", "酸碱", "氧化还原", "有机物", "原子", "化合价", "化学键", "溶液", "离子"],
+        "biology": ["生物", "细胞", "基因", "DNA", "进化", "生态", "蛋白质", "酶", "神经", "光合作用", "遗传", "种群"],
+    }
+
+    def _infer_subject_hint(self, query: str) -> str | None:
+        q = (query or "").lower()
+        for subject, keywords in self._SUBJECT_HINT_KEYWORDS.items():
+            # Guard: skip single-char keywords. A lone char (e.g. "数") matches as
+            # a substring far too easily across subjects ("化学数据表" contains
+            # "数"), wasting a seed resolve. The lists below keep only >=2-char
+            # keywords, but this stays as a defensive backstop so any future
+            # single-char addition can never silently false-match. Downstream
+            # is_confident gating still rejects weak cross-subject hits.
+            if any(len(kw) >= 2 and kw in q for kw in keywords):
+                return subject
+        return None
 
     @staticmethod
     def _course_kb_seed_blocked_by_capability(context: UnifiedContext) -> bool:

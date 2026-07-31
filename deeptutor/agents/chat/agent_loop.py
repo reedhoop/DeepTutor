@@ -83,6 +83,14 @@ _THINK_OPEN_RE = re.compile(r"<\s*think(?:ing)?\b[^>]*>", re.IGNORECASE)
 _THINK_CLOSE_RE = re.compile(r"<\s*/\s*think(?:ing)?\s*>", re.IGNORECASE)
 # Longest partial tag worth waiting a chunk for (e.g. "</thinking" + slack).
 _TAG_HOLDBACK_CHARS = 24
+# A full ```ggbscript[page_id;title] ... ``` (or ```geogebra[...]) fence block —
+# the programmatic GeoGebra surface produced by vision/solve tools. The loop
+# harvests these from tool results and re-injects them into the final answer if
+# the model dropped them (X-3 fallback).
+_GGBSCRIPT_BLOCK_RE = re.compile(
+    r"```\s*(?:ggbscript|geogebra)\s*\[[^\]]*\]\s*\n.*?\n?```",
+    re.DOTALL | re.IGNORECASE,
+)
 
 
 def _finish_was_truncated(reason: str | None) -> bool:
@@ -239,6 +247,9 @@ class AgentLoop:
         self._last_request: LLMRequestSnapshot | None = None
         self.source = pipeline.event_source
         self.stage = pipeline.event_stage
+        # X-3: ggbscript blocks surfaced by tool results this turn, pending
+        # re-injection into the final answer if the model drops them.
+        self._pending_ggbscript_blocks: list[str] = []
 
     async def run(self) -> dict[str, Any]:
         state = AgentLoopState()
@@ -536,6 +547,7 @@ class AgentLoop:
             )
             state.tool_steps += 1
             state.sources.extend(dispatch.sources)
+            self._collect_ggbscript(dispatch)
             messages.extend(dispatch.tool_messages)
 
             if dispatch.pause:
@@ -687,6 +699,28 @@ class AgentLoop:
             ),
         )
 
+    def _collect_ggbscript(self, dispatch: DispatchOutcome) -> None:
+        """Harvest any ```ggbscript[…] blocks surfaced by this dispatch."""
+        for msg in dispatch.tool_messages:
+            if not isinstance(msg, dict):
+                continue
+            content = msg.get("content")
+            if not isinstance(content, str):
+                continue
+            for block in _GGBSCRIPT_BLOCK_RE.findall(content):
+                if block not in self._pending_ggbscript_blocks:
+                    self._pending_ggbscript_blocks.append(block)
+
+    def _missing_ggbscript(self, text: str) -> list[str]:
+        return [b for b in self._pending_ggbscript_blocks if b not in text]
+
+    def _append_ggbscript_to_text(self, text: str) -> str:
+        """Return *text* with any pending ggbscript blocks it lacks appended."""
+        missing = self._missing_ggbscript(text)
+        if not missing:
+            return text
+        return text + "\n\n" + "\n\n".join(missing)
+
     async def _finalize_finish(
         self,
         raw_text: str,
@@ -715,6 +749,12 @@ class AgentLoop:
                 ),
             )
             await self.pipeline._emit_protocol_fallback_final_response(self.stream, final_text)
+        # X-3: programmatic ggbscript fallback. The model's answer may have
+        # dropped the ```ggbscript[…] block a tool returned (despite the
+        # fence living in its own tool result). Re-append any pending block the
+        # final text lacks so the figure still reaches the frontend. Pure text
+        # transform: idempotent (blocks already present are skipped).
+        final_text = self._append_ggbscript_to_text(final_text)
         return LoopOutcome(
             final_text=final_text,
             completed=True,
