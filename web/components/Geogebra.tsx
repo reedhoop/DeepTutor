@@ -8,8 +8,15 @@ interface GeogebraProps {
   payload?: GeogebraPayload;
   title?: string;
   className?: string;
-  width?: number;
+  /** Applet width. Accepts a number (px) or a CSS string like "100%".
+   *  Defaults to "100%" so the figure fills its (max-width-capped) container. */
+  width?: number | string;
   height?: number;
+  /** Max width of the figure card. When omitted, the card uses the Tailwind
+   *  `max-w-[560px]` class, so a caller can widen it via `className="max-w-full"`.
+   *  When set, it is applied as an inline style (e.g. "100%" / "none") that
+   *  always wins — use this for full-bleed previews. A number is treated as px. */
+  maxWidth?: number | string;
 }
 
 export interface GeogebraPayload {
@@ -95,8 +102,9 @@ const Geogebra: React.FC<GeogebraProps> = ({
   payload,
   title,
   className = "",
-  width = 760,
-  height = 480,
+  width = "100%",
+  height = 420,
+  maxWidth,
 }) => {
   const { t } = useTranslation();
   const containerRef = useRef<HTMLDivElement | null>(null);
@@ -130,11 +138,25 @@ const Geogebra: React.FC<GeogebraProps> = ({
         container.id = containerIdRef.current;
         container.innerHTML = "";
 
+        // Resolve dimensions to concrete pixel values.  GeoGebra's internal
+        // GWT layout (SplitLayoutPanel) collapses to height 0 when it
+        // receives a percentage width or when the parent CSS context uses
+        // flex / overflow:hidden.  Passing explicit pixels and setting the
+        // same pixels on the container div gives GGB a definite layout box.
+        const w = typeof width === "number" ? width : (typeof width === "string" && width.endsWith("%")
+          ? Math.max(300, container.parentElement?.offsetWidth || 558)
+          : parseInt(String(width), 10) || 558);
+        const h = typeof height === "number" ? height : (parseInt(String(height), 10) || 420);
+
+        // Apply definite dimensions directly on the injection target so GGB's
+        // layout engine can measure a non-zero box.
+        Object.assign(container.style, { width: `${w}px`, height: `${h}px`, display: "block" });
+
         const applet = new window.GGBApplet(
           {
             appName: payload?.app_name || "geometry",
-            width,
-            height,
+            width: w,
+            height: h,
             showToolBar: false,
             showAlgebraInput: false,
             showMenuBar: false,
@@ -172,6 +194,24 @@ const Geogebra: React.FC<GeogebraProps> = ({
                 }
               }
               setLoading(false);
+              // Schedule a deferred size-nudge: GGB's internal layout may
+              // still be computing when appletOnLoad fires.  A delayed
+              // setSize / recalculateEnvironments often unstucks a
+              // collapsed SplitLayoutPanel.
+              requestAnimationFrame(() => {
+                if (cancelled) return;
+                try {
+                  const a = applet as unknown as Record<string, (...args: unknown[]) => unknown>;
+                  if (typeof a.setSize === "function") {
+                    a.setSize(w, h);
+                  }
+                  if (typeof a.recalculateEnvironments === "function") {
+                    a.recalculateEnvironments();
+                  }
+                } catch {
+                  /* best-effort */
+                }
+              });
             },
           },
           true,
@@ -196,9 +236,14 @@ const Geogebra: React.FC<GeogebraProps> = ({
     };
   }, [script, payload, width, height]);
 
+  const maxWidthStyle: React.CSSProperties | undefined = maxWidth != null
+    ? { maxWidth: typeof maxWidth === "number" ? `${maxWidth}px` : maxWidth }
+    : undefined;
+
   return (
     <div
-      className={`my-4 overflow-hidden rounded-xl border border-[var(--border)] bg-[var(--card)] ${className}`}
+      style={maxWidthStyle}
+      className={`my-4 mx-auto w-full max-w-[560px] overflow-hidden rounded-xl border border-[var(--border)] bg-[var(--card)] ${className}`}
     >
       {title ? (
         <div className="border-b border-[var(--border)] px-3 py-2 text-sm font-medium text-[var(--foreground)]">

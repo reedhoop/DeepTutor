@@ -98,6 +98,12 @@ COMMON_MISTAKES = [
     (r"^\s*#.*$", ""),
 ]
 
+# Commands that look valid but are NOT supported by GeoGebra — strip with warning.
+INVALID_COMMANDS = {
+    "SetFontSize",       # GeoGebra has no SetFontSize; text size is implicit or via SetCaption
+    "SetFillColor",      # Does NOT exist! Use SetColor[obj, "Red"] for fill color + SetFilling[obj, 0.5] for opacity
+}
+
 # Patterns for detecting parentheses that should be brackets
 PAREN_TO_BRACKET_PATTERN = re.compile(
     r"\b(" + "|".join(COMMANDS_WITH_BRACKETS) + r")\s*\(([^()]*(?:\([^()]*\)[^()]*)*)\)",
@@ -206,6 +212,16 @@ def validate_command(command: str) -> ValidationResult:
     _, warnings = validate_equation_format(result.fixed)
     result.warnings.extend(warnings)
 
+    # Strip known-invalid commands (look valid syntactically but GGB rejects them)
+    cmd_name = result.fixed.split("[", 1)[0].strip() if "[" in result.fixed else result.fixed.split("(", 1)[0].strip()
+    if cmd_name in INVALID_COMMANDS:
+        result.warnings.append(
+            f"Removed unsupported command '{cmd_name}' "
+            f"(GeoGebra does not recognize this command)"
+        )
+        result.fixed = ""
+        result.is_valid = False
+
     # Check if anything was fixed
     if result.original != result.fixed:
         result.is_valid = False
@@ -276,6 +292,7 @@ def get_command_help(command_name: str) -> str | None:
         "Intersect": "Intersect[obj1, obj2] (all intersections) or Intersect[obj1, obj2, n] (nth intersection)",
         "Polygon": "Polygon[A, B, C, ...] or Polygon[A, B, n] (regular n-gon)",
         "SetColor": 'SetColor[obj, r, g, b] (RGB 0-255) or SetColor[obj, "Red"]',
+        "SetFilling": "SetFilling[obj, alpha] (0=transparent, 1=opaque); required for polygon fills to show; use SetColor[polygon, 'Red'] to set fill color",
         "SetCoordSystem": "SetCoordSystem[xMin, xMax, yMin, yMax]",
         "If": "If[condition, then_value, else_value]",
         "Derivative": "Derivative[f] or Derivative[f, n] (nth derivative)",

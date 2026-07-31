@@ -53,10 +53,6 @@ import {
   useQuizFollowupController,
 } from "@/context/QuizFollowupContext";
 import {
-  GeogebraTabProvider,
-  useGeogebraTabOpener,
-} from "@/context/GeogebraTabContext";
-import {
   KgTabProvider,
   useKgTabOpener,
 } from "@/context/KgTabContext"; // === K12-KGraph: KG browser tab — local addition, NOT in upstream (DeepTutor fork only) ===
@@ -100,7 +96,7 @@ import {
 } from "@/lib/research-types";
 import { listKnowledgeBases } from "@/features/knowledge/api/catalog";
 import { getSubagentSettings } from "@/lib/subagents-api";
-import { useLLMOptions } from "@/hooks/useLLMOptions";
+import { listLLMOptions, type LLMOption } from "@/lib/llm-options";
 import {
   getEnabledOptionalTools,
   invalidateEnabledOptionalToolsCache,
@@ -393,7 +389,6 @@ export default function ChatPage() {
     setCapability,
     setKBs,
     setLLMSelection,
-    setMasteryPathId,
     setPersonaSelection,
     sendMessage,
     cancelStreamingTurn,
@@ -422,14 +417,15 @@ export default function ChatPage() {
         : new URLSearchParams(window.location.search).get("agent");
   }
   const agentPreselectDoneRef = useRef(false);
-  const {
-    options: llmOptions,
-    activeDefault: activeLLMDefault,
-    loading: llmOptionsLoading,
-    error: llmOptionsError,
-    refresh: refreshLLMOptions,
-  } = useLLMOptions();
-  // User-toggleable tools the user has enabled in /settings#tools. This is
+  const [llmOptions, setLLMOptions] = useState<LLMOption[]>([]);
+  const [activeLLMDefault, setActiveLLMDefault] = useState<LLMSelection | null>(
+    null,
+  );
+  const [llmOptionsLoading, setLLMOptionsLoading] = useState(true);
+  const [llmOptionsError, setLLMOptionsError] = useState(false);
+  const [capabilityConfigs, setCapabilityConfigs] =
+    useState<CapabilityPlaygroundConfigMap>({});
+  // User-toggleable tools the user has enabled in /settings/tools. This is
   // the single source of truth for which optional tools the chat agent may
   // use; the chat composer no longer exposes a picker.
   const [userEnabledTools, setUserEnabledTools] = useState<string[] | null>(
@@ -1062,26 +1058,6 @@ export default function ChatPage() {
           if (!ctrl.signal.aborted) {
             loadAbortRef.current = null;
             setSessionLoading(false);
-            // Settle at the bottom once the transcript is really laid out.
-            // The layout-effect pin runs as the messages first render, when
-            // lazily-loaded images (ChatMessages `loading="lazy"`) and the
-            // `next/dynamic` capability viewers have not contributed their
-            // heights yet, so its `scrollHeight` is short and the viewport
-            // stops above the true bottom. One frame later those are in.
-            //
-            // Only on a cold open. A cached session is already painted at
-            // the bottom and this resolves after a background revalidate —
-            // re-arming there would yank a reader who had scrolled up.
-            if (!cached) {
-              shouldAutoScrollRef.current = true;
-              requestAnimationFrame(() => {
-                requestAnimationFrame(() => {
-                  // A newer session may have superseded this one while the
-                  // two frames elapsed; that load owns the viewport now.
-                  if (!ctrl.signal.aborted) scrollToBottom("instant");
-                });
-              });
-            }
           }
         })
         .catch(() => {
@@ -1094,13 +1070,7 @@ export default function ChatPage() {
           }
         });
     },
-    [
-      loadSession,
-      navigateToHome,
-      showCachedSession,
-      scrollToBottom,
-      shouldAutoScrollRef,
-    ],
+    [loadSession, navigateToHome, showCachedSession],
   );
 
   // Initial mount — load the session from the URL.
@@ -1196,6 +1166,29 @@ export default function ChatPage() {
     void refreshUserEnabledTools();
   }, [refreshUserEnabledTools]);
 
+  const refreshLLMOptions = useCallback(
+    async (options?: { force?: boolean }) => {
+      setLLMOptionsLoading(true);
+      try {
+        const payload = await listLLMOptions({ force: options?.force });
+        setLLMOptions(payload.options);
+        setActiveLLMDefault(payload.active);
+        setLLMOptionsError(false);
+      } catch {
+        setLLMOptionsError(true);
+        setLLMOptions([]);
+        setActiveLLMDefault(null);
+      } finally {
+        setLLMOptionsLoading(false);
+      }
+    },
+    [],
+  );
+
+  useEffect(() => {
+    void refreshLLMOptions();
+  }, [refreshLLMOptions]);
+
   useEffect(() => {
     if (state.llmSelection || !activeLLMDefault) return;
     setLLMSelection(activeLLMDefault);
@@ -1205,8 +1198,8 @@ export default function ChatPage() {
     if (typeof window === "undefined") return;
     const refresh = () => {
       void refreshKnowledgeBases({ force: true });
-      void refreshLLMOptions({ force: true, background: true });
-      // Picks up toggles the user changed in another tab (/settings#tools).
+      void refreshLLMOptions({ force: true });
+      // Picks up toggles the user changed in another tab (/settings/tools).
       invalidateEnabledOptionalToolsCache();
       void refreshUserEnabledTools({ force: true });
     };
@@ -1229,14 +1222,12 @@ export default function ChatPage() {
     setCapabilityConfigs(loadCapabilityPlaygroundConfigs());
   }, []);
 
-  /* URL query params (capability, tool, persistent mastery path) */
+  /* URL query params (capability, tool) */
   useEffect(() => {
     if (typeof window === "undefined") return;
     const p = new URLSearchParams(window.location.search);
     const qc = p.get("capability");
     const qt = p.getAll("tool");
-    const masteryPathId = p.get("mastery_path_id")?.trim();
-    if (masteryPathId) setMasteryPathId(masteryPathId);
     if (qc !== null) handleSelectCapability(qc || "");
     else if (qt.length) {
       const valid = qt.filter((t): t is ToolName =>
@@ -2019,12 +2010,10 @@ export default function ChatPage() {
 
   return (
     <QuizFollowupProvider>
-      <GeogebraTabProvider>
-        {/* === K12-KGraph: KG browser tab (local addition, not in upstream) === */}
-        <KgTabProvider>
-          <QuizFollowupBridge viewerPanelRef={viewerPanelRef} />
-          <GeogebraTabBridge viewerPanelRef={viewerPanelRef} />
-          <KgTabBridge viewerPanelRef={viewerPanelRef} />
+      {/* === K12-KGraph: KG browser tab (local addition, not in upstream) === */}
+      <KgTabProvider>
+        <QuizFollowupBridge viewerPanelRef={viewerPanelRef} />
+        <KgTabBridge viewerPanelRef={viewerPanelRef} />
         <SubagentTabWatcher
           messages={state.messages}
           viewerPanelRef={viewerPanelRef}
@@ -2340,8 +2329,7 @@ export default function ChatPage() {
             onAutoOpen={() => setViewerOpen(true)}
           />
         </div>
-        </KgTabProvider>
-      </GeogebraTabProvider>
+      </KgTabProvider>
     </QuizFollowupProvider>
   );
 }
@@ -2368,28 +2356,7 @@ function QuizFollowupBridge({
 }
 
 /**
- * Same shape as QuizFollowupBridge, for the GeoGebra-tab opener exposed
- * to in-message CTAs (the ``ggbscript`` markdown fence becomes a card
- * that calls ``controller.openTab(...)`` here).
- */
-function GeogebraTabBridge({
-  viewerPanelRef,
-}: {
-  viewerPanelRef: React.MutableRefObject<SessionViewerPanelHandle | null>;
-}) {
-  const controller = useGeogebraTabOpener();
-  useEffect(() => {
-    if (!controller) return;
-    controller.setOpenHandler((payload) => {
-      viewerPanelRef.current?.openGeogebraTab(payload);
-    });
-    return () => controller.setOpenHandler(null);
-  }, [controller, viewerPanelRef]);
-  return null;
-}
-
-/**
- * Same shape as GeogebraTabBridge, for the K12-KGraph browser tab opener
+ * Same shape as QuizFollowupBridge, for the K12-KGraph browser tab opener
  * exposed to in-message kgraph CTAs (the fence card calls
  * controller.openTab(...) here).
  */

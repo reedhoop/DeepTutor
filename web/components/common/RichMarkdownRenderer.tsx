@@ -475,7 +475,7 @@ export default function RichMarkdownRenderer({
             <InlineGeogebra
               script={raw}
               title={ggbTitle}
-              width={560}
+              width="100%"
               height={420}
               className={gap}
             />

@@ -14,38 +14,84 @@ import { formatTurnDuration, getTurnDurationSeconds } from "@/lib/trace-timing";
 import { describeProviderTool, type ToolProvider } from "@/lib/trace-tools";
 import type { StreamEvent } from "@/features/chat/model/protocol";
 import {
-  ActivityDetailGrid,
-  ActivityDivider,
-  ActivityHeader,
-  ActivityRow,
-  ActivityStack,
-  argumentRows,
-  type ActivityState,
-  type DetailRow,
-} from "@/components/activity";
-import { MODE_SPEED, MODE_TO_ORB } from "./ActivityOrb";
-import type {
-  ResearchStageCard,
-  ResearchStageId,
-  TraceDisplayItem,
-  TraceItem,
-  TraceMetadata,
-} from "./model";
-import {
-  getCallProvider,
-  getLatestToolProgress,
-  getToolProvider,
-  getTraceCallKind,
-  getTraceGroup,
-  getTraceMeta,
-  getTraceRole,
-  groupTraceEvents,
-  hasRenderableCallTrace as selectHasRenderableCallTrace,
-  isChatLoopAnswerContent,
-  isNarrationRound,
-  isTracePending,
-  selectTraceDisplayItems,
-} from "./selectors";
+  describeProviderTool,
+  formatProgressLabel,
+  type ToolProvider,
+} from "@/lib/trace-tools";
+import type { StreamEvent } from "@/lib/unified-ws";
+
+type TraceMetadata = {
+  call_id?: string;
+  phase?: string;
+  label?: string;
+  call_kind?: string;
+  trace_role?: string;
+  trace_group?: string;
+  trace_kind?: string;
+  trace_id?: string;
+  call_state?: string;
+  // Set on the per-round ``call_status`` marker by the chat single loop:
+  // "narration" = a tool-calling round's text (stays in the trace),
+  // "finish"    = the final, tool-less round's text (the bubble answer).
+  // The "finish" marker is the signal that the turn entered its final
+  // answer phase.
+  call_role?: string;
+  // Set by the chat pipeline on the final iteration's reasoning sub-trace.
+  // Marks "this sub-trace's text has been re-emitted as the final-response
+  // CONTENT event in the same turn, so don't render it as a duplicate row."
+  absorbed_into_final?: boolean;
+  step_id?: string;
+  round?: number;
+  query?: string;
+  tool_name?: string;
+  // Which external provider is running, stamped by the tool dispatcher from the
+  // tool object itself. `"mcp"` or `"cli"`; absent for a built-in. Read rather
+  // than parsed out of the tool name: `mcp_<server>_<tool>` is ambiguous the
+  // moment a server's own name contains an underscore.
+  tool_source?: string;
+  tool_provider?: string;
+  // On a `trace_kind="tool_progress"` event: how far along the provider says it
+  // is (0–1), and how long a CLI app has been running.
+  progress_fraction?: number;
+  elapsed_s?: number;
+  block_id?: string;
+  trace_layer?: string;
+  output_mode?: string;
+  quality?: string;
+  sources?: Array<Record<string, unknown>>;
+  // Set by deep_question's QuestionPipeline on per-question content events
+  // (call_kind="quiz_question_emitted"). 0-based; display as 1-based.
+  question_index?: number;
+  total_questions?: number;
+  qa_pair?: Record<string, unknown>;
+  // Set by deep_research so the top-level trace row can show the active
+  // research/reporting sub-state instead of generic reasoning/tool labels.
+  research_status_key?: string;
+  topic_index?: number | string;
+  topic_title?: string;
+  report_part?: string;
+  section_index?: number | string;
+  section_count?: number | string;
+  section_title?: string;
+  // Set on each native event streamed from a connected subagent
+  // (trace_kind="subagent_event"): the channel it came from and which consult.
+  subagent_channel?: string;
+  subagent_kind?: string;
+  subagent_name?: string;
+  consult_index?: number;
+  // Correlates a fill-in tool's start/finish events (e.g. a web search) so the
+  // transcript collapses them into one evolving row.
+  subagent_merge_id?: string;
+};
+
+type ResearchStageId = "understand" | "decompose" | "evidence" | "result";
+
+type ResearchStageCard = {
+  id: ResearchStageId;
+  title: string;
+  hint: string;
+  events: StreamEvent[];
+};
 
 // `title` and `hint` are i18n keys resolved via `t(...)` at render time so the
 // stage banner follows the active UI language instead of being locked to one.
@@ -331,10 +377,11 @@ function describeToolCall(
       return { Icon: FrameMark, verb: t("Animating"), chip: null, mono: false };
     case "curriculum_knowledge": {
       const concept = str(a.concept) || "";
-      const grade = str(a.grade_semester) || str(a.grade) || "";
       const queryType = str(a.query_type) || "";
-      // e.g. "勾股定理（八年级下册）" or just "勾股定理"
-      const chipText = grade ? `${concept}（${grade}）` : concept || null;
+      // The K12 grade/semester badge is rendered from the tool's *source*
+      // payload (which carries grade_semester), not from the call args — the
+      // args never include a grade, so we don't read it here.
+      const chipText = concept || null;
       // Sub-label shows query type when concept is already in chip
       return {
         Icon: KnowledgeMark,
@@ -342,7 +389,6 @@ function describeToolCall(
         chip: chipText,
         mono: false,
         subLabel: queryType || null,
-        gradeBadge: grade || null,
       };
     }
     default:
@@ -476,6 +522,32 @@ function getTraceHeader(
 //   - a FINISH round (the round ended with no tool call) → its text IS the
 //     answer bubble; keep it out of the trace to avoid duplication.
 // The differentiator is the round's own ``call_status`` marker (call_role).
+function isChatLoopAnswerContent(event: StreamEvent): boolean {
+  return (
+    event.type === "content" &&
+    String(getTraceMeta(event).call_kind || "") === "agent_loop_round"
+  );
+}
+
+/**
+ * A chat-loop round whose ``call_status`` marker is tagged ``narration``:
+ * the round produced text and then called a tool, so its text is trace
+ * commentary (it is NOT in the answer bubble). The marker lives on the same
+ * call_id group, so this is decidable per-group without any global state.
+ */
+function isNarrationRound(events: StreamEvent[]): boolean {
+  // Mirror `collectNarrationCallIds` in lib/stream.ts so the trace and the
+  // answer bubble agree on exactly which rounds are narration.
+  return events.some((event) => {
+    const meta = getTraceMeta(event);
+    return (
+      meta.trace_kind === "call_status" &&
+      meta.call_state === "complete" &&
+      meta.call_role === "narration"
+    );
+  });
+}
+
 function getTraceText(
   events: StreamEvent[],
   eventTypes: Array<StreamEvent["type"]>,
@@ -553,17 +625,17 @@ function renderNiceToolArgs(
   if (!rawArgs || typeof rawArgs !== "object") return null;
   const obj = rawArgs as Record<string, unknown>;
 
-  // curriculum_knowledge: render as structured key-value pairs with grade badge
+  // curriculum_knowledge: render as structured key-value pairs. The grade is
+  // surfaced from the tool's *source* payload (which carries grade_semester),
+  // not from these call args, so it is intentionally not listed here.
   if (toolName === "curriculum_knowledge") {
     const fields: { key: string; value: string }[] = [];
     const concept = String(obj.concept ?? "");
     const qt = String(obj.query_type ?? "");
     const subject = String(obj.subject ?? "");
-    const grade = String(obj.grade_semester ?? obj.grade ?? "");
     if (concept) fields.push({ key: "概念", value: concept });
     if (qt) fields.push({ key: "查询类型", value: qt });
     if (subject) fields.push({ key: "学科", value: subject });
-    if (grade) fields.push({ key: "年级", value: grade });
     if (fields.length === 0) return null;
     return (
       <ul className="ml-3 mt-0.5 space-y-0.5 text-[10.5px] leading-[1.5] not-italic">

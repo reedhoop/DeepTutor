@@ -4,7 +4,7 @@
  * KgTabContext — bridges in-message / activity "open in viewer" CTAs to the
  * SessionViewerPanel's imperative ``openKgTab``.
  *
- * Pattern mirrors GeogebraTabContext (but much smaller — no persistent
+ * Pattern mirrors the standard CTA→viewer bridge (but much smaller — no persistent
  * thread state). A CTA (the ```kgraph fence card, or the Activity-home
  * shortcut) calls ``useKgTabOpener()`` and dispatches; the chat page wires
  * the controller's open-handler to the viewer panel ref via ``setOpenHandler``.

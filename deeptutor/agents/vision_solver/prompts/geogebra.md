@@ -41,7 +41,25 @@
 **圆锥曲线**：`Circle[M, r]`、`Circle[M, A]`、`Circle[A, B, C]`，方程 `c: x^2 + y^2 = 9`；`Ellipse[F1, F2, a]`（方程用整数系数 `9x^2 + 16y^2 = 144`，避免分数）；`Hyperbola[F1, F2, a]`；`Parabola[F, line]`。
 **多边形 / 角**：`Polygon[A, B, C]`、`Polygon[A, B, n]`（正n边形）；`Angle[A, B, C]`。
 **变换**：`Translate / Rotate / Reflect / Dilate`。
-**样式**：`SetColor[obj, "Blue"]` 或 `SetColor[obj, r, g, b]`；`SetLineThickness[obj, 1-13]`；`SetLineStyle[obj, 0实线/1虚线/2点线]`；`SetPointSize[obj, 1-9]`；`SetVisible[obj, false]`（隐藏辅助对象）；`SetLabelVisible`、`SetCaption`。
+**样式（务必上色，图形要鲜明可辨）**：
+- 线段 / 点：`SetColor[obj, "Blue"]` 或 `SetColor[obj, r, g, b]`（RGB 0-255）；`SetLineThickness[obj, 1-13]`（主干边建议 3-5 更醒目）；`SetPointSize[obj, 1-9]`。
+- 多边形 / 区域填充（**正方形/区域必须有填充色，否则看起来是空白的**）：先 `p = Polygon[A, B, C]` 构造，再用 **`SetColor[p, "Red"]`** 设填充色（注意：对多边形来说 `SetColor` 就是设填充色，**不要用 `SetFillColor`，该命令不存在**），最后 **`SetFilling[p, 0.5]`** 设透明度（0=全透明不可见，1=不透明，推荐 0.3-0.6）。多个区域用对比色（红/蓝/黄）。
+- 线型：`SetLineStyle[obj, 1虚线/2点线]`；`SetVisible[obj, false]`（隐藏辅助对象）；`SetLabelVisible`、`SetCaption` 控制标签显隐。
+- **❌ 禁止使用 `SetFontSize` / `SetFillColor`**：这两个命令 GeoGebra 都不支持，会导致运行时报错 `UnknownCommand`。多边形填充色用 `SetColor`，文字大小无需手动设置。
+- 配色规范：三角形三边用蓝/绿/红区分，正方形或多边形填充用半透明红、蓝、黄等高对比色；直角标记用橙色；角度/特殊点用醒目色。
+
+**通用"关系式可视化"原则（适用于任何需演示数量关系的题图，不要为某个具体公式写死规则）**：
+凡是题目要求**证明 / 演示 / 说明 / 验证**某个数学关系式（等式、面积相等、长度关系、角度关系、公式等），生成的图必须让该关系"**看图即懂**"，而不能只画几何形状。具体做法：
+
+1. **从题干提取关系式**：先明确要演示的等式/结论是什么（如 `a²+b²=c²`、`S=½ah`、`∠A+∠B+∠C=180°`），这是标注的依据。
+2. **在图上标注每个关键量**：用 `Text[]` 把关系式中各项的量值/表达式直接写到对应图形元素旁或内部——
+   - 涉及**面积** → 标注面积数值或表达式（如 `Text["3² = 9", (x,y)]`、`Text["S = ½·4·3 = 6", (x,y)]`）；字母情形标 `"a²"`/`"b²"`/`"c²"` 等。
+   - 涉及**边长/长度** → 标注各段长度（如 `Text["AC = 3", (x,y)]`）。
+   - 涉及**角度** → 用 `Angle[]` 标出特殊角（直角用橙色高亮），并可标角度数。
+3. **写出关系式本身**：在图形空白处用一条 `Text[]` 打出题干要证明/演示的等式或结论（如 `Text["b² + c² = a²   即   9 + 16 = 25", (x, y)]`），可用 LaTeX 增强（`Text["$a^2+b^2=c^2$", (x, y)]`）。
+4. **用颜色/填充区分**参与关系的不同部分（不同区域用不同 `SetColor`+`SetFilling` 0.4-0.6 填充，主对象加粗 `SetLineThickness`），使"相等/相加/相减"关系在视觉上可辨。
+5. **禁止画无对应图形的孤立割补线 / 辅助线**（容易误导）；优先用"量值标注 + 彩色区分 + 关系式文字"来体现相等。若确需示意拼接/割补，必须配对应的子多边形，并用 `SetLineStyle[obj, 1]` 虚线区分。
+
 **画布**：`ShowGrid[true/false]`、`ShowAxes[true/false]`（**不要**用 `SetCoordSystem`，坐标系自动适配）。
 **文字**：`Text["内容", (2,3)]`，LaTeX `Text["$\\frac{1}{2}$", (0,0)]`。
 
@@ -51,6 +69,7 @@
 - ❌ `log(10, x)` → ✅ `lg(x)`。
 - ❌ 方程带分数 `x^2/4 + y^2/9 = 1` → ✅ 整数系数 `9x^2 + 4y^2 = 36`。
 - ❌ 用 `#` 写注释（GeoGebra 不支持注释）。
+- ❌ `SetFontSize[obj, size]` / ❌ `SetFillColor[obj, color]`（GeoGebra 均无此命令，会报 UnknownCommand 错误。多边形填充色用 `SetColor[p, "Red"]`）。
 - ❌ 把“图中自由点”写成 `Midpoint`/`Intersect`。
 
 ### 生成顺序

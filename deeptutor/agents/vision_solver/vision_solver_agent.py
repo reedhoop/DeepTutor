@@ -131,6 +131,11 @@ class VisionSolverAgent(BaseAgent):
         return data if isinstance(data, dict) else {}
 
     async def _call_text_llm(self, prompt: str, temperature: float = 0.3) -> str:
+        # NOTE: we deliberately bypass BaseAgent's prompt assembly by passing
+        # empty ``user_prompt``/``system_prompt`` and supplying a fully-formed
+        # ``messages`` list. The text-only GeoGebra branch has its own single
+        # turn prompt (see prompts/geogebra_text.md) and must not be wrapped in
+        # the agent's multi-turn chat scaffolding.
         messages = [{"role": "user", "content": [{"type": "text", "text": prompt}]}]
         chunks: list[str] = []
         async for chunk in self.stream_llm(
