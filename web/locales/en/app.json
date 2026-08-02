@@ -4736,5 +4736,11 @@
   "Edit persona": "Edit persona",
   "e.g. patient-tutor": "e.g. patient-tutor",
   "Short summary shown in the picker": "Short summary shown in the picker",
-  "Apply a behavior persona for this turn.": "Apply a behavior persona for this turn."
+  "Apply a behavior persona for this turn.": "Apply a behavior persona for this turn.",
+  "Textbook": "Textbook",
+  "Textbook tooltip": "Browse the K12 curriculum and build a mastery path.",
+  "mastery.continueGreeting": "Let's start studying this mastery path.",
+  "mastery.welcomeTitle": "Mastery Path",
+  "mastery.welcomeDescription": "Your AI tutor will guide you through each knowledge point based on your progress. Ready to start?",
+  "mastery.preparing": "Preparing learning content…"
 }

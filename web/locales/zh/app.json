@@ -4736,5 +4736,11 @@
   "Edit persona": "编辑人格",
   "e.g. patient-tutor": "例如：patient-tutor",
   "Short summary shown in the picker": "选择器中显示的简短摘要",
-  "Apply a behavior persona for this turn.": "为此轮对话套用一个人格预设。"
+  "Apply a behavior persona for this turn.": "为此轮对话套用一个人格预设。",
+  "Textbook": "课本",
+  "Textbook tooltip": "按 K12 课本目录选节，生成专精学习路径。",
+  "mastery.continueGreeting": "我们开始这条精通之路的学习吧。",
+  "mastery.welcomeTitle": "精通之路",
+  "mastery.welcomeDescription": "AI 导师将根据你的掌握情况，逐步带你学习每个知识点。准备好开始了吗？",
+  "mastery.preparing": "正在准备学习内容…"
 }

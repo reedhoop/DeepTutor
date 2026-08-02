@@ -8,8 +8,9 @@ import {
   useMemo,
   useRef,
   useState,
+  Suspense,
 } from "react";
-import { useChatRouteSession } from "@/features/chat/controllers/useChatRouteSession";
+import { useParams, useRouter, useSearchParams } from "next/navigation";
 
 import {
   BarChart3,
@@ -417,6 +418,14 @@ export default function ChatPage() {
         : new URLSearchParams(window.location.search).get("agent");
   }
   const agentPreselectDoneRef = useRef(false);
+  // Reactive search params so that client-side navigations to
+  // `/home?mastery_path=<id>` (e.g. from the learning dashboard "继续" button)
+  // are picked up even when the component doesn't remount. Falls back to null
+  // during SSR / before Suspense resolves.
+  const searchParams = useSearchParams();
+  const pendingMasteryPath = searchParams?.get("mastery_path") ?? null;
+  const pendingMasteryTitle = searchParams?.get("title") ?? null;
+  const masteryPathHandledRef = useRef(false);
   const [llmOptions, setLLMOptions] = useState<LLMOption[]>([]);
   const [activeLLMDefault, setActiveLLMDefault] = useState<LLMSelection | null>(
     null,
@@ -803,9 +812,21 @@ export default function ChatPage() {
     [state.messages],
   );
   const persistedSessionTitle = state.sessionTitle.trim();
-  const displaySessionTitle = isPlaceholderSessionTitle(persistedSessionTitle)
-    ? firstUserTitle || t("New chat")
-    : persistedSessionTitle;
+  // In Mastery Path mode the chapter/section name from the URL (?title=章节名)
+  // is the authoritative, distinguishable title — it must win over any
+  // persisted greeting/placeholder (e.g. "我们开始这条精通之路的学习吧。")
+  // so the header and sidebar stay useful. This also guarantees the correct
+  // title shows *immediately*, even before renameSessionTitle's async PATCH
+  // lands (or if it fails silently). The rename call still persists it for
+  // the sidebar.
+  const displaySessionTitle = useMemo(() => {
+    if (activeCap.value === "mastery_path" && pendingMasteryTitle?.trim()) {
+      return pendingMasteryTitle.trim();
+    }
+    return isPlaceholderSessionTitle(persistedSessionTitle)
+      ? firstUserTitle || t("New chat")
+      : persistedSessionTitle;
+  }, [activeCap.value, pendingMasteryTitle, persistedSessionTitle, firstUserTitle, t]);
   const canRenameSession = Boolean(state.sessionId);
   const titleInputRef = useRef<HTMLInputElement | null>(null);
   const skipTitleCommitRef = useRef(false);
@@ -1884,6 +1905,56 @@ export default function ChatPage() {
     agentPreselectDoneRef.current = true;
     handleSelectAgent(name);
   }, [agentNameSet, handleSelectAgent]);
+  // Honor `?mastery_path=<book_id>` on a fresh session: drop straight into
+  // Mastery Path mode and send the first turn carrying the path id, so the
+  // backend loads that exact path (with textbook context) and the tutor
+  // greets the learner with the first objective. Deferred until after the
+  // draft session the mount effect creates is the selected session (one
+  // tick), then a second tick after `setCapability` commits so `sendMessage`
+  // reads the correct active capability from the committed store.
+  useEffect(() => {
+    if (masteryPathHandledRef.current) return;
+    const pathId = pendingMasteryPath;
+    if (!pathId) {
+      masteryPathHandledRef.current = true;
+      return;
+    }
+    // An existing conversation opened with ?mastery_path (e.g. a bookmark):
+    // just enable the mode; don't inject a greeting into their history.
+    if (state.messages.length > 0) {
+      masteryPathHandledRef.current = true;
+      setCapability("mastery_path");
+      // Still set the session title from the chapter/section name so the
+      // sidebar shows something distinguishable (e.g. "第一章 认识生物")
+      // instead of a generic greeting fragment like "我们开始这条精通之路的学习吧。"
+      if (pendingMasteryTitle?.trim()) {
+        renameSessionTitle(pendingMasteryTitle.trim());
+      }
+      return;
+    }
+    let t2: ReturnType<typeof setTimeout> | undefined;
+    const t1: ReturnType<typeof setTimeout> = setTimeout(() => {
+      masteryPathHandledRef.current = true;
+      setCapability("mastery_path");
+      t2 = setTimeout(() => {
+        sendMessage(
+          t("mastery.continueGreeting", "我们开始这条精通之路的学习吧。"),
+          undefined,
+          { mastery_path_id: pathId },
+        );
+        // Set session title from the chapter/section name so the sidebar
+        // shows something distinguishable (e.g. "第一章 认识生物")
+        // instead of a generic "开启精通之路学习" for every path.
+        if (pendingMasteryTitle?.trim()) {
+          renameSessionTitle(pendingMasteryTitle.trim());
+        }
+      }, 0);
+    }, 0);
+    return () => {
+      clearTimeout(t1);
+      if (t2) clearTimeout(t2);
+    };
+  }, [state.messages.length, pendingMasteryPath, pendingMasteryTitle, setCapability, sendMessage, renameSessionTitle, t]);
   const handleSelectNotebookPicker = useCallback(() => {
     setShowNotebookPicker(true);
   }, []);
@@ -2009,6 +2080,7 @@ export default function ChatPage() {
   }, [state.messages]);
 
   return (
+    <Suspense fallback={null}>
     <QuizFollowupProvider>
       {/* === K12-KGraph: KG browser tab (local addition, not in upstream) === */}
       <KgTabProvider>
@@ -2104,21 +2176,47 @@ export default function ChatPage() {
                 </div>
               </div>
             ) : !hasMessages ? (
-              <div className="flex w-full flex-1 min-h-0 items-end justify-center pb-14 animate-fade-in px-6">
-                <div className="w-full max-w-[960px] flex items-center justify-center gap-4">
-                  <img
-                    src="/logo_black.png"
-                    alt="DeepTutor"
-                    width={40}
-                    height={40}
-                    className="h-10 w-10 select-none"
-                    draggable={false}
-                  />
-                  <h1 className="font-serif text-[40px] font-medium leading-[1.1] tracking-[-0.015em] text-[var(--foreground)]">
-                    {t(welcomeGreeting)}
-                  </h1>
+              /* ---- Mastery Path cold-start welcome ---- */
+              (activeCap.value === "mastery_path" ||
+                pendingMasteryPath != null) &&
+              pendingMasteryPath != null ? (
+                <div className="flex w-full flex-1 min-h-0 items-center justify-center px-6 animate-fade-in">
+                  <div className="w-full max-w-[560px] rounded-2xl border border-[var(--border)] bg-[var(--card)] p-8 text-center shadow-sm">
+                    <div className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-full bg-[var(--primary)]/10">
+                      <GraduationCap className="h-6 w-6 text-[var(--primary)]" />
+                    </div>
+                    <h2 className="mb-2 font-serif text-xl font-semibold text-[var(--foreground)]">
+                      {t("mastery.welcomeTitle", "精通之路")}
+                    </h2>
+                    <p className="mb-4 text-sm leading-relaxed text-[var(--muted-foreground)]">
+                      {t(
+                        "mastery.welcomeDescription",
+                        "AI 导师将根据你的掌握情况，逐步带你学习每个知识点。准备好开始了吗？",
+                      )}
+                    </p>
+                    <div className="flex items-center justify-center gap-1.5 text-xs text-[var(--muted-foreground)]">
+                      <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-[var(--primary)]" />
+                      {t("mastery.preparing", "正在准备学习内容…")}
+                    </div>
+                  </div>
                 </div>
-              </div>
+              ) : (
+                <div className="flex w-full flex-1 min-h-0 items-end justify-center pb-14 animate-fade-in px-6">
+                  <div className="w-full max-w-[960px] flex items-center justify-center gap-4">
+                    <img
+                      src="/logo_black.png"
+                      alt="DeepTutor"
+                      width={40}
+                      height={40}
+                      className="h-10 w-10 select-none"
+                      draggable={false}
+                    />
+                    <h1 className="font-serif text-[40px] font-medium leading-[1.1] tracking-[-0.015em] text-[var(--foreground)]">
+                      {t(welcomeGreeting)}
+                    </h1>
+                  </div>
+                </div>
+              )
             ) : (
               // Positioned wrapper spanning exactly the scrollport, so the
               // turn navigator can overlay the left gutter without living
@@ -2331,6 +2429,7 @@ export default function ChatPage() {
         </div>
       </KgTabProvider>
     </QuizFollowupProvider>
+    </Suspense>
   );
 }
 
