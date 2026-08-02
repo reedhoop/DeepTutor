@@ -32,6 +32,21 @@ if TYPE_CHECKING:
 _MAX_PATH_NAME_LEN = 200
 
 
+# [KGRAPH-EXT] Post-grade hook registry (overlay-injected, e.g. consecutive-wrong
+# tracking for the KGraph prerequisite-fallback trigger). Hooks receive
+# (progress, kp_id, correct) and must not raise.
+_post_grade_hooks: list = []
+
+
+def register_post_grade_hook(fn) -> None:
+    _post_grade_hooks.append(fn)
+
+
+def _notify_post_grade(progress, kp_id: str, correct: bool) -> None:
+    for h in _post_grade_hooks:
+        h(progress, kp_id, correct)
+
+
 class MasteryInteractionError(RuntimeError):
     """Base error for invalid durable question lifecycle transitions."""
 
@@ -110,6 +125,8 @@ class LearningService:
         # Clear global stage failure records — different modules should not share failure counts
         progress.stage_failure_counts = {}
         progress.stage_failure_notes = {}
+        # [KGRAPH-EXT] a fresh path must not inherit stale wrong-answer counts
+        progress.consecutive_wrong = {}
 
         # Set new modules
         progress.modules = list(modules)
@@ -277,6 +294,7 @@ class LearningService:
                 progress.repetition_states[knowledge_point_id] = state
                 scheduler.schedule_next(state, kp_type, is_correct)
                 progress.review_queue = scheduler.build_review_queue(progress)
+        _notify_post_grade(progress, knowledge_point_id, is_correct)  # [KGRAPH-EXT]
         return is_correct
 
     # ── Loop-driven tutoring helpers ─────────────────────────────────────

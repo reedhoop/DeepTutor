@@ -72,6 +72,15 @@ export const PRIMARY_NAV: NavEntry[] = [
     tooltipKey: "Book tooltip",
     requires: "llm",
   },
+  {
+    // K12 textbook navigator: browse the curriculum hierarchy and start a
+    // mastery path from any section (KGraph bridge).
+    href: "/textbook",
+    label: "Textbook",
+    icon: BookText,
+    tooltipKey: "Textbook tooltip",
+    requires: "llm",
+  },
   // Courses nav entry temporarily hidden pending further product work.
   // The route and its data are untouched — only this entry point is gone.
   {

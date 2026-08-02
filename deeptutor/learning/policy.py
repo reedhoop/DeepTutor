@@ -50,6 +50,63 @@ QUALITATIVE_TYPES: frozenset[KnowledgeType] = frozenset(
 _QUALITATIVE_PASS_DISPLAY = 1.0
 
 
+# [KGRAPH-EXT] Hook: a ``_local`` overlay (e.g. the KGraph bridge) may override
+# per-module KP selection order with dependency-aware ordering. When ``None``,
+# ``next_objective`` falls back to the original linear module->KP scan, so
+# hand-built paths keep their existing behaviour.
+_kp_selector = None
+
+
+def register_kp_selector(fn) -> None:
+    """Register ``(progress, module) -> KnowledgePoint | None``.
+
+    Returning a KP short-circuits the linear scan for that module; returning
+    ``None`` lets the original logic choose. Used by
+    ``deeptutor._local.kgraph_policy_overlay``.
+
+    Single-slot (last registration wins): at most one selector should be
+    registered per process — the KGraph overlay is the only consumer today.
+    """
+    global _kp_selector
+    _kp_selector = fn
+
+
+# [KGRAPH-EXT] Hook: a ``_local`` overlay may attach source material (the
+# textbook definition / formula behind an objective) to every KP the engine
+# renders. Without it an objective is just a name, which tells the tutor *what*
+# to teach but not what the book actually says. When ``None``, output is byte
+# -for-byte what it was, so hand-built paths are unaffected.
+_kp_enricher = None
+
+
+def register_kp_enricher(fn) -> None:
+    """Register ``(kp_id) -> dict`` returning extra per-objective fields.
+
+    The mapping is attached as ``source_context`` on ``NextStep.to_dict`` —
+    i.e. only for the objective the learner is working on right now. The
+    whole-path ``map_summary`` stays name-only on purpose: enriching all of
+    a 30-objective path would spend thousands of tokens on material the tutor
+    is not teaching this turn.
+
+    Must never raise; return ``{}`` when the id is unknown. Used by
+    ``deeptutor._local.kgraph_context_overlay``.
+
+    Single-slot (last registration wins), like ``register_kp_selector``.
+    """
+    global _kp_enricher
+    _kp_enricher = fn
+
+
+def _enrich(kp_id: str) -> dict:
+    """Best-effort source-material lookup; never breaks the caller."""
+    if _kp_enricher is None or not kp_id:
+        return {}
+    try:
+        return _kp_enricher(kp_id) or {}
+    except Exception:  # pragma: no cover - defensive: enrichment is optional
+        return {}
+
+
 def path_display_name(progress: LearningProgress) -> str:
     """What to call this path, everywhere it is named.
 
@@ -168,7 +225,7 @@ class NextStep:
     session_id: str = ""
 
     def to_dict(self) -> dict:
-        return {
+        out = {
             "action": self.action,
             "module_id": self.module_id,
             "module_name": self.module_name,
@@ -186,6 +243,13 @@ class NextStep:
             ),
             "session_id": self.session_id,
         }
+        # [KGRAPH-EXT] Attach the textbook material for *this* objective, so the
+        # tutor teaches from the book rather than from model priors. Enriching
+        # here covers every ``return NextStep(...)`` branch at once.
+        context = _enrich(self.knowledge_point_id)
+        if context:
+            out["source_context"] = context
+        return out
 
 
 def find_knowledge_point(
@@ -256,6 +320,36 @@ def next_objective(
             )
 
     for module in sorted(progress.modules, key=lambda m: m.order):
+        # [KGRAPH-EXT] dependency-aware override (falls back to linear scan)
+        if _kp_selector is not None:
+            sel = _kp_selector(progress, module)
+            if sel is not None:
+                kp = sel
+                status = objective_status(progress, kp)
+                gate = _gate_kind(kp)
+                if status == "new":
+                    action = "probe"
+                elif gate == "qualitative":
+                    action = "assess"
+                else:
+                    action = "practice"
+                return NextStep(
+                    action=action,
+                    module_id=module.id,
+                    module_name=module.name,
+                    knowledge_point_id=kp.id,
+                    knowledge_point_name=kp.name,
+                    knowledge_point_type=kp.type.value,
+                    status=status,
+                    gate=gate,
+                    mastery=display_mastery(progress, kp),
+                    threshold=gate_threshold(kp.type),
+                    reason=(
+                        "Untouched objective — probe first to let the learner test out."
+                        if status == "new"
+                        else "Objective is below its mastery gate; keep working it until it clears."
+                    ),
+                )
         for kp in module.knowledge_points:
             if is_mastered(progress, kp):
                 continue

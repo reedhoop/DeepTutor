@@ -34,6 +34,7 @@ def _manifest(
 
 BUILTIN_CAPABILITY_CLASSES: dict[str, str] = {
     "chat": "deeptutor.agents.chat.capability:ChatCapability",
+    "ask_questions": ("deeptutor.capabilities.ask_questions.capability:AskQuestionsCapability"),
     "deep_solve": "deeptutor.capabilities.solve.capability:DeepSolveCapability",
     "deep_question": "deeptutor.agents.question.capability:DeepQuestionCapability",
     "deep_research": "deeptutor.agents.research.capability:DeepResearchCapability",

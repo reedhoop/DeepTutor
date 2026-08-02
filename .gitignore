@@ -324,3 +324,6 @@ celerybeat.pid
 *.ogg
 !demo/*.mp4
 .venv_test/
+
+# Review/HTML artifacts (keep seed scripts tracked)
+reports/*.html

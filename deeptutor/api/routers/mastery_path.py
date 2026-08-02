@@ -822,6 +822,129 @@ async def redo_progress(book_id: str):
     return {"status": "ok", "path_revision": progress.version}
 
 
+class FromKgraphRequest(BaseModel):
+    section_id: str
+    include_prereqs: bool = True
+    prereq_levels: int = 2
+
+
+@router.post("/progress/{book_id}/from-kgraph")
+async def create_from_kgraph(book_id: str, body: FromKgraphRequest):
+    """Create a mastery path from one K12-KGraph section subtree.
+
+    The bridge turns the section's teachable nodes (Concept/Skill — exercises
+    are assessment material and go through ``variant_exercise`` instead) into
+    an ordered ``LearningModule`` and records the in-path prerequisite map on
+    ``progress.dep_map`` so the topology-aware selector can enforce "learn
+    prerequisites first". Set ``include_prereqs=false`` to fall back to a plain
+    linear order.
+    """
+    _validate_book_id(book_id)
+    from deeptutor.capabilities.mastery.kgraph_bridge import section_to_module
+
+    try:
+        result = section_to_module(body.section_id, prereq_levels=body.prereq_levels)
+    except (RuntimeError, KeyError) as exc:
+        raise HTTPException(status_code=404, detail=str(exc))
+    if not result.module.knowledge_points:
+        raise HTTPException(
+            status_code=404,
+            detail=f"Section {body.section_id!r} has no teachable knowledge points",
+        )
+    if not body.include_prereqs:
+        result.dep_map.clear()
+
+    await _cancel_active_learning_turn(book_id)
+    service = get_learning_service()
+    progress = service.get_or_create(book_id)
+    service.replace_modules(progress, [result.module])
+    progress.current_module_id = result.module.id
+    progress.current_kp_index = 0
+    progress.dep_map = result.dep_map
+    service.save(progress)
+    return {
+        "status": "ok",
+        "book_id": book_id,
+        "module_id": result.module.id,
+        "module_count": 1,
+        "kp_count": len(result.module.knowledge_points),
+        "with_prereqs": sum(1 for v in result.dep_map.values() if v),
+        "cycles_skipped": result.stats["cycles_skipped"],
+        "section_name": result.module.name,
+    }
+
+
+@router.get("/progress/{book_id}/error-book")
+async def get_error_book(
+    book_id: str,
+    error_type: str | None = None,
+    status: str | None = None,
+    top_k: int = 5,
+):
+    """Error book for a path: open records, cause breakdown, weak points, and
+    the root-cause-first re-practice order.
+
+    Collection itself happens in the engine on every wrong answer; this reads
+    it back and adds the ranking. ``error_type`` accepts either the canonical
+    value (``structural``) or the legacy Chinese label (``知识结构性``).
+    """
+    _validate_book_id(book_id)
+    from deeptutor.capabilities.mastery import error_book as eb
+
+    service = get_learning_service()
+    progress = service.get_or_create(book_id)
+    try:
+        payload = eb.summarize(progress, top_k=max(1, min(top_k, 50)))
+    except ValueError as exc:
+        raise HTTPException(status_code=400, detail=str(exc))
+    if error_type or status:
+        try:
+            records = eb.filter_records(progress, error_type=error_type, status=status)
+        except ValueError:
+            raise HTTPException(status_code=400, detail=f"Unknown error_type {error_type!r}")
+        keep = {r.id for r in records}
+        payload["records"] = [r for r in payload["records"] if r["id"] in keep]
+    return payload
+
+
+@router.get("/kgraph/variants/{concept_id}")
+async def get_variant_exercises(
+    concept_id: str,
+    count: int = 3,
+    difficulty: str | None = None,
+    book_id: str | None = None,
+):
+    """Textbook practice variants for a concept, widening direct -> section ->
+    neighbour -> chapter until *count* are found.
+
+    Answers are included here (this is a teacher/debug view behind the same
+    auth as the rest of the API); the chat tool deliberately withholds them.
+    Pass ``book_id`` to skip exercises already served on that path.
+    """
+    from deeptutor.capabilities.mastery.exercise_adapter import variant_exercises
+
+    exclude: list[str] = []
+    if book_id:
+        _validate_book_id(book_id)
+        from deeptutor.capabilities.mastery.tools import attempted_exercise_ids
+
+        exclude = attempted_exercise_ids(get_learning_service().get_or_create(book_id))
+    try:
+        variants = variant_exercises(
+            concept_id,
+            count=max(1, min(count, 20)),
+            difficulty=difficulty,
+            exclude=exclude,
+        )
+    except RuntimeError as exc:
+        raise HTTPException(status_code=404, detail=str(exc))
+    return {
+        "concept_id": concept_id,
+        "count": len(variants),
+        "variants": variants,
+    }
+
+
 class NotebookRecordInput(BaseModel):
     id: str
     type: str = "note"

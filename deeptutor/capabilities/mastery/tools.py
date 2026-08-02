@@ -75,7 +75,13 @@ MASTERY_TOOL_NAMES: tuple[str, ...] = (
     "mastery_paths",
     "mastery_switch",
     "mastery_leave",
+    "variant_exercise",
 )
+
+# [KGRAPH-EXT] Question-id prefix for questions sourced from a KGraph Exercise
+# node (variant_exercise tool + error-book re-drill). Keeps engine-generated
+# ids and dataset ids in disjoint namespaces.
+KG_EXERCISE_PREFIX = "kgexe_"
 
 _QUESTION_TYPES = ("choice", "short", "open")
 _ALLOWED_KP_TYPES = {t.value for t in KnowledgeType}
@@ -1260,6 +1266,131 @@ def _parse_modules(
     return modules, None
 
 
+class VariantExerciseTool(BaseTool):
+    """Pull a textbook exercise for the current objective and register it.
+
+    The counterpart to ``mastery_quiz``: instead of the model inventing a
+    question, this takes a real exercise off the KGraph and registers it with
+    the engine. The answer and the worked analysis are deliberately NOT
+    returned — same rule as ``mastery_quiz``, the answer never round-trips
+    through the model.
+    """
+
+    def get_definition(self) -> ToolDefinition:
+        return ToolDefinition(
+            name="variant_exercise",
+            description=(
+                "Pull a real textbook practice question for an objective from the "
+                "knowledge graph and register it for grading (a 'variant' — same "
+                "concept, different question). Use it to drill an objective the "
+                "learner just got wrong, or to confirm mastery after a correct "
+                "answer. Present the returned question with ask_user, then call "
+                "mastery_grade. The correct answer is kept server-side and is "
+                "never returned to you. Returns an error when the objective has "
+                "no textbook exercises; fall back to mastery_quiz then."
+            ),
+            parameters=[
+                ToolParameter(
+                    name="knowledge_point_id",
+                    type="string",
+                    description="Objective id from mastery_status (verbatim).",
+                ),
+                ToolParameter(
+                    name="difficulty",
+                    type="string",
+                    description=(
+                        "Optional difficulty filter: '基础' (1), '常规' (2), "
+                        "'进阶' (3) or '挑战' (4). Omit to take the easiest "
+                        "unattempted exercise."
+                    ),
+                    required=False,
+                    enum=["基础", "常规", "进阶", "挑战"],
+                ),
+            ],
+        )
+
+    async def execute(self, **kwargs: Any) -> ToolResult:
+        path_id = _resolve_path_id(kwargs)
+        if not path_id:
+            return _no_path_result()
+        from deeptutor.capabilities.mastery.exercise_adapter import variant_exercises
+
+        kp_id = str(kwargs.get("knowledge_point_id") or "").strip()
+        if not kp_id:
+            return ToolResult(
+                content="variant_exercise needs knowledge_point_id.", success=False
+            )
+        difficulty = str(kwargs.get("difficulty") or "").strip() or None
+
+        service = _new_service()
+        progress = service.get_or_create(path_id)
+        kp, module_id, _ = find_knowledge_point(progress, kp_id)
+        if kp is None:
+            return ToolResult(
+                content=f"Unknown objective {kp_id!r}; call mastery_status for valid ids.",
+                success=False,
+            )
+
+        try:
+            variants = variant_exercises(
+                kp_id,
+                count=4,
+                difficulty=difficulty,
+                exclude=attempted_exercise_ids(progress),
+            )
+        except RuntimeError as exc:
+            return ToolResult(content=str(exc), success=False)
+        if not variants:
+            return ToolResult(
+                content=(
+                    f"No unattempted textbook exercise found for {kp_id!r}"
+                    + (f" at difficulty {difficulty!r}" if difficulty else "")
+                    + ". Write your own question with mastery_quiz instead."
+                ),
+                success=False,
+            )
+
+        chosen = variants[0]
+        pending = PendingQuestion(
+            question_id=f"{KG_EXERCISE_PREFIX}{chosen['exercise_id']}",
+            knowledge_point_id=kp_id,
+            module_id=module_id,
+            prompt=chosen["question"],
+            question_type=chosen["question_type"],
+            expected_answer=chosen["expected_answer"],
+            options=chosen["options"],
+        )
+        service.set_pending_question(progress, pending)
+        return _json_result(
+            {
+                "status": "registered",
+                "knowledge_point_id": kp_id,
+                "question": chosen["question"],
+                "question_type": chosen["question_type"],
+                "options": chosen["options"],
+                "difficulty": chosen["difficulty_label"],
+                "origin": chosen["source"],
+                "remaining_variants": len(variants) - 1,
+                "instruction": (
+                    "Present this question with the ask_user tool (for choices, use "
+                    "the option labels A/B/... exactly as given), then call "
+                    "mastery_grade with the learner's answer. Do not guess or state "
+                    "the answer yourself — the engine holds it."
+                ),
+            },
+            meta_key="variant_exercise",
+        )
+
+
+def attempted_exercise_ids(progress: Any) -> list[str]:
+    """KGraph exercise ids the learner has already been served on this path."""
+    return [
+        a.question_id[len(KG_EXERCISE_PREFIX) :]
+        for a in progress.quiz_attempts
+        if str(a.question_id).startswith(KG_EXERCISE_PREFIX)
+    ]
+
+
 MASTERY_TOOL_TYPES: tuple[type[BaseTool], ...] = (
     MasteryStatusTool,
     MasteryQuizTool,
@@ -1270,10 +1401,12 @@ MASTERY_TOOL_TYPES: tuple[type[BaseTool], ...] = (
     MasteryPathsTool,
     MasterySwitchTool,
     MasteryLeaveTool,
+    VariantExerciseTool,
 )
 
 
 __all__ = [
+    "KG_EXERCISE_PREFIX",
     "MASTERY_TOOL_NAMES",
     "MASTERY_TOOL_TYPES",
     "MasteryAssessTool",
@@ -1285,4 +1418,6 @@ __all__ = [
     "MasterySkipQuestionTool",
     "MasteryStatusTool",
     "MasterySwitchTool",
+    "VariantExerciseTool",
+    "attempted_exercise_ids",
 ]

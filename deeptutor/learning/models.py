@@ -341,6 +341,12 @@ class LearningProgress(BaseModel):
     feynman_explanations: dict[str, str] = Field(default_factory=dict)
     stage_failure_counts: dict[str, int] = Field(default_factory=dict)
     stage_failure_notes: dict[str, str] = Field(default_factory=dict)
+    # [KGRAPH-EXT] KGraph dependency map (KP.id -> [prereq KP.id within path]).
+    # Empty for hand-built paths; consumed by the topology-aware KP selector.
+    dep_map: dict[str, list[str]] = Field(default_factory=dict)
+    # [KGRAPH-EXT] consecutive wrong-answer counts (KP.id -> count) used by the
+    # real-time prerequisite-fallback trigger. Cleared on replace_modules.
+    consecutive_wrong: dict[str, int] = Field(default_factory=dict)
     version: int = 0
     created_at: float = Field(default_factory=time.time)
     updated_at: float = Field(default_factory=time.time)

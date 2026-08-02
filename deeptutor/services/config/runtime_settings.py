@@ -123,6 +123,7 @@ DOCUMENT_PARSING_ENGINE_DOCLING = "docling"
 DOCUMENT_PARSING_ENGINE_MARKITDOWN = "markitdown"
 DOCUMENT_PARSING_ENGINE_PYMUPDF4LLM = "pymupdf4llm"
 DOCUMENT_PARSING_ENGINE_LITEPARSE = "liteparse"
+DOCUMENT_PARSING_ENGINE_TIKA = "tika"
 _DOCUMENT_PARSING_ENGINES = frozenset(
     {
         DOCUMENT_PARSING_ENGINE_TEXT_ONLY,
@@ -131,6 +132,7 @@ _DOCUMENT_PARSING_ENGINES = frozenset(
         DOCUMENT_PARSING_ENGINE_MARKITDOWN,
         DOCUMENT_PARSING_ENGINE_PYMUPDF4LLM,
         DOCUMENT_PARSING_ENGINE_LITEPARSE,
+        DOCUMENT_PARSING_ENGINE_TIKA,
     }
 )
 # Image formats PyMuPDF4LLM can write extracted page images as.
@@ -379,6 +381,12 @@ def _json_object(path: Path) -> dict[str, Any]:
 
 def _string(value: Any) -> str:
     return "" if value is None else str(value).strip()
+
+
+def _string_or_list(value: Any) -> str | list[str]:
+    if isinstance(value, list):
+        return [item for raw in value if (item := _string(raw))]
+    return _string(value)
 
 
 class RuntimeSettingsService:
@@ -976,7 +984,7 @@ class RuntimeSettingsService:
             "mode": mode,
             "api_base_url": _string(settings.get("api_base_url")).rstrip("/")
             or "https://mineru.net",
-            "api_token": _string(settings.get("api_token")),
+            "api_token": _string_or_list(settings.get("api_token")),
             "local_cli_path": _string(settings.get("local_cli_path")),
             "model_download_source": download_source,
             "model_download_endpoint": _string(settings.get("model_download_endpoint")).rstrip("/"),

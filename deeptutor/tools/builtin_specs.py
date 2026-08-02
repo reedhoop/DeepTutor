@@ -96,6 +96,7 @@ BUILTIN_TOOL_SPECS: tuple[BuiltinToolSpec, ...] = (
             ("mastery_paths", "MasteryPathsTool"),
             ("mastery_switch", "MasterySwitchTool"),
             ("mastery_leave", "MasteryLeaveTool"),
+            ("variant_exercise", "VariantExerciseTool"),
         ),
     ),
     *_specs(

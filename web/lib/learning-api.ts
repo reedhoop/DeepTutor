@@ -610,3 +610,159 @@ export async function fetchMasteryTopicSessions(
   }
   return result.sessions;
 }
+
+// ── Error book (Stage 3, K12) ───────────────────────────────────────────────
+// Mirrors deeptutor/capabilities/mastery/error_book.summarize + the
+// /kgraph/variants/{concept_id} teacher view (both live under the
+// /api/mastery-paths router on the backend).
+
+export interface ErrorRecordItem {
+  id: string;
+  knowledge_point_id: string;
+  knowledge_point_name: string;
+  module_id: string;
+  error_type: string;
+  error_type_label: string;
+  status: string;
+  retry_count: number;
+  created_at: number;
+}
+
+export interface WeakPointItem {
+  knowledge_point_id: string;
+  name: string;
+  module_id: string;
+  mastery: number;
+  error_count: number;
+  consecutive_wrong: number;
+  unmet_prereqs: string[];
+  score: number;
+  reason: string;
+}
+
+export interface ErrorBookResult {
+  book_id: string;
+  total_records: number;
+  open_records: number;
+  graduated_records: number;
+  by_error_type: Record<string, number>;
+  weak_points: WeakPointItem[];
+  backfill_order: string[];
+  records: ErrorRecordItem[];
+}
+
+export interface FetchErrorBookOpts {
+  errorType?: string;
+  status?: string;
+  topK?: number;
+}
+
+export async function fetchErrorBook(
+  bookId: string,
+  opts: FetchErrorBookOpts = {},
+): Promise<ErrorBookResult> {
+  const q = new URLSearchParams();
+  if (opts.errorType) q.set("error_type", opts.errorType);
+  if (opts.status) q.set("status", opts.status);
+  if (opts.topK != null) q.set("top_k", String(opts.topK));
+  const qs = q.toString();
+  const res = await apiFetch(
+    apiUrl(
+      `/api/mastery-paths/progress/${encodeURIComponent(bookId)}/error-book${
+        qs ? `?${qs}` : ""
+      }`,
+    ),
+  );
+  if (!res.ok) throw new Error(`Failed to fetch error book: ${res.status}`);
+  return res.json();
+}
+
+// A single textbook variant (Exercise -> mastery_quiz params).
+export interface VariantExercise {
+  knowledge_point_id: string;
+  exercise_id: string;
+  question: string;
+  expected_answer: string;
+  question_type: string;
+  options: string[];
+  difficulty: number | null;
+  difficulty_label: string;
+  source_type: string;
+  analysis: string;
+  source: string;
+}
+
+export interface VariantResult {
+  concept_id: string;
+  count: number;
+  variants: VariantExercise[];
+}
+
+export interface FetchVariantsOpts {
+  count?: number;
+  difficulty?: number | string;
+  bookId?: string;
+}
+
+export async function fetchVariants(
+  conceptId: string,
+  opts: FetchVariantsOpts = {},
+): Promise<VariantResult> {
+  const q = new URLSearchParams();
+  if (opts.count != null) q.set("count", String(opts.count));
+  if (opts.difficulty != null) q.set("difficulty", String(opts.difficulty));
+  if (opts.bookId) q.set("book_id", opts.bookId);
+  const qs = q.toString();
+  const res = await apiFetch(
+    apiUrl(
+      `/api/mastery-paths/kgraph/variants/${encodeURIComponent(conceptId)}${
+        qs ? `?${qs}` : ""
+      }`,
+    ),
+  );
+  if (!res.ok) throw new Error(`Failed to fetch variants: ${res.status}`);
+  return res.json();
+}
+
+/**
+ * Start a mastery path from one K12-KGraph section.
+ *
+ * The path is keyed by ``kgraph_{section_id}`` (so the textbook navigator and the
+ * learning dashboard agree on the storage key). The backend turns the section's
+ * teachable subtree into an ordered ``LearningModule``.
+ */
+export async function startKgraphPath(sectionId: string): Promise<{
+  status: string;
+  book_id: string;
+  module_id: string;
+  kp_count: number;
+  with_prereqs: number;
+  section_name: string;
+}> {
+  const bookId = `kgraph_${sectionId}`;
+  const res = await apiFetch(
+    apiUrl(
+      `/api/mastery-paths/progress/${encodeURIComponent(bookId)}/from-kgraph`,
+    ),
+    {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        section_id: sectionId,
+        include_prereqs: true,
+        prereq_levels: 2,
+      }),
+    },
+  );
+  if (!res.ok) {
+    let detail = "";
+    try {
+      const data = await res.json();
+      detail = data?.detail || "";
+    } catch {
+      /* ignore */
+    }
+    throw new Error(`Failed to start kgraph path: ${res.status} ${detail}`);
+  }
+  return res.json();
+}

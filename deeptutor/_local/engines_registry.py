@@ -101,8 +101,15 @@ def apply_factory_overlay() -> None:
     )
     _f._ENGINE_META.update(_ENGINE_META)
     # version detection: PP-StructureV3 ships as the ``paddleocr`` pip package.
+    # The two auxiliary dicts below only exist when the upstream factory still
+    # carries its old version/readiness probes; create them defensively so this
+    # overlay keeps working against newer upstream shapes that dropped them.
+    if not hasattr(_f, "_ENGINE_PACKAGES"):
+        _f._ENGINE_PACKAGES = {}
     _f._ENGINE_PACKAGES.setdefault(PP_STRUCTUREV3, ["paddleocr"])
     # VLM engines are remote vLLM endpoints with no local pip package.
+    if not hasattr(_f, "_REMOTE_ENGINE_IDS"):
+        _f._REMOTE_ENGINE_IDS = set()
     _f._REMOTE_ENGINE_IDS.update({OVISOCR2, PADDLEOCR_VL})
     # KNOWN_ENGINES was computed at import time, before this hook ran.
     _f.KNOWN_ENGINES = frozenset(_f._ENGINE_LOADERS)

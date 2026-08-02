@@ -487,6 +487,7 @@ from deeptutor.api.routers import (
     courses,
     dashboard,
     imports,
+    kgraph_textbook,
     knowledge,
     marginnote4,
     mastery_path,
@@ -577,6 +578,16 @@ app.include_router(
     dependencies=_auth,
 )
 app.include_router(memory.router, prefix="/api/memory", tags=["memory"], dependencies=_auth)
+# K12 textbook navigator (read-only curriculum hierarchy; a Section is the leaf
+# that seeds a mastery path via POST /progress/{book_id}/from-kgraph). The
+# /api/v1 prefix is intentional: the K12 textbook frontend (web/lib/textbook-api)
+# calls these paths verbatim and nothing upstream lives under /api/v1.
+app.include_router(
+    kgraph_textbook.router,
+    prefix="/api/v1/kgraph",
+    tags=["kgraph-textbook"],
+    dependencies=_auth,
+)
 app.include_router(
     capabilities_settings.router,
     prefix="/api/capabilities",
