@@ -8,10 +8,10 @@ hand-built paths behave exactly as before.
 
 from deeptutor.learning.models import KnowledgePoint, LearningModule, LearningProgress
 from deeptutor.learning.policy import (
-    find_knowledge_point,
     is_mastered,
     register_kp_selector,
 )
+from deeptutor._local.kp_index import find_knowledge_point_fast
 
 # Consecutive wrong answers on a KP before we push the learner back to a
 # prerequisite they have not yet mastered.
@@ -52,7 +52,7 @@ def _first_available_kp(progress: LearningProgress, module: LearningModule):
 def _is_prereq_satisfied(progress: LearningProgress, prereq_id: str) -> bool:
     """A prerequisite is satisfied if it is already mastered, or it lives
     outside the current path (external prerequisites are assumed known)."""
-    kp, _, _ = find_knowledge_point(progress, prereq_id)
+    kp, _, _ = find_knowledge_point_fast(progress, prereq_id)
     if kp is None:
         return True
     return is_mastered(progress, kp)
@@ -67,7 +67,7 @@ def _check_wrong_trigger(progress: LearningProgress, module: LearningModule):
         if is_mastered(progress, kp):
             continue
         for pid in progress.dep_map.get(kp.id, []):
-            pkp, _, _ = find_knowledge_point(progress, pid)
+            pkp, _, _ = find_knowledge_point_fast(progress, pid)
             if pkp is not None and not is_mastered(progress, pkp):
                 return pkp
     return None

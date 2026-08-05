@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState, memo } from "react";
 import { useRouter } from "next/navigation";
 import { useTranslation } from "react-i18next";
 import {
@@ -222,7 +222,7 @@ export default function TextbookNavigatorPage() {
   );
 }
 
-function SubjectNode({
+const SubjectNode = memo(function SubjectNode({
   subject,
   expanded,
   selectedId,
@@ -264,9 +264,16 @@ function SubjectNode({
         ))}
     </div>
   );
-}
+}, (prev, next) =>
+  prev.subject === next.subject &&
+  prev.expanded.has(prev.subject.id) === next.expanded.has(next.subject.id) &&
+  prev.selectedId === next.selectedId &&
+  prev.onToggle === next.onToggle &&
+  prev.onSelectSection === next.onSelectSection &&
+  prev.tr === next.tr
+);
 
-function BookNode({
+const BookNode = memo(function BookNode({
   book,
   expanded,
   selectedId,
@@ -311,9 +318,16 @@ function BookNode({
         ))}
     </div>
   );
-}
+}, (prev, next) =>
+  prev.book === next.book &&
+  prev.expanded.has(prev.book.id) === next.expanded.has(next.book.id) &&
+  prev.selectedId === next.selectedId &&
+  prev.onToggle === next.onToggle &&
+  prev.onSelectSection === next.onSelectSection &&
+  prev.tr === next.tr
+);
 
-function ChapterNode({
+const ChapterNode = memo(function ChapterNode({
   bookName,
   chapter,
   expanded,
@@ -364,4 +378,11 @@ function ChapterNode({
       )}
     </div>
   );
-}
+}, (prev, next) =>
+  prev.chapter === next.chapter &&
+  prev.expanded.has(prev.chapter.id) === next.expanded.has(next.chapter.id) &&
+  prev.selectedId === next.selectedId &&
+  prev.onToggle === next.onToggle &&
+  prev.onSelectSection === next.onSelectSection &&
+  prev.tr === next.tr
+);

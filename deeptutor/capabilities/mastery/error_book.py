@@ -37,7 +37,7 @@ from deeptutor.learning.models import (
     KnowledgeType,
     LearningProgress,
 )
-from deeptutor.learning.policy import find_knowledge_point, is_mastered
+from deeptutor.learning.policy import is_mastered
 
 if TYPE_CHECKING:
     from deeptutor.learning.models import KnowledgePoint
@@ -85,8 +85,10 @@ def unmet_prerequisites(progress: LearningProgress, kp_id: str) -> list[str]:
     have covered them elsewhere) — same rule as the policy overlay.
     """
     unmet: list[str] = []
+    from deeptutor._local.kp_index import find_knowledge_point_fast
+
     for pid in progress.dep_map.get(kp_id, []):
-        prereq, _, _ = find_knowledge_point(progress, pid)
+        prereq, _, _ = find_knowledge_point_fast(progress, pid)
         if prereq is not None and not is_mastered(progress, prereq):
             unmet.append(pid)
     return unmet
@@ -220,7 +222,9 @@ def _reason(
 
 
 def _kp_name(progress: LearningProgress, kp_id: str) -> str:
-    kp, _, _ = find_knowledge_point(progress, kp_id)
+    from deeptutor._local.kp_index import find_knowledge_point_fast
+
+    kp, _, _ = find_knowledge_point_fast(progress, kp_id)
     return kp.name if kp else kp_id
 
 

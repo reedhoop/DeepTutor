@@ -270,7 +270,7 @@ def parse_pdf_via_paddleocr_vl(
     if on_output:
         on_output(f"PaddleOCR-VL mode: {mode}")
 
-    results = asyncio.run(
+    results = _run_async(
         _parse_pages_async(
             pages, config, on_output, asyncio.Semaphore(config.max_concurrency)
         )
@@ -280,6 +280,23 @@ def parse_pdf_via_paddleocr_vl(
     out_path.write_text("\n\n".join(results), encoding="utf-8")
     if on_output:
         on_output(f"Parsed {len(results)} page(s) → {out_path.name}")
+
+
+def _run_async(coro):
+    """Loop-safe coroutine runner (mirrors deeptutor.services.embedding.client.embed_sync).
+
+    Falls back to a dedicated thread + event loop when invoked from inside an
+    already-running asyncio loop, so it never raises
+    ``RuntimeError: asyncio.run() cannot be called from a running event loop``.
+    """
+    try:
+        asyncio.get_running_loop()
+    except RuntimeError:
+        return asyncio.run(coro)
+    import concurrent.futures
+
+    with concurrent.futures.ThreadPoolExecutor() as executor:
+        return executor.submit(asyncio.run, coro).result()
 
 
 __all__ = ["parse_pdf_via_paddleocr_vl"]

@@ -1903,7 +1903,14 @@ class CurriculumKnowledgeTool(_PromptHintsMixin, BaseTool):
         )
 
     async def execute(self, **kwargs: Any) -> ToolResult:
-        from deeptutor.services.kgraph import get_kg, is_confident, grade_info_of_id
+        from deeptutor.services.kgraph import get_kg, is_available, is_confident, grade_info_of_id
+
+        if not is_available():
+            return ToolResult(
+                content="课程标准知识图谱（K12-KGraph）当前不可用，已跳过概念锚定。",
+                metadata={"status": "unavailable"},
+                success=False,
+            )
 
         concept = str(kwargs.get("concept") or "").strip()
         query_type = str(kwargs.get("query_type") or "definition").strip().lower()

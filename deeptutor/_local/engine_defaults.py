@@ -204,13 +204,21 @@ VALID_ROUTING_MODES = ("manual", "auto")
 DEFAULT_ROUTING_MODE = "manual"
 DEFAULT_FALLBACK_ENGINE = ""
 
+# Auto-routing cache TTLs (seconds). Kept here so they can be surfaced as
+# document-parsing settings (see ``runtime_overlay``) instead of being hard-coded
+# in ``engine_router``. Bounds: 1s (floor — a shorter window is meaningless) to
+# 24h (ceiling — caches must eventually refresh).
+DEFAULT_READINESS_TTL = 300.0
+DEFAULT_SCAN_TTL = 3600.0
+
 
 def normalize_routing(settings: dict[str, Any]) -> Dict[str, Any]:
     """Validate + normalize the routing_mode / fallback_engine settings.
 
     ``routing_mode`` is coerced to a known mode; ``fallback_engine`` must be a
     real engine id (from the upstream ``factory.KNOWN_ENGINES``) or it is
-    dropped to "" (meaning "use the active engine").
+    dropped to "" (meaning "use the active engine"). The two cache TTLs are
+    coerced to floats within a sane range.
     """
     from deeptutor.services.parsing.engines import factory
 
@@ -218,4 +226,11 @@ def normalize_routing(settings: dict[str, Any]) -> Dict[str, Any]:
     mode = raw_mode if raw_mode in VALID_ROUTING_MODES else DEFAULT_ROUTING_MODE
     raw_fb = str(settings.get("fallback_engine") or "").strip().lower()
     fallback = raw_fb if raw_fb in factory.KNOWN_ENGINES else DEFAULT_FALLBACK_ENGINE
-    return {"routing_mode": mode, "fallback_engine": fallback}
+    readiness_ttl = _coerce_float(settings.get("readiness_ttl"), DEFAULT_READINESS_TTL, 1.0, 86400.0)
+    scan_ttl = _coerce_float(settings.get("scan_ttl"), DEFAULT_SCAN_TTL, 1.0, 86400.0)
+    return {
+        "routing_mode": mode,
+        "fallback_engine": fallback,
+        "readiness_ttl": readiness_ttl,
+        "scan_ttl": scan_ttl,
+    }

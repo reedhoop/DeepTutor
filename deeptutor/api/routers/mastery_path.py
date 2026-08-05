@@ -6,6 +6,7 @@ import asyncio
 from contextlib import asynccontextmanager, suppress
 import html
 import json
+import threading
 import time
 import uuid
 
@@ -36,10 +37,32 @@ router = APIRouter()
 ws_router = APIRouter()
 
 
+# Cache one LearningService per workspace root. LearningStore / LearningService
+# are effectively stateless (progress lives on disk under a module-level CAS lock,
+# see learning/storage.py), so sharing them across requests for the same
+# user/workspace is safe and avoids rebuilding the (cheap but non-free) store on
+# every request. Keying by the resolved workspace dir keeps distinct users'
+# data isolated — which the old per-request path depended on for multi-user
+# safety, and which a naive process-wide singleton would have broken.
+_learning_service_cache: dict[str, LearningService] = {}
+_learning_service_cache_lock = threading.Lock()
+
+
 def get_learning_service() -> LearningService:
-    # Create a fresh store + service per request to avoid object-level race conditions.
-    store = LearningStore()
-    return LearningService(store)
+    from deeptutor.services.path_service import get_path_service
+
+    root = str(get_path_service().get_workspace_dir())
+    svc = _learning_service_cache.get(root)
+    if svc is None:
+        with _learning_service_cache_lock:
+            svc = _learning_service_cache.get(root)
+            if svc is None:
+                svc = LearningService(LearningStore())
+                # Bound memory across many distinct workspaces (e.g. multi-tenant).
+                if len(_learning_service_cache) > 256:
+                    _learning_service_cache.clear()
+                _learning_service_cache[root] = svc
+    return svc
 
 
 def _validate_book_id(book_id: str) -> None:

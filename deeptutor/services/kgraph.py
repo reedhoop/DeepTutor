@@ -354,6 +354,25 @@ class KGIndex:
         q = _norm(concept)
         if not q:
             return []
+        # Cache the *static* exact + substring + fuzzy scan only. KGIndex.terms is
+        # a process-wide immutable singleton, so repeated concepts in a chat turn
+        # skip the full O(N) traversal. The semantic fallback is intentionally
+        # NOT cached: it depends on the external embedding endpoint / vector
+        # availability, which can change between calls (and must stay live for
+        # tests that disable it). Subject filtering stays out of the cache key.
+        cache = self.__dict__.setdefault("_resolve_cache", {})
+        key = (q, top_k)
+        if key not in cache:
+            cache[key] = self._match_static(q, top_k)
+            if len(cache) > 4096:  # bound memory across many distinct queries
+                cache.clear()
+        ranked = cache[key]
+        if ranked:
+            return self._filter_subject(ranked, subject)
+        return self._filter_subject(await self._semantic(q, top_k), subject)
+
+    def _match_static(self, q: str, top_k: int) -> list[dict[str, Any]]:
+        """Exact + substring + fuzzy ranking (no embedding). Cached by ``resolve``."""
         cands: dict[str, tuple[str, float]] = {}
 
         # 1) exact normalised match (names + aliases)
@@ -380,7 +399,7 @@ class KGIndex:
             if nid not in cands or sc > cands[nid][1]:
                 cands[nid] = ("substring", sc)
         if cands:
-            return self._filter_subject(self._rank(cands, top_k), subject)
+            return self._rank(cands, top_k)
 
         # 3) fuzzy (edit-distance ratio)
         for term, nid in self.terms:
@@ -391,10 +410,10 @@ class KGIndex:
                 if nid not in cands or r > cands[nid][1]:
                     cands[nid] = ("fuzzy", r)
         if cands:
-            return self._filter_subject(self._rank(cands, top_k), subject)
+            return self._rank(cands, top_k)
 
-        # 4) semantic fallback (embedding kNN)
-        return self._filter_subject(await self._semantic(q, top_k), subject)
+        # 4) static miss → caller falls back to embedding-based semantic search
+        return []
 
     @staticmethod
     def _filter_subject(
@@ -421,15 +440,79 @@ class KGIndex:
         return out
 
     # -- semantic fallback ------------------------------------------------ #
+    def _vector_matrix(self) -> "tuple[list[str], Any] | None":
+        """Cached row-normalized node-vector matrix for fast cosine search.
+
+        Returns ``None`` if vectors are not loaded or cannot be stacked into a
+        dense matrix (e.g. ragged dimensions), signalling the caller to fall
+        back to the scalar ``_cosine`` path.
+        """
+        vecs = self._vectors
+        if vecs is None:
+            return None
+        if getattr(self, "_vec_cache_ref", None) is vecs:
+            return self._vec_ids, self._vec_matrix
+        try:
+            import numpy as np
+
+            ids = list(vecs.keys())
+            M = np.asarray(list(vecs.values()), dtype=np.float32)
+            if M.ndim != 2:
+                return None
+            norms = np.linalg.norm(M, axis=1, keepdims=True)
+            norms[norms == 0] = 1.0
+            Mn = M / norms
+        except Exception:  # noqa: BLE001 - ragged / non-numeric vectors
+            return None
+        self._vec_ids = ids
+        self._vec_matrix = Mn
+        self._vec_cache_ref = vecs
+        return ids, Mn
+
     async def _semantic(self, q: str, top_k: int) -> list[dict[str, Any]]:
         vecs = await self._ensure_vectors()
         if not vecs:
+            logger.warning(
+                "KGraph semantic search skipped: node vectors not loaded "
+                "(is K12_KGRAPH_DATA_DIR set and the vector cache built?)"
+            )
             return []
         qv = await self._embed([q])
         if not qv:
+            logger.warning(
+                "KGraph semantic search skipped: embedding unavailable "
+                "(is the SiliconFlow bge-m3 endpoint configured?)"
+            )
             return []
         qv = qv[0]
+
         SEMANTIC_MIN = 0.40  # reject pure-noise matches
+        # Fast path: one matrix-vector product over the whole KGraph cache.
+        matrix = self._vector_matrix()
+        if matrix is not None:
+            ids, Mn = matrix
+            try:
+                import numpy as np
+
+                qn = np.asarray(qv, dtype=np.float32)
+                qn = qn / (np.linalg.norm(qn) + 1e-12)
+                sims = Mn @ qn  # Mn is row-normalized → dot == cosine
+                idx = np.where(sims >= SEMANTIC_MIN)[0]
+                if idx.size:
+                    order = idx[np.argsort(-sims[idx])][:top_k]
+                    return [
+                        {
+                            "id": ids[int(i)],
+                            "name": self.nodes.get(ids[int(i)], {}).get("name", ""),
+                            "score": float(sims[i]),
+                            "method": "semantic",
+                        }
+                        for i in order
+                    ]
+            except Exception:  # noqa: BLE001 - numpy path failed; use scalar fallback
+                logger.warning("semantic numpy path failed, falling back to scalar")
+
+        # Scalar fallback (robustness / no-numpy environments).
         scored: list[tuple[float, str]] = []
         for nid, v in vecs.items():
             sc = _cosine(qv, v)

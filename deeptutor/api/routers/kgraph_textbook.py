@@ -87,9 +87,18 @@ def _node_name(kg: Any, nid: str) -> str:
     return node.get("name", "") if node else nid
 
 
+# KGraph is a process-wide singleton, so the built hierarchy is stable for the
+# lifetime of the process. Cache it keyed by the kg object identity to avoid
+# rebuilding the whole subject→book→chapter→section tree on every request.
+_TREE_CACHE: dict[int, dict[str, Any]] = {}
+
+
 def _build_tree() -> dict[str, Any]:
     """Build the subject → book → chapter → section hierarchy from KGraph."""
     kg = get_kg()
+    cached = _TREE_CACHE.get(id(kg))
+    if cached is not None:
+        return cached
     children_of = kg.adj_rev.get(IS_PART_OF, {})
 
     subjects: dict[str, dict[str, Any]] = {}
@@ -139,7 +148,9 @@ def _build_tree() -> dict[str, Any]:
     for s in result:
         s["books"].sort(key=lambda b: b["id"])
     result.sort(key=lambda s: s["id"])
-    return {"subjects": result}
+    tree = {"subjects": result}
+    _TREE_CACHE[id(kg)] = tree
+    return tree
 
 
 @router.get("/textbook-tree")

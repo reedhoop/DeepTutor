@@ -28,3 +28,11 @@ def apply_runtime_overlay(ns: Dict[str, Any]) -> None:
     ns["DEFAULT_DOCUMENT_PARSING_SETTINGS"].setdefault(
         "fallback_engine", _ld.DEFAULT_FALLBACK_ENGINE
     )
+    # Auto-routing cache TTLs (exposed as settings; engine_router reads them
+    # lazily and falls back to these defaults if settings are unavailable).
+    ns["DEFAULT_DOCUMENT_PARSING_SETTINGS"].setdefault(
+        "readiness_ttl", _ld.DEFAULT_READINESS_TTL
+    )
+    ns["DEFAULT_DOCUMENT_PARSING_SETTINGS"].setdefault(
+        "scan_ttl", _ld.DEFAULT_SCAN_TTL
+    )
