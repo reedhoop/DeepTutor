@@ -1,0 +1,5 @@
+# Graphify extraction exclusions — keep the graph focused on product code.
+# (i18n JSON and our own codegraph tooling/reports are noise, not architecture.)
+web/locales/
+scripts/codegraph/
+reports/

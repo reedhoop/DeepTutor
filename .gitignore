@@ -327,3 +327,12 @@ celerybeat.pid
 
 # Review/HTML artifacts (keep seed scripts tracked)
 reports/*.html
+
+# ============================================
+# Code knowledge graph (generated artifact)
+# ============================================
+# graph.json (~27MB) + AST cache (~28MB) are REGENERABLE via
+#   scripts/codegraph/regenerate.py   (needs `pip install graphifyy`)
+# Keep only the generator pipeline (scripts/codegraph/) + .graphifyignore
+# under version control; do NOT commit the heavyweight outputs.
+reports/codegraph/
