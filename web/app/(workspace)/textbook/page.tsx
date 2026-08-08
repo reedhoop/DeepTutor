@@ -266,7 +266,7 @@ const SubjectNode = memo(function SubjectNode({
   );
 }, (prev, next) =>
   prev.subject === next.subject &&
-  prev.expanded.has(prev.subject.id) === next.expanded.has(next.subject.id) &&
+  prev.expanded === next.expanded &&
   prev.selectedId === next.selectedId &&
   prev.onToggle === next.onToggle &&
   prev.onSelectSection === next.onSelectSection &&
@@ -320,7 +320,7 @@ const BookNode = memo(function BookNode({
   );
 }, (prev, next) =>
   prev.book === next.book &&
-  prev.expanded.has(prev.book.id) === next.expanded.has(next.book.id) &&
+  prev.expanded === next.expanded &&
   prev.selectedId === next.selectedId &&
   prev.onToggle === next.onToggle &&
   prev.onSelectSection === next.onSelectSection &&
@@ -380,7 +380,7 @@ const ChapterNode = memo(function ChapterNode({
   );
 }, (prev, next) =>
   prev.chapter === next.chapter &&
-  prev.expanded.has(prev.chapter.id) === next.expanded.has(next.chapter.id) &&
+  prev.expanded === next.expanded &&
   prev.selectedId === next.selectedId &&
   prev.onToggle === next.onToggle &&
   prev.onSelectSection === next.onSelectSection &&
