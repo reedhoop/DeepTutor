@@ -1,5 +1,7 @@
 "use client";
 
+import { MATH_SPAN_REGEX } from "./math-render";
+
 const INVISIBLE_CONTROL_REGEX =
   /[\u200B-\u200F\u202A-\u202E\u2060\u2066-\u2069\uFEFF]/g;
 const EMPTY_DETAILS_REGEX =
@@ -139,21 +141,12 @@ const ALLOWED_HTML_TAGS = new Set<string>([
 const HTML_LIKE_TAG_REGEX = /<\/?([A-Za-z][A-Za-z0-9_-]*)\b[^<>]*?\/?>/g;
 const FENCED_CODE_BLOCK_REGEX = /```[\s\S]*?```/g;
 const INLINE_CODE_SPAN_REGEX = /`[^`\n]*`/g;
-// Display math (\[…\], \(…\), $$…$$) plus single-dollar inline math ($…$).
-// The inline form mirrors remark-math's "tight" rule — no space just inside the
-// delimiters — so prose currency like "$5 and $10" is not swallowed, while real
-// inline math ($x = [1, 5, 9]$) is protected from citation linkification.
-const MATH_SPAN_REGEX =
-  /\\\[[\s\S]*?\\\]|\\\([\s\S]*?\\\)|\$\$[\s\S]*?\$\$|\$(?!\s)(?:\\.|[^$\n])*?(?<!\s)\$/g;
-// ``**Label: **value`` — a label whose closing marker has whitespace just
-// inside it, which CommonMark does not read as strong emphasis, so the raw
-// asterisks stay on screen. Deliberately narrow: the capture must start at a
-// non-space and end at a colon, because this rewrite has no notion of which
-// two delimiters the author meant to pair (see repairStrongEmphasisLine).
-const MALFORMED_STRONG_EMPHASIS_REGEX =
-  /(?<!\S)\*\*(?=\S)([^*\n]*?[:：])[ \t]+\*\*(?=\S)/g;
-const ESCAPED_UNICODE_RUN_REGEX = /(?:\\u[0-9a-fA-F]{4}){3,}/g;
-const INDENTED_CODE_LINE_REGEX = /^(?: {4}|\t)/;
+// Display math + single-dollar inline math. Reused from `@/lib/math-render` so
+// the masking logic and the renderer's `detectMathContent` share one definition
+// (no risk of the two drifting apart). The inline form mirrors remark-math's
+// "tight" rule — no space just inside the delimiters — so prose currency like
+// "$5 and $10" is not swallowed, while real inline math ($x = [1, 5, 9]$) is
+// protected from citation linkification.
 const PROTECTED_SPAN_REGEX = /```[\s\S]*?```|`[^`\n]*`/g;
 const PROTECTED_PLACEHOLDER_REGEX = /\u0000PROTECTED_(\d+)\u0000/g;
 const HTML_ATTR_VALUE = /(?:"[^"]*"|'[^']*'|[^\s"'=<>`]+)/.source;
@@ -564,51 +557,6 @@ function maskProtectedSpans(
   };
 }
 
-export function repairMalformedStrongEmphasis(content: string): string {
-  if (!content.includes("**")) return content;
-
-  const fenced = maskProtectedSpans(
-    content,
-    FENCED_CODE_BLOCK_REGEX,
-    "STRONG_FENCED_CODE",
-  );
-  const math = maskProtectedSpans(
-    fenced.masked,
-    MATH_SPAN_REGEX,
-    "STRONG_MATH",
-  );
-  const inline = maskProtectedSpans(
-    math.masked,
-    INLINE_CODE_SPAN_REGEX,
-    "STRONG_INLINE_CODE",
-  );
-
-  const repaired = inline.masked
-    .split("\n")
-    .map(repairStrongEmphasisLine)
-    .join("\n");
-
-  return fenced.restore(math.restore(inline.restore(repaired)));
-}
-
-/**
- * Repair one line, or leave it exactly as it was.
- *
- * The regex pairs an opening ``**`` with the next one on the line, which is
- * only the author's intent when every marker on that line is paired off. With
- * an odd count at least one is literal or unclosed, and rewriting then breaks
- * emphasis the renderer gets right today — ``In Markdown, use ** to make text
- * **bold**.`` would lose its bold, and ``**Note: **Important**`` would end up
- * with a stray ``**``. Bailing out costs nothing: the line renders exactly as
- * it does on a build without this repair.
- */
-function repairStrongEmphasisLine(line: string): string {
-  // Indented code blocks are displayed verbatim and are not masked above.
-  if (INDENTED_CODE_LINE_REGEX.test(line)) return line;
-  if ((line.split("**").length - 1) % 2 !== 0) return line;
-  return line.replace(MALFORMED_STRONG_EMPHASIS_REGEX, "**$1** ");
-}
-
 function linkifyCitationsOutsideCode(content: string): string {
   const fenced = maskProtectedSpans(
     content,
@@ -681,9 +629,8 @@ function decodeEscapedUnicodeRun(escaped: string): string {
 export function normalizeMarkdownForDisplay(content: string): string {
   if (!content) return "";
 
-  const normalized = stripInvisibleCharacters(
-    decodeEscapedUnicodeRuns(String(content).replace(/\r\n/g, "\n")),
-  )
+  const normalized = stripInvisibleCharacters(String(content))
+    .replace(/\r\n/g, "\n")
     .replace(EMPTY_DETAILS_REGEX, "")
     .replace(EMPTY_SUMMARY_REGEX, "")
     .replace(EMPTY_PROGRESS_REGEX, "")

@@ -1,7 +1,7 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import { hasMarkdownMath } from "@/lib/latex";
+import { detectMathContent } from "@/lib/math-render";
 import SimpleMarkdownRenderer from "./SimpleMarkdownRenderer";
 import type { MarkdownRendererProps } from "./markdown-renderer-types";
 
@@ -40,7 +40,7 @@ export default function MarkdownRenderer({
   allowHtml,
   trackSourceLines,
 }: MarkdownRendererProps) {
-  const resolvedEnableMath = enableMath ?? hasMarkdownMath(content);
+  const resolvedEnableMath = enableMath ?? detectMathContent(content);
   const resolvedEnableCode = enableCode ?? detectCodeContent(content);
   const resolvedEnableMermaid = enableMermaid ?? detectMermaidContent(content);
   const resolvedAllowHtml = allowHtml ?? detectHtmlContent(content);

@@ -31,6 +31,7 @@ import {
 } from "@/lib/learning-api";
 import { getOrCreateSessionByPath } from "@/lib/session-api";
 import KGraphMermaid from "@/components/kgraph/KGraphMermaid";
+import MarkdownRenderer from "@/components/common/MarkdownRenderer";
 
 /**
  * Mastery Path dashboard — the persistent "screen" of the mastery experience.
@@ -711,7 +712,11 @@ function ErrorBook({
                     {w.name}
                   </div>
                   <div className="mt-0.5 text-xs text-[var(--muted-foreground)]">
-                    {w.reason}
+                    <MarkdownRenderer
+                      content={w.reason}
+                      variant="compact"
+                      enableMath
+                    />
                   </div>
                 </div>
                 <button
@@ -779,20 +784,39 @@ function ErrorBook({
                           </span>
                         </div>
                         <div className="mt-1 text-[var(--foreground)] leading-relaxed">
-                          {v.question}
+                          <MarkdownRenderer
+                            content={v.question}
+                            variant="compact"
+                            enableMath
+                          />
                         </div>
                         {v.options.length > 0 && (
                           <div className="mt-1 text-[var(--muted-foreground)]">
-                            {v.options.join("　")}
+                            <MarkdownRenderer
+                              content={v.options.join("　")}
+                              variant="compact"
+                              enableMath
+                            />
                           </div>
                         )}
                         <div className="mt-1 text-green-600">
-                          {tr("答案", "Answer")}：{v.expected_answer}
+                          {tr("答案", "Answer")}：
+                          <MarkdownRenderer
+                            content={v.expected_answer}
+                            variant="compact"
+                            enableMath
+                            className="text-green-600"
+                          />
                           {v.analysis && (
-                            <span className="text-[var(--muted-foreground)]">
-                              {" "}
-                              · {v.analysis}
-                            </span>
+                            <>
+                              {" · "}
+                              <MarkdownRenderer
+                                content={v.analysis}
+                                variant="compact"
+                                enableMath
+                                className="text-[var(--muted-foreground)]"
+                              />
+                            </>
                           )}
                         </div>
                       </div>

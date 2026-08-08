@@ -11,6 +11,7 @@ import {
   convertSequenceFenceToMermaid,
   processMarkdownContent,
 } from "@/lib/latex";
+import { KATEX_OPTIONS } from "@/lib/math-render";
 import { findCitationAnchor } from "@/lib/markdown-anchors";
 import {
   citationAnchorIdFor,
@@ -719,7 +720,8 @@ export default function RichMarkdownRenderer({
   const rehypePlugins = useMemo(() => {
     const p: Array<any> = [];
     if (allowHtml && plugins.rehypeRaw) p.push(plugins.rehypeRaw as never);
-    if (enableMath && plugins.rehypeKatex) p.push(plugins.rehypeKatex as never);
+    if (enableMath && plugins.rehypeKatex)
+      p.push([plugins.rehypeKatex, KATEX_OPTIONS] as never);
     return p;
   }, [allowHtml, enableMath, plugins.rehypeRaw, plugins.rehypeKatex]);
 

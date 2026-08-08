@@ -1116,3 +1116,23 @@ a[href^="#dt-locator-"]:hover {
     animation: none !important;
   }
 }
+
+/* KaTeX formula rendering — unified across chat / textbook / error-book / variant
+   exercise paths. Large display formulas scroll horizontally instead of blowing
+   out the layout; inline formulas get a hair of breathing room next to CJK text. */
+.katex-display {
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 0.25rem 0;
+  margin: 0.6rem 0;
+}
+
+.katex-display > .katex {
+  white-space: nowrap;
+}
+
+/* Inline math: a little horizontal padding so Chinese characters don't crowd
+   the glyphs. Display formulas are excluded (they already break to their own block). */
+:not(.katex-display) > .katex {
+  padding: 0 0.04em;
+}
