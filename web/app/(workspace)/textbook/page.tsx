@@ -10,6 +10,8 @@ import {
   GraduationCap,
   Loader2,
   AlertTriangle,
+  List,
+  Network,
 } from "lucide-react";
 
 import {
@@ -21,6 +23,7 @@ import {
   type TextbookTree,
 } from "@/lib/textbook-api";
 import { startKgraphPath } from "@/lib/learning-api";
+import TextbookMindmap from "@/components/textbook/TextbookMindmap";
 
 /**
  * Textbook Navigator.
@@ -31,6 +34,20 @@ import { startKgraphPath } from "@/lib/learning-api";
  * ``POST /api/v1/learning/progress/{book_id}/from-kgraph`` and jumps to the
  * learning dashboard with the new path preselected.
  */
+const toggleCls = (active: boolean) =>
+  `flex items-center gap-1.5 rounded-md px-3 py-1.5 text-xs font-medium transition-colors ${
+    active
+      ? "bg-[var(--primary)] text-[var(--primary-foreground)]"
+      : "text-[var(--muted-foreground)] hover:text-[var(--foreground)]"
+  }`;
+
+const chipCls = (active: boolean) =>
+  `rounded-full border px-2.5 py-1 text-xs transition-colors ${
+    active
+      ? "border-[var(--primary)] bg-[var(--primary)]/10 text-[var(--foreground)]"
+      : "border-[var(--border)] text-[var(--muted-foreground)] hover:text-[var(--foreground)]"
+  }`;
+
 export default function TextbookNavigatorPage() {
   const { i18n } = useTranslation();
   const zh = i18n.language?.toLowerCase().startsWith("zh");
@@ -46,6 +63,10 @@ export default function TextbookNavigatorPage() {
   const [selectionPath, setSelectionPath] = useState<string[]>([]);
   const [starting, setStarting] = useState(false);
   const [startError, setStartError] = useState<string | null>(null);
+
+  // ER-2: textbook mind-map view (subject → book → chapter → section)
+  const [view, setView] = useState<"list" | "mindmap">("list");
+  const [mindmapScope, setMindmapScope] = useState<"all" | string>("all");
 
   useEffect(() => {
     let cancelled = false;
@@ -113,7 +134,70 @@ export default function TextbookNavigatorPage() {
   }, [tree]);
 
   return (
-    <div className="flex h-full min-h-0">
+    <div className="flex h-full min-h-0 flex-col">
+      {/* Toolbar: list / mindmap toggle + subject drill-down */}
+      <div className="flex flex-wrap items-center gap-3 border-b border-[var(--border)] px-4 py-2">
+        <div className="flex items-center gap-1 rounded-lg bg-[var(--muted)]/50 p-0.5">
+          <button
+            onClick={() => setView("list")}
+            className={toggleCls(view === "list")}
+          >
+            <List className="w-3.5 h-3.5" />
+            {tr("列表", "List")}
+          </button>
+          <button
+            onClick={() => setView("mindmap")}
+            className={toggleCls(view === "mindmap")}
+          >
+            <Network className="w-3.5 h-3.5" />
+            {tr("脑图", "Mindmap")}
+          </button>
+        </div>
+
+        {view === "mindmap" && (
+          <div className="flex flex-wrap items-center gap-1.5">
+            <button
+              onClick={() => setMindmapScope("all")}
+              className={chipCls(mindmapScope === "all")}
+            >
+              {tr("全部教材", "All books")}
+            </button>
+            {tree?.subjects.map((s) => (
+              <button
+                key={s.id}
+                onClick={() => setMindmapScope(s.id)}
+                className={chipCls(mindmapScope === s.id)}
+              >
+                {s.name}
+              </button>
+            ))}
+          </div>
+        )}
+
+        <div className="ml-auto flex items-center gap-1.5 text-xs text-[var(--muted-foreground)]">
+          <BookText className="w-3.5 h-3.5" />
+          <span>
+            {totalSections} {tr("节", "sections")}
+          </span>
+        </div>
+      </div>
+
+      {view === "mindmap" ? (
+        <div className="flex-1 min-h-0 p-3">
+          {!tree ? (
+            <div className="flex h-full items-center justify-center text-[var(--muted-foreground)]">
+              {loading ? (
+                <Loader2 className="w-4 h-4 animate-spin" />
+              ) : (
+                loadError ?? tr("加载中…", "Loading…")
+              )}
+            </div>
+          ) : (
+            <TextbookMindmap tree={tree} scope={mindmapScope} />
+          )}
+        </div>
+      ) : (
+      <div className="flex h-full min-h-0">
       {/* Tree */}
       <aside className="flex w-80 shrink-0 flex-col border-r border-[var(--border)] bg-[var(--card)]/40">
         <header className="border-b border-[var(--border)] px-4 py-3">
@@ -224,6 +308,8 @@ export default function TextbookNavigatorPage() {
           </div>
         )}
       </section>
+      </div>
+      )}
     </div>
   );
 }

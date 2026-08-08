@@ -144,7 +144,7 @@ const nextConfig = {
   },
 
   // Transpile mermaid and related packages for proper ESM handling
-  transpilePackages: ["mermaid"],
+  transpilePackages: ["mermaid", "markmap-lib", "markmap-view"],
 
   // Next.js 16 blocks cross-origin access to /_next/* dev resources (HMR
   // WebSocket, fonts, dev-only scripts) unless the request host is on this
