@@ -117,3 +117,54 @@ async def kg_concept(node_id: str):
             "relations": ev.get("relations", []),
         },
     }
+
+
+@router.get("/visualize")
+async def kg_visualize(
+    node_id: str | None = Query(None, description="Center KGraph concept id to diagram"),
+    path_id: str | None = Query(None, description="Mastery path id; diagram its objectives' KGraph"),
+    levels: int = Query(2, ge=1, le=4, description="Upward prerequisite depth (node mode)"),
+    successor_levels: int = Query(1, ge=0, le=3, description="Downward successor depth (node mode)"),
+):
+    """Render a KGraph subgraph as a Mermaid ``graph TD`` string (ER-1).
+
+    Two modes, selected by which query param is supplied:
+
+    * ``node_id`` — a single concept plus its prerequisite / successor hops.
+    * ``path_id`` — a mastery path's objectives, connected by the
+      ``prerequisites_for`` edges that exist *between* them, coloured by the
+      learner's mastery bucket.
+
+    The heavy lifting lives in ``deeptutor._local.kgraph_mermaid_overlay`` so
+    it stays rebase-safe; this handler only owns HTTP concerns. When the KGraph
+    dataset isn't mounted we return ``available: false`` (not a 404) so the
+    frontend can show a friendly fallback.
+    """
+    if not is_available():
+        return {"available": False, "reason": "K12-KGraph index not available"}
+    if not node_id and not path_id:
+        raise HTTPException(
+            status_code=400, detail="Provide node_id or path_id"
+        )
+    try:
+        from deeptutor._local.kgraph_mermaid_overlay import build_kgraph_mermaid
+
+        result = build_kgraph_mermaid(
+            node_id=node_id,
+            path_id=path_id,
+            levels=levels,
+            successor_levels=successor_levels,
+        )
+    except ValueError as exc:
+        raise HTTPException(status_code=400, detail=str(exc)) from exc
+    except Exception as exc:  # unknown node, KG hiccup, etc.
+        logger.warning("kg_visualize failed: %s", exc)
+        return {
+            "available": True,
+            "error": str(exc),
+            "mermaid": "",
+            "nodes": [],
+            "edges": [],
+        }
+    result["available"] = True
+    return result

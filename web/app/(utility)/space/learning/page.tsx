@@ -13,6 +13,7 @@ import {
   CalendarDays,
   AlertTriangle,
   ChevronRight,
+  Network,
 } from "lucide-react";
 
 import {
@@ -29,6 +30,7 @@ import {
   type VariantExercise,
 } from "@/lib/learning-api";
 import { getOrCreateSessionByPath } from "@/lib/session-api";
+import KGraphMermaid from "@/components/kgraph/KGraphMermaid";
 
 /**
  * Mastery Path dashboard — the persistent "screen" of the mastery experience.
@@ -541,6 +543,25 @@ function MapView({
           </div>
         ))}
       </div>
+
+      {/* ER-1: KGraph visualization of the path's objectives. The in-path
+          KP ids are KGraph concept ids (see ErrorBook), so the backend can
+          connect them by prerequisite edges and colour them by mastery. */}
+      <section className="mt-6">
+        <div className="flex items-center gap-2 text-sm font-medium text-[var(--foreground)]">
+          <Network className="h-4 w-4" />
+          {tr("知识图谱", "Knowledge Graph")}
+        </div>
+        <p className="mt-1 text-xs text-[var(--muted-foreground)]">
+          {tr(
+            "本路径知识点在课程知识图谱中的前置 / 后继关系，按掌握度着色。",
+            "How this path's objectives connect in the curriculum graph, coloured by mastery.",
+          )}
+        </p>
+        <div className="mt-2 rounded-lg border border-[var(--border)] bg-[var(--card)] p-3">
+          <KGraphMermaid pathId={result.book_id} />
+        </div>
+      </section>
 
       {/* Stage 3: Error book + weak-point backfill */}
       <ErrorBook bookId={result.book_id} kpNames={kpNames} zh={zh} tr={tr} />
