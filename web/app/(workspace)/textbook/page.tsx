@@ -215,6 +215,12 @@ export default function TextbookNavigatorPage() {
                 "The path probes what you already know, then coaches the rest — advancing automatically as each step clears (including cross-grade prerequisites).",
               )}
             </p>
+            <p className="mt-2 text-xs leading-relaxed text-[var(--muted-foreground)]/80">
+              {tr(
+                "→ 本节涵盖知识点、前置链和练习题，请进入学习工作区查看。",
+                "→ The knowledge points, prerequisites and exercises live in the learning workspace.",
+              )}
+            </p>
           </div>
         )}
       </section>
