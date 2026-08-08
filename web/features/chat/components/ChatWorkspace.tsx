@@ -402,6 +402,7 @@ export default function ChatPage() {
     loadSession,
     showCachedSession,
     renameSessionTitle,
+    selectedSessionId,
   } = useUnifiedChat();
 
   const [knowledgeBases, setKnowledgeBases] = useState<KnowledgeBase[]>([]);
@@ -425,6 +426,11 @@ export default function ChatPage() {
   const searchParams = useSearchParams();
   const pendingMasteryPath = searchParams?.get("mastery_path") ?? null;
   const pendingMasteryTitle = searchParams?.get("title") ?? null;
+  // "1" when the learning dashboard just created the chat session via
+  // ``GET /sessions/by-path`` (the new binding-aware flow); absent / "0"
+  // means the URL points at an already-existing session that we should
+  // resume without injecting a greeting.
+  const pendingCreated = searchParams?.get("created") === "1";
   const masteryPathHandledRef = useRef(false);
   const [llmOptions, setLLMOptions] = useState<LLMOption[]>([]);
   const [activeLLMDefault, setActiveLLMDefault] = useState<LLMSelection | null>(
@@ -1908,10 +1914,24 @@ export default function ChatPage() {
   // Honor `?mastery_path=<book_id>` on a fresh session: drop straight into
   // Mastery Path mode and send the first turn carrying the path id, so the
   // backend loads that exact path (with textbook context) and the tutor
-  // greets the learner with the first objective. Deferred until after the
-  // draft session the mount effect creates is the selected session (one
-  // tick), then a second tick after `setCapability` commits so `sendMessage`
-  // reads the correct active capability from the committed store.
+  // greets the learner with the first objective. Two flows now reach here:
+  //
+  //   1. **Legacy draft** — URL is `/home?mastery_path=...` (no sessionId
+  //      segment). A draft session is created on mount; we send the greeting
+  //      into that draft. (Will be removed once all callers migrate to flow
+  //      2; kept for backward-compat with existing bookmarks and ad-hoc
+  //      links.)
+  //   2. **Path-bound** — learning dashboard already called
+  //      `GET /sessions/by-path` and navigated to
+  //      `/home/<sessionId>?mastery_path=...&created=0|1`. The session is
+  //      already persisted on the server, so:
+  //        - `created=1`: brand-new (empty) session → send the greeting.
+  //        - `created=0` (or absent): resumed session → just enable Mastery
+  //          Path mode; never inject a greeting into the user's history.
+  //
+  // In flow 2 we wait until `selectedSessionId === sessionIdParam` before
+  // calling ``sendMessage`` so the greeting targets the just-created
+  // session, not the previous one still in state.
   useEffect(() => {
     if (masteryPathHandledRef.current) return;
     const pathId = pendingMasteryPath;
@@ -1919,14 +1939,49 @@ export default function ChatPage() {
       masteryPathHandledRef.current = true;
       return;
     }
-    // An existing conversation opened with ?mastery_path (e.g. a bookmark):
-    // just enable the mode; don't inject a greeting into their history.
+    // ── Flow 2: URL has the real session id from get-or-create ─────────
+    if (sessionIdParam) {
+      masteryPathHandledRef.current = true;
+      setCapability("mastery_path");
+      if (!pendingCreated) {
+        // Resumed: never inject a greeting; the chapter title was already
+        // set at session creation by the get-or-create endpoint, so the
+        // sidebar will show "第一章 认识生物" instead of "新对话".
+        return;
+      }
+      // Newly created: wait until the just-loaded session is the selected
+      // one, then send the greeting on the next tick (matches the legacy
+      // draft-flow timing — give setCapability a chance to commit first).
+      if (selectedSessionId !== sessionIdParam) {
+        // Roll back the handled flag so the effect re-runs once the
+        // session is bound; the outer guard above will short-circuit on
+        // the second pass once we get past the wait.
+        masteryPathHandledRef.current = false;
+        return;
+      }
+      let t2: ReturnType<typeof setTimeout> | undefined;
+      const t1: ReturnType<typeof setTimeout> = setTimeout(() => {
+        masteryPathHandledRef.current = true;
+        t2 = setTimeout(() => {
+          sendMessage(
+            t("mastery.continueGreeting", "我们开始这条精通之路的学习吧。"),
+            undefined,
+            { mastery_path_id: pathId },
+          );
+        }, 0);
+      }, 0);
+      return () => {
+        clearTimeout(t1);
+        if (t2) clearTimeout(t2);
+      };
+    }
+    // ── Flow 1: legacy draft (no sessionIdParam) ───────────────────────
+    // Existing chat opened straight from "/home?mastery_path=...": the
+    // mount effect creates a draft session, messages.length === 0 → send
+    // the greeting into the draft.
     if (state.messages.length > 0) {
       masteryPathHandledRef.current = true;
       setCapability("mastery_path");
-      // Still set the session title from the chapter/section name so the
-      // sidebar shows something distinguishable (e.g. "第一章 认识生物")
-      // instead of a generic greeting fragment like "我们开始这条精通之路的学习吧。"
       if (pendingMasteryTitle?.trim()) {
         renameSessionTitle(pendingMasteryTitle.trim());
       }
@@ -1942,9 +1997,6 @@ export default function ChatPage() {
           undefined,
           { mastery_path_id: pathId },
         );
-        // Set session title from the chapter/section name so the sidebar
-        // shows something distinguishable (e.g. "第一章 认识生物")
-        // instead of a generic "开启精通之路学习" for every path.
         if (pendingMasteryTitle?.trim()) {
           renameSessionTitle(pendingMasteryTitle.trim());
         }
@@ -1954,7 +2006,18 @@ export default function ChatPage() {
       clearTimeout(t1);
       if (t2) clearTimeout(t2);
     };
-  }, [state.messages.length, pendingMasteryPath, pendingMasteryTitle, setCapability, sendMessage, renameSessionTitle, t]);
+  }, [
+    state.messages.length,
+    selectedSessionId,
+    sessionIdParam,
+    pendingMasteryPath,
+    pendingMasteryTitle,
+    pendingCreated,
+    setCapability,
+    sendMessage,
+    renameSessionTitle,
+    t,
+  ]);
   const handleSelectNotebookPicker = useCallback(() => {
     setShowNotebookPicker(true);
   }, []);

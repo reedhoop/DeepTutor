@@ -28,6 +28,7 @@ import {
   type ErrorBookResult,
   type VariantExercise,
 } from "@/lib/learning-api";
+import { getOrCreateSessionByPath } from "@/lib/session-api";
 
 /**
  * Mastery Path dashboard — the persistent "screen" of the mastery experience.
@@ -50,6 +51,8 @@ export default function MasteryPathPage() {
   const [detail, setDetail] = useState<MasteryMapResult | null>(null);
   const [loadingList, setLoadingList] = useState(true);
   const [loadingDetail, setLoadingDetail] = useState(false);
+  // Guard against double-click while we're awaiting the get-or-create call.
+  const [continuing, setContinuing] = useState(false);
 
   const loadList = useCallback(async () => {
     setLoadingList(true);
@@ -224,12 +227,40 @@ export default function MasteryPathPage() {
             result={detail}
             zh={!!zh}
             tr={tr}
-            onContinue={() =>
-              selected &&
+            continuing={continuing}
+            onContinue={async () => {
+              if (!selected || continuing) return;
+              setContinuing(true);
+              const name =
+                paths.find((p) => p.book_id === selected)?.name || "";
+              try {
+                // Bind this chapter to a single chat session: if the user
+                // already opened this mastery path before, resume that
+                // session instead of creating a new "新对话".
+                const { session, created } = await getOrCreateSessionByPath(
+                  selected,
+                  "mastery_path",
+                  name,
+                );
+                router.push(
+                  `/home/${encodeURIComponent(session.session_id)}?mastery_path=${encodeURIComponent(
+                    selected,
+                  )}&created=${created ? "1" : "0"}`,
+                );
+                return;
+              } catch (err) {
+                console.error(
+                  "Failed to bind mastery path to session, falling back",
+                  err,
+                );
+              } finally {
+                setContinuing(false);
+              }
+              // Fallback: legacy draft flow so the user is never stranded.
               router.push(
-                `/home?mastery_path=${encodeURIComponent(selected)}&title=${encodeURIComponent(paths.find((p) => p.book_id === selected)?.name || "")}`,
-              )
-            }
+                `/home?mastery_path=${encodeURIComponent(selected)}&title=${encodeURIComponent(name)}`,
+              );
+            }}
             onRedo={() => selected && handleRedo(selected)}
             onDelete={() => selected && handleDelete(selected)}
           />
@@ -347,6 +378,7 @@ function MapView({
   result,
   zh,
   tr,
+  continuing,
   onContinue,
   onRedo,
   onDelete,
@@ -354,7 +386,8 @@ function MapView({
   result: MasteryMapResult;
   zh: boolean;
   tr: (cn: string, en: string) => string;
-  onContinue: () => void;
+  continuing: boolean;
+  onContinue: () => Promise<void> | void;
   onRedo: () => void;
   onDelete: () => void;
 }) {
@@ -441,7 +474,8 @@ function MapView({
       {/* Next step */}
       <button
         onClick={onContinue}
-        className="mt-4 w-full text-left rounded-lg border border-[var(--border)] hover:border-[var(--primary)]/40 hover:bg-[var(--accent)] p-3 transition-colors cursor-pointer"
+        disabled={continuing}
+        className="mt-4 w-full text-left rounded-lg border border-[var(--border)] hover:border-[var(--primary)]/40 hover:bg-[var(--accent)] p-3 transition-colors cursor-pointer disabled:opacity-60 disabled:cursor-wait"
       >
         <div className="text-xs text-[var(--muted-foreground)]">
           {tr("接下来", "Next")}
@@ -452,7 +486,14 @@ function MapView({
             : `${next.knowledge_point_name} — ${tr(action.cn, action.en)}`}
         </div>
         <div className="mt-1 text-xs text-[var(--primary)]">
-          {tr("在对话中继续辅导 →", "Continue tutoring in Chat →")}
+          {continuing ? (
+            <span className="inline-flex items-center gap-1.5">
+              <Loader2 className="w-3 h-3 animate-spin" />
+              {tr("打开对话中…", "Opening chat…")}
+            </span>
+          ) : (
+            tr("在对话中继续辅导 →", "Continue tutoring in Chat →")
+          )}
         </div>
       </button>
 

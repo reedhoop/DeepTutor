@@ -174,6 +174,44 @@ export async function listAllSessions(options?: {
   }
 }
 
+/**
+ * [FORK-EXT] Lightweight shape returned by `GET /sessions/by-path`. We only
+ * need ``session_id`` (to navigate to) and ``created`` (to decide whether to
+ * inject the mastery-path greeting). The full message history is loaded
+ * separately after navigation.
+ */
+export interface PathBoundSession {
+  id: string;
+  session_id: string;
+  title: string;
+  created_at: number;
+  updated_at: number;
+  preferences?: SessionPreferences;
+}
+
+/** [FORK-EXT] Get-or-create the chat session bound to a mastery ``path_id``. */
+export async function getOrCreateSessionByPath(
+  pathId: string,
+  capability: string = "",
+  title?: string,
+): Promise<{ session: PathBoundSession; created: boolean }> {
+  const qs = new URLSearchParams({
+    path_id: pathId,
+    capability: capability || "",
+  });
+  if (title) qs.set("title", title);
+  const response = await apiFetch(
+    apiUrl(`/api/sessions/by-path?${qs.toString()}`),
+    { cache: "no-store" },
+  );
+  const data = await expectJson<{
+    session: PathBoundSession;
+    created: boolean;
+  }>(response);
+  invalidateClientCache("sessions:");
+  return data;
+}
+
 export async function getSession(
   sessionId: string,
   signal?: AbortSignal,

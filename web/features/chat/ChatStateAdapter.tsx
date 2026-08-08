@@ -2220,22 +2220,46 @@ export function ChatStateAdapterProvider({
     dispatch({ type: "SET_LANGUAGE", lang });
   }, []);
 
+  // [FORK-EXT] Title rename can fire BEFORE the session id is bound (e.g. a
+  // UI flow that opens a draft and immediately tries to title it). When that
+  // happens we stash the requested title in a ref and flush it from a small
+  // effect as soon as ``selectedSessionId`` becomes non-null. This keeps
+  // callers from having to know whether the underlying session is already
+  // persisted.
+  const pendingTitleRef = useRef<string | null>(null);
   const renameSessionTitle = useCallback(async (title: string) => {
     const trimmed = title.trim();
     if (!trimmed) return;
     const currentState = stateRef.current;
     const key = currentState.selectedKey;
-    if (!key) return;
+    if (!key) {
+      pendingTitleRef.current = trimmed;
+      return;
+    }
     const session = currentState.sessions[key];
     const sessionId = session?.sessionId;
-    if (!sessionId) return;
+    if (!sessionId) {
+      pendingTitleRef.current = trimmed;
+      return;
+    }
     const updated = await updateSessionTitle(sessionId, trimmed);
+    // Only clear the pending slot if it still holds the title we just wrote
+    // — a newer caller may have overwritten it with a different request.
+    if (pendingTitleRef.current === trimmed) {
+      pendingTitleRef.current = null;
+    }
     dispatch({
       type: "SET_SESSION_TITLE",
       key,
       title: updated.title || trimmed,
     });
   }, []);
+  // Flush any stashed title once the selected session has a real id.
+  useEffect(() => {
+    if (!derivedState.sessionId || !pendingTitleRef.current) return;
+    const title = pendingTitleRef.current;
+    void renameSessionTitle(title);
+  }, [derivedState.sessionId, renameSessionTitle]);
 
   const newSession = useCallback(
     (configuration?: SessionConfiguration) => {

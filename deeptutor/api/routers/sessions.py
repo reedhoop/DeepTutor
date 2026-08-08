@@ -106,6 +106,28 @@ async def list_sessions(
     return {"sessions": sessions}
 
 
+# [FORK-EXT] Path-bound session get-or-create for the Mastery Path UI, so
+# clicking "Continue tutoring in Chat →" on the same chapter reopens the
+# existing conversation instead of spawning a new "New conversation" every
+# time. The path id is stored inside ``sessions.preferences_json`` (key
+# ``path_id``); when an existing row matches it is returned untouched and
+# ``created`` is false, otherwise a new session is created with the supplied
+# ``title`` (if any) and preferences ``{path_id, capability}``.
+@router.get("/by-path")
+async def get_or_create_session_by_path(
+    path_id: str = Query(..., min_length=1, max_length=200),
+    capability: str = Query(default="", max_length=64),
+    title: str = Query(default="", max_length=100),
+):
+    store = get_sqlite_session_store()
+    session, created = await store.get_or_create_by_path(
+        path_id=path_id,
+        capability=capability,
+        title=title or None,
+    )
+    return {"session": session, "created": created}
+
+
 # Cap (in characters) for a single event payload returned to the UI. RAG
 # tools can attach whole KB documents to ``tool_result``/``observation``
 # events; the frontend TraceSurface only needs a preview, and the LLM context

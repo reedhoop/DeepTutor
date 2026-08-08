@@ -659,20 +659,22 @@ class SQLiteSessionStore:
         self,
         title: str | None = None,
         session_id: str | None = None,
+        preferences: dict[str, Any] | None = None,
     ) -> dict[str, Any]:
         now = time.time()
         resolved_id = session_id or f"unified_{int(now * 1000)}_{uuid.uuid4().hex[:8]}"
         resolved_title = (title or "New conversation").strip() or "New conversation"
+        prefs_json = _json_dumps(preferences or {}) if preferences else "{}"
         with self._connect() as conn:
             conn.execute(
                 """
                 INSERT INTO sessions (
                     id, title, created_at, updated_at,
-                    compressed_summary, summary_up_to_msg_id
+                    compressed_summary, summary_up_to_msg_id, preferences_json
                 )
-                VALUES (?, ?, ?, ?, '', 0)
+                VALUES (?, ?, ?, ?, '', 0, ?)
                 """,
-                (resolved_id, resolved_title[:100], now, now),
+                (resolved_id, resolved_title[:100], now, now, prefs_json),
             )
             conn.commit()
         return {
@@ -683,14 +685,16 @@ class SQLiteSessionStore:
             "updated_at": now,
             "compressed_summary": "",
             "summary_up_to_msg_id": 0,
+            "preferences": dict(preferences or {}),
         }
 
     async def create_session(
         self,
         title: str | None = None,
         session_id: str | None = None,
+        preferences: dict[str, Any] | None = None,
     ) -> dict[str, Any]:
-        return await self._run(self._create_session_sync, title, session_id)
+        return await self._run(self._create_session_sync, title, session_id, preferences)
 
     def _get_session_sync(self, session_id: str) -> dict[str, Any] | None:
         with self._connect() as conn:
@@ -760,6 +764,89 @@ class SQLiteSessionStore:
             if session is not None:
                 return session
         return await self.create_session()
+
+    # ── Path-bound sessions (mastery path / textbook chapters) ─────────
+    # [FORK-EXT] Allows the learning UI to resume the same chat session for a
+    # given knowledge path instead of spawning a fresh "New conversation" on
+    # every click. The path id is stored inside ``preferences_json`` (key
+    # ``path_id``) so no schema migration is needed.
+
+    def _find_session_by_path_sync(
+        self,
+        path_id: str,
+        capability: str | None = None,
+    ) -> dict[str, Any] | None:
+        """Find the most-recent native session whose ``preferences.path_id``
+        matches. ``capability`` is optional: when provided, only sessions with
+        that capability match (e.g. ``mastery_path``). Imported sessions
+        (``id LIKE 'imported_%'``) are always excluded — they belong to a
+        different lifecycle and shouldn't be resumed through the in-app UI.
+        Returns ``None`` when no match exists.
+        """
+        if not path_id:
+            return None
+        where_cap = ""
+        params: tuple[Any, ...]
+        if capability:
+            where_cap = " AND json_extract(preferences_json, '$.capability') = ?"
+            params = (path_id, capability)
+        else:
+            params = (path_id,)
+        with self._connect() as conn:
+            row = conn.execute(
+                f"""
+                SELECT id FROM sessions
+                WHERE json_extract(preferences_json, '$.path_id') = ?
+                  {where_cap}
+                  AND id NOT LIKE 'imported\\_%' ESCAPE '\\'
+                ORDER BY updated_at DESC
+                LIMIT 1
+                """,
+                params,
+            ).fetchone()
+        if row is None:
+            return None
+        return self._get_session_sync(row["id"])
+
+    async def find_session_by_path(
+        self,
+        path_id: str,
+        capability: str | None = None,
+    ) -> dict[str, Any] | None:
+        return await self._run(self._find_session_by_path_sync, path_id, capability)
+
+    def _get_or_create_by_path_sync(
+        self,
+        path_id: str,
+        capability: str = "",
+        title: str | None = None,
+        extra_preferences: dict[str, Any] | None = None,
+    ) -> tuple[dict[str, Any], bool]:
+        existing = self._find_session_by_path_sync(path_id, capability or None)
+        if existing is not None:
+            return existing, False
+        preferences: dict[str, Any] = {"path_id": path_id}
+        if capability:
+            preferences["capability"] = capability
+        if extra_preferences:
+            preferences.update(extra_preferences)
+        created = self._create_session_sync(title=title, preferences=preferences)
+        return created, True
+
+    async def get_or_create_by_path(
+        self,
+        path_id: str,
+        capability: str = "",
+        title: str | None = None,
+        extra_preferences: dict[str, Any] | None = None,
+    ) -> tuple[dict[str, Any], bool]:
+        return await self._run(
+            self._get_or_create_by_path_sync,
+            path_id,
+            capability,
+            title,
+            extra_preferences,
+        )
 
     @staticmethod
     def _serialize_turn(row: sqlite3.Row) -> dict[str, Any]:
