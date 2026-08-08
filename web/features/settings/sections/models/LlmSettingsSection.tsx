@@ -2,6 +2,7 @@
 
 import { useTranslation } from "react-i18next";
 
+import { EducationalLlmPresets } from "@/components/settings/EducationalLlmPresets";
 import { ServiceConfigEditor } from "@/components/settings/ServiceConfigEditor";
 import { SettingsPageHeader } from "@/components/settings/shared";
 
@@ -15,6 +16,7 @@ export default function LlmSettingsPage() {
           "Configure language model profiles. The active model is used for chat and most agent reasoning.",
         )}
       />
+      <EducationalLlmPresets />
       <ServiceConfigEditor service="llm" />
     </div>
   );
