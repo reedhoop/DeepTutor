@@ -13,6 +13,16 @@ Run with the project venv:
 from __future__ import annotations
 
 import json
+import sys
+from pathlib import Path
+
+# MUST run before importing deeptutor: when executed as a script, sys.path[0] is
+# reports/, which makes `import deeptutor` resolve to the stale non-editable copy
+# in .venv/Lib/site-packages (v1.5.4) instead of this repo's source tree.
+_REPO_ROOT = Path(__file__).resolve().parent.parent
+if str(_REPO_ROOT) in sys.path:
+    sys.path.remove(str(_REPO_ROOT))
+sys.path.insert(0, str(_REPO_ROOT))
 
 # Importing the overlay self-registers the post-grade hooks (consecutive-wrong
 # counter + error-book refiner) in the same order the running backend uses.

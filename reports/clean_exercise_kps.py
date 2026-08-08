@@ -15,8 +15,16 @@ import json
 import sys
 from pathlib import Path
 
-from deeptutor.capabilities.mastery.kgraph_bridge import TEACHABLE
-from deeptutor.services.kgraph import get_kg, is_available
+# MUST run before importing deeptutor: when executed as a script, sys.path[0] is
+# reports/, which makes `import deeptutor` resolve to the stale non-editable copy
+# in .venv/Lib/site-packages (v1.5.4) instead of this repo's source tree.
+_REPO_ROOT = Path(__file__).resolve().parent.parent
+if str(_REPO_ROOT) in sys.path:
+    sys.path.remove(str(_REPO_ROOT))
+sys.path.insert(0, str(_REPO_ROOT))
+
+from deeptutor.capabilities.mastery.kgraph_bridge import TEACHABLE  # noqa: E402
+from deeptutor.services.kgraph import get_kg, is_available  # noqa: E402
 
 PATHS_DIR = Path("data/user/workspace/learning")
 
