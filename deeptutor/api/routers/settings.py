@@ -117,6 +117,12 @@ DEFAULT_UI_SETTINGS = {
     # UI preference (not catalog); ``null`` means "use the catalog's default
     # voice for the active model". The chat surface reads it from ``ui.tts_voice``.
     "tts_voice": None,
+    # Digital-human avatar (ER-8). ``enabled`` turns the widget on; ``mode``
+    # picks the built-in TTS-lip-synced SVG avatar ("builtin") vs an embedded
+    # external digital-human web UI such as GMTalker ("iframe", wired via
+    # ``iframe_url``). Pure UI preference — the chat surface reads it from
+    # ``ui.digital_human``.
+    "digital_human": {"enabled": False, "mode": "builtin", "iframe_url": ""},
     # Seconds the chat UI waits for any turn event before declaring the
     # connection timed out. Bumped from 60 → 180 so slow tools (image/video
     # generation) don't trip it; user-adjustable in Settings > Network.
@@ -176,6 +182,18 @@ class TtsVoiceUpdate(BaseModel):
     # Selected voice identifier (the provider's ``voice`` param). ``None``
     # restores the catalog's default voice for the active model.
     tts_voice: str | None = None
+
+
+class DigitalHumanUpdate(BaseModel):
+    """Digital-human widget preferences (ER-8).
+
+    ``mode``: "builtin" = the built-in TTS-lip-synced SVG avatar; "iframe" =
+    embed an external digital-human web UI (e.g. GMTalker) via ``iframe_url``.
+    """
+
+    enabled: bool = False
+    mode: Literal["builtin", "iframe"] = "builtin"
+    iframe_url: str = ""
 
 
 class ChatResponseTimeoutUpdate(BaseModel):
@@ -1492,6 +1510,26 @@ async def update_tts_voice(update: TtsVoiceUpdate):
     current_ui["tts_voice"] = update.tts_voice
     save_ui_settings(current_ui)
     return {"tts_voice": update.tts_voice}
+
+
+@router.put("/digital-human")
+async def update_digital_human(update: DigitalHumanUpdate):
+    """Persist the digital-human widget preferences (ER-8).
+
+    A personal UI preference (any authenticated user); the chat surface reads it
+    via ``ui.digital_human`` from GET /settings. Enables the built-in
+    TTS-lip-synced avatar or points the widget at an external digital-human
+    iframe (e.g. a locally deployed GMTalker).
+    """
+    current_ui = load_ui_settings()
+    merged = {
+        "enabled": bool(update.enabled),
+        "mode": update.mode,
+        "iframe_url": update.iframe_url.strip(),
+    }
+    current_ui["digital_human"] = merged
+    save_ui_settings(current_ui)
+    return {"digital_human": merged}
 
 
 @router.put("/chat-response-timeout")

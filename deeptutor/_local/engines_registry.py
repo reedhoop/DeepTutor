@@ -42,6 +42,12 @@ def _pp_structurev3_class() -> Callable[[], Any]:
     return PPStructureV3Parser
 
 
+def _chandra_class() -> Callable[[], Any]:
+    from deeptutor.services.parsing.engines.chandra.engine import ChandraParser
+
+    return ChandraParser
+
+
 # Static UI metadata (formerly inline in factory._ENGINE_META). Kept here so
 # list_engines() never has to import our engine dependencies.
 _ENGINE_META: Dict[str, Dict[str, Any]] = {
@@ -73,6 +79,18 @@ _ENGINE_META: Dict[str, Dict[str, Any]] = {
         ),
         "needs_local_models": True,
     },
+    "chandra": {
+        "name": "Chandra",
+        "description": (
+            "Unified single-model VLM OCR (formula + handwriting + layout) via a "
+            "self-hosted vLLM server. The 'integrated' track of the ER-5 "
+            "dual-track design: auto-routing prefers Chandra for complex / scanned "
+            "layouts when its vLLM endpoint is deployed. PDF only; no local model "
+            "download. Configure the model name and vLLM address in Settings → "
+            "Document Parsing before use."
+        ),
+        "needs_local_models": False,
+    },
 }
 
 
@@ -90,6 +108,7 @@ def apply_factory_overlay() -> None:
         OVISOCR2,
         PADDLEOCR_VL,
         PP_STRUCTUREV3,
+        CHANDRA,
     )
 
     _f._ENGINE_LOADERS.update(
@@ -97,6 +116,7 @@ def apply_factory_overlay() -> None:
             OVISOCR2: _ovisocr2_class,
             PADDLEOCR_VL: _paddleocr_vl_class,
             PP_STRUCTUREV3: _pp_structurev3_class,
+            CHANDRA: _chandra_class,
         }
     )
     _f._ENGINE_META.update(_ENGINE_META)
@@ -110,6 +130,12 @@ def apply_factory_overlay() -> None:
     # VLM engines are remote vLLM endpoints with no local pip package.
     if not hasattr(_f, "_REMOTE_ENGINE_IDS"):
         _f._REMOTE_ENGINE_IDS = set()
-    _f._REMOTE_ENGINE_IDS.update({OVISOCR2, PADDLEOCR_VL})
+    _f._REMOTE_ENGINE_IDS.update({OVISOCR2, PADDLEOCR_VL, CHANDRA})
+    # Treat Chandra as a remote VLM engine in list_engines readiness probing (so
+    # its static ready flag stays False and the settings readiness dict is
+    # authoritative). Newer upstream factory shapes dropped ``_VLM_ENGINE_IDS``
+    # entirely; guard so the hook stays inert-but-safe when it is absent.
+    if hasattr(_f, "_VLM_ENGINE_IDS"):
+        _f._VLM_ENGINE_IDS = frozenset(_f._VLM_ENGINE_IDS | {CHANDRA})
     # KNOWN_ENGINES was computed at import time, before this hook ran.
     _f.KNOWN_ENGINES = frozenset(_f._ENGINE_LOADERS)

@@ -36,6 +36,7 @@ import type { SelectedRecord } from "@/lib/notebook-selection-types";
 import type { SelectedHistorySession } from "@/components/chat/HistorySessionPicker";
 import type { SelectedQuestionEntry } from "@/components/chat/QuestionBankPicker";
 import ChatComposer from "@/components/chat/home/ChatComposer";
+import { DigitalHumanWidget } from "@/components/chat/digital/DigitalHumanWidget";
 import type { ContextBudget } from "@/components/chat/home/ContextBudgetChip";
 import { ChatMessageList } from "@/features/chat/messages";
 import { TurnNavigator } from "@/components/chat/home/TurnNavigator";
@@ -2428,6 +2429,7 @@ export default function ChatPage() {
               onCancelStreaming={cancelStreamingTurn}
               prefillInputRef={prefillInputRef}
             />
+            <DigitalHumanWidget />
             <div
               aria-hidden="true"
               className="shrink-0"

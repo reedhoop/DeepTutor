@@ -25,8 +25,9 @@ from typing import Any, Dict
 OVISOCR2 = "ovisocr2"
 PADDLEOCR_VL = "paddleocr_vl"
 PP_STRUCTUREV3 = "pp_structurev3"
+CHANDRA = "chandra"
 
-EXTERNAL_ENGINE_IDS = frozenset({OVISOCR2, PADDLEOCR_VL, PP_STRUCTUREV3})
+EXTERNAL_ENGINE_IDS = frozenset({OVISOCR2, PADDLEOCR_VL, PP_STRUCTUREV3, CHANDRA})
 
 
 def _coerce_float(
@@ -98,11 +99,25 @@ _PP_STRUCTUREV3_DEFAULT: Dict[str, Any] = {
     "allow_local_model_download": False,
 }
 
+# Chandra engine slice. Same vLLM schema as OvisOCR2 (formula + handwriting +
+# layout single model). Defaults to a dedicated port (:8230) so it never collides
+# with the OvisOCR2 :8200 / PaddleOCR-VL :8118 vLLM endpoints. ``model_name`` is
+# intentionally empty — the engine refuses to run until the user deploys Chandra's
+# vLLM service and fills in the name + address in Settings.
+_CHANDRA_DEFAULT: Dict[str, Any] = {
+    **_OVISOCR2_DEFAULT,
+    "api_base_url": "http://127.0.0.1:8230/v1",
+    "model_name": "",
+    # Unified single-model parsing needs page-level headroom like OvisOCR2.
+    "max_tokens": 16384,
+}
+
 # Default per-engine config slices (formerly ``_DEFAULT_*_ENGINE``).
 DEFAULT_EXTERNAL_ENGINE_SLICES: Dict[str, Dict[str, Any]] = {
     OVISOCR2: _OVISOCR2_DEFAULT,
     PADDLEOCR_VL: _PADDLEOCR_VL_DEFAULT,
     PP_STRUCTUREV3: _PP_STRUCTUREV3_DEFAULT,
+    CHANDRA: _CHANDRA_DEFAULT,
 }
 
 
@@ -136,6 +151,21 @@ def _norm_ovisocr2(
         ),
         "extra_prompt": _string(settings.get("extra_prompt")),
     }
+
+
+def _norm_chandra(
+    settings: dict[str, Any],
+    *,
+    default_api_base_url: str = "http://127.0.0.1:8230/v1",
+    default_max_tokens: int = 16384,
+) -> Dict[str, Any]:
+    """Normalize the Chandra engine slice (vLLM, same shape as OvisOCR2)."""
+    return _norm_ovisocr2(
+        settings,
+        default_api_base_url=default_api_base_url,
+        default_model_name="",
+        default_max_tokens=default_max_tokens,
+    )
 
 
 def normalize_external_engines(engines_in: dict[str, Any]) -> Dict[str, Any]:
@@ -191,6 +221,7 @@ def normalize_external_engines(engines_in: dict[str, Any]) -> Dict[str, Any]:
             pp.get("allow_local_model_download"), False
         ),
     }
+    out[CHANDRA] = _norm_chandra(engines_in.get(CHANDRA) or {})
     return out
 
 

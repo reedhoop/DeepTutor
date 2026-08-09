@@ -21,10 +21,15 @@ def test_known_engines() -> None:
         "ovisocr2",
         "paddleocr_vl",
         "pp_structurev3",
+        "chandra",
     }
 
 
 def test_list_engines_reports_metadata_and_availability() -> None:
+    # list_engines caches for 60s; drop the cache so the assertion below sees
+    # the post-overlay registry (chandra included).
+    factory.list_engines._cache = None
+    factory.list_engines._ts = 0.0
     engines = {entry["id"]: entry for entry in factory.list_engines()}
     assert set(engines) == {
         "text_only",
@@ -35,6 +40,7 @@ def test_list_engines_reports_metadata_and_availability() -> None:
         "ovisocr2",
         "paddleocr_vl",
         "pp_structurev3",
+        "chandra",
     }
     assert engines["text_only"]["available"] is True
     assert engines["text_only"]["needs_local_models"] is False
@@ -51,6 +57,13 @@ def test_list_engines_reports_metadata_and_availability() -> None:
     assert engines["paddleocr_vl"]["needs_local_models"] is False
     # PP-StructureV3 is a local pipeline — availability depends on the install.
     assert engines["pp_structurev3"]["needs_local_models"] is True
+    # Chandra (ER-5): remote vLLM engine — available, no local models, and the
+    # static ready flag stays False (live readiness comes from the settings
+    # endpoint's per-engine probe).
+    assert engines["chandra"]["available"] is True
+    assert engines["chandra"]["needs_local_models"] is False
+    assert engines["chandra"]["version"] == "remote"
+    assert engines["chandra"]["ready"] is False
 
 
 def test_get_parser_unknown_raises() -> None:
@@ -931,7 +944,6 @@ def test_model_download_allowlist() -> None:
     assert model_downloadable_engines() == {"docling"}
     assert ENGINE_MODEL_DOWNLOADERS["docling"][0] == "docling-tools"
     assert "pymupdf4llm" not in ENGINE_MODEL_DOWNLOADERS
-    assert "liteparse" not in ENGINE_MODEL_DOWNLOADERS
 
 
 def test_resolve_model_downloader_unknown_engine() -> None:

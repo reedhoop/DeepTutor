@@ -16,6 +16,10 @@ Design notes (keep this file import-safe and dependency-light):
   from the auto candidate pool: they depend on an external server the user
   must start manually, so auto-routing never silently picks an engine that
   can't run. They remain reachable only via manual mode or ``fallback_engine``.
+- ER-5 makes a targeted exception for ``chandra``: when its vLLM endpoint is
+  actually deployed (readiness probe succeeds), complex / scanned layouts prefer
+  it as the unified single-model parser. The readiness gate means an undeployed
+  Chandra is never selected, so the existing 8-engine route is preserved.
 """
 
 from __future__ import annotations
@@ -34,6 +38,11 @@ _OCR_ENGINES: Tuple[str, ...] = (
     "mineru",
     "pp_structurev3",
 )
+# ER-5: Chandra is the 'integrated' single-model track. Auto-routing may prefer
+# it for complex / scanned layouts, but ONLY when its vLLM endpoint is actually
+# deployed (see ``resolve_engine``). It is intentionally NOT added to the OCR/Light
+# pools so an undeployed Chandra never enters the fallback cascade.
+_CHANDRA = "chandra"
 _LIGHT_ENGINES: Tuple[str, ...] = (
     "text_only",
     "pymupdf4llm",
@@ -132,7 +141,7 @@ def _engine_ready(engine: str, *, ttl: float | None = None) -> bool:
     if cached is not None and now - cached[0] < ttl:
         return cached[1]
     try:
-        from deeptutor.services.parsing.engines import get_parser
+        from deeptutor.services.parsing.engines.factory import get_parser
 
         parser = get_parser(engine)
         ok = bool(parser.is_ready(parser.resolve_config()).ready)
@@ -187,6 +196,12 @@ def resolve_engine(
     else:
         degree = _sample_scan_degree(src)
         _SCAN_CACHE[fhash] = (now, degree)
+
+    # ER-5: complex / scanned layouts prefer the unified Chandra model when it is
+    # actually deployed. We only pick it when its readiness probe succeeds — an
+    # undeployed vLLM is never silently selected, preserving the existing route.
+    if degree in ("image", "mixed") and _engine_ready(_CHANDRA, ttl=rttl):
+        return _CHANDRA
 
     # Preferred pool by document type.
     preferred: Tuple[str, ...]

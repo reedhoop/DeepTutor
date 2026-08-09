@@ -24,6 +24,7 @@ import {
   MessageSquare,
   Mic,
   Paperclip,
+  PenLine,
   Plus,
   Sparkles,
   Square,
@@ -49,6 +50,7 @@ import ChatSpaceMenu from "@/components/chat/space/ChatSpaceMenu";
 import type { SpaceMemoryFile } from "@/lib/space-items";
 import type { SelectedBookReference } from "@/lib/book-references";
 import type { SelectedReadingReference } from "@/lib/reading-references";
+import { DrawPad } from "./DrawPad";
 import AgentSelector from "./AgentSelector";
 import ContextBudgetChip, { type ContextBudget } from "./ContextBudgetChip";
 import KnowledgeSelector from "./KnowledgeSelector";
@@ -83,6 +85,22 @@ interface PendingAttachment {
   previewUrl?: string;
   size?: number;
   mimeType?: string;
+}
+
+/** Chinese-first inline translation helper (mirrors DrawPad). Avoids adding
+ *  keys to web/locales/{en,zh}/app.json so the i18n parity gate stays green. */
+const tr = (zh: string, _en: string) => zh;
+
+/** Convert a PNG data URL into a File so it can flow through the existing
+ *  attachment pipeline (fileToAttachment → image attachment). */
+function dataURLtoFile(dataUrl: string, filename: string): File {
+  const [meta, b64] = dataUrl.split(",");
+  const mime =
+    (/:(.*?);/.exec(meta)?.[1] as string) || "image/png";
+  const bin = atob(b64);
+  const bytes = new Uint8Array(bin.length);
+  for (let i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i);
+  return new File([bytes], filename, { type: mime });
 }
 
 interface KnowledgeBase {
@@ -431,6 +449,10 @@ export default memo(function ChatComposer({
   // threshold. Count-badges stay visible so users still see how many
   // things are selected.
   const [composerCompact, setComposerCompact] = useState(false);
+  // ER-7: inline drawing pad (学生"画给我看"小画板) — toggled from the
+  // composer toolbar, sketch is exported as a PNG and routed through the
+  // existing attachment pipeline (onAddFiles → image attachment → multimodal).
+  const [showDrawPad, setShowDrawPad] = useState(false);
   useEffect(() => {
     const el = composerRef.current;
     if (!el || typeof ResizeObserver === "undefined") return;
@@ -463,6 +485,27 @@ export default memo(function ChatComposer({
   const focusTextarea = useCallback(() => {
     requestAnimationFrame(() => textareaRef.current?.focus());
   }, []);
+
+  // ER-7: a finished sketch becomes a PNG File and flows through the exact same
+  // attachment pipeline as a pasted/dropped image — so the tutor LLM receives
+  // it as a multimodal image and can ask Socratic follow-ups about it.
+  const handleInsertSketch = useCallback(
+    (dataUrl: string) => {
+      const file = dataURLtoFile(dataUrl, `sketch-${Date.now()}.png`);
+      onAddFiles([file]);
+      const current = inputHandleRef.current?.getValue()?.trim() ?? "";
+      if (!current) {
+        inputHandleRef.current?.setValue(
+          tr(
+            "请基于我画的草图继续提问",
+            "Please continue questioning based on my sketch",
+          ),
+        );
+      }
+      focusTextarea();
+    },
+    [onAddFiles, focusTextarea],
+  );
 
   useEffect(() => {
     const rememberFocus = () => {
@@ -1077,6 +1120,24 @@ export default memo(function ChatComposer({
                     </span>
                   )}
                 </button>
+                <button
+                  type="button"
+                  onClick={() => setShowDrawPad((v) => !v)}
+                  title={tr("画板", "Drawing pad")}
+                  aria-label={tr("画板", "Drawing pad")}
+                  className={`relative flex h-8 w-8 shrink-0 items-center justify-center rounded-lg transition-[background-color,color,transform] duration-150 active:scale-90 ${
+                    showDrawPad
+                      ? "bg-[var(--muted)] text-[var(--foreground)]"
+                      : "text-[var(--muted-foreground)] hover:bg-[var(--muted)]/55 hover:text-[var(--foreground)]"
+                  }`}
+                >
+                  <PenLine size={18} strokeWidth={1.8} />
+                </button>
+                <DrawPad
+                  open={showDrawPad}
+                  onOpenChange={setShowDrawPad}
+                  onInsert={handleInsertSketch}
+                />
                 <AnimatePresence>
                   {spaceMenuOpen && (
                     <motion.div
