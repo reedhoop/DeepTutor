@@ -63,6 +63,43 @@ _EDITION_NAMES: dict[str, str] = {
 _CH_RE = re.compile(r"_ch(\d+)")
 _SEC_RE = re.compile(r"_s(\d+)")
 
+# ── stage (学段) grouping ────────────────────────────────────────────────────
+# KGraph models every book as a direct child of its subject — 八年级上册 and
+# 必修一 are both plain ``Book`` nodes with no 初中/高中 grouping node. The
+# frontend needs a stage layer for a correct K12 hierarchy (subject → stage →
+# book → chapter), so we derive it from the book id conventions instead of
+# changing the upstream dataset: the grade token (2nd segment, e.g. ``8a`` /
+# ``bx1`` / ``xzxbx2``) encodes the stage.
+_STAGE_ORDER = ["primary", "junior", "senior"]
+_STAGE_NAMES = {"primary": "小学", "junior": "初中", "senior": "高中"}
+
+
+def _stage_id_for_book(book_id: str) -> str | None:
+    """Map a book id onto its stage id ("primary"/"junior"/"senior").
+
+    ``必修`` / ``选择性必修`` tokens (``bx1``, ``xzxbx1``, …) always carry
+    ``bx`` and are senior-high; otherwise the leading grade number decides
+    (≤6 primary, 7–9 junior). Unknown shapes return ``None`` and the book
+    stays ungrouped (the frontend falls back to the flat list).
+    """
+    parts = book_id.split("_")
+    if len(parts) < 2:
+        return None
+    grade_token = parts[1]
+    if "bx" in grade_token:
+        return "senior"
+    # Grade token must START with a digit (``8a``/``9``/``1a``) — a leading
+    # letter like ``vol1``/``part2`` is a volume number, not a grade.
+    m = re.match(r"(\d+)", grade_token)
+    if not m:
+        return None
+    grade = int(m.group(1))
+    if grade <= 6:
+        return "primary"
+    if grade <= 9:
+        return "junior"
+    return None
+
 
 def _subject_name(code: str) -> str:
     return _SUBJECT_NAMES.get(code, code)
@@ -147,6 +184,18 @@ def _build_tree() -> dict[str, Any]:
     result = [s for s in subjects.values() if s["books"]]
     for s in result:
         s["books"].sort(key=lambda b: b["id"])
+        # Stage grouping metadata (book_ids only — the flat ``books`` list is
+        # kept for backward compatibility). Stable order: 小学 → 初中 → 高中.
+        grouped: dict[str, list[str]] = {}
+        for b in s["books"]:
+            sid = _stage_id_for_book(b["id"])
+            if sid:
+                grouped.setdefault(sid, []).append(b["id"])
+        s["stages"] = [
+            {"id": sid, "name": _STAGE_NAMES[sid], "book_ids": grouped[sid]}
+            for sid in _STAGE_ORDER
+            if sid in grouped
+        ]
     result.sort(key=lambda s: s["id"])
     tree = {"subjects": result}
     _TREE_CACHE[id(kg)] = tree

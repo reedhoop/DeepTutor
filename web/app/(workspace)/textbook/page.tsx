@@ -21,6 +21,7 @@ import {
   type TextbookBook,
   type TextbookChapter,
   type TextbookSection,
+  type TextbookStage,
   type TextbookSubject,
   type TextbookTree,
 } from "@/lib/textbook-api";
@@ -91,7 +92,15 @@ export default function TextbookNavigatorPage() {
         // columns are populated on first paint (right pane shows the
         // first chapter's preview, tree shows its sections).
         const first = t.subjects[0];
-        const firstBook = first?.books[0];
+        // Prefer the first stage group (小学 → 初中 → 高中) when the API
+        // provides stage metadata; fall back to the flat first book.
+        const firstBook = first
+          ? (() => {
+              const stageId = first.stages?.[0]?.book_ids?.[0];
+              if (stageId) return first.books.find((b) => b.id === stageId) ?? first.books[0];
+              return first.books[0];
+            })()
+          : undefined;
         const firstChapter = firstBook?.chapters[0];
         if (first && firstBook) {
           const exp = new Set([first.id, firstBook.id]);
@@ -511,6 +520,36 @@ const SubjectNode = memo(function SubjectNode({
   tr: (cn: string, en: string) => string;
 }) {
   const open = expanded.has(subject.id);
+
+  // Stage (学段) grouping: subject → 小学/初中/高中 → book. Falls back to
+  // the flat book list when the API response has no stage metadata.
+  const stageGroups = useMemo(() => {
+    if (!subject.stages?.length) return null;
+    return subject.stages
+      .map((stage) => {
+        const books = stage.book_ids
+          .map((id) => subject.books.find((b) => b.id === id))
+          .filter((b): b is TextbookBook => Boolean(b));
+        return books.length ? { stage, books } : null;
+      })
+      .filter((g): g is { stage: TextbookStage; books: TextbookBook[] } => Boolean(g));
+  }, [subject]);
+
+  const renderBook = (book: TextbookBook) => (
+    <BookNode
+      key={book.id}
+      subjectName={subject.name}
+      book={book}
+      expanded={expanded}
+      selectedId={selectedId}
+      selectedChapterId={selectedChapterId}
+      onToggle={onToggle}
+      onSelectChapter={onSelectChapter}
+      onSelectSection={onSelectSection}
+      tr={tr}
+    />
+  );
+
   return (
     <div className="mb-1">
       <button
@@ -524,20 +563,19 @@ const SubjectNode = memo(function SubjectNode({
         </span>
       </button>
       {open &&
-        subject.books.map((book) => (
-          <BookNode
-            key={book.id}
-            subjectName={subject.name}
-            book={book}
-            expanded={expanded}
-            selectedId={selectedId}
-            selectedChapterId={selectedChapterId}
-            onToggle={onToggle}
-            onSelectChapter={onSelectChapter}
-            onSelectSection={onSelectSection}
-            tr={tr}
-          />
-        ))}
+        (stageGroups
+          ? stageGroups.map(({ stage, books }) => (
+              <div key={stage.id} className="ml-2 mt-1">
+                <div className="flex items-center gap-1.5 rounded px-2 py-0.5 text-[11px] font-semibold uppercase tracking-wide text-[var(--muted-foreground)]/80">
+                  {stageLabel(stage, tr)}
+                  <span className="font-normal normal-case text-[10px] text-[var(--muted-foreground)]/60">
+                    {books.length} {tr("册", "books")}
+                  </span>
+                </div>
+                {books.map(renderBook)}
+              </div>
+            ))
+          : subject.books.map(renderBook))}
     </div>
   );
 }, (prev, next) =>
@@ -550,6 +588,17 @@ const SubjectNode = memo(function SubjectNode({
   prev.onSelectSection === next.onSelectSection &&
   prev.tr === next.tr
 );
+
+/** i18n label for a stage group; falls back to the server-provided name. */
+function stageLabel(stage: TextbookStage, tr: (cn: string, en: string) => string): string {
+  const map: Record<string, [string, string]> = {
+    primary: ["小学", "Primary"],
+    junior: ["初中", "Junior High"],
+    senior: ["高中", "Senior High"],
+  };
+  const pair = map[stage.id];
+  return pair ? tr(pair[0], pair[1]) : stage.name || stage.id;
+}
 
 const BookNode = memo(function BookNode({
   subjectName,

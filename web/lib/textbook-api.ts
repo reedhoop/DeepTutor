@@ -18,10 +18,19 @@ export interface TextbookBook {
   chapters: TextbookChapter[];
 }
 
+/** Stage (学段) grouping — subject → stage → book. ``book_ids`` reference
+ *  the flat ``TextbookSubject.books``; absent on legacy responses. */
+export interface TextbookStage {
+  id: string; // "primary" | "junior" | "senior"
+  name: string;
+  book_ids: string[];
+}
+
 export interface TextbookSubject {
   id: string;
   name: string;
   books: TextbookBook[];
+  stages?: TextbookStage[];
 }
 
 export interface TextbookTree {
