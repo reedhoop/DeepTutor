@@ -52,6 +52,12 @@ def collect_public_artifacts(
         if not service.is_public_output_path(file_path):
             continue
         try:
+            size = file_path.stat().st_size
+        except OSError:
+            continue
+        if _is_degenerate_artifact(file_path, size):
+            continue
+        try:
             rel = file_path.resolve().relative_to(public_root)
         except ValueError:
             continue
@@ -73,6 +79,21 @@ def collect_public_artifacts(
     return artifacts
 
 
+# Files below this size with no extension are treated as failed-write residue.
+_MIN_ARTIFACT_BYTES = 16
+
+
+def _is_degenerate_artifact(path: Path, size: int) -> bool:
+    """True for empty files or tiny extension-less placeholder files.
+
+    Real deliverables are either non-empty or carry an extension (``.txt``,
+    ``.svg``, ``.csv``, …); a small file with neither is a broken write.
+    """
+    if size <= 0:
+        return True
+    return size < _MIN_ARTIFACT_BYTES and not path.suffix
+
+
 def render_artifacts_for_tool(artifacts: list[SandboxArtifact]) -> str:
     """Compact model-facing artifact list. The filename is the handle.
 
@@ -90,6 +111,11 @@ def render_artifacts_for_tool(artifacts: list[SandboxArtifact]) -> str:
             f"- {artifact.filename} ({_format_bytes(artifact.size_bytes)})"
             for artifact in artifacts
         ],
+        "",
+        "NOTE: empty files and tiny extension-less placeholders are NOT "
+        "surfaced — if your code only wrote such a stub, the file did not "
+        "actually get produced. Verify your output is non-empty and has a "
+        "proper extension before claiming it was generated.",
         "",
         "When you refer to one of these files in your reply, write its filename "
         "EXACTLY as listed above (verbatim, including the extension) as plain "

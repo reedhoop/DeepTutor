@@ -137,7 +137,10 @@ def _resolve_error_type(
     try:
         from deeptutor.capabilities.mastery.error_book import infer_error_type
 
-        return infer_error_type(progress, item.kp_id or "", item.user_answer)
+        # ``user_answer`` is typed Any on the wire (choice ids, numbers, JSON
+        # arrays…). ``infer_error_type`` expects a str — coerce defensively so a
+        # non-str answer can't raise and silently fall back to APPLICATION.
+        return infer_error_type(progress, item.kp_id or "", str(item.user_answer or ""))
     except Exception as exc:  # noqa: BLE001 — fall back to a legal default
         logger.debug("error-type inference failed for %r: %s", item.question_id, exc)
         return ErrorType.APPLICATION_ERROR
@@ -229,12 +232,12 @@ async def record_review_errors(body: ReviewErrorsRequest) -> ReviewErrorsRespons
     service = LearningService(store)
 
     added = 0
-    for item in body.errors:
+    for idx, item in enumerate(body.errors):
         try:
             service.record_quiz_attempt(
                 progress,
                 QuizAttempt(
-                    question_id=item.question_id or f"q_{added}",
+                    question_id=item.question_id or f"q_{idx}",
                     knowledge_point_id=item.kp_id or "",
                     module_id=item.module_id or "exercise_review",
                     is_correct=False,

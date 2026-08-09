@@ -136,9 +136,9 @@ async def motivation() -> dict[str, Any]:
     Derives a learning streak, a mastery-badge catalogue, and a points total
     entirely from existing practice/mastery data. Never writes learning state.
     """
-    service = LearningService(LearningStore())
-    summaries = (service.list_progress().get("summaries", []) or [])
     store = LearningStore()
+    service = LearningService(store)
+    summaries = (service.list_progress().get("summaries", []) or [])
 
     activity: set[date] = set()
     all_quizzes: list[Any] = []

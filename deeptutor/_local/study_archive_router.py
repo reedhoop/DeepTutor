@@ -56,9 +56,9 @@ async def study_archive() -> dict[str, Any]:
     rollup, a time-ordered ``timeline`` of mastery evolution across sessions, and
     a merged ``weak_points`` digest (top pain points across all books).
     """
-    service = LearningService(LearningStore())
-    summaries = (service.list_progress().get("summaries", []) or [])
     store = LearningStore()
+    service = LearningService(store)
+    summaries = (service.list_progress().get("summaries", []) or [])
 
     books: list[dict[str, Any]] = []
     totals = {"kp": 0, "mastered": 0, "quiz": 0, "error": 0}

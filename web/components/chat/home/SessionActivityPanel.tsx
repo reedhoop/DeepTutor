@@ -496,6 +496,18 @@ function AttachmentRow({
   onOpen: () => void;
 }) {
   const filename = attachment.filename || "untitled";
+
+  // [FORK-EXT] Skip degenerate artifacts (empty / tiny extension-less stubs
+  // from a failed sandbox write). They are not deliverables; the caller
+  // already filters most, but this guards every render path (e.g. legacy
+  // records).
+  const sizeBytes = attachment.size_bytes;
+  const degenerate =
+    typeof sizeBytes === "number" &&
+    sizeBytes < 16 &&
+    !/\.\w{2,5}$/i.test(filename);
+  if (degenerate) return null;
+
   const spec = docIconFor(filename);
   const Icon = spec.Icon;
   const isImage = attachment.type === "image" || isSvgFilename(filename);

@@ -228,6 +228,20 @@ export function GeneratedFileCards({
         const mime = a.mime_type || "";
         const mediaSrc = imageSrcForAttachment(a);
 
+        // Skip degenerate artifacts: empty or tiny extension-less files left
+        // behind by a failed sandbox write (e.g. a 4-byte "blat" stub). They
+        // are not deliverables — showing a card would imply the model actually
+        // produced something. Real files (any size with an extension) and
+        // anything with renderable media are kept. `size_bytes` is undefined
+        // on legacy records, which are never filtered.
+        const sizeBytes = a.size_bytes;
+        const degenerate =
+          typeof sizeBytes === "number" &&
+          sizeBytes < 16 &&
+          !/\.\w{2,5}$/i.test(filename) &&
+          !mediaSrc;
+        if (degenerate) return null;
+
         // Generated images / videos render inline (preview the moment they
         // arrive); everything else stays a compact openable file card.
         if (mime.startsWith("image/") && mediaSrc) {
