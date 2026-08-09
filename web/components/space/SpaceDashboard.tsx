@@ -8,8 +8,11 @@ import {
   ArrowUpRight,
   ClipboardList,
   Ear,
+  Flame,
   Github,
+  GraduationCap,
   History,
+  LineChart,
   NotebookPen,
   Plug,
   Terminal,
@@ -24,6 +27,11 @@ import { listSessions } from "@/lib/session-api";
 import { listNotebooks, listNotebookEntries } from "@/lib/notebook-api";
 import { listPersonas } from "@/lib/personas-api";
 import { listSkills } from "@/lib/skills-api";
+import {
+  fetchAllProgress,
+  fetchMotivation,
+  fetchStudyArchive,
+} from "@/lib/learning-api";
 
 /**
  * Learning Space dashboard — the hub of `/space`.
@@ -44,7 +52,10 @@ type DashKey =
   | "skills"
   | "mcp"
   | "cli_apps"
-  | "whisper";
+  | "whisper"
+  | "mastery_path"
+  | "study_archive"
+  | "motivation";
 
 interface DashboardItem {
   key: DashKey;
@@ -141,6 +152,33 @@ const GROUPS: DashboardGroup[] = [
         unit: { zh: "个预设", en: "personas" },
         tile: "bg-rose-500/10 text-rose-600 dark:text-rose-400",
         load: async () => (await listPersonas()).length,
+      },
+      {
+        key: "study_archive",
+        href: "/space/archive",
+        icon: LineChart,
+        title: { zh: "成长档案", en: "Growth Archive" },
+        blurb: {
+          zh: "聚合全部学习路径：掌握度演进、薄弱点与知识脉络。",
+          en: "Aggregated view of every path: mastery evolution, weak points, knowledge maps.",
+        },
+        unit: { zh: "条路径", en: "paths" },
+        tile: "bg-cyan-500/10 text-cyan-600 dark:text-cyan-400",
+        load: async () =>
+          (await fetchStudyArchive()).overall.path_count,
+      },
+      {
+        key: "motivation",
+        href: "/space/motivation",
+        icon: Flame,
+        title: { zh: "学习激励", en: "Motivation" },
+        blurb: {
+          zh: "连续学习、掌握度徽章与积分，全部由你的练习只读派生。",
+          en: "Streaks, mastery badges, and points — derived read-only from your practice.",
+        },
+        unit: { zh: "积分", en: "points" },
+        tile: "bg-orange-500/10 text-orange-600 dark:text-orange-400",
+        load: async () => (await fetchMotivation()).points.total,
       },
       {
         key: "skills",

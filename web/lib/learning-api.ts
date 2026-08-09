@@ -252,6 +252,100 @@ export async function fetchAllProgress(): Promise<ProgressListResult> {
   return res.json();
 }
 
+// ── Study archive (ER-13) ─────────────────────────────────────────────────
+// Aggregated, read-only growth view across all mastery paths. Mirrors
+// deeptutor/_local/study_archive_router.study_archive.
+
+export interface StudyBookStat {
+  book_id: string;
+  name: string;
+  updated_at: number;
+  avg_mastery_pct: number;
+  mastered_count: number;
+  kp_count: number;
+  quiz_count: number;
+  error_count: number;
+}
+
+export interface StudyWeakPoint {
+  knowledge_point_id: string;
+  name: string;
+  module_id: string;
+  mastery: number;
+  error_count: number;
+  score: number;
+  reason: string;
+}
+
+export interface StudyArchive {
+  books: StudyBookStat[];
+  timeline: StudyBookStat[];
+  weak_points: StudyWeakPoint[];
+  overall: {
+    path_count: number;
+    kp_count: number;
+    mastered_count: number;
+    avg_mastery_pct: number;
+    quiz_count: number;
+    error_count: number;
+  };
+}
+
+export async function fetchStudyArchive(): Promise<StudyArchive> {
+  const res = await apiFetch(apiUrl("/api/v1/study/archive"));
+  if (!res.ok) throw new Error(`Failed to fetch study archive: ${res.status}`);
+  return res.json();
+}
+
+// ── Motivation (ER-14) ─────────────────────────────────────────────────────
+// Lightweight gamification — streak, badges, points — derived read-only from
+// practice/mastery data. Mirrors deeptutor/_local/motivation_overlay.motivation.
+// Badge display names/descriptions/icons live in the frontend catalogue
+// (web/app/(utility)/space/motivation/page.tsx) keyed by `id`; the backend only
+// returns logical state so the strings stay properly localisable.
+
+export interface MotivationStreak {
+  current: number;
+  longest: number;
+  active_days: number;
+  last_active: string | null;
+  today_active: boolean;
+  recent: { date: string; active: boolean }[];
+}
+
+export interface MotivationPoints {
+  total: number;
+  breakdown: {
+    quiz_attempts: number;
+    correct: number;
+    mastered: number;
+    active_days: number;
+    badges: number;
+  };
+}
+
+export interface MotivationBadge {
+  id: string;
+  earned: boolean;
+  /** 0..1 progress toward this badge (1 when earned). */
+  progress: number;
+  /** Epoch seconds when first earned, if known. */
+  earned_at?: number;
+}
+
+export interface Motivation {
+  has_data: boolean;
+  streak: MotivationStreak;
+  points: MotivationPoints;
+  badges: MotivationBadge[];
+}
+
+export async function fetchMotivation(): Promise<Motivation> {
+  const res = await apiFetch(apiUrl("/api/v1/study/motivation"));
+  if (!res.ok) throw new Error(`Failed to fetch motivation: ${res.status}`);
+  return res.json();
+}
+
 export async function deleteProgress(bookId: string) {
   const res = await apiFetch(
     apiUrl(`/api/mastery-paths/progress/${encodeURIComponent(bookId)}`),

@@ -561,6 +561,27 @@ app.include_router(
 # Request, which FastAPI cannot construct for a WebSocket scope.
 app.include_router(question.ws_router, prefix="/ws/questions", tags=["question"])
 app.include_router(knowledge.ws_router, prefix="/ws", tags=["knowledge-bases"])
+# [FORK-EXT] ER-13 study-archive aggregation — read-only overlay, mounted under
+# its own prefix so no upstream router is edited and the one-way rebase stays
+# clean.
+from deeptutor._local.study_archive_router import router as study_archive_router
+
+app.include_router(
+    study_archive_router,
+    prefix="/api/v1/study",
+    tags=["study-archive"],
+    dependencies=_auth,
+)
+# [FORK-EXT] ER-14 motivation overlay — same read-only, rebase-safe pattern as
+# ER-13, just mounted under the shared /api/v1/study prefix with its own path.
+from deeptutor._local.motivation_overlay import router as motivation_router
+
+app.include_router(
+    motivation_router,
+    prefix="/api/v1/study",
+    tags=["motivation"],
+    dependencies=_auth,
+)
 app.include_router(
     mastery_path.ws_router,
     prefix="/ws",
