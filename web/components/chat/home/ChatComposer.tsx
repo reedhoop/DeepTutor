@@ -15,6 +15,7 @@ import {
   BookMarked,
   BookOpen,
   Bot,
+  Box,
   Brain,
   Check,
   ChevronDown,
@@ -24,6 +25,7 @@ import {
   MessageSquare,
   Mic,
   Paperclip,
+  PanelTop,
   PenLine,
   Plus,
   Sparkles,
@@ -51,6 +53,8 @@ import type { SpaceMemoryFile } from "@/lib/space-items";
 import type { SelectedBookReference } from "@/lib/book-references";
 import type { SelectedReadingReference } from "@/lib/reading-references";
 import { DrawPad } from "./DrawPad";
+import { Folding3DViewer, FoldCasePicker } from "@/components/chat/3d/Folding3DViewer";
+import { Whiteboard } from "@/components/chat/whiteboard/Whiteboard";
 import AgentSelector from "./AgentSelector";
 import ContextBudgetChip, { type ContextBudget } from "./ContextBudgetChip";
 import KnowledgeSelector from "./KnowledgeSelector";
@@ -453,6 +457,13 @@ export default memo(function ChatComposer({
   // composer toolbar, sketch is exported as a PNG and routed through the
   // existing attachment pipeline (onAddFiles → image attachment → multimodal).
   const [showDrawPad, setShowDrawPad] = useState(false);
+  // ER-9: manual 3D folding-demo entry — a composer button opens an overlay
+  // with a case picker + Three.js viewer (independent of the message pipeline).
+  const [show3D, setShow3D] = useState(false);
+  const [threeDCase, setThreeDCase] = useState("cube");
+  // ER-10: full-screen whiteboard (optional learning mode). Kept mounted so
+  // the board's content survives closing/reopening within the session.
+  const [showWhiteboard, setShowWhiteboard] = useState(false);
   useEffect(() => {
     const el = composerRef.current;
     if (!el || typeof ResizeObserver === "undefined") return;
@@ -1138,6 +1149,24 @@ export default memo(function ChatComposer({
                   onOpenChange={setShowDrawPad}
                   onInsert={handleInsertSketch}
                 />
+                <button
+                  type="button"
+                  onClick={() => setShow3D(true)}
+                  title={tr("3D 演示", "3D demo")}
+                  aria-label={tr("3D 演示", "3D demo")}
+                  className="relative flex h-8 w-8 shrink-0 items-center justify-center rounded-lg text-[var(--muted-foreground)] transition-[background-color,color,transform] duration-150 hover:bg-[var(--muted)]/55 hover:text-[var(--foreground)] active:scale-90"
+                >
+                  <Box size={17} strokeWidth={1.8} />
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setShowWhiteboard(true)}
+                  title={tr("白板", "Whiteboard")}
+                  aria-label={tr("白板", "Whiteboard")}
+                  className="relative flex h-8 w-8 shrink-0 items-center justify-center rounded-lg text-[var(--muted-foreground)] transition-[background-color,color,transform] duration-150 hover:bg-[var(--muted)]/55 hover:text-[var(--foreground)] active:scale-90"
+                >
+                  <PanelTop size={17} strokeWidth={1.8} />
+                </button>
                 <AnimatePresence>
                   {spaceMenuOpen && (
                     <motion.div
@@ -1297,6 +1326,76 @@ export default memo(function ChatComposer({
             </div>
           </div>
         </div>
+      </div>
+
+      {/* ER-9: manual 3D folding-demo overlay (independent of the message
+          pipeline — lets the student/teacher preview the animations the tutor
+          can also trigger inline via ```er3d fences). */}
+      <AnimatePresence>
+        {show3D && (
+          <motion.div
+            className="fixed inset-0 z-[90] flex items-center justify-center bg-black/50 p-4 backdrop-blur-sm"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.15 }}
+            onClick={() => setShow3D(false)}
+          >
+            <motion.div
+              className="w-full max-w-[760px] overflow-hidden rounded-2xl border border-[var(--border)]/70 bg-[var(--card)] shadow-2xl"
+              initial={{ scale: 0.96, y: 8 }}
+              animate={{ scale: 1, y: 0 }}
+              exit={{ scale: 0.97, y: 6 }}
+              transition={{ duration: 0.16, ease: [0.16, 1, 0.3, 1] }}
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="flex items-center justify-between border-b border-[var(--border)]/60 px-4 py-2.5">
+                <div className="flex items-center gap-2 text-[13px] font-medium text-[var(--foreground)]">
+                  <Box size={15} strokeWidth={1.8} className="text-[var(--primary)]" />
+                  {tr("3D 翻折演示（平面长成立体）", "3D folding demo")}
+                </div>
+                <button
+                  type="button"
+                  onClick={() => setShow3D(false)}
+                  aria-label={tr("关闭", "Close")}
+                  className="flex h-7 w-7 items-center justify-center rounded-lg text-[var(--muted-foreground)] transition-colors hover:bg-[var(--muted)]/55 hover:text-[var(--foreground)]"
+                >
+                  <X size={15} strokeWidth={1.9} />
+                </button>
+              </div>
+              <div className="p-4">
+                <FoldCasePicker value={threeDCase} onSelect={setThreeDCase} />
+                <div className="mt-3">
+                  <Folding3DViewer
+                    key={threeDCase}
+                    caseId={threeDCase}
+                    height={380}
+                    autoPlay
+                  />
+                </div>
+                <p className="mt-2 text-[11px] leading-snug text-[var(--muted-foreground)]">
+                  {tr(
+                    "导师在讲解中输出 ```er3d:cube 等代码块即可在回复里自动触发同款 3D 动画（支持 cube / rect_prism / triangular_prism / square_pyramid）。",
+                    "The tutor can also trigger these inline by emitting ```er3d:cube fences (cube / rect_prism / triangular_prism / square_pyramid).",
+                  )}
+                </p>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+      {/* ER-10: full-screen whiteboard — optional learning mode layered over
+          the chat without touching the three-column layout. Sending the board
+          reuses the ER-7 attachment pipeline (PNG → onAddFiles). */}
+      <div
+        className={showWhiteboard ? "fixed inset-0 z-[95]" : "hidden"}
+        aria-hidden={!showWhiteboard}
+      >
+        <Whiteboard
+          open={showWhiteboard}
+          onOpenChange={setShowWhiteboard}
+          onInsert={handleInsertSketch}
+        />
       </div>
     </div>
   );

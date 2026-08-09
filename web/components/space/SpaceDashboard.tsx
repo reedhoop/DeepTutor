@@ -13,6 +13,7 @@ import {
   GraduationCap,
   History,
   LineChart,
+  BookOpenCheck,
   NotebookPen,
   Plug,
   Terminal,
@@ -29,6 +30,7 @@ import { listPersonas } from "@/lib/personas-api";
 import { listSkills } from "@/lib/skills-api";
 import {
   fetchAllProgress,
+  fetchErrorBook,
   fetchMotivation,
   fetchStudyArchive,
 } from "@/lib/learning-api";
@@ -55,7 +57,8 @@ type DashKey =
   | "whisper"
   | "mastery_path"
   | "study_archive"
-  | "motivation";
+  | "motivation"
+  | "exercise_review";
 
 interface DashboardItem {
   key: DashKey;
@@ -179,6 +182,25 @@ const GROUPS: DashboardGroup[] = [
         unit: { zh: "积分", en: "points" },
         tile: "bg-orange-500/10 text-orange-600 dark:text-orange-400",
         load: async () => (await fetchMotivation()).points.total,
+      },
+      {
+        key: "exercise_review",
+        href: "/space/review",
+        icon: BookOpenCheck,
+        title: { zh: "习题讲评", en: "Exercise Review" },
+        blurb: {
+          zh: "上传整页练习照片，生成逐题讲评视图；做错标记一键入错题本。",
+          en: "Upload a whole exercise page, get a per-question review, send wrong answers to the error book.",
+        },
+        unit: { zh: "道错题", en: "errors" },
+        tile: "bg-indigo-500/10 text-indigo-600 dark:text-indigo-400",
+        load: async () => {
+          try {
+            return (await fetchErrorBook("exercise_review")).records.length;
+          } catch {
+            return 0;
+          }
+        },
       },
       {
         key: "skills",

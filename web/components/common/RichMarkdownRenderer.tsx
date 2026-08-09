@@ -63,6 +63,15 @@ const KgOpenCTA = dynamic(
   { ssr: false, loading: () => null },
 );
 
+// ER-9: ```er3d fences render an interactive Three.js folding animation inline.
+const LazyFolding3D = dynamic(
+  () =>
+    import("@/components/chat/3d/Folding3DViewer").then((m) => ({
+      default: m.Folding3DViewer,
+    })),
+  { ssr: false, loading: () => <div className="h-[420px] animate-pulse rounded-xl bg-[var(--muted)]/40" /> },
+);
+
 type PluginBundle = {
   remarkMath?: unknown;
   rehypeKatex?: unknown;
@@ -477,6 +486,28 @@ export default function RichMarkdownRenderer({
               script={raw}
               title={ggbTitle}
               width="100%"
+              height={420}
+              className={gap}
+            />
+          </div>
+        );
+      }
+
+      if (lang === "er3d" && enableCode) {
+        // ER-9: the tutor (or a 3D-demo surface) emits ```er3d[case_id;title]
+        // to render an interactive Three.js "flat shape → 3D solid" folding
+        // animation right inside the answer.
+        const er3dMeta = /language-er3d\[([^;\]]*)(?:;([^\]]*))?\]/.exec(
+          blockClassName || "",
+        );
+        const er3dCaseId = er3dMeta?.[1]?.trim() || raw.trim().split(/\s+/)[0];
+        const er3dTitle = er3dMeta?.[2]?.trim() || undefined;
+        return (
+          <div {...lineProps}>
+            <LazyFolding3D
+              script={raw}
+              caseId={er3dCaseId}
+              title={er3dTitle}
               height={420}
               className={gap}
             />

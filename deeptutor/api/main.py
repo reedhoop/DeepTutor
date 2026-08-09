@@ -582,6 +582,15 @@ app.include_router(
     tags=["motivation"],
     dependencies=_auth,
 )
+# ER-12 exercise-review orchestration — same /api/v1/study mount pattern.
+from deeptutor._local.exercise_review_router import router as exercise_review_router
+
+app.include_router(
+    exercise_review_router,
+    prefix="/api/v1/study",
+    tags=["exercise-review"],
+    dependencies=_auth,
+)
 app.include_router(
     mastery_path.ws_router,
     prefix="/ws",

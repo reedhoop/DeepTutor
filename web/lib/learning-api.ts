@@ -346,6 +346,77 @@ export async function fetchMotivation(): Promise<Motivation> {
   return res.json();
 }
 
+// ── Exercise review (ER-12) ────────────────────────────────────────────────
+// Whole page → per-question review orchestration. Mirrors
+// deeptutor/_local/exercise_review_router.
+
+export interface ReviewQuestion {
+  id: string;
+  stem: string;
+  options: string[];
+  answer: string;
+  analysis: string;
+  error_type: string;
+  kp_id: string;
+  module_id: string;
+  /** Variant exercises (from the KGraph four-level cascade) when kp mapped. */
+  variant: {
+    question: string;
+    expected_answer?: string;
+    options?: string[];
+    question_type?: string;
+    source?: string;
+    difficulty_label?: string;
+    analysis?: string;
+  }[];
+  variant_note: string;
+}
+
+export interface ExerciseReviewResult {
+  book_id: string;
+  questions: ReviewQuestion[];
+}
+
+export async function reviewExercisePage(payload: {
+  book_id?: string;
+  questions?: Omit<ReviewQuestion, "variant" | "variant_note">[];
+  image_base64?: string;
+  auto_split?: boolean;
+}): Promise<ExerciseReviewResult> {
+  const res = await apiFetch(apiUrl("/api/v1/study/review"), {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(payload),
+  });
+  if (!res.ok) {
+    const detail = await res.json().catch(() => null);
+    throw new Error(
+      detail?.detail || `Failed to review exercise page: ${res.status}`,
+    );
+  }
+  return res.json();
+}
+
+export async function submitReviewErrors(payload: {
+  book_id?: string;
+  errors: {
+    question_id: string;
+    stem?: string;
+    kp_id?: string;
+    error_type?: string;
+    module_id?: string;
+    user_answer?: unknown;
+  }[];
+}): Promise<{ book_id: string; added: number }> {
+  const res = await apiFetch(apiUrl("/api/v1/study/review/errors"), {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(payload),
+  });
+  if (!res.ok) throw new Error(`Failed to record review errors: ${res.status}`);
+  return res.json();
+}
+
 export async function deleteProgress(bookId: string) {
   const res = await apiFetch(
     apiUrl(`/api/mastery-paths/progress/${encodeURIComponent(bookId)}`),
