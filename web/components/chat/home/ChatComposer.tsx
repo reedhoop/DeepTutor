@@ -54,6 +54,7 @@ import ContextBudgetChip, { type ContextBudget } from "./ContextBudgetChip";
 import KnowledgeSelector from "./KnowledgeSelector";
 import ModelSelector from "./ModelSelector";
 import PersonaSelector from "./PersonaSelector";
+import VoiceSelector from "./VoiceSelector";
 
 type SpaceSelectionCounts = {
   attachments: number;
@@ -72,6 +73,7 @@ import ContextReferenceTree, {
 } from "./ContextReferenceTree";
 import { ComposerInput, type ComposerInputHandle } from "./ComposerInput";
 import { useVoiceRecorder } from "@/hooks/useVoiceRecorder";
+import { useTtsVoicePreference } from "@/hooks/useTtsVoices";
 import type { CapabilityDef } from "@/features/capabilities/presentation";
 
 interface PendingAttachment {
@@ -420,6 +422,7 @@ export default memo(function ChatComposer({
     inputHandleRef.current?.setValue(next);
   }, []);
   const recorder = useVoiceRecorder(handleTranscript);
+  const ttsVoicePref = useTtsVoicePreference();
 
   // Composer-row compaction: when the available width drops below ~620 px
   // (e.g. the Viewer panel is open or the user is on a narrow viewport),
@@ -1146,6 +1149,10 @@ export default memo(function ChatComposer({
                   error={llmOptionsError}
                   onChange={onSelectLLM}
                   onRefresh={onRefreshLLMOptions}
+                />
+                <VoiceSelector
+                  value={ttsVoicePref.value ?? ""}
+                  onChange={ttsVoicePref.setValue}
                 />
                 {contextBudget ? (
                   <ContextBudgetChip budget={contextBudget} />

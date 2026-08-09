@@ -14,6 +14,7 @@ import base64
 import binascii
 import json
 import logging
+import re
 from typing import Any
 
 import httpx
@@ -25,7 +26,6 @@ from deeptutor.services.voice.base import (
     VoiceProviderHTTPError,
     build_auth_headers,
     join_audio_path,
-    normalize_stt_content_type,
 )
 from deeptutor.services.voice.config import STT_BASE64_JSON, STTConfig, TTSConfig
 
@@ -330,9 +330,7 @@ class OpenAICompatSTTAdapter(BaseSTTAdapter):
         content_type: str,
         config: STTConfig,
     ) -> httpx.Response:
-        files = {
-            "file": (filename, audio, normalize_stt_content_type(content_type)),
-        }
+        files = {"file": (filename, audio, content_type or "application/octet-stream")}
         data: dict[str, str] = {"model": config.model, "response_format": "json"}
         if config.language:
             data["language"] = config.language
@@ -366,16 +364,29 @@ class OpenAICompatSTTAdapter(BaseSTTAdapter):
             if isinstance(data, dict):
                 text = data.get("text")
                 if isinstance(text, str):
-                    return text.strip()
+                    return _strip_transcript_tags(text)
                 # OpenRouter/chat-style fallback.
                 choices = data.get("choices")
                 if isinstance(choices, list) and choices:
                     message = (choices[0] or {}).get("message") or {}
                     if isinstance(message.get("content"), str):
-                        return message["content"].strip()
+                        return _strip_transcript_tags(message["content"])
             raise VoiceProviderError("Transcription response had no `text` field.")
         # response_format=text returns a bare string.
-        return (resp.text or "").strip()
+        return _strip_transcript_tags(resp.text or "")
+
+
+# SenseVoice and friends prefix transcripts with control tags such as
+# ``<|zh|>``, ``<|en|>``, ``<|NEUTRAL|>``, ``<|Happy|>``, ``<|Basketball|>``…
+# They are markers for the ASR model, not spoken content, so strip them before
+# the text reaches chat/STT consumers. Keep this defensive — only matched tags
+# are removed, never arbitrary angle-bracket text.
+_SENSEVOICE_TAG = re.compile(r"<\|[^|>]*\|>")
+
+
+def _strip_transcript_tags(text: str) -> str:
+    cleaned = _SENSEVOICE_TAG.sub("", text)
+    return re.sub(r"\s+", " ", cleaned).strip()
 
 
 __all__ = ["OpenAICompatTTSAdapter", "OpenRouterTTSAdapter", "OpenAICompatSTTAdapter"]

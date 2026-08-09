@@ -15,6 +15,7 @@ import wave
 from fastapi import APIRouter, File, Form, HTTPException, Response, UploadFile, status
 from pydantic import BaseModel, Field
 
+from deeptutor.services.config.model_catalog import get_model_catalog_service
 from deeptutor.services.voice import (
     VoiceProviderError,
     synthesize_speech,
@@ -73,6 +74,88 @@ def _pcm16_to_wav(audio: bytes, *, sample_rate: int, channels: int) -> bytes:
         wav.setframerate(sample_rate)
         wav.writeframes(audio)
     return buffer.getvalue()
+
+
+@router.get("/voices")
+async def list_tts_voices() -> dict[str, Any]:
+    """List the TTS voices available from the configured model catalog.
+
+    For every configured TTS model we surface its own voice plus, when the
+    provider publishes preset voices for that model (e.g. CosyVoice2's eight
+    timbres), those presets too — so the UI can offer a voice picker without
+    the admin duplicating models in the catalog. Secrets (base_url / api_key)
+    are never returned.
+    """
+    from deeptutor.services.config.provider_runtime import (  # local import: heavy + avoids any import cycle
+        TTS_PROVIDERS,
+        _canonical_voice_provider,
+    )
+
+    catalog = get_model_catalog_service().load()
+    tts_block = (catalog.get("services") or {}).get("tts") or {}
+    profiles = tts_block.get("profiles") or []
+
+    voices: list[dict[str, str]] = []
+    seen: set[str] = set()
+
+    for profile in profiles:
+        profile_id = profile.get("id") or ""
+        profile_name = profile.get("name") or ""
+        provider = _canonical_voice_provider(profile.get("binding"), TTS_PROVIDERS)
+        spec = TTS_PROVIDERS.get(provider)
+        for model in profile.get("models") or []:
+            model_id = model.get("model") or ""
+            configured_voice = (model.get("voice") or "").strip()
+            label = (model.get("voice_label") or "").strip() or (
+                next(
+                    (
+                        p.get("label") or ""
+                        for p in (spec.preset_models if spec else ())
+                        if p.get("voice") == configured_voice
+                    ),
+                    "",
+                )
+            )
+            if configured_voice:
+                key = f"{profile_id}::{configured_voice}"
+                if key not in seen:
+                    seen.add(key)
+                    voices.append(
+                        {
+                            "id": key,
+                            "voice": configured_voice,
+                            "label": label or configured_voice,
+                            "model": model_id,
+                            "provider": provider,
+                            "profile_id": profile_id,
+                            "profile_name": profile_name,
+                        }
+                    )
+            # Expand provider presets that target this model id (e.g. all
+            # CosyVoice2 timbres sharing one model endpoint).
+            if spec:
+                for preset in spec.preset_models:
+                    if preset.get("model") != model_id:
+                        continue
+                    preset_voice = (preset.get("voice") or "").strip()
+                    if not preset_voice:
+                        continue
+                    key = f"{profile_id}::{preset_voice}"
+                    if key in seen:
+                        continue
+                    seen.add(key)
+                    voices.append(
+                        {
+                            "id": key,
+                            "voice": preset_voice,
+                            "label": preset.get("label") or preset_voice,
+                            "model": model_id,
+                            "provider": provider,
+                            "profile_id": profile_id,
+                            "profile_name": profile_name,
+                        }
+                    )
+    return {"voices": voices}
 
 
 @router.post("/tts")

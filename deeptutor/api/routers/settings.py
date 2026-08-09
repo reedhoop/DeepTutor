@@ -113,6 +113,10 @@ DEFAULT_UI_SETTINGS = {
     # preference (not catalog); the chat surface also keeps a per-session
     # override on top of this global default.
     "voice_autoplay": False,
+    # Preferred TTS voice (sent as ``voice`` to /api/v1/voice/tts). A personal
+    # UI preference (not catalog); ``null`` means "use the catalog's default
+    # voice for the active model". The chat surface reads it from ``ui.tts_voice``.
+    "tts_voice": None,
     # Seconds the chat UI waits for any turn event before declaring the
     # connection timed out. Bumped from 60 → 180 so slow tools (image/video
     # generation) don't trip it; user-adjustable in Settings > Network.
@@ -166,6 +170,12 @@ class UISettingsUpdate(BaseModel):
 
 class VoiceAutoplayUpdate(BaseModel):
     voice_autoplay: bool
+
+
+class TtsVoiceUpdate(BaseModel):
+    # Selected voice identifier (the provider's ``voice`` param). ``None``
+    # restores the catalog's default voice for the active model.
+    tts_voice: str | None = None
 
 
 class ChatResponseTimeoutUpdate(BaseModel):
@@ -1468,6 +1478,20 @@ async def update_voice_autoplay(update: VoiceAutoplayUpdate):
     current_ui["voice_autoplay"] = update.voice_autoplay
     save_ui_settings(current_ui)
     return {"voice_autoplay": update.voice_autoplay}
+
+
+@router.put("/tts-voice")
+async def update_tts_voice(update: TtsVoiceUpdate):
+    """Persist the user's preferred TTS voice (sent as ``voice`` to /voice/tts).
+
+    A personal UI preference (any authenticated user); the chat surface reads it
+    via ``ui.tts_voice`` from GET /settings and passes it to speech synthesis.
+    ``null`` restores the catalog's default voice for the active model.
+    """
+    current_ui = load_ui_settings()
+    current_ui["tts_voice"] = update.tts_voice
+    save_ui_settings(current_ui)
+    return {"tts_voice": update.tts_voice}
 
 
 @router.put("/chat-response-timeout")

@@ -16,6 +16,8 @@ import {
 
 import {
   fetchTextbookTree,
+  fetchKgConcept,
+  type KnowledgePointItem,
   type TextbookBook,
   type TextbookChapter,
   type TextbookSection,
@@ -61,7 +63,17 @@ export default function TextbookNavigatorPage() {
   const [expanded, setExpanded] = useState<Set<string>>(new Set());
   const [selected, setSelected] = useState<TextbookSection | null>(null);
   const [selectionPath, setSelectionPath] = useState<string[]>([]);
+  const [selectedChapter, setSelectedChapter] = useState<TextbookChapter | null>(null);
+  const [chapterPath, setChapterPath] = useState<string[]>([]);
   const [starting, setStarting] = useState(false);
+  // Knowledge points for the active node (chapter or section), fetched from
+  // /api/v1/kg/concept/{id}. Now the preview pane always shows real content
+  // even when a chapter has no section-level granularity in the tree.
+  const [kp, setKp] = useState<{
+    loading: boolean;
+    error: string | null;
+    points: KnowledgePointItem[];
+  }>({ loading: false, error: null, points: [] });
   const [startError, setStartError] = useState<string | null>(null);
 
   // ER-2: textbook mind-map view (subject → book → chapter → section)
@@ -75,10 +87,20 @@ export default function TextbookNavigatorPage() {
       .then((t) => {
         if (cancelled) return;
         setTree(t);
-        // Expand the first subject + first book so the tree is never empty.
+        // Expand the first subject + first book + first chapter so both
+        // columns are populated on first paint (right pane shows the
+        // first chapter's preview, tree shows its sections).
         const first = t.subjects[0];
-        if (first && first.books[0]) {
-          setExpanded(new Set([first.id, first.books[0].id]));
+        const firstBook = first?.books[0];
+        const firstChapter = firstBook?.chapters[0];
+        if (first && firstBook) {
+          const exp = new Set([first.id, firstBook.id]);
+          if (firstChapter) exp.add(firstChapter.id);
+          setExpanded(exp);
+          if (firstChapter) {
+            setSelectedChapter(firstChapter);
+            setChapterPath([first.name, firstBook.name, firstChapter.name]);
+          }
         }
       })
       .catch((e) => {
@@ -102,28 +124,93 @@ export default function TextbookNavigatorPage() {
   }, []);
 
   const selectSection = useCallback(
-    (section: TextbookSection, trail: string[]) => {
+    (
+      section: TextbookSection,
+      chapter: TextbookChapter,
+      trail: string[],
+    ) => {
       setSelected(section);
       setSelectionPath(trail);
+      setSelectedChapter(null);
+      setChapterPath([]);
       setStartError(null);
+      // Make sure the parent chapter is expanded so the section is visible
+      // in the tree, even if the user navigated to it via the preview pane.
+      setExpanded((prev) => {
+        if (prev.has(chapter.id)) return prev;
+        const next = new Set(prev);
+        next.add(chapter.id);
+        return next;
+      });
+    },
+    [],
+  );
+
+  const selectChapter = useCallback(
+    (chapter: TextbookChapter, trail: string[]) => {
+      setSelectedChapter(chapter);
+      setChapterPath(trail);
+      setSelected(null);
+      setSelectionPath([]);
+      setStartError(null);
+      // Auto-expand the chapter so its sections are visible in the tree.
+      setExpanded((prev) => {
+        if (prev.has(chapter.id)) return prev;
+        const next = new Set(prev);
+        next.add(chapter.id);
+        return next;
+      });
     },
     [],
   );
 
   const handleStart = useCallback(async () => {
-    if (!selected) return;
+    // Start a mastery path from the active node. A chapter id works directly
+    // (section_to_module gathers its teachable KPs via appears_in / is_part_of
+    // edges), so we no longer need a section to exist.
+    const targetId = selected?.id ?? selectedChapter?.id ?? null;
+    if (!targetId) return;
     setStarting(true);
     setStartError(null);
     try {
-      await startKgraphPath(selected.id);
+      await startKgraphPath(targetId);
       router.push(
-        `/space/learning?path=${encodeURIComponent(`kgraph_${selected.id}`)}`,
+        `/space/learning?path=${encodeURIComponent(`kgraph_${targetId}`)}`,
       );
     } catch (e) {
       setStartError((e as Error)?.message || tr("创建学习路径失败", "Failed to start the path"));
       setStarting(false);
     }
-  }, [selected, router, tr]);
+  }, [selected, selectedChapter, router, tr]);
+
+  // Fetch the active node's knowledge points so the preview pane always shows
+  // real content. Works for both a selected section and a selected chapter —
+  // a chapter with no section-level tree data still owns teachable KPs via its
+  // appears_in / is_part_of edges, which is exactly what the mastery path uses.
+  const activeNodeId = selected?.id ?? selectedChapter?.id ?? null;
+  useEffect(() => {
+    if (!activeNodeId) {
+      setKp({ loading: false, error: null, points: [] });
+      return;
+    }
+    let cancelled = false;
+    setKp((prev) => ({ ...prev, loading: true, error: null }));
+    fetchKgConcept(activeNodeId)
+      .then((c) => {
+        if (!cancelled) setKp({ loading: false, error: null, points: c.knowledge_points });
+      })
+      .catch((e) => {
+        if (!cancelled)
+          setKp({
+            loading: false,
+            error: e?.message || tr("加载知识点失败", "Failed to load knowledge points"),
+            points: [],
+          });
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, [activeNodeId, tr]);
 
   const totalSections = useMemo(() => {
     if (!tree) return 0;
@@ -233,7 +320,9 @@ export default function TextbookNavigatorPage() {
                 subject={subject}
                 expanded={expanded}
                 selectedId={selected?.id}
+                selectedChapterId={selectedChapter?.id}
                 onToggle={toggle}
+                onSelectChapter={selectChapter}
                 onSelectSection={selectSection}
                 tr={tr}
               />
@@ -244,7 +333,7 @@ export default function TextbookNavigatorPage() {
 
       {/* Detail */}
       <section className="flex-1 overflow-y-auto">
-        {!selected ? (
+        {!selected && !selectedChapter ? (
           <div className="flex h-full flex-col items-center justify-center px-6 text-center text-[var(--muted-foreground)]">
             <BookText className="mb-3 w-10 h-10 opacity-40" />
             <p className="max-w-sm text-sm leading-relaxed">
@@ -257,10 +346,10 @@ export default function TextbookNavigatorPage() {
         ) : (
           <div className="mx-auto max-w-2xl px-6 py-6">
             <nav className="flex flex-wrap items-center gap-1 text-xs text-[var(--muted-foreground)]">
-              {selectionPath.map((p, i) => (
+              {(selected ? selectionPath : chapterPath).map((p, i, arr) => (
                 <span key={i} className="flex items-center gap-1">
                   {i > 0 && <ChevronRight className="w-3 h-3 opacity-50" />}
-                  <span className={i === selectionPath.length - 1 ? "text-[var(--foreground)]" : ""}>
+                  <span className={i === arr.length - 1 ? "text-[var(--foreground)]" : ""}>
                     {p}
                   </span>
                 </span>
@@ -268,13 +357,95 @@ export default function TextbookNavigatorPage() {
             </nav>
 
             <h2 className="mt-3 text-lg font-semibold text-[var(--foreground)]">
-              {selected.name}
+              {selected?.name ?? selectedChapter?.name}
             </h2>
+
+            {/* Chapter-only: when the chapter has sections, list them so the
+                user can drill into a specific section. */}
+            {!selected && selectedChapter && selectedChapter.sections.length > 0 && (
+              <div className="mt-5">
+                <p className="text-xs text-[var(--muted-foreground)]">
+                  {tr(
+                    `本章包含 ${selectedChapter.sections.length} 节，点选一节可生成学习路径。`,
+                    `This chapter contains ${selectedChapter.sections.length} sections. Pick one to generate a mastery path.`,
+                  )}
+                </p>
+                <div className="mt-3 divide-y divide-[var(--border)] overflow-hidden rounded-lg border border-[var(--border)]">
+                  {selectedChapter.sections.map((s) => (
+                    <button
+                      key={s.id}
+                      onClick={() =>
+                        selectSection(s, selectedChapter, [...chapterPath, s.name])
+                      }
+                      className="flex w-full items-center gap-2 px-3 py-2 text-left text-sm text-[var(--foreground)]/90 hover:bg-[var(--muted)]/40"
+                    >
+                      <ChevronRight className="w-3.5 h-3.5 shrink-0 opacity-50" />
+                      <span className="truncate">{s.name}</span>
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Knowledge points for the active node (chapter or section).
+                Chapters with no section data still own teachable KPs via their
+                appears_in / is_part_of edges — this is the real content the
+                preview pane should always show. */}
+            <div className="mt-5">
+              <p className="text-xs font-medium text-[var(--foreground)]/80">
+                {selected
+                  ? tr("本节知识点", "Knowledge points in this section")
+                  : tr("本章知识点", "Knowledge points in this chapter")}
+              </p>
+
+              {kp.loading ? (
+                <div className="mt-2 flex items-center gap-2 text-xs text-[var(--muted-foreground)]">
+                  <Loader2 className="w-3.5 h-3.5 animate-spin" />
+                  {tr("加载知识点…", "Loading knowledge points…")}
+                </div>
+              ) : kp.error ? (
+                <p className="mt-2 flex items-center gap-1.5 text-xs text-red-500">
+                  <AlertTriangle className="w-3.5 h-3.5" />
+                  {kp.error}
+                </p>
+              ) : kp.points.length > 0 ? (
+                <ul className="mt-2 space-y-1.5">
+                  {kp.points.map((p) => (
+                    <li
+                      key={p.id}
+                      className="flex items-center gap-2 rounded-md border border-[var(--border)] bg-[var(--card)]/50 px-3 py-2"
+                    >
+                      <span
+                        className={`shrink-0 rounded px-1.5 py-0.5 text-[10px] font-medium ${
+                          p.label === "Skill"
+                            ? "bg-blue-500/10 text-blue-600 dark:text-blue-400"
+                            : "bg-[var(--primary)]/10 text-[var(--primary)]"
+                        }`}
+                      >
+                        {p.label === "Skill"
+                          ? tr("技能", "Skill")
+                          : tr("概念", "Concept")}
+                      </span>
+                      <span className="truncate text-sm text-[var(--foreground)]/90">
+                        {p.name}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+              ) : (
+                <p className="mt-2 text-xs leading-relaxed text-[var(--muted-foreground)]">
+                  {tr(
+                    "该内容暂无可学习的知识点。",
+                    "No teachable knowledge points in this content.",
+                  )}
+                </p>
+              )}
+            </div>
 
             <button
               onClick={handleStart}
               disabled={starting}
-              className="mt-5 flex items-center gap-2 rounded-lg bg-[var(--primary)] px-4 py-2.5 text-sm font-medium text-[var(--primary-foreground)] shadow-md shadow-[var(--primary)]/15 transition-opacity hover:opacity-90 disabled:opacity-60 cursor-pointer"
+              className="mt-5 flex items-center gap-2 rounded-lg bg-[var(--primary)] px-4 py-2.5 text-sm font-medium text-[var(--primary-foreground)] shadow-md shadow-[var(--primary)]/15 transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-60 cursor-pointer"
             >
               {starting ? (
                 <Loader2 className="w-4 h-4 animate-spin" />
@@ -283,7 +454,9 @@ export default function TextbookNavigatorPage() {
               )}
               {starting
                 ? tr("正在生成路径…", "Building path…")
-                : tr("开始学习这一节", "Start learning this section")}
+                : selected
+                ? tr("开始学习这一节", "Start learning this section")
+                : tr("开始学习本章", "Start learning this chapter")}
             </button>
 
             {startError && (
@@ -301,8 +474,12 @@ export default function TextbookNavigatorPage() {
             </p>
             <p className="mt-2 text-xs leading-relaxed text-[var(--muted-foreground)]/80">
               {tr(
-                "→ 本节涵盖知识点、前置链和练习题，请进入学习工作区查看。",
-                "→ The knowledge points, prerequisites and exercises live in the learning workspace.",
+                selected
+                  ? "→ 本节涵盖知识点、前置链和练习题，请进入学习工作区查看。"
+                  : "→ 选一节进入，或直接开始学习本章。",
+                selected
+                  ? "→ The knowledge points, prerequisites and exercises live in the learning workspace."
+                  : "→ Pick a section to dive in, or start learning this whole chapter.",
               )}
             </p>
           </div>
@@ -318,15 +495,19 @@ const SubjectNode = memo(function SubjectNode({
   subject,
   expanded,
   selectedId,
+  selectedChapterId,
   onToggle,
+  onSelectChapter,
   onSelectSection,
   tr,
 }: {
   subject: TextbookSubject;
   expanded: Set<string>;
   selectedId: string | undefined;
+  selectedChapterId: string | undefined;
   onToggle: (id: string) => void;
-  onSelectSection: (s: TextbookSection, trail: string[]) => void;
+  onSelectChapter: (c: TextbookChapter, trail: string[]) => void;
+  onSelectSection: (s: TextbookSection, c: TextbookChapter, trail: string[]) => void;
   tr: (cn: string, en: string) => string;
 }) {
   const open = expanded.has(subject.id);
@@ -346,10 +527,13 @@ const SubjectNode = memo(function SubjectNode({
         subject.books.map((book) => (
           <BookNode
             key={book.id}
+            subjectName={subject.name}
             book={book}
             expanded={expanded}
             selectedId={selectedId}
+            selectedChapterId={selectedChapterId}
             onToggle={onToggle}
+            onSelectChapter={onSelectChapter}
             onSelectSection={onSelectSection}
             tr={tr}
           />
@@ -360,24 +544,32 @@ const SubjectNode = memo(function SubjectNode({
   prev.subject === next.subject &&
   prev.expanded === next.expanded &&
   prev.selectedId === next.selectedId &&
+  prev.selectedChapterId === next.selectedChapterId &&
   prev.onToggle === next.onToggle &&
+  prev.onSelectChapter === next.onSelectChapter &&
   prev.onSelectSection === next.onSelectSection &&
   prev.tr === next.tr
 );
 
 const BookNode = memo(function BookNode({
+  subjectName,
   book,
   expanded,
   selectedId,
+  selectedChapterId,
   onToggle,
+  onSelectChapter,
   onSelectSection,
   tr,
 }: {
+  subjectName: string;
   book: TextbookBook;
   expanded: Set<string>;
   selectedId: string | undefined;
+  selectedChapterId: string | undefined;
   onToggle: (id: string) => void;
-  onSelectSection: (s: TextbookSection, trail: string[]) => void;
+  onSelectChapter: (c: TextbookChapter, trail: string[]) => void;
+  onSelectSection: (s: TextbookSection, c: TextbookChapter, trail: string[]) => void;
   tr: (cn: string, en: string) => string;
 }) {
   const open = expanded.has(book.id);
@@ -399,11 +591,14 @@ const BookNode = memo(function BookNode({
         book.chapters.map((chapter) => (
           <ChapterNode
             key={chapter.id}
+            subjectName={subjectName}
             bookName={book.name}
             chapter={chapter}
             expanded={expanded}
             selectedId={selectedId}
+            selectedChapterId={selectedChapterId}
             onToggle={onToggle}
+            onSelectChapter={onSelectChapter}
             onSelectSection={onSelectSection}
             tr={tr}
           />
@@ -414,38 +609,65 @@ const BookNode = memo(function BookNode({
   prev.book === next.book &&
   prev.expanded === next.expanded &&
   prev.selectedId === next.selectedId &&
+  prev.selectedChapterId === next.selectedChapterId &&
   prev.onToggle === next.onToggle &&
+  prev.onSelectChapter === next.onSelectChapter &&
   prev.onSelectSection === next.onSelectSection &&
   prev.tr === next.tr
 );
 
 const ChapterNode = memo(function ChapterNode({
+  subjectName,
   bookName,
   chapter,
   expanded,
   selectedId,
+  selectedChapterId,
   onToggle,
+  onSelectChapter,
   onSelectSection,
   tr,
 }: {
+  subjectName: string;
   bookName: string;
   chapter: TextbookChapter;
   expanded: Set<string>;
   selectedId: string | undefined;
+  selectedChapterId: string | undefined;
   onToggle: (id: string) => void;
-  onSelectSection: (s: TextbookSection, trail: string[]) => void;
+  onSelectChapter: (c: TextbookChapter, trail: string[]) => void;
+  onSelectSection: (s: TextbookSection, c: TextbookChapter, trail: string[]) => void;
   tr: (cn: string, en: string) => string;
 }) {
   const open = expanded.has(chapter.id);
+  const isSelectedChapter = chapter.id === selectedChapterId;
   return (
     <div className="ml-3">
-      <button
-        onClick={() => onToggle(chapter.id)}
-        className="flex w-full items-center gap-1.5 rounded-md px-2 py-1.5 text-left text-xs text-[var(--foreground)]/90 hover:bg-[var(--muted)]/40"
+      <div
+        className={`flex items-center rounded-md transition-colors ${
+          isSelectedChapter
+            ? "bg-[var(--primary)]/15"
+            : "hover:bg-[var(--muted)]/40"
+        }`}
       >
-        {open ? <ChevronDown className="w-3 h-3 shrink-0" /> : <ChevronRight className="w-3 h-3 shrink-0" />}
-        <span className="truncate">{chapter.name}</span>
-      </button>
+        <button
+          onClick={() => onToggle(chapter.id)}
+          aria-label={open ? tr("折叠", "Collapse") : tr("展开", "Expand")}
+          className="px-1.5 py-1.5 text-[var(--muted-foreground)] hover:text-[var(--foreground)]"
+        >
+          {open ? <ChevronDown className="w-3 h-3 shrink-0" /> : <ChevronRight className="w-3 h-3 shrink-0" />}
+        </button>
+        <button
+          onClick={() => onSelectChapter(chapter, [subjectName, bookName, chapter.name])}
+          className={`flex-1 truncate py-1.5 pr-2 text-left text-xs ${
+            isSelectedChapter
+              ? "font-medium text-[var(--foreground)]"
+              : "text-[var(--foreground)]/90"
+          }`}
+        >
+          {chapter.name}
+        </button>
+      </div>
       {open && (
         <div className="ml-3 space-y-0.5">
           {chapter.sections.map((section) => {
@@ -454,7 +676,7 @@ const ChapterNode = memo(function ChapterNode({
               <button
                 key={section.id}
                 onClick={() =>
-                  onSelectSection(section, [bookName, chapter.name, section.name])
+                  onSelectSection(section, chapter, [bookName, chapter.name, section.name])
                 }
                 className={`flex w-full items-center gap-1.5 rounded-md px-2 py-1.5 text-left text-xs ${
                   active
@@ -474,7 +696,9 @@ const ChapterNode = memo(function ChapterNode({
   prev.chapter === next.chapter &&
   prev.expanded === next.expanded &&
   prev.selectedId === next.selectedId &&
+  prev.selectedChapterId === next.selectedChapterId &&
   prev.onToggle === next.onToggle &&
+  prev.onSelectChapter === next.onSelectChapter &&
   prev.onSelectSection === next.onSelectSection &&
   prev.tr === next.tr
 );

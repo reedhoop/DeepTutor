@@ -3,9 +3,20 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 
 import { apiFetch, apiUrl } from "@/lib/api";
-import { stripAudioMimeParameters } from "@/lib/voice-mime";
 
 export type RecorderState = "idle" | "recording" | "transcribing";
+
+// SenseVoice-style ASR models prefix transcripts with control tags (e.g.
+// `<|zh|>`, `<|NEUTRAL|>`, `<|Basketball|>`). The backend now strips these, but
+// we clean defensively here too so any provider/version returns usable text.
+const SENSEVOICE_TAG = /<\|[^|>]*\|>/g;
+
+export function cleanTranscript(text: string): string {
+  return text
+    .replace(SENSEVOICE_TAG, "")
+    .replace(/\s+/g, " ")
+    .trim();
+}
 
 /**
  * Microphone capture → backend transcription. Records via MediaRecorder, posts
@@ -51,7 +62,7 @@ export function useVoiceRecorder(onTranscript: (text: string) => void) {
       if (event.data && event.data.size > 0) chunksRef.current.push(event.data);
     };
     recorder.onstop = async () => {
-      const mimeType = stripAudioMimeParameters(recorder.mimeType);
+      const mimeType = recorder.mimeType || "audio/webm";
       releaseStream();
       const blob = new Blob(chunksRef.current, { type: mimeType });
       chunksRef.current = [];
@@ -81,7 +92,7 @@ export function useVoiceRecorder(onTranscript: (text: string) => void) {
           );
         }
         const data = (await resp.json()) as { text?: string };
-        const text = (data.text || "").trim();
+        const text = cleanTranscript(data.text || "");
         if (text) onTranscriptRef.current(text);
       } catch (err) {
         setError(err instanceof Error ? err.message : "Transcription failed.");

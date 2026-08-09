@@ -76,6 +76,7 @@ MASTERY_TOOL_NAMES: tuple[str, ...] = (
     "mastery_switch",
     "mastery_leave",
     "variant_exercise",
+    "kgraph_visualize",
 )
 
 # [KGRAPH-EXT] Question-id prefix for questions sourced from a KGraph Exercise
@@ -228,6 +229,32 @@ def _normalize_quiz_contract(
             "the correct label."
         )
     return question_type, format_options(choice_options), resolved_expected
+
+
+def _clamp_int(value: Any, default: int, lo: int, hi: int) -> int:
+    """Coerce a tool arg to an int clamped into [lo, hi]; fall back to default."""
+    try:
+        v = int(value)
+    except (TypeError, ValueError):
+        return default
+    return max(lo, min(hi, v))
+
+
+def _kp_to_kg_node(kp: Any) -> str | None:
+    """Map a mastery objective to a KGraph node id (by id, then by name).
+
+    Mirrors :func:`deeptutor._local.kgraph_mermaid_overlay._build_path_graph`'s
+    mapping so a single objective resolves to the same node the path-mode graph
+    uses. Returns ``None`` when the KGraph dataset is absent or no node matches.
+    """
+    from deeptutor.services.kgraph import _norm, get_kg, is_available
+
+    if not is_available():
+        return None
+    kg = get_kg()
+    if kg.get_node(kp.id):
+        return kp.id
+    return kg.name_index.get(_norm(kp.name))
 
 
 async def _resolve_pending_choice(
@@ -1391,6 +1418,123 @@ def attempted_exercise_ids(progress: Any) -> list[str]:
     ]
 
 
+class KGraphVisualizeTool(BaseTool):
+    """Render a mastery objective's KGraph network as Mermaid (ER-1 agent tool).
+
+    Maps the active path's objective id to a KGraph node (by id, then by
+    normalised name — same mapping the overlay's path mode uses) and calls
+    :func:`deeptutor._local.kgraph_mermaid_overlay.build_kgraph_mermaid` for a
+    ``graph TD`` source. The tutor can surface *where* a concept sits in the
+    knowledge network mid-session; the frontend renders ``mermaid`` with
+    ``web/components/Mermaid.tsx``.
+    """
+
+    def get_definition(self) -> ToolDefinition:
+        return ToolDefinition(
+            name="kgraph_visualize",
+            description=(
+                "Render the KGraph knowledge-network around a mastery objective as a "
+                "Mermaid 'graph TD' diagram — prerequisites below, successors above, the "
+                "objective highlighted. Use it to ground an explanation in the larger "
+                "knowledge structure (what a concept builds on and what it unlocks). Pass "
+                "the objective id from mastery_status. Returns mermaid source plus the "
+                "node/edge lists. Fails clearly when the KGraph dataset is not mounted or "
+                "the objective has no KGraph node."
+            ),
+            parameters=[
+                ToolParameter(
+                    name="knowledge_point_id",
+                    type="string",
+                    description="Objective id from mastery_status (verbatim).",
+                ),
+                ToolParameter(
+                    name="levels",
+                    type="integer",
+                    description="Upward prerequisite depth to include (default 2, max 4).",
+                    required=False,
+                    default=2,
+                ),
+                ToolParameter(
+                    name="successor_levels",
+                    type="integer",
+                    description="Downward successor depth to include (default 1, max 3).",
+                    required=False,
+                    default=1,
+                ),
+            ],
+        )
+
+    async def execute(self, **kwargs: Any) -> ToolResult:
+        path_id = _resolve_path_id(kwargs)
+        if not path_id:
+            return _no_path_result()
+        kp_id = str(kwargs.get("knowledge_point_id") or "").strip()
+        if not kp_id:
+            return ToolResult(
+                content="kgraph_visualize needs knowledge_point_id.", success=False
+            )
+        levels = _clamp_int(kwargs.get("levels"), 2, 1, 4)
+        successor_levels = _clamp_int(kwargs.get("successor_levels"), 1, 0, 3)
+
+        service = _new_service()
+        progress = service.get_or_create(path_id)
+        kp, _, _ = find_knowledge_point(progress, kp_id)
+        if kp is None:
+            return ToolResult(
+                content=f"Unknown objective {kp_id!r}; call mastery_status for valid ids.",
+                success=False,
+            )
+
+        gid = _kp_to_kg_node(kp)
+        if not gid:
+            from deeptutor.services.kgraph import is_available as kg_is_available
+
+            if not kg_is_available():
+                return ToolResult(
+                    content=(
+                        "The K12-KGraph dataset is not mounted on this server, so the "
+                        "knowledge-network diagram is unavailable. Explain the concept "
+                        "without the graph."
+                    ),
+                    success=False,
+                )
+            return ToolResult(
+                content=(
+                    f"Objective {kp.name!r} has no matching KGraph node, so no "
+                    "knowledge-network diagram can be drawn for it."
+                ),
+                success=False,
+            )
+
+        try:
+            from deeptutor._local.kgraph_mermaid_overlay import build_kgraph_mermaid
+
+            result = build_kgraph_mermaid(
+                node_id=gid,
+                levels=levels,
+                successor_levels=successor_levels,
+            )
+        except (ValueError, RuntimeError) as exc:
+            return ToolResult(content=str(exc), success=False)
+
+        return _json_result(
+            {
+                "mermaid": result["mermaid"],
+                "mode": result["mode"],
+                "center_id": result["center_id"],
+                "node_count": len(result["nodes"]),
+                "edge_count": len(result["edges"]),
+                "nodes": result["nodes"],
+                "edges": result["edges"],
+                "instruction": (
+                    "Render the 'mermaid' field with the Mermaid component; present it to "
+                    "the learner as the concept's place in the knowledge network."
+                ),
+            },
+            meta_key="kgraph_visualize",
+        )
+
+
 MASTERY_TOOL_TYPES: tuple[type[BaseTool], ...] = (
     MasteryStatusTool,
     MasteryQuizTool,
@@ -1402,6 +1546,7 @@ MASTERY_TOOL_TYPES: tuple[type[BaseTool], ...] = (
     MasterySwitchTool,
     MasteryLeaveTool,
     VariantExerciseTool,
+    KGraphVisualizeTool,
 )
 
 
@@ -1419,5 +1564,6 @@ __all__ = [
     "MasteryStatusTool",
     "MasterySwitchTool",
     "VariantExerciseTool",
+    "KGraphVisualizeTool",
     "attempted_exercise_ids",
 ]

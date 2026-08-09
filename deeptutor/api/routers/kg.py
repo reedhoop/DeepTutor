@@ -12,12 +12,15 @@ external calls.
 
 from __future__ import annotations
 
+import logging
 from typing import Any
 
 from fastapi import APIRouter, Depends, HTTPException, Query
 
 from deeptutor.api.routers.auth import require_auth
 from deeptutor.services.kgraph import get_kg, is_available
+
+logger = logging.getLogger(__name__)
 
 router = APIRouter()
 
@@ -86,8 +89,11 @@ async def kg_concept(node_id: str):
 
     Assembles definition / aliases / importance / examples (from the merged
     node), prerequisites (one hop up ``prerequisites_for``), the curriculum
-    location breadcrumb (``appears_in`` + upward ``is_part_of``), and the
-    aggregated textbook evidence (P0-1: evidence lives on subject edges).
+    location breadcrumb (``appears_in`` + upward ``is_part_of``), the
+    teachable ``knowledge_points`` that belong to this node (via ``appears_in``
+    + ``is_part_of`` reverse edges — the same set ``section_to_module`` turns
+    into a mastery path), and the aggregated textbook evidence (P0-1: evidence
+    lives on subject edges).
     """
     kg = _require_kg()
     node = kg.get_node(node_id)
@@ -98,6 +104,7 @@ async def kg_concept(node_id: str):
     prereqs = kg.prerequisites_data(node_id, levels=1)
     path = kg.path_data(node_id)
     ev = kg.evidence_data(node_id)
+    knowledge_points = kg.knowledge_points_data(node_id)
 
     return {
         "id": node_id,
@@ -111,6 +118,7 @@ async def kg_concept(node_id: str):
         "prerequisites": [
             {"id": p["id"], "name": p["name"], "label": p["label"]} for p in prereqs
         ],
+        "knowledge_points": knowledge_points,
         "path": path,
         "evidence": {
             "evidences": ev.get("evidences", []),

@@ -51,6 +51,17 @@ EMBED_LABELS = frozenset({"Concept", "Skill", "Exercise", "Experiment"})
 PREREQ = "prerequisites_for"
 IS_PART_OF = "is_part_of"
 
+# Teachable labels whose nodes are mastery objectives. Mirrors
+# ``deeptutor.capabilities.mastery.kgraph_bridge.TEACHABLE`` so the textbook
+# navigator's chapter preview shows exactly the objectives the mastery path
+# (built by ``section_to_module``) will contain.
+TEACHABLE = frozenset({"Concept", "Skill"})
+
+_LABEL_TO_TYPE: dict[str, str] = {
+    "Concept": "concept",
+    "Skill": "skill",
+}
+
 # --------------------------------------------------------------------------- #
 # Normalisation + helpers
 # --------------------------------------------------------------------------- #
@@ -679,6 +690,36 @@ class KGIndex:
                         "relation": "is_part_of",
                     }
                 )
+        return out
+
+    def knowledge_points_data(self, nid: str) -> list[dict[str, Any]]:
+        """Teachable knowledge points that belong to ``nid``.
+
+        A knowledge point belongs to ``nid`` when a ``Concept``/``Skill`` node
+        has an ``appears_in`` or ``is_part_of`` edge pointing *to* ``nid``. This
+        is the same collection rule used by
+        :func:`deeptutor.capabilities.mastery.kgraph_bridge.section_to_module`,
+        so a chapter/section preview shows exactly the objectives the mastery
+        path will contain. Returns them ordered by id for stable rendering.
+        """
+        kids_set = set(self.adj_rev.get("appears_in", {}).get(nid, []))
+        kids_set |= set(self.adj_rev.get("is_part_of", {}).get(nid, []))
+        out: list[dict[str, Any]] = []
+        for k in sorted(kids_set):
+            node = self.get_node(k)
+            if not node:
+                continue
+            label = node.get("label", "")
+            if label not in TEACHABLE:
+                continue
+            out.append(
+                {
+                    "id": k,
+                    "name": node.get("name", k),
+                    "label": label,
+                    "type": _LABEL_TO_TYPE.get(label, "concept"),
+                }
+            )
         return out
 
     def evidence_data(self, nid: str) -> dict[str, Any]:

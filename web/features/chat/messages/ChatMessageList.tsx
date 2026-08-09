@@ -42,6 +42,7 @@ import type {
 import { apiFetch, apiUrl } from "@/lib/api";
 import { docIconFor } from "@/lib/doc-attachments";
 import { useVoiceAutoplay } from "@/hooks/useVoiceAutoplay";
+import { useTtsVoicePreference } from "@/hooks/useTtsVoices";
 import { extractMathAnimatorResult } from "@/lib/math-animator-types";
 import {
   extractQuizQuestions,
@@ -784,6 +785,7 @@ export function PlayAudioButton({
     markPrompted,
     shouldPromptOnFirstPlay,
   } = useVoiceAutoplay(conversationKey);
+  const { value: ttsVoice } = useTtsVoicePreference();
   const [state, setState] = useState<"idle" | "loading" | "playing">("idle");
   const [showPrompt, setShowPrompt] = useState(false);
   const audioRef = useRef<HTMLAudioElement | null>(null);
@@ -807,7 +809,7 @@ export function PlayAudioButton({
       const resp = await apiFetch(apiUrl("/api/voice/tts"), {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ text: content }),
+        body: JSON.stringify({ text: content, voice: ttsVoice || undefined }),
       });
       if (!resp.ok) {
         cleanup();
@@ -834,7 +836,7 @@ export function PlayAudioButton({
       cleanup();
       setState("idle");
     }
-  }, [cleanup, content]);
+  }, [cleanup, content, ttsVoice]);
 
   const handleClick = useCallback(() => {
     if (state === "playing" || state === "loading") {
