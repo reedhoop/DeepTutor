@@ -6,16 +6,20 @@ import {
   ChevronDown,
   ClipboardPaste,
   FileText,
+  Gauge,
   ImageUp,
   Loader2,
   Send,
   ShieldCheck,
+  Sparkles,
   XCircle,
 } from "lucide-react";
 
 import {
+  diagnoseReview,
   reviewExercisePage,
   submitReviewErrors,
+  type DiagnoseResult,
   type ExerciseReviewResult,
   type ReviewQuestion,
 } from "@/lib/learning-api";
@@ -39,6 +43,8 @@ export default function ExerciseReviewPage() {
   const [error, setError] = useState<string | null>(null);
   const [notice, setNotice] = useState<string | null>(null);
   const [expanded, setExpanded] = useState<Set<string>>(new Set());
+  const [diagnose, setDiagnose] = useState<DiagnoseResult | null>(null);
+  const [diagnosing, setDiagnosing] = useState(false);
   const fileRef = useRef<HTMLInputElement | null>(null);
 
   const runReview = useCallback(
@@ -140,6 +146,29 @@ export default function ExerciseReviewPage() {
       setError(e instanceof Error ? e.message : String(e));
     } finally {
       setBusy(false);
+    }
+  }, [bookId, result, wrong]);
+
+  const runDiagnose = useCallback(async () => {
+    if (!result) return;
+    const questions = result.questions.map((q) => ({
+      id: q.id,
+      kp_id: q.kp_id,
+      error_type: q.error_type,
+      is_correct: !wrong[q.id],
+    }));
+    setDiagnosing(true);
+    setError(null);
+    try {
+      const res = await diagnoseReview({
+        book_id: bookId.trim() || DEFAULT_BOOK_ID,
+        questions,
+      });
+      setDiagnose(res);
+    } catch (e) {
+      setError(e instanceof Error ? e.message : String(e));
+    } finally {
+      setDiagnosing(false);
     }
   }, [bookId, result, wrong]);
 
@@ -279,23 +308,38 @@ export default function ExerciseReviewPage() {
                 {result.questions.length} {tr("题", "questions")} · {wrongCount} {tr("题标记做错", "marked wrong")}
               </span>
             </h2>
-            <button
-              type="button"
-              onClick={sendToErrorBook}
-              disabled={busy || wrongCount === 0}
-              className={`inline-flex h-8 items-center gap-1.5 rounded-lg px-3.5 text-[12.5px] font-medium transition-colors active:scale-95 disabled:cursor-not-allowed disabled:opacity-40 ${
-                wrongCount > 0
-                  ? "bg-[var(--primary)] text-[var(--primary-foreground)] hover:bg-[var(--primary)]/90"
-                  : "bg-[var(--muted)] text-[var(--muted-foreground)]"
-              }`}
-            >
-              {busy ? (
-                <Loader2 size={14} className="animate-spin" />
-              ) : (
-                <BookOpenCheck size={14} strokeWidth={2} />
-              )}
-              {tr(`错题入错题本（${wrongCount}）`, `Send ${wrongCount} to error book`)}
-            </button>
+            <div className="flex items-center gap-2">
+              <button
+                type="button"
+                onClick={runDiagnose}
+                disabled={busy || diagnosing}
+                className="inline-flex h-8 items-center gap-1.5 rounded-lg border border-[var(--border)] bg-[var(--card)] px-3.5 text-[12.5px] font-medium text-[var(--foreground)] transition-colors hover:bg-[var(--muted)]/40 active:scale-95 disabled:cursor-not-allowed disabled:opacity-40"
+              >
+                {diagnosing ? (
+                  <Loader2 size={14} className="animate-spin" />
+                ) : (
+                  <Gauge size={14} strokeWidth={2} className="text-[var(--primary)]" />
+                )}
+                {tr("生成水平诊断", "Level diagnosis")}
+              </button>
+              <button
+                type="button"
+                onClick={sendToErrorBook}
+                disabled={busy || wrongCount === 0}
+                className={`inline-flex h-8 items-center gap-1.5 rounded-lg px-3.5 text-[12.5px] font-medium transition-colors active:scale-95 disabled:cursor-not-allowed disabled:opacity-40 ${
+                  wrongCount > 0
+                    ? "bg-[var(--primary)] text-[var(--primary-foreground)] hover:bg-[var(--primary)]/90"
+                    : "bg-[var(--muted)] text-[var(--muted-foreground)]"
+                }`}
+              >
+                {busy ? (
+                  <Loader2 size={14} className="animate-spin" />
+                ) : (
+                  <BookOpenCheck size={14} strokeWidth={2} />
+                )}
+                {tr(`错题入错题本（${wrongCount}）`, `Send ${wrongCount} to error book`)}
+              </button>
+            </div>
           </div>
 
           {result.questions.map((q, i) => {
@@ -403,6 +447,110 @@ export default function ExerciseReviewPage() {
               </div>
             );
           })}
+        </div>
+      )}
+
+      {/* Level diagnosis report */}
+      {diagnose && (
+        <div className="mt-6 rounded-2xl border border-[var(--border)]/60 bg-[var(--card)] p-5 shadow-sm">
+          <h2 className="flex items-center gap-2 text-[15px] font-semibold text-[var(--foreground)]">
+            <Gauge size={17} strokeWidth={1.9} className="text-[var(--primary)]" />
+            {tr("水平诊断报告", "Level Diagnosis")}
+            <span className="ml-auto text-[12px] font-normal text-[var(--muted-foreground)]">
+              {diagnose.total} {tr("题", "questions")} · {tr("正确", "correct")}{" "}
+              {diagnose.correct} · {tr("做错", "wrong")} {diagnose.wrong}
+            </span>
+          </h2>
+
+          <div className="mt-4 grid gap-3 sm:grid-cols-3">
+            <div className="rounded-xl border border-[var(--border)]/50 bg-[var(--muted)]/25 p-3.5">
+              <div className="text-[11px] font-medium uppercase tracking-wide text-[var(--muted-foreground)]">
+                {tr("正确率", "Accuracy")}
+              </div>
+              <div className="mt-1 text-[26px] font-bold leading-none text-[var(--foreground)]">
+                {Math.round(diagnose.accuracy * 100)}%
+              </div>
+              <div className="mt-1 text-[11.5px] text-[var(--muted-foreground)]">
+                {diagnose.correct} / {diagnose.total}
+              </div>
+            </div>
+            <div className="rounded-xl border border-[var(--border)]/50 bg-[var(--muted)]/25 p-3.5 sm:col-span-2">
+              <div className="text-[11px] font-medium uppercase tracking-wide text-[var(--muted-foreground)]">
+                {tr("错因分布", "Error causes")}
+              </div>
+              {diagnose.error_types.length === 0 ? (
+                <p className="mt-2 text-[12.5px] text-[var(--muted-foreground)]">
+                  {tr("本次没有标记错因的错题。", "No wrong answers with a cause this time.")}
+                </p>
+              ) : (
+                <div className="mt-2 space-y-1.5">
+                  {diagnose.error_types.map((et) => (
+                    <div key={et.type} className="flex items-center gap-2">
+                      <span className="w-20 shrink-0 text-[12px] text-[var(--foreground)]">
+                        {et.name}
+                      </span>
+                      <div className="h-2 flex-1 overflow-hidden rounded-full bg-[var(--muted)]/50">
+                        <div
+                          className="h-full rounded-full bg-[var(--primary)]/70"
+                          style={{ width: `${(et.count / Math.max(diagnose.wrong, 1)) * 100}%` }}
+                        />
+                      </div>
+                      <span className="w-5 shrink-0 text-right text-[12px] text-[var(--muted-foreground)]">
+                        {et.count}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          </div>
+
+          {diagnose.weak_kps.length > 0 && (
+            <div className="mt-4">
+              <div className="text-[12px] font-semibold text-[var(--foreground)]">
+                {tr("薄弱知识点", "Weak knowledge points")}
+              </div>
+              <div className="mt-2 space-y-2">
+                {diagnose.weak_kps.map((wk) => (
+                  <div
+                    key={wk.kp_id}
+                    className="rounded-xl border border-red-500/20 bg-red-500/[0.04] px-3.5 py-2.5"
+                  >
+                    <div className="flex flex-wrap items-center gap-2">
+                      <span className="text-[13px] font-medium text-[var(--foreground)]">
+                        {wk.name}
+                      </span>
+                      <span className="rounded-full bg-red-500/10 px-2 py-0.5 text-[11px] font-medium text-red-600 dark:text-red-400">
+                        {tr("错", "wrong")} {wk.wrong_count}
+                      </span>
+                      <span className="text-[11.5px] text-[var(--muted-foreground)]">
+                        {tr("掌握度", "mastery")} {Math.round(wk.mastery * 100)}%
+                      </span>
+                    </div>
+                    <p className="mt-1 text-[12px] leading-relaxed text-[var(--muted-foreground)]">
+                      {wk.suggestion}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {diagnose.suggestions.length > 0 && (
+            <div className="mt-4 rounded-xl border border-[var(--border)]/50 bg-[var(--muted)]/20 p-3.5">
+              <div className="flex items-center gap-1.5 text-[12px] font-semibold text-[var(--foreground)]">
+                <Sparkles size={13} strokeWidth={1.9} className="text-[var(--primary)]" />
+                {tr("专项提升建议", "Suggestions")}
+              </div>
+              <ul className="mt-1.5 space-y-1">
+                {diagnose.suggestions.map((s, i) => (
+                  <li key={i} className="text-[12.5px] leading-relaxed text-[var(--muted-foreground)]">
+                    · {s}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
         </div>
       )}
 

@@ -417,6 +417,83 @@ export async function submitReviewErrors(payload: {
   return res.json();
 }
 
+// ---------------------------------------------------------------------------
+// Level diagnosis (ER-12.2): aggregate a reviewed page into a level report.
+// ---------------------------------------------------------------------------
+
+export interface ErrorTypeStat {
+  type: string;
+  name: string;
+  count: number;
+}
+
+export interface WeakKpStat {
+  kp_id: string;
+  name: string;
+  wrong_count: number;
+  mastery: number;
+  suggestion: string;
+}
+
+export interface DiagnoseResult {
+  book_id: string;
+  diagnosis_id: string;
+  total: number;
+  correct: number;
+  wrong: number;
+  accuracy: number;
+  error_types: ErrorTypeStat[];
+  weak_kps: WeakKpStat[];
+  suggestions: string[];
+}
+
+export interface DiagnosisRecord {
+  id: string;
+  book_id: string;
+  created_at: number;
+  total: number;
+  correct: number;
+  wrong: number;
+  accuracy: number;
+  error_types: ErrorTypeStat[];
+  weak_kps: WeakKpStat[];
+  suggestions: string[];
+}
+
+export async function diagnoseReview(payload: {
+  book_id?: string;
+  questions: {
+    id?: string;
+    kp_id?: string;
+    error_type?: string;
+    is_correct: boolean;
+  }[];
+}): Promise<DiagnoseResult> {
+  const res = await apiFetch(apiUrl("/api/v1/study/review/diagnose"), {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(payload),
+  });
+  if (!res.ok) {
+    const detail = await res.json().catch(() => null);
+    throw new Error(
+      detail?.detail || `Failed to diagnose review: ${res.status}`,
+    );
+  }
+  return res.json();
+}
+
+/** Recent level-diagnosis records (newest first) — consumed by the archive. */
+export async function fetchDiagnoses(
+  limit = 20,
+): Promise<{ total: number; diagnoses: DiagnosisRecord[] }> {
+  const res = await apiFetch(
+    apiUrl(`/api/v1/study/diagnoses?limit=${limit}`),
+  );
+  if (!res.ok) throw new Error(`Failed to fetch diagnoses: ${res.status}`);
+  return res.json();
+}
+
 export async function deleteProgress(bookId: string) {
   const res = await apiFetch(
     apiUrl(`/api/mastery-paths/progress/${encodeURIComponent(bookId)}`),

@@ -9,6 +9,7 @@ import {
   ClipboardList,
   Ear,
   Flame,
+  Gauge,
   Github,
   GraduationCap,
   History,
@@ -30,6 +31,7 @@ import { listPersonas } from "@/lib/personas-api";
 import { listSkills } from "@/lib/skills-api";
 import {
   fetchAllProgress,
+  fetchDiagnoses,
   fetchErrorBook,
   fetchMotivation,
   fetchStudyArchive,
@@ -58,7 +60,8 @@ type DashKey =
   | "mastery_path"
   | "study_archive"
   | "motivation"
-  | "exercise_review";
+  | "exercise_review"
+  | "level_diagnose";
 
 interface DashboardItem {
   key: DashKey;
@@ -197,6 +200,25 @@ const GROUPS: DashboardGroup[] = [
         load: async () => {
           try {
             return (await fetchErrorBook("exercise_review")).records.length;
+          } catch {
+            return 0;
+          }
+        },
+      },
+      {
+        key: "level_diagnose",
+        href: "/space/diagnose",
+        icon: Gauge,
+        title: { zh: "水平诊断", en: "Level Diagnosis" },
+        blurb: {
+          zh: "上传做过的试卷，评估正确率与错因，薄弱知识点一键生成专攻路径。",
+          en: "Upload a completed paper, get accuracy & error-cause assessment, start mastery paths on weak points.",
+        },
+        unit: { zh: "次诊断", en: "diagnoses" },
+        tile: "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400",
+        load: async () => {
+          try {
+            return (await fetchDiagnoses(1)).total;
           } catch {
             return 0;
           }

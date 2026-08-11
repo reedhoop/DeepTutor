@@ -181,7 +181,7 @@ async def test_review_autosplit_unconfigured_hint():
             )
         )
     assert resp.status_code == 400
-    assert "切分器" in resp.body.decode()
+    assert "OCR" in resp.body.decode()
 
 
 @pytest.mark.asyncio
@@ -325,3 +325,220 @@ async def test_record_errors_keeps_going_on_item_failure():
 
     assert resp.added == 1  # second item failed, first counted
     assert store.saved == [progress]
+
+
+# ---------------------------------------------------------------------------
+# POST /review/diagnose — level-diagnosis aggregation
+# ---------------------------------------------------------------------------
+
+
+def _diag_item(kp_id: str = "", error_type: str = "", is_correct: bool = False):
+    return mod.DiagnoseItem(kp_id=kp_id, error_type=error_type, is_correct=is_correct)
+
+
+class _DiagnoseStore:
+    """LearningStore stand-in returning a fixed progress."""
+
+    def __init__(self, progress: LearningProgress | None) -> None:
+        self._progress = progress
+
+    def load(self, book_id: str) -> LearningProgress | None:
+        return self._progress
+
+
+class _FakeKg:
+    def __init__(self) -> None:
+        self.nodes = {
+            "kp1": {"name": "勾股定理"},
+            "kp2": {"name": "方程求解"},
+        }
+
+
+@pytest.mark.asyncio
+async def test_diagnose_empty():
+    store = _DiagnoseStore(None)
+    with mock.patch.object(mod, "LearningStore", return_value=store), \
+         mock.patch("deeptutor.services.kgraph.get_kg", return_value=_FakeKg()), \
+         mock.patch.object(mod, "_append_diagnosis"):
+        out = await mod.diagnose_review(mod.DiagnoseRequest(book_id="b", questions=[]))
+    assert out.total == 0 and out.accuracy == 0.0
+    assert out.error_types == [] and out.weak_kps == [] and out.suggestions == []
+
+
+@pytest.mark.asyncio
+async def test_diagnose_accuracy_and_cause_distribution():
+    store = _DiagnoseStore(None)
+    questions = [
+        _diag_item(kp_id="kp1", is_correct=True),
+        _diag_item(kp_id="kp1", error_type="application", is_correct=False),
+        _diag_item(kp_id="kp2", error_type="structural", is_correct=False),
+        _diag_item(kp_id="kp2", error_type="application", is_correct=False),
+        _diag_item(kp_id="", error_type="", is_correct=False),
+    ]
+    with mock.patch.object(mod, "LearningStore", return_value=store), \
+         mock.patch("deeptutor.services.kgraph.get_kg", return_value=_FakeKg()), \
+         mock.patch.object(mod, "_append_diagnosis"):
+        out = await mod.diagnose_review(mod.DiagnoseRequest(book_id="b", questions=questions))
+
+    assert out.total == 5 and out.correct == 1 and out.wrong == 4
+    assert out.accuracy == pytest.approx(0.2)
+    # Cause distribution: application ×2 (first), structural ×1, uncategorized ×1.
+    assert [(et.type, et.count) for et in out.error_types] == [
+        ("application", 2), ("structural", 1), ("", 1),
+    ]
+    assert out.error_types[0].name == "应用错误"
+
+
+@pytest.mark.asyncio
+async def test_diagnose_weak_kps_with_mastery():
+    progress = LearningProgress(book_id="b")
+    progress.mastery_levels = {"kp1": 0.9, "kp2": 0.3}
+    store = _DiagnoseStore(progress)
+    questions = [
+        _diag_item(kp_id="kp1", is_correct=False),
+        _diag_item(kp_id="kp1", is_correct=False),
+        _diag_item(kp_id="kp2", is_correct=False),
+    ]
+    with mock.patch.object(mod, "LearningStore", return_value=store), \
+         mock.patch("deeptutor.services.kgraph.get_kg", return_value=_FakeKg()), \
+         mock.patch.object(mod, "_append_diagnosis"):
+        out = await mod.diagnose_review(mod.DiagnoseRequest(book_id="b", questions=questions))
+
+    # Weak kps sorted by wrong count: kp1 (2) first, then kp2 (1).
+    assert [(w.kp_id, w.wrong_count) for w in out.weak_kps] == [("kp1", 2), ("kp2", 1)]
+    assert out.weak_kps[0].name == "勾股定理"
+    assert out.weak_kps[0].mastery == pytest.approx(0.9)
+    assert "巩固" in out.weak_kps[0].suggestion  # mastery ≥ 0.8 branch
+    assert out.weak_kps[1].name == "方程求解"
+    assert out.weak_kps[1].mastery == pytest.approx(0.3)
+    assert "偏低" in out.weak_kps[1].suggestion
+    # Suggestions reference the top weak kp.
+    assert "勾股定理" in "".join(out.suggestions)
+
+
+@pytest.mark.asyncio
+async def test_diagnose_unknown_kp_name_falls_back_to_id():
+    store = _DiagnoseStore(None)
+    questions = [_diag_item(kp_id="nope", is_correct=False)]
+    with mock.patch.object(mod, "LearningStore", return_value=store), \
+         mock.patch("deeptutor.services.kgraph.get_kg", return_value=_FakeKg()), \
+         mock.patch.object(mod, "_append_diagnosis"):
+        out = await mod.diagnose_review(mod.DiagnoseRequest(book_id="b", questions=questions))
+    assert out.weak_kps[0].name == "nope"
+    assert "尚未建立掌握度记录" in out.weak_kps[0].suggestion
+
+
+# ---------------------------------------------------------------------------
+# diagnosis persistence + history list
+# ---------------------------------------------------------------------------
+
+
+@pytest.mark.asyncio
+async def test_diagnose_persists_record(tmp_path):
+    store = _DiagnoseStore(None)
+    written: dict = {}
+
+    def fake_append(record):
+        written.update(record)
+
+    with mock.patch.object(mod, "LearningStore", return_value=store), \
+         mock.patch("deeptutor.services.kgraph.get_kg", return_value=_FakeKg()), \
+         mock.patch.object(mod, "_append_diagnosis", side_effect=fake_append):
+        out = await mod.diagnose_review(
+            mod.DiagnoseRequest(
+                book_id="b",
+                questions=[_diag_item(kp_id="kp1", error_type="application", is_correct=False)],
+            )
+        )
+
+    assert out.diagnosis_id  # returned id links the report to the record
+    assert written["id"] == out.diagnosis_id
+    assert written["accuracy"] == 0.0
+    assert written["weak_kps"][0]["kp_id"] == "kp1"
+
+
+def test_diagnoses_path_under_workspace(tmp_path, monkeypatch):
+    from deeptutor.services import path_service as ps
+
+    class _Fake:
+        def get_workspace_dir(self):
+            return tmp_path
+
+    monkeypatch.setattr(ps, "get_path_service", lambda: _Fake())
+    path = mod._diagnoses_path()
+    assert path == tmp_path / "study" / "diagnoses.json"
+
+
+def test_append_and_load_roundtrip(tmp_path, monkeypatch):
+    from deeptutor.services import path_service as ps
+
+    class _Fake:
+        def get_workspace_dir(self):
+            return tmp_path
+
+    monkeypatch.setattr(ps, "get_path_service", lambda: _Fake())
+    mod._append_diagnosis({"id": "d1", "accuracy": 0.5})
+    mod._append_diagnosis({"id": "d2", "accuracy": 0.8})
+    records = mod._load_diagnoses()
+    assert [r["id"] for r in records] == ["d1", "d2"]
+
+
+def test_load_diagnoses_tolerates_corrupt_file(tmp_path, monkeypatch):
+    from deeptutor.services import path_service as ps
+
+    class _Fake:
+        def get_workspace_dir(self):
+            return tmp_path
+
+    monkeypatch.setattr(ps, "get_path_service", lambda: _Fake())
+    path = tmp_path / "study" / "diagnoses.json"
+    path.parent.mkdir(parents=True)
+    path.write_text("{broken json", encoding="utf-8")
+    assert mod._load_diagnoses() == []
+
+
+@pytest.mark.asyncio
+async def test_list_diagnoses_newest_first(tmp_path, monkeypatch):
+    from deeptutor.services import path_service as ps
+
+    class _Fake:
+        def get_workspace_dir(self):
+            return tmp_path
+
+    monkeypatch.setattr(ps, "get_path_service", lambda: _Fake())
+    mod._append_diagnosis({"id": "old", "created_at": 100})
+    mod._append_diagnosis({"id": "new", "created_at": 200})
+    out = await mod.list_diagnoses(limit=10)
+    assert out["total"] == 2
+    assert [d["id"] for d in out["diagnoses"]] == ["new", "old"]
+
+
+@pytest.mark.asyncio
+async def test_diagnose_empty_skips_persistence():
+    """Empty diagnoses (total=0) carry no signal — the endpoint must NOT write."""
+    store = _DiagnoseStore(None)
+    appended = mock.MagicMock()
+    with mock.patch.object(mod, "LearningStore", return_value=store), \
+         mock.patch("deeptutor.services.kgraph.get_kg", return_value=_FakeKg()), \
+         mock.patch.object(mod, "_append_diagnosis", appended):
+        out = await mod.diagnose_review(mod.DiagnoseRequest(book_id="b", questions=[]))
+    assert out.total == 0
+    appended.assert_not_called()
+
+
+@pytest.mark.asyncio
+async def test_diagnose_persists_only_non_empty():
+    store = _DiagnoseStore(None)
+    appended = mock.MagicMock()
+    with mock.patch.object(mod, "LearningStore", return_value=store), \
+         mock.patch("deeptutor.services.kgraph.get_kg", return_value=_FakeKg()), \
+         mock.patch.object(mod, "_append_diagnosis", appended):
+        await mod.diagnose_review(
+            mod.DiagnoseRequest(
+                book_id="b",
+                questions=[_diag_item(kp_id="kp1", is_correct=False)],
+            )
+        )
+    appended.assert_called_once()
+    record = appended.call_args.args[0]
+    assert record["total"] == 1

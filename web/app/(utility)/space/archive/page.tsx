@@ -18,7 +18,9 @@ import {
 } from "lucide-react";
 
 import {
+  fetchDiagnoses,
   fetchStudyArchive,
+  type DiagnosisRecord,
   type StudyArchive,
 } from "@/lib/learning-api";
 import KGraphMermaid from "@/components/kgraph/KGraphMermaid";
@@ -46,6 +48,7 @@ export default function StudyArchivePage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [expanded, setExpanded] = useState<string | null>(null);
+  const [diagnoses, setDiagnoses] = useState<DiagnosisRecord[]>([]);
 
   useEffect(() => {
     let cancelled = false;
@@ -60,6 +63,11 @@ export default function StudyArchivePage() {
       .finally(() => {
         if (!cancelled) setLoading(false);
       });
+    fetchDiagnoses(20)
+      .then((r) => {
+        if (!cancelled) setDiagnoses(r.diagnoses);
+      })
+      .catch(() => undefined);
     return () => {
       cancelled = true;
     };
@@ -159,6 +167,59 @@ export default function StudyArchivePage() {
           ))}
         </ol>
       </section>
+
+      {/* Diagnosis trend (ER-12.2 linkage): accuracy across paper diagnoses */}
+      {diagnoses.length > 0 && (
+        <section>
+          <h2 className="mb-3 flex items-center gap-2 font-serif text-[16px] font-semibold tracking-tight text-[var(--foreground)]">
+            <LineChart className="h-4 w-4 opacity-70" />
+            {tr("试卷诊断趋势", "Paper Diagnosis Trend")}
+          </h2>
+          <div className="rounded-lg border border-[var(--border)] p-4">
+            <div className="flex items-end gap-1.5">
+              {[...diagnoses].reverse().slice(-10).map((d) => (
+                <div
+                  key={d.id}
+                  title={`${fmtDate(d.created_at)} · ${Math.round(d.accuracy * 100)}% · ${d.total} 题`}
+                  className="flex-1"
+                >
+                  <div
+                    className="w-full rounded-t bg-[var(--primary)]/70"
+                    style={{ height: `${Math.max(4, Math.round(d.accuracy * 100))}px` }}
+                  />
+                </div>
+              ))}
+            </div>
+            <div className="mt-2 space-y-1">
+              {diagnoses.slice(0, 5).map((d) => (
+                <div
+                  key={d.id}
+                  className="flex flex-wrap items-center gap-2 text-[12px] text-[var(--muted-foreground)]"
+                >
+                  <span className="text-[12px] tabular-nums">{fmtDate(d.created_at)}</span>
+                  <span className="font-medium text-[var(--foreground)]">
+                    {Math.round(d.accuracy * 100)}%
+                  </span>
+                  <span>
+                    {d.total} {tr("题", "questions")} · {d.wrong} {tr("错", "wrong")}
+                  </span>
+                  {d.weak_kps.length > 0 && (
+                    <span className="truncate text-[11.5px]">
+                      {tr("薄弱", "weak")}: {d.weak_kps.map((w) => w.name).join("、")}
+                    </span>
+                  )}
+                </div>
+              ))}
+            </div>
+            <p className="mt-2 text-[11.5px] text-[var(--muted-foreground)]">
+              {tr(
+                "正确率来自学习空间 → 水平诊断的记录；多次诊断可看出水平变化。",
+                "Accuracy comes from Level Diagnosis records; repeated diagnoses show progress over time.",
+              )}
+            </p>
+          </div>
+        </section>
+      )}
 
       {/* Weak-point digest */}
       {data.weak_points.length > 0 && (
