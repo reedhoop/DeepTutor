@@ -17,7 +17,9 @@ competitive leaderboard.
 """
 from __future__ import annotations
 
+import json
 from datetime import date, datetime, timedelta
+from pathlib import Path
 from typing import Any
 
 from fastapi import APIRouter
@@ -35,6 +37,32 @@ _PTS_PER_CORRECT = 10
 _PTS_PER_MASTERED = 20
 _PTS_PER_ACTIVE_DAY = 15
 _PTS_PER_BADGE = 50
+_PTS_PER_DIAGNOSE = 5
+
+
+def _diagnoses_stats() -> tuple[int, float | None]:
+    """(count, last_created_at) from the level-diagnosis records (ER-12).
+
+    Read-only — the diagnosis records are appended by the exercise-review
+    router into ``workspace/study/diagnoses.json``. A missing/corrupt file
+    degrades to (0, None) so motivation never breaks on it.
+    """
+    try:
+        from deeptutor.services.path_service import get_path_service
+
+        path = get_path_service().get_workspace_dir() / "study" / "diagnoses.json"
+        if not path.exists():
+            return 0, None
+        records = json.loads(path.read_text(encoding="utf-8"))
+        if not isinstance(records, list) or not records:
+            return 0, None
+        last = max(
+            (r.get("created_at") or 0 for r in records if isinstance(r, dict)),
+            default=None,
+        )
+        return len(records), (float(last) if last is not None else None)
+    except Exception:  # noqa: BLE001 — best-effort, never fail motivation
+        return 0, None
 
 
 def _activity_dates(progress: Any) -> set[date]:
@@ -185,7 +213,10 @@ async def motivation() -> dict[str, Any]:
 
     total_quizzes = len(all_quizzes)
     correct = sum(1 for a in all_quizzes if a.is_correct)
-    has_data = bool(total_quizzes or mastered_kp or streak["active_days"])
+    diagnose_count, diagnose_last_ts = _diagnoses_stats()
+    has_data = bool(
+        total_quizzes or mastered_kp or streak["active_days"] or diagnose_count
+    )
 
     last_active_ts = (
         datetime.fromisoformat(streak["last_active"]).timestamp()
@@ -206,6 +237,8 @@ async def motivation() -> dict[str, Any]:
         run_end_ts=run_end_ts,
         graduated_ts=graduated_ts,
         last_active_ts=last_active_ts,
+        diagnose_count=diagnose_count,
+        diagnose_last_ts=diagnose_last_ts,
     )
     earned_count = sum(1 for b in badges if b["earned"])
 
@@ -215,6 +248,7 @@ async def motivation() -> dict[str, Any]:
             + correct * _PTS_PER_CORRECT
             + len(mastered_kp) * _PTS_PER_MASTERED
             + streak["active_days"] * _PTS_PER_ACTIVE_DAY
+            + diagnose_count * _PTS_PER_DIAGNOSE
             + earned_count * _PTS_PER_BADGE
         ),
         "breakdown": {
@@ -222,6 +256,7 @@ async def motivation() -> dict[str, Any]:
             "correct": correct * _PTS_PER_CORRECT,
             "mastered": len(mastered_kp) * _PTS_PER_MASTERED,
             "active_days": streak["active_days"] * _PTS_PER_ACTIVE_DAY,
+            "diagnoses": diagnose_count * _PTS_PER_DIAGNOSE,
             "badges": earned_count * _PTS_PER_BADGE,
         },
     }
@@ -252,6 +287,7 @@ def _build_badges(**kw: Any) -> list[dict[str, Any]]:
     ls = kw["longest_streak"]
     ad = kw["active_days"]
     eg = kw["error_graduated"]
+    dc = kw["diagnose_count"]
 
     return [
         b("first_quiz", tq >= 1, tq / 1, kw["first_quiz_ts"] if tq >= 1 else None),
@@ -271,4 +307,6 @@ def _build_badges(**kw: Any) -> list[dict[str, Any]]:
             kw["mastery_ref_ts"] if len(mt) >= 4 else None,
         ),
         b("active_10", ad >= 10, ad / 10, kw["last_active_ts"] if ad >= 10 else None),
+        b("diagnose_1", dc >= 1, dc / 1, kw["diagnose_last_ts"] if dc >= 1 else None),
+        b("diagnose_10", dc >= 10, dc / 10, kw["diagnose_last_ts"] if dc >= 10 else None),
     ]

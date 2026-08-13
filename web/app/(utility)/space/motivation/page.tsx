@@ -4,11 +4,13 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { useTranslation } from "react-i18next";
 import {
+  Activity,
   CalendarCheck,
   CalendarDays,
   CheckCircle2,
   Crown,
   Flame,
+  Gauge,
   Layers,
   Loader2,
   Medal,
@@ -92,6 +94,16 @@ const BADGE_CATALOG: Record<string, BadgeMeta> = {
     name: { zh: "十日光阴", en: "Ten Days" },
     desc: { zh: "累计活跃学习 10 天。", en: "Be active on 10 distinct days." },
     icon: Sun,
+  },
+  diagnose_1: {
+    name: { zh: "首次诊断", en: "First Diagnosis" },
+    desc: { zh: "完成第一次水平诊断。", en: "Complete your first level diagnosis." },
+    icon: Gauge,
+  },
+  diagnose_10: {
+    name: { zh: "诊断达人", en: "Diagnosis Pro" },
+    desc: { zh: "完成 10 次水平诊断。", en: "Complete 10 level diagnoses." },
+    icon: Activity,
   },
 };
 
@@ -302,6 +314,11 @@ export default function MotivationPage() {
             tr={tr}
             label={tr({ zh: "活跃天数", en: "Active days" })}
             pts={data.points.breakdown.active_days}
+          />
+          <BreakdownRow
+            tr={tr}
+            label={tr({ zh: "水平诊断", en: "Diagnoses" })}
+            pts={data.points.breakdown.diagnoses ?? 0}
           />
           <BreakdownRow
             tr={tr}

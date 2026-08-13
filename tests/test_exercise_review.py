@@ -542,3 +542,79 @@ async def test_diagnose_persists_only_non_empty():
     appended.assert_called_once()
     record = appended.call_args.args[0]
     assert record["total"] == 1
+
+
+# ---------------------------------------------------------------------------
+# _auto_tag_kp_ids — auto-associate knowledge points via KGraph resolve
+# ---------------------------------------------------------------------------
+
+
+class _FakeKgResolve:
+    def __init__(self, cands):
+        self._cands = cands
+        self.queries = []
+
+    async def resolve(self, concept, top_k=5, subject=None):
+        self.queries.append(concept)
+        return self._cands
+
+
+@pytest.mark.asyncio
+async def test_auto_tag_confident_match():
+    kg = _FakeKgResolve([{"id": "kp1", "name": "勾股定理", "score": 1.0, "method": "exact"}])
+    q = mod.ReviewQuestionIn(stem="勾股定理的应用", kp_id="")
+    with mock.patch("deeptutor.services.kgraph.get_kg", return_value=kg):
+        tagged = await mod._auto_tag_kp_ids([q])
+    assert tagged == 1
+    assert q.kp_id == "kp1"
+    assert kg.queries == ["勾股定理的应用"]
+
+
+@pytest.mark.asyncio
+async def test_auto_tag_not_confident_leaves_empty():
+    kg = _FakeKgResolve([{"id": "kp1", "name": "x", "score": 0.5, "method": "fuzzy"}])
+    q = mod.ReviewQuestionIn(stem="模糊题干", kp_id="")
+    with mock.patch("deeptutor.services.kgraph.get_kg", return_value=kg):
+        tagged = await mod._auto_tag_kp_ids([q])
+    assert tagged == 0
+    assert q.kp_id == ""
+
+
+@pytest.mark.asyncio
+async def test_auto_tag_does_not_overwrite_existing():
+    kg = _FakeKgResolve([{"id": "other", "name": "x", "score": 1.0, "method": "exact"}])
+    q = mod.ReviewQuestionIn(stem="题干", kp_id="kp_keep")
+    with mock.patch("deeptutor.services.kgraph.get_kg", return_value=kg):
+        tagged = await mod._auto_tag_kp_ids([q])
+    assert tagged == 0
+    assert q.kp_id == "kp_keep"
+
+
+@pytest.mark.asyncio
+async def test_auto_tag_skips_empty_stem_and_kgraph_missing():
+    q = mod.ReviewQuestionIn(stem="   ", kp_id="")
+    with mock.patch("deeptutor.services.kgraph.get_kg", return_value=None):
+        assert await mod._auto_tag_kp_ids([q]) == 0
+
+    def _boom():
+        raise RuntimeError("no kgraph")
+    with mock.patch("deeptutor.services.kgraph.get_kg", side_effect=_boom):
+        assert await mod._auto_tag_kp_ids([mod.ReviewQuestionIn(stem="题", kp_id="")]) == 0
+
+
+def test_candidate_queries_short_head_first():
+    q = mod._candidate_queries("勾股定理：直角三角形两直角边的平方和等于斜边的平方")
+    assert q[0] == "勾股定理"  # leading fragment before the colon
+
+
+def test_candidate_queries_prefix_truncation_when_no_punct():
+    q = mod._candidate_queries("解一元二次方程x平方减5x加6等于0")
+    assert q[0] == "解一元二次方程x平方减5x加6等于0"  # full stem (no punct)
+    assert q[1] == "解一元二次方程x平方减5x加6等"  # s[:16] fallback
+    assert q[-1] == "解一元二次方程x"  # s[:8] fallback
+
+
+def test_candidate_queries_dedup_and_cap():
+    q = mod._candidate_queries("一元二次方程")
+    assert q == ["一元二次方程"]  # all truncations collapse to the same fragment
+    assert len(mod._candidate_queries("很长的一段话" * 10)) <= 5

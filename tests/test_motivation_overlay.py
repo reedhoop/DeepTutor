@@ -201,6 +201,7 @@ def _badges(**kw) -> list[dict]:
         longest_streak=0, active_days=0, error_graduated=False,
         first_quiz_ts=None, mastery_ref_ts=None, run_end_ts=None,
         graduated_ts=None, last_active_ts=None,
+        diagnose_count=0, diagnose_last_ts=None,
     )
     defaults.update(kw)
     return mod._build_badges(**defaults)
@@ -208,14 +209,14 @@ def _badges(**kw) -> list[dict]:
 
 def test_badges_all_zero():
     badges = _badges()
-    assert len(badges) == 12
+    assert len(badges) == 14
     assert all(b["earned"] is False for b in badges)
     assert all(b["progress"] == 0.0 for b in badges)
     assert all("earned_at" not in b for b in badges)
     assert [b["id"] for b in badges] == [
         "first_quiz", "first_mastery", "quiz_run_5", "streak_3", "streak_7",
         "streak_30", "mastery_10", "mastery_50", "mastery_100",
-        "error_graduate", "all_types", "active_10",
+        "error_graduate", "all_types", "active_10", "diagnose_1", "diagnose_10",
     ]
 
 
@@ -293,6 +294,7 @@ def _patched_endpoint(books: dict[str, LearningProgress]):
     stack = [
         mock.patch.object(mod, "LearningStore", return_value=store),
         mock.patch.object(mod, "LearningService", return_value=service),
+        mock.patch.object(mod, "_diagnoses_stats", return_value=(0, None)),
     ]
     for p in stack:
         p.start()
@@ -371,3 +373,53 @@ async def test_motivation_mastered_badge_reflects_threshold():
     # 0.79 is NOT mastered → no mastery badges, no mastered points.
     assert out["badges"][1]["earned"] is False  # first_mastery
     assert out["points"]["breakdown"]["mastered"] == 0
+
+
+# ---------------------------------------------------------------------------
+# diagnose badges + _diagnoses_stats (ER-12 linkage)
+# ---------------------------------------------------------------------------
+
+
+def test_badges_diagnose_thresholds():
+    none = _badges()
+    assert none[12]["id"] == "diagnose_1" and none[12]["earned"] is False
+    assert none[13]["id"] == "diagnose_10" and none[13]["earned"] is False
+    one = _badges(diagnose_count=1, diagnose_last_ts=50.0)
+    assert one[12]["earned"] is True and one[12]["earned_at"] == 50.0
+    assert one[13]["earned"] is False
+    ten = _badges(diagnose_count=10)
+    assert ten[13]["earned"] is True and ten[13]["progress"] == 1.0
+
+
+def test_diagnoses_stats_reads_file(tmp_path, monkeypatch):
+    from deeptutor.services import path_service as ps
+
+    class _Fake:
+        def get_workspace_dir(self):
+            return tmp_path
+
+    monkeypatch.setattr(ps, "get_path_service", lambda: _Fake())
+    # missing file → (0, None)
+    assert mod._diagnoses_stats() == (0, None)
+    # valid file → count + max created_at
+    path = tmp_path / "study" / "diagnoses.json"
+    path.parent.mkdir(parents=True)
+    path.write_text(
+        '[{"id":"a","created_at":100},{"id":"b","created_at":300}]',
+        encoding="utf-8",
+    )
+    assert mod._diagnoses_stats() == (2, 300.0)
+
+
+def test_diagnoses_stats_tolerates_corrupt(tmp_path, monkeypatch):
+    from deeptutor.services import path_service as ps
+
+    class _Fake:
+        def get_workspace_dir(self):
+            return tmp_path
+
+    monkeypatch.setattr(ps, "get_path_service", lambda: _Fake())
+    path = tmp_path / "study" / "diagnoses.json"
+    path.parent.mkdir(parents=True)
+    path.write_text("{broken", encoding="utf-8")
+    assert mod._diagnoses_stats() == (0, None)

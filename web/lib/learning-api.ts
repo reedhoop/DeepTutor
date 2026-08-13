@@ -320,6 +320,7 @@ export interface MotivationPoints {
     correct: number;
     mastered: number;
     active_days: number;
+    diagnoses: number;
     badges: number;
   };
 }

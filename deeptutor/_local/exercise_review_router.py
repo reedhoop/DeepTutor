@@ -20,6 +20,7 @@ from __future__ import annotations
 import asyncio
 import json
 import logging
+import re
 import threading
 import time
 import uuid
@@ -418,6 +419,74 @@ def _enrich_variants(question: ReviewQuestionIn) -> ReviewQuestionOut:
     return out
 
 
+_HEAD_SPLIT_RE = re.compile(r"[：:，,。；;？?！!\s]+")
+
+
+def _candidate_queries(stem: str) -> list[str]:
+    """Short query fragments from a question stem, most-likely-first.
+
+    ``resolve`` matches concept *names*, so a full sentence ranks poorly (its
+    substring ratio falls below the acceptance floor and semantic search
+    returns a near-tie). The knowledge-point name usually sits at the head of
+    the stem, so we try the leading punctuation-split fragments, then
+    short prefix truncations.
+    """
+    s = stem.strip()
+    candidates: list[str] = []
+    seen: set[str] = set()
+
+    def add(c: str) -> None:
+        c = c.strip()
+        if c and c not in seen:
+            seen.add(c)
+            candidates.append(c)
+
+    for frag in _HEAD_SPLIT_RE.split(s):
+        if frag:
+            add(frag)
+        if len(candidates) >= 3:
+            break
+    add(s[:16])
+    add(s[:12])
+    add(s[:8])
+    return candidates[:5]
+
+
+async def _auto_tag_kp_ids(questions: list[ReviewQuestionIn]) -> int:
+    """Auto-fill empty ``kp_id`` fields via KGraph concept resolution.
+
+    The OCR splitter produces plain-text stems with no knowledge-point tag, so
+    the downstream diagnosis (weak-point analysis) and variant retrieval would
+    have nothing to key on. For every question that lacks a ``kp_id``, resolve
+    short head fragments of its stem against the KGraph and tag it when the
+    match is *confident* (reuses :func:`deeptutor.services.kgraph.is_confident`
+    — the single source of truth, never a local copy). Best-effort: any
+    failure just leaves the field empty so the existing fallbacks keep working.
+    """
+    try:
+        from deeptutor.services.kgraph import get_kg, is_confident
+
+        kg = get_kg()
+    except Exception:  # noqa: BLE001 — kgraph optional
+        return 0
+    if kg is None:
+        return 0
+    tagged = 0
+    for q in questions:
+        if q.kp_id or not q.stem.strip():
+            continue
+        for query in _candidate_queries(q.stem):
+            try:
+                cands = await kg.resolve(query, top_k=3)
+            except Exception:  # noqa: BLE001 — embedding endpoint may be down
+                continue
+            if is_confident(cands):
+                q.kp_id = cands[0]["id"]
+                tagged += 1
+                break
+    return tagged
+
+
 # ---------------------------------------------------------------------------
 # Endpoints
 # ---------------------------------------------------------------------------
@@ -464,6 +533,9 @@ async def review_exercise_page(body: ReviewRequest) -> Any:
         )
 
     book_id = body.book_id.strip() or DEFAULT_BOOK_ID
+    tagged = await _auto_tag_kp_ids(questions)
+    if tagged:
+        logger.info("auto-tagged %d question(s) with kp_id via KGraph", tagged)
     enriched = [_enrich_variants(q) for q in questions]
     return ReviewResponse(book_id=book_id, questions=enriched)
 
