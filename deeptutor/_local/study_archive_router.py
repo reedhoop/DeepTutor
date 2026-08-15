@@ -17,6 +17,7 @@ mastery serialization or the one-way upstream sync contract.
 """
 from __future__ import annotations
 
+import asyncio
 from typing import Any
 
 from fastapi import APIRouter
@@ -27,15 +28,21 @@ from deeptutor.learning.storage import LearningStore
 
 router = APIRouter()
 
-_MASTERY_THRESHOLD = 0.8
-
 
 def _progress_stats(progress: Any) -> dict[str, Any]:
-    """Lightweight rollup of one learning path for the archive cards."""
-    mastery = progress.mastery_levels or {}
-    total = len(mastery) or sum(len(m.knowledge_points) for m in progress.modules)
-    mastered = sum(1 for v in mastery.values() if v >= _MASTERY_THRESHOLD)
-    avg = (sum(mastery.values()) / total) if total else 0.0
+    """Lightweight rollup of one learning path for the archive cards.
+
+    total/mastered/avg all derive from the path's current module knowledge
+    points (never stale mastery_levels keys), and mastery is judged by the
+    engine's own gate (policy.is_mastered / display_mastery) so the archive
+    agrees with the tutoring loop.
+    """
+    from deeptutor.learning.policy import display_mastery, is_mastered
+
+    kps = [kp for m in progress.modules for kp in m.knowledge_points]
+    total = len(kps)
+    mastered = sum(1 for kp in kps if is_mastered(progress, kp))
+    avg = (sum(display_mastery(progress, kp) for kp in kps) / total) if total else 0.0
     open_errors = [
         r for r in progress.error_records if r.status in ("active", "retrying")
     ]
@@ -58,7 +65,7 @@ async def study_archive() -> dict[str, Any]:
     """
     store = LearningStore()
     service = LearningService(store)
-    summaries = (service.list_progress().get("summaries", []) or [])
+    summaries = ((await asyncio.to_thread(service.list_progress)).get("summaries", []) or [])
 
     books: list[dict[str, Any]] = []
     totals = {"kp": 0, "mastered": 0, "quiz": 0, "error": 0}
@@ -68,7 +75,7 @@ async def study_archive() -> dict[str, Any]:
         bid = s.get("book_id")
         if not bid:
             continue
-        progress = store.load(bid)
+        progress = await asyncio.to_thread(store.load, bid)
         if progress is None:
             continue
         st = _progress_stats(progress)
@@ -95,6 +102,7 @@ async def study_archive() -> dict[str, Any]:
                     "knowledge_point_id": w.knowledge_point_id,
                     "name": w.name,
                     "module_id": w.module_id,
+                    "book_id": bid,
                     "mastery": w.mastery,
                     "error_count": w.error_count,
                     "score": w.score,

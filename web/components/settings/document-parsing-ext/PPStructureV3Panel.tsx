@@ -180,11 +180,16 @@ export function PPStructureV3Panel({
             min={0}
             max={1}
             step={0.05}
-            defaultValue={Number(slice.layout_threshold) || 0.5}
-            disabled={busy}
-            onBlur={(e) =>
-              onSave({ layout_threshold: Number(e.currentTarget.value) || undefined })
+            defaultValue={
+              Number.isFinite(Number(slice.layout_threshold))
+                ? Number(slice.layout_threshold)
+                : 0.5
             }
+            disabled={busy}
+            onBlur={(e) => {
+              const value = Number(e.currentTarget.value);
+              onSave({ layout_threshold: Number.isFinite(value) ? value : undefined });
+            }}
           />
         }
       />

@@ -42,6 +42,12 @@ from .config import OvisOCR2Config, OvisOCR2Error
 
 logger = logging.getLogger(__name__)
 
+# Bounded retry for transient vLLM failures: a self-hosted endpoint under load
+# routinely returns 429/5xx or drops a connection, and one hiccup must not abort
+# a whole multi-page parse. Exponential backoff 1s, 2s, 4s.
+_VLLM_MAX_ATTEMPTS = 3
+_VLLM_RETRY_BASE_DELAY = 1.0
+
 # -- default prompt used for OvisOCR2 VLM OCR --------------------------------
 # Verbatim from the official model card (including the leading newline).
 # The card warns outputs are tuned to this exact wording — don't rephrase.
@@ -198,23 +204,48 @@ async def _call_vllm_page(
         "chat_template_kwargs": {"enable_thinking": False},
     }
     async with sem:
-        response = await client.post(
-            f"{config.api_base_url}/chat/completions",
-            json=body,
-            headers=headers,
-            timeout=httpx.Timeout(config.timeout_s, connect=30.0),
+        last_status: int | None = None
+        for attempt in range(_VLLM_MAX_ATTEMPTS):
+            try:
+                response = await client.post(
+                    f"{config.api_base_url}/chat/completions",
+                    json=body,
+                    headers=headers,
+                    timeout=httpx.Timeout(config.timeout_s, connect=30.0),
+                )
+            except (
+                httpx.ConnectError,
+                httpx.ReadTimeout,
+                httpx.RemoteProtocolError,
+                httpx.PoolTimeout,
+            ) as exc:
+                if attempt + 1 >= _VLLM_MAX_ATTEMPTS:
+                    raise OvisOCR2Error(
+                        f"vLLM unreachable after {_VLLM_MAX_ATTEMPTS} attempts: {exc}"
+                    ) from exc
+                await asyncio.sleep(_VLLM_RETRY_BASE_DELAY * (2 ** attempt))
+                continue
+            if response.status_code in (429, 500, 502, 503, 504):
+                last_status = response.status_code
+                if attempt + 1 >= _VLLM_MAX_ATTEMPTS:
+                    break
+                await asyncio.sleep(_VLLM_RETRY_BASE_DELAY * (2 ** attempt))
+                continue
+            if response.status_code != 200:
+                snippet = response.text[:300]
+                raise OvisOCR2Error(
+                    f"vLLM returned HTTP {response.status_code} for page "
+                    f"{png_path.name}: {snippet}"
+                )
+            data = response.json()
+            choices = data.get("choices", [])
+            if not choices:
+                raise OvisOCR2Error(f"vLLM returned no choices for page {png_path.name}")
+            return choices[0].get("message", {}).get("content", "") or ""
+        raise OvisOCR2Error(
+            f"vLLM returned HTTP {last_status} for page {png_path.name} "
+            f"after {_VLLM_MAX_ATTEMPTS} attempts"
         )
-        if response.status_code != 200:
-            snippet = response.text[:300]
-            raise OvisOCR2Error(
-                f"vLLM returned HTTP {response.status_code} for page "
-                f"{png_path.name}: {snippet}"
-            )
-        data = response.json()
-        choices = data.get("choices", [])
-        if not choices:
-            raise OvisOCR2Error(f"vLLM returned no choices for page {png_path.name}")
-        return choices[0].get("message", {}).get("content", "") or ""
 
 
 # -- top-level parse entry point ---------------------------------------------

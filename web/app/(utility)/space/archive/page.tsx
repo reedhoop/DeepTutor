@@ -232,7 +232,7 @@ export default function StudyArchivePage() {
             {data.weak_points.map((w) => (
               <button
                 key={w.knowledge_point_id}
-                onClick={() => router.push(`/space/learning?path=${encodeURIComponent(w.module_id)}`)}
+                onClick={() => router.push(`/space/learning?path=${encodeURIComponent(w.book_id)}`)}
                 className="flex w-full items-start gap-3 px-4 py-3 text-left transition-colors hover:bg-[var(--muted)]/40"
               >
                 <span className="mt-0.5 shrink-0 rounded-md bg-rose-500/10 px-2 py-0.5 text-[11px] font-medium text-rose-600 dark:text-rose-400">

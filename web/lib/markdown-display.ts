@@ -225,11 +225,50 @@ export function safeDecodeURIComponent(value: string): string {
 }
 
 function sanitizeAllowedHtmlTag(tag: string): string {
-  return tag
-    .replace(HTML_EVENT_ATTR_REGEX, "")
-    .replace(HTML_STYLE_ATTR_REGEX, "")
-    .replace(HTML_SRCDOC_ATTR_REGEX, "")
-    .replace(HTML_UNSAFE_URL_ATTR_REGEX, "");
+  return stripUnsafeUrlAttributes(
+    tag
+      .replace(HTML_EVENT_ATTR_REGEX, "")
+      .replace(HTML_STYLE_ATTR_REGEX, "")
+      .replace(HTML_SRCDOC_ATTR_REGEX, "")
+      .replace(HTML_UNSAFE_URL_ATTR_REGEX, ""),
+  );
+}
+
+// Decode the numeric/hex character references most often used to smuggle an
+// unsafe URL scheme past the literal-string regex above (rehype-raw decodes
+// them later, after this sanitizer has already run). A full HTML-entity decoder
+// is out of scope — this backstop only resolves the refs that can spell
+// "javascript:" / "data:" and re-checks the decoded scheme. It never re-emits
+// the decoded text into the tag, so it cannot introduce new markup.
+function decodeUrlEntities(value: string): string {
+  return value
+    .replace(/&#x([0-9a-f]+);?/gi, (_m: string, h: string) =>
+      String.fromCharCode(parseInt(h, 16)),
+    )
+    .replace(/&#(\d+);?/g, (_m: string, d: string) =>
+      String.fromCharCode(parseInt(d, 10)),
+    );
+}
+
+const UNSAFE_URL_SCHEME_RE =
+  /^\s*(?:javascript:|data:text\/html|data:image\/svg\+xml)/i;
+
+// Captures a URL-bearing attribute plus its value so the sanitizer can decode
+// the value and strip the attribute when the decoded scheme is unsafe.
+const URL_ATTR_REGEX =
+  /\s+(href|src|xlink:href|formaction)\s*=\s*("([^"]*)"|'([^']*)'|([^\s"'=<>\x60]+))/gi;
+
+function stripUnsafeUrlAttributes(tag: string): string {
+  return tag.replace(
+    URL_ATTR_REGEX,
+    (match: string, _name: string, _quoted: string, dq: string, sq: string, unq: string): string => {
+      const value = dq ?? sq ?? unq ?? "";
+      return UNSAFE_URL_SCHEME_RE.test(value) ||
+        UNSAFE_URL_SCHEME_RE.test(decodeUrlEntities(value))
+        ? ""
+        : match;
+    },
+  );
 }
 
 function escapeUnknownHtmlTags(content: string): string {

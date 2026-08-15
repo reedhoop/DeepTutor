@@ -17,6 +17,15 @@ from deeptutor._local import exercise_review_router as mod
 from deeptutor.learning.models import ErrorType, LearningProgress
 
 
+@pytest.fixture(autouse=True)
+def _pin_zh_response_language():
+    """The diagnose endpoints' suggestions are now language-aware; pin the
+    response language to zh for the whole module so the Chinese assertions
+    below stay deterministic regardless of the host's interface.json."""
+    with mock.patch.object(mod, "get_response_language", return_value="zh"):
+        yield
+
+
 # ---------------------------------------------------------------------------
 # _coerce_error_type
 # ---------------------------------------------------------------------------
@@ -274,8 +283,10 @@ async def test_record_errors_writes_progress_and_saves():
     assert len(progress.quiz_attempts) == 2
     assert len(progress.error_records) == 2
     assert progress.error_records[0].error_type is ErrorType.KNOWLEDGE_STRUCTURAL
-    # Auto-generated question ids are unique even when the caller omits them.
-    assert progress.quiz_attempts[1].question_id == "q_1"
+    # Auto-generated question ids are namespaced (q_<uuid>) and never collide
+    # with an explicit id, nor across separate submissions for the same book.
+    generated = progress.quiz_attempts[1].question_id
+    assert generated.startswith("q_") and generated != "q1"
     assert store.saved == [progress]
 
 

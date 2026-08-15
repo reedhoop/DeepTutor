@@ -103,7 +103,7 @@ def test_progress_stats_mastery_rollup():
     p = _progress("b", mastery={"a": 0.9, "b": 0.5, "c": 0.8})
     st = mod._progress_stats(p)
     assert st["kp_count"] == 3
-    assert st["mastered_count"] == 2  # 0.9 & 0.8 ≥ 0.8; 0.5 not
+    assert st["mastered_count"] == 1  # MEMORY gate is 0.9; only 0.9 clears it
     assert st["avg_mastery"] == 0.7333  # round((0.9+0.5+0.8)/3, 4)
 
 
@@ -196,11 +196,11 @@ async def test_archive_rollup_and_timeline_order():
     assert [b["book_id"] for b in out["timeline"]] == ["new", "old"]
     assert out["overall"]["path_count"] == 2
     assert out["overall"]["kp_count"] == 3  # 2 + 1
-    assert out["overall"]["mastered_count"] == 2
+    assert out["overall"]["mastered_count"] == 1
     assert out["overall"]["quiz_count"] == 6
     assert out["overall"]["error_count"] == 3
-    # 2 mastered / 3 kp → 66.7%
-    assert out["overall"]["avg_mastery_pct"] == pytest.approx(66.7, abs=0.1)
+    # 1 mastered / 3 kp → 33.3%
+    assert out["overall"]["avg_mastery_pct"] == pytest.approx(33.3, abs=0.1)
 
     by_id = {b["book_id"]: b for b in out["books"]}
     assert by_id["new"]["name"] == "new名"

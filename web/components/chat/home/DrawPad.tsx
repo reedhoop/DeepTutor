@@ -1,5 +1,7 @@
 "use client";
 
+import i18n from "i18next";
+
 import { useCallback, useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import {
@@ -15,7 +17,8 @@ import {
 /** Chinese-first inline translation helper. Kept local (not routed through
  *  react-i18next) so the DrawPad UI does not require new keys in
  *  web/locales/{en,zh}/app.json and stays clear of the i18n parity gate. */
-const tr = (zh: string, _en: string) => zh;
+const tr = (zh: string, en: string) =>
+  i18n.language?.toLowerCase().startsWith("zh") ? zh : en;
 
 const COLORS = ["#111827", "#dc2626", "#2563eb", "#16a34a", "#d97706", "#7c3aed"];
 const SIZES = [
@@ -229,6 +232,7 @@ export function DrawPad({ open, onOpenChange, onInsert }: DrawPadProps) {
                   onPointerMove={moveStroke}
                   onPointerUp={endStroke}
                   onPointerLeave={endStroke}
+                  onPointerCancel={endStroke}
                   className="block w-full cursor-crosshair touch-none"
                   style={{ aspectRatio: `${CANVAS_W} / ${CANVAS_H}` }}
                 />

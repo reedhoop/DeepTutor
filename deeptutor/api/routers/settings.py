@@ -1070,8 +1070,11 @@ async def update_document_parsing_settings(payload: DocumentParsingUpdate):
         if name not in engines:
             continue
         merged = dict(update or {})
-        # MinerU token tri-state: omitted / None keeps the stored token.
-        if name == "mineru" and merged.get("api_token") is None:
+        # api_token tri-state (every engine that carries one): omitted / None
+        # keeps the stored token, because the GET payload redacts api_token and
+        # the UI therefore sends nothing for an untouched token. Applies to
+        # MinerU and the VLM engines (chandra / ovisocr2 / paddleocr_vl) alike.
+        if merged.get("api_token") is None:
             merged.pop("api_token", None)
         engines[name].update(merged)
 

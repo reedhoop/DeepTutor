@@ -6,85 +6,14 @@ import {
   hasVisibleMarkdownContent,
   markdownUrlTransform,
   normalizeMarkdownForDisplay,
-  repairMalformedStrongEmphasis,
   safeDecodeURIComponent,
 } from "../lib/markdown-display";
-
-test("repairMalformedStrongEmphasis moves label whitespace outside the closing marker", () => {
-  assert.equal(
-    repairMalformedStrongEmphasis("**發布日期： **2026 年 7 月 30 日"),
-    "**發布日期：** 2026 年 7 月 30 日",
-  );
-});
-
-test("repairMalformedStrongEmphasis preserves valid and incomplete Markdown", () => {
-  const inputs = [
-    "**發布日期：** 2026 年 7 月 30 日",
-    "Use **bold text** normally.",
-    "**發布日期： 2026 年 7 月 30 日",
-    "**發布日期： **",
-  ];
-
-  for (const input of inputs) {
-    assert.equal(repairMalformedStrongEmphasis(input), input);
-  }
-});
-
-test("repairMalformedStrongEmphasis leaves code and math spans untouched", () => {
-  const input = [
-    "`**label: **value`",
-    "",
-    "```md",
-    "**label: **value",
-    "```",
-    "",
-    "$\\text{**label: **value}$",
-    "",
-    "\\[",
-    "**label: **value",
-    "\\]",
-  ].join("\n");
-
-  assert.equal(repairMalformedStrongEmphasis(input), input);
-});
-
-test("repairMalformedStrongEmphasis leaves lines whose ** markers don't pair off", () => {
-  // Each of these renders correctly today; pairing the first two ``**`` would
-  // break emphasis the renderer already gets right.
-  const inputs = [
-    // Prose that mentions ** literally, followed by a real bold span.
-    "In Markdown, use ** to make text **bold**.",
-    // A malformed label immediately followed by a legitimate bold span:
-    // repairing the label would leave a stray ** behind.
-    "**Note: **Important**",
-    // Nested strong emphasis, which CommonMark renders as all-bold.
-    "**重點 **必讀** 內容**",
-  ];
-
-  for (const input of inputs) {
-    assert.equal(repairMalformedStrongEmphasis(input), input);
-  }
-});
-
-test("repairMalformedStrongEmphasis leaves indented code blocks verbatim", () => {
-  const input = "Example:\n\n    **label: **value";
-
-  assert.equal(repairMalformedStrongEmphasis(input), input);
-});
-
-test("repairMalformedStrongEmphasis repairs multiple occurrences idempotently", () => {
-  const input = "**Date: **2026 and **Source: **Official";
-  const expected = "**Date:** 2026 and **Source:** Official";
-  const repaired = repairMalformedStrongEmphasis(input);
-
-  assert.equal(repaired, expected);
-  assert.equal(repairMalformedStrongEmphasis(repaired), expected);
-});
 
 test("normalizeMarkdownForDisplay removes empty details blocks", () => {
   const input = "Before\n\n<details><summary></summary></details>\n\nAfter";
   assert.equal(normalizeMarkdownForDisplay(input), "Before\n\nAfter");
 });
+
 
 test("normalizeMarkdownForDisplay decodes dense non-ASCII JSON escapes", () => {
   const input = "\\u300c\\u6570\\u5236\\u8f6c\\u6362\\u300d";
@@ -278,6 +207,16 @@ test("escapeUnknownHtmlTagsForDisplay escapes active html containers", () => {
 test("escapeUnknownHtmlTagsForDisplay strips unsafe html attributes", () => {
   const input =
     '<a href="javascript:alert(1)" onclick="alert(2)" style="color:red">link</a>';
+  assert.equal(escapeUnknownHtmlTagsForDisplay(input), "<a>link</a>");
+});
+
+test("escapeUnknownHtmlTagsForDisplay strips entity-encoded javascript urls", () => {
+  const input = '<a href="jav&#x61;script:alert(1)">link</a>';
+  assert.equal(escapeUnknownHtmlTagsForDisplay(input), "<a>link</a>");
+});
+
+test("escapeUnknownHtmlTagsForDisplay strips decimal-entity javascript urls", () => {
+  const input = '<a href="jav&#97;script&#58;alert(1)">link</a>';
   assert.equal(escapeUnknownHtmlTagsForDisplay(input), "<a>link</a>");
 });
 

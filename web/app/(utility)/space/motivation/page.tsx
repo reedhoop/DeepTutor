@@ -133,7 +133,16 @@ export default function MotivationPage() {
         if (cancelled) return;
         setData(d);
         if (typeof window !== "undefined") {
-          const seen: string[] = JSON.parse(localStorage.getItem(SEEN_KEY) || "[]");
+          // A corrupt / non-array value must not crash the whole view.
+          let seen: string[] = [];
+          try {
+            const raw = JSON.parse(localStorage.getItem(SEEN_KEY) || "[]");
+            if (Array.isArray(raw)) {
+              seen = raw.filter((x): x is string => typeof x === "string");
+            }
+          } catch {
+            seen = [];
+          }
           const earned = d.badges.filter((b) => b.earned).map((b) => b.id);
           const fresh = earned.filter((id) => !seen.includes(id));
           if (fresh.length) setNewBadges(fresh);

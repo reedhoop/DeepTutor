@@ -1,5 +1,7 @@
 "use client";
 
+import i18n from "i18next";
+
 import {
   useCallback,
   useEffect,
@@ -22,7 +24,8 @@ import {
 } from "./fold-cases";
 
 /** Chinese-first inline translation helper (mirrors the other ER surfaces). */
-const tr = (zh: string, _en: string) => zh;
+const tr = (zh: string, en: string) =>
+  i18n.language?.toLowerCase().startsWith("zh") ? zh : en;
 
 // three is ESM-only; dynamic import keeps it out of the SSR bundle and lets
 // the scene initialize strictly in the browser.
@@ -70,6 +73,11 @@ export function Folding3DViewer({
   useEffect(() => {
     playingRef.current = playing;
   }, [playing]);
+
+  // Fold progress (0..1), hoisted into a ref so both the rAF loop and the
+  // reset callback can reach it (a plain local would be trapped in the effect
+  // closure, leaving the reset button a no-op after the first fold).
+  const tRef = useRef(0);
 
   // Lazy-load three only in the browser.
   useEffect(() => {
@@ -211,19 +219,19 @@ export function Folding3DViewer({
     }
 
     // Animation loop: t ∈ [0,1]; each face starts at its own order stagger.
-    let t = 0;
     let raf = 0;
     const clock = new THREE.Clock();
     const loop = () => {
       raf = requestAnimationFrame(loop);
       const delta = Math.min(clock.getDelta(), 0.05);
-      if (playingRef.current && t < 1) {
-        t = Math.min(1, t + delta * 0.9);
+      if (playingRef.current && tRef.current < 1) {
+        tRef.current = Math.min(1, tRef.current + delta * 0.9);
       }
       const ease = (u: number) =>
         u <= 0.5 ? 4 * u * u * u : 1 - Math.pow(-2 * u + 2, 3) / 2;
       for (const f of meshes) {
-        const local = (t - f.order * 0.18) / (1 - f.order * 0.18 || 1);
+        const local =
+          (tRef.current - f.order * 0.18) / (1 - f.order * 0.18 || 1);
         const u = Math.min(1, Math.max(0, local));
         const e = ease(u);
         f.mesh.position.lerpVectors(f.flatPos, f.foldedPos, e);
@@ -247,13 +255,34 @@ export function Folding3DViewer({
       cancelAnimationFrame(raf);
       window.removeEventListener("resize", onResize);
       controls.dispose();
+      // Free per-face GPU resources (geometries + materials + edge lines) and
+      // drop the WebGL context — the effect re-runs per foldCase.id, so each
+      // case switch would otherwise leak a fresh set of buffers/materials.
+      for (const f of meshes) {
+        f.mesh.traverse((obj) => {
+          const node = obj as THREE.Mesh;
+          if (node.geometry) node.geometry.dispose();
+          const mat = node.material as
+            | THREE.Material
+            | THREE.Material[]
+            | undefined;
+          if (Array.isArray(mat)) mat.forEach((m) => m.dispose());
+          else if (mat) mat.dispose();
+        });
+      }
+      grid.geometry.dispose();
+      const gridMat = grid.material as THREE.Material | THREE.Material[];
+      if (Array.isArray(gridMat)) gridMat.forEach((m) => m.dispose());
+      else gridMat.dispose();
       renderer.dispose();
+      renderer.forceContextLoss();
       mount.removeChild(renderer.domElement);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [three, orbit, foldCase.id]);
 
   const reset = useCallback(() => {
+    tRef.current = 0;
     playingRef.current = true;
     setPlaying(true);
   }, []);

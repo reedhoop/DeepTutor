@@ -1,9 +1,10 @@
 """FastAPI router exposing educational LLM presets (ER-3).
 
-Mounted onto ``deeptutor.api.routers.settings.router`` at API-startup import
-time by ``apply_educational_llm_presets_overlay()`` (see ``_local/__init__.py``),
-so it inherits the ``/api/v1/settings`` prefix and the ``_auth`` dependency
-already applied to that router. No upstream file is edited.
+Mounted by ``deeptutor.api.main`` under the ``/api/v1/settings`` prefix with
+the settings router's ``_auth`` dependency (see the include_router call right
+after the settings router mount). This keeps the upstream settings router
+untouched and avoids the ``_local -> api.routers`` circular import that a
+top-level ``_local`` import-time overlay would trigger.
 """
 from __future__ import annotations
 

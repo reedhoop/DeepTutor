@@ -17,6 +17,7 @@ competitive leaderboard.
 """
 from __future__ import annotations
 
+import asyncio
 import json
 from datetime import date, datetime, timedelta
 from pathlib import Path
@@ -166,7 +167,7 @@ async def motivation() -> dict[str, Any]:
     """
     store = LearningStore()
     service = LearningService(store)
-    summaries = (service.list_progress().get("summaries", []) or [])
+    summaries = ((await asyncio.to_thread(service.list_progress)).get("summaries", []) or [])
 
     activity: set[date] = set()
     all_quizzes: list[Any] = []
@@ -181,7 +182,7 @@ async def motivation() -> dict[str, Any]:
         bid = s.get("book_id")
         if not bid:
             continue
-        progress = store.load(bid)
+        progress = await asyncio.to_thread(store.load, bid)
         if progress is None:
             continue
 

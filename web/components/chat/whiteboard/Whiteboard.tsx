@@ -1,5 +1,7 @@
 "use client";
 
+import i18n from "i18next";
+
 import {
   useCallback,
   useEffect,
@@ -26,7 +28,8 @@ import {
 } from "lucide-react";
 
 /** Chinese-first inline translation helper (mirrors the other ER surfaces). */
-const tr = (zh: string, _en: string) => zh;
+const tr = (zh: string, en: string) =>
+  i18n.language?.toLowerCase().startsWith("zh") ? zh : en;
 
 const CANVAS_W = 1200;
 const CANVAS_H = 750;
@@ -562,6 +565,7 @@ export function Whiteboard({ open, onOpenChange, onInsert }: WhiteboardProps) {
             onPointerMove={movePointer}
             onPointerUp={endPointer}
             onPointerLeave={endPointer}
+            onPointerCancel={endPointer}
             className="block h-full w-full cursor-crosshair touch-none"
           />
           {textDraft && (

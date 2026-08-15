@@ -24,7 +24,7 @@ import importlib.util
 import logging
 import tempfile
 from pathlib import Path
-from typing import Callable, Optional
+from typing import Any, Callable, Optional
 
 import httpx
 
@@ -104,6 +104,25 @@ def _normalize_bbox(coord) -> Optional[tuple[float, float, float, float]]:
     return (min(xs), min(ys), max(xs), max(ys))
 
 
+_LAYOUT_MODEL: Any = None
+
+
+def _get_layout_model() -> Any:
+    """Return the shared PP-DocLayoutV2 instance (loaded once per process).
+
+    The model is ~204 MB and loads from disk/network on first use; constructing
+    it per page made multi-page parses unusably slow and OOM-prone. A single
+    process-wide instance is reused across pages. ``predict`` is stateless, so
+    sharing is safe under the current serial page loop.
+    """
+    global _LAYOUT_MODEL
+    if _LAYOUT_MODEL is None:
+        from paddleocr import LayoutDetection
+
+        _LAYOUT_MODEL = LayoutDetection(model_name="PP-DocLayoutV2")
+    return _LAYOUT_MODEL
+
+
 def _detect_layout(page_path: Path) -> Optional[list[dict]]:
     """Detect layout regions for one rendered page.
 
@@ -112,11 +131,10 @@ def _detect_layout(page_path: Path) -> Optional[list[dict]]:
     detection is unavailable or fails (caller falls back to whole-page).
     """
     try:
-        from paddleocr import LayoutDetection
+        model = _get_layout_model()
     except Exception:
         return None
     try:
-        model = LayoutDetection(model_name="PP-DocLayoutV2")
         outputs = model.predict(str(page_path), batch_size=1, layout_nms=True)
         regions: list[dict] = []
         for out in outputs:

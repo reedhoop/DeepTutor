@@ -6,9 +6,9 @@ instantiate a complete, working profile — provider binding, base URL and model
 — without hand-filling every field.
 
 This module is part of the ``deeptutor._local`` overlay: it holds the preset
-*data* only. The serving router lives in ``llm_presets_router.py`` and is wired
-onto the settings router at import time (see ``_local/__init__.py``), so no
-upstream file is edited.
+*data* only. The serving router lives in ``llm_presets_router.py`` and is mounted
+by ``deeptutor.api.main`` under ``/api/v1/settings`` (with the settings router's
+``_auth`` dependency), so no upstream file is edited.
 """
 from __future__ import annotations
 

@@ -34,6 +34,7 @@ from pydantic import BaseModel, Field
 from deeptutor.learning.models import ErrorType, LearningProgress, QuizAttempt
 from deeptutor.learning.service import LearningService
 from deeptutor.learning.storage import LearningStore
+from deeptutor.services.settings.interface_settings import get_response_language
 
 logger = logging.getLogger(__name__)
 
@@ -182,13 +183,32 @@ class DiagnoseResponse(BaseModel):
     suggestions: list[str] = Field(default_factory=list)
 
 
-# Legacy label lookup — mirrors ``models._ERROR_TYPE_LEGACY`` (enum → 中文).
-_ERROR_TYPE_NAMES: dict[str, str] = {
-    "structural": "知识结构性",
-    "deviation": "理解偏差型",
-    "application": "应用错误",
-    "metacognitive": "元认知型",
+# Error-cause display labels, per response language. Keys mirror the ErrorType
+# enum ``.value`` ("structural" / "deviation" / "application" / "metacognitive").
+_ERROR_TYPE_LABELS: dict[str, dict[str, str]] = {
+    "zh": {
+        "structural": "知识结构性",
+        "deviation": "理解偏差型",
+        "application": "应用错误",
+        "metacognitive": "元认知型",
+    },
+    "en": {
+        "structural": "Structural gap",
+        "deviation": "Misconception",
+        "application": "Application error",
+        "metacognitive": "Metacognitive",
+    },
 }
+
+
+def _error_type_name(value: str, lang: str) -> str:
+    table = _ERROR_TYPE_LABELS.get(lang, _ERROR_TYPE_LABELS["en"])
+    return table.get(value, "未分类" if lang == "zh" else "Uncategorized")
+
+
+def _L(lang: str, zh: str, en: str) -> str:
+    """Pick the reader-facing string for the given response language."""
+    return zh if lang == "zh" else en
 
 
 def _kp_display_name(kg: Any, kp_id: str) -> str:
@@ -209,6 +229,7 @@ async def diagnose_review(body: DiagnoseRequest) -> DiagnoseResponse:
     LearningProgress when available) and concrete study suggestions.
     """
     book_id = body.book_id.strip() or DEFAULT_BOOK_ID
+    lang = get_response_language()
     items = body.questions
     total = len(items)
     correct = sum(1 for q in items if q.is_correct)
@@ -226,7 +247,7 @@ async def diagnose_review(body: DiagnoseRequest) -> DiagnoseResponse:
     error_types = [
         ErrorTypeStat(
             type=t,
-            name=_ERROR_TYPE_NAMES.get(t, "未分类"),
+            name=_error_type_name(t, lang),
             count=c,
         )
         for t, c in sorted(error_counts.items(), key=lambda kv: -kv[1])
@@ -241,7 +262,7 @@ async def diagnose_review(body: DiagnoseRequest) -> DiagnoseResponse:
 
     mastery_map: dict[str, float] = {}
     try:
-        progress = LearningStore().load(book_id)
+        progress = await asyncio.to_thread(LearningStore().load, book_id)
         mastery_map = dict(progress.mastery_levels) if progress else {}
     except Exception:  # noqa: BLE001 — reading mastery is best-effort
         logger.debug("diagnose: no progress for %r", book_id)
@@ -250,7 +271,7 @@ async def diagnose_review(body: DiagnoseRequest) -> DiagnoseResponse:
     try:
         from deeptutor.services.kgraph import get_kg
 
-        kg = get_kg()
+        kg = await asyncio.to_thread(get_kg)
     except Exception:  # noqa: BLE001 — kgraph optional
         pass
 
@@ -259,19 +280,28 @@ async def diagnose_review(body: DiagnoseRequest) -> DiagnoseResponse:
         mastery = round(mastery_map.get(kp_id, 0.0), 3)
         name = _kp_display_name(kg, kp_id)
         if mastery >= 0.8:
-            suggestion = (
+            suggestion = _L(
+                lang,
                 f"「{name}」掌握度尚可但仍有错题——建议做 2~3 道变式题巩固，"
-                "并注意粗心/审题类错误。"
+                "并注意粗心/审题类错误。",
+                f"Good mastery on 「{name}」 but there are still mistakes — do "
+                "2-3 variant exercises and watch for careless/reading errors.",
             )
         elif mastery > 0:
-            suggestion = (
+            suggestion = _L(
+                lang,
                 f"「{name}」掌握度 {mastery:.0%} 偏低——建议先回看前置知识点，"
-                "再通过变式题专项练习。"
+                "再通过变式题专项练习。",
+                f"Mastery on 「{name}」 is low ({mastery:.0%}) — review the "
+                "prerequisites first, then practice with variant exercises.",
             )
         else:
-            suggestion = (
+            suggestion = _L(
+                lang,
                 f"「{name}」尚未建立掌握度记录——建议从知识脉络图回看该点，"
-                "再练一组变式题建立基线。"
+                "再练一组变式题建立基线。",
+                f"No mastery record for 「{name}」 yet — review it on the "
+                "knowledge map, then practice a set of variants to establish a baseline.",
             )
         weak_kps.append(
             WeakKpStat(
@@ -283,20 +313,44 @@ async def diagnose_review(body: DiagnoseRequest) -> DiagnoseResponse:
     suggestions: list[str] = []
     if wrong and weak_kps:
         suggestions.append(
-            f"共 {wrong} 道错题，集中在 {len(weak_kps)} 个知识点——优先攻克错题数"
-            f"最多的「{weak_kps[0].name}」。"
+            _L(
+                lang,
+                f"共 {wrong} 道错题，集中在 {len(weak_kps)} 个知识点——优先攻克错题数"
+                f"最多的「{weak_kps[0].name}」。",
+                f"{wrong} wrong answers across {len(weak_kps)} knowledge points — "
+                f"tackle 「{weak_kps[0].name}」 (the most frequent) first.",
+            )
         )
     elif wrong:
-        suggestions.append("存在错题但未关联知识点，建议在题目中补充 kp_id 以获得专项建议。")
+        suggestions.append(
+            _L(
+                lang,
+                "存在错题但未关联知识点，建议在题目中补充 kp_id 以获得专项建议。",
+                "There are wrong answers not linked to a knowledge point — add "
+                "a kp_id to each question for targeted advice.",
+            )
+        )
     if error_types and error_types[0].count > 0:
         top_cause = error_types[0]
         suggestions.append(
-            f"主要错因类型为「{top_cause.name}」（{top_cause.count} 题）"
-            + ("——建议放慢步骤、检验每一步的依据。" if top_cause.type == "metacognitive"
-               else "——建议对照解析重建解题路径。")
+            _L(
+                lang,
+                f"主要错因类型为「{top_cause.name}」（{top_cause.count} 题）"
+                + ("——建议放慢步骤、检验每一步的依据。" if top_cause.type == "metacognitive"
+                   else "——建议对照解析重建解题路径。"),
+                f"Main error type: 「{top_cause.name}」 ({top_cause.count} questions)"
+                + (" — slow down and verify each step." if top_cause.type == "metacognitive"
+                   else " — reconstruct the solution path from the analysis."),
+            )
         )
     if correct and total:
-        suggestions.append(f"正确率 {accuracy:.0%}，继续保持当前节奏。")
+        suggestions.append(
+            _L(
+                lang,
+                f"正确率 {accuracy:.0%}，继续保持当前节奏。",
+                f"Accuracy {accuracy:.0%} — keep up the current pace.",
+            )
+        )
 
     diagnosis_id = uuid.uuid4().hex[:12]
     record = {
@@ -338,7 +392,7 @@ async def list_diagnoses(limit: int = 20) -> dict[str, Any]:
     motivation layer (diagnosis-derived badges later). Cap at *limit* to keep
     responses small.
     """
-    records = _load_diagnoses()
+    records = await asyncio.to_thread(_load_diagnoses)
     records.sort(key=lambda r: r.get("created_at", 0), reverse=True)
     return {"total": len(records), "diagnoses": records[: max(0, min(limit, 200))]}
 
@@ -552,7 +606,7 @@ async def record_review_errors(body: ReviewErrorsRequest) -> ReviewErrorsRespons
         return ReviewErrorsResponse(book_id=book_id, added=0)
 
     store = LearningStore()
-    progress = store.load(book_id)
+    progress = await asyncio.to_thread(store.load, book_id)
     if progress is None:
         progress = LearningProgress(book_id=book_id)
     service = LearningService(store)
@@ -563,7 +617,7 @@ async def record_review_errors(body: ReviewErrorsRequest) -> ReviewErrorsRespons
             service.record_quiz_attempt(
                 progress,
                 QuizAttempt(
-                    question_id=item.question_id or f"q_{idx}",
+                    question_id=item.question_id or f"q_{uuid.uuid4().hex[:8]}",
                     knowledge_point_id=item.kp_id or "",
                     module_id=item.module_id or "exercise_review",
                     is_correct=False,
@@ -575,7 +629,7 @@ async def record_review_errors(body: ReviewErrorsRequest) -> ReviewErrorsRespons
         except Exception as exc:  # noqa: BLE001 — keep going on per-item failure
             logger.warning("failed to record review error %r: %s", item.question_id, exc)
 
-    store.save(progress)
+    await asyncio.to_thread(store.save, progress)
     return ReviewErrorsResponse(book_id=book_id, added=added)
 
 

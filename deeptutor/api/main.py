@@ -1,5 +1,6 @@
 import asyncio
 from contextlib import asynccontextmanager
+import asyncio
 import logging
 import sys
 
@@ -306,6 +307,19 @@ async def lifespan(app: FastAPI):
         logger.warning(f"v1 memory migration failed: {e}")
 
     app.state.ready = True
+    # [FORK-EXT] Warm the K12-KGraph curriculum index off the event loop so the
+    # first curriculum_knowledge / course-KB seed request doesn't stall on the
+    # synchronous graph load (~23k nodes/edges). Best-effort: a missing dataset
+    # or load failure only logs — the feature remains lazy-available.
+    try:
+        from deeptutor.services.kgraph import get_kg, is_available
+
+        if is_available():
+            await asyncio.to_thread(get_kg)
+            logger.info("K12-KGraph index preloaded")
+    except Exception as e:
+        logger.warning(f"K12-KGraph preload skipped: {e}")
+
     yield
 
     # Execute on shutdown
@@ -653,6 +667,19 @@ app.include_router(
     prefix="/api/settings/video-learning",
     tags=["video-learning-settings"],
     dependencies=_admin,
+)
+# ER-3 educational LLM presets — mounted under the settings prefix so the
+# one-click preset panel resolves at /api/v1/settings/llm-presets and inherits
+# the settings router's _auth dependency. Mounted here (not via a _local
+# import-time overlay) to avoid the _local -> api.routers circular import; this
+# matches the study-archive / motivation / exercise-review mounting pattern.
+from deeptutor._local.llm_presets_router import router as llm_presets_router
+
+app.include_router(
+    llm_presets_router,
+    prefix="/api/v1/settings",
+    tags=["llm-presets"],
+    dependencies=_auth,
 )
 app.include_router(
     mcp_settings.router,

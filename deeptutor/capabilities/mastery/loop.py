@@ -183,6 +183,11 @@ class MasteryLoopCapability:
             return None
         override = _prompt_text(prompts, ("mastery", "system"))
         content = override or _load_system_prompt(language)
+        # Inject dynamic path context so the tutor knows *what* is being
+        # studied (subject / chapter / knowledge points / progress).
+        path_context = _build_path_context(context, language)
+        if path_context:
+            content = path_context + "\n\n" + content
         return PromptBlock("mastery_tutor", content)
 
     def augment_kwargs(
@@ -372,6 +377,97 @@ def _load_system_prompt(language: str) -> str:
     lang = "zh" if language.lower().startswith("zh") else "en"
     prompt = resources.files(__package__).joinpath("prompts", lang, "system.md")
     return prompt.read_text(encoding="utf-8").strip()
+
+
+# -------------------------------------------------------------------
+# Dynamic path-context injection
+# -------------------------------------------------------------------
+
+def _build_path_context(context: UnifiedContext, language: str) -> str:
+    """Build a concise path summary block for the system prompt.
+
+    Returns an empty string when the path cannot be loaded (missing file,
+    corrupt data, etc.) — the static system prompt still works, just without
+    topic-specific context.
+
+    Imports ``LearningStore`` / ``LearningProgress`` / ``KnowledgeType``
+    lazily to avoid a circular dependency chain:
+    loop → storage → path_service → runtime → tools → mastery(loop).
+    """
+    path_id = str(context.metadata.get("mastery_path_id") or "").strip()
+    if not path_id:
+        return ""
+
+    try:
+        from deeptutor.learning.models import KnowledgeType, LearningProgress  # noqa: F811
+        from deeptutor.learning.policy import is_mastered as _is_mastered  # noqa: F811
+        from deeptutor.learning.storage import LearningStore  # noqa: F811
+
+        progress: LearningProgress | None = LearningStore().load(path_id)
+    except Exception:
+        return ""
+
+    if progress is None:
+        return ""
+
+    is_zh = language.lower().startswith("zh")
+    type_labels = _TYPE_LABEL_ZH if is_zh else _TYPE_LABEL_EN
+
+    # --- Path title from modules ---
+    module_names = [m.name for m in progress.modules if m.name.strip()]
+    title = module_names[0] if module_names else path_id
+    if len(module_names) > 1:
+        title = f"{module_names[0]} (+{len(module_names) - 1} {('个模块' if is_zh else 'modules')})"
+
+    # --- Flatten all KPs with mastery ---
+    kp_lines: list[str] = []
+    mastered_count = 0
+    total_count = 0
+    first_unmastered: str | None = None
+
+    for mod in progress.modules:
+        for kp in mod.knowledge_points:
+            total_count += 1
+            is_mastered = _is_mastered(progress, kp)
+            if is_mastered:
+                mastered_count += 1
+            else:
+                if first_unmastered is None:
+                    first_unmastered = kp.name
+
+            type_tag = type_labels.get(kp.type.value if hasattr(kp.type, "value") else str(kp.type), "")
+            status = "✅" if is_mastered else "⬜"
+            kp_lines.append(f"  {status} **{kp.name}** ({type_tag})")
+
+    # Truncate long lists
+    if len(kp_lines) > _MAX_KP_LIST:
+        remaining = len(kp_lines) - _MAX_KP_LIST
+        kp_lines = kp_lines[:_MAX_KP_LIST]
+        kp_lines.append(f"  … *+{remaining} {'个更多知识点' if is_zh else 'more KPs'}*")
+
+    # --- Assemble ---
+    if is_zh:
+        lines = [
+            f"[当前精通路径] **{title}**",
+            f"共 {total_count} 个知识点，{mastered_count}/{total_count} 已掌握。",
+        ]
+        if first_unmastered:
+            lines.append(f"**当前首要目标：{first_unmastered}**")
+        if kp_lines:
+            lines.append("知识点清单：")
+            lines.extend(kp_lines)
+    else:
+        lines = [
+            f"[Current Mastery Path] **{title}**",
+            f"{total_count} knowledge points, {mastered_count}/{total_count} mastered.",
+        ]
+        if first_unmastered:
+            lines.append(f"**Current target: {first_unmastered}**")
+        if kp_lines:
+            lines.append("Knowledge points:")
+            lines.extend(kp_lines)
+
+    return "\n".join(lines)
 
 
 __all__ = ["MasteryLoopCapability"]

@@ -156,9 +156,10 @@ export function VLMPanel({
             step={0.1}
             defaultValue={Number(slice.temperature) ?? 0.0}
             disabled={busy}
-            onBlur={(e) =>
-              onSave({ temperature: Number(e.currentTarget.value) || undefined })
-            }
+            onBlur={(e) => {
+              const value = Number(e.currentTarget.value);
+              onSave({ temperature: Number.isFinite(value) ? value : undefined });
+            }}
           />
         }
       />

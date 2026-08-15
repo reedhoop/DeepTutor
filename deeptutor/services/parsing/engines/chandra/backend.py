@@ -29,6 +29,10 @@ from .config import ChandraConfig, ChandraError
 
 logger = logging.getLogger(__name__)
 
+# Bounded retry for transient vLLM failures (see ovisocr2 backend for rationale).
+_VLLM_MAX_ATTEMPTS = 3
+_VLLM_RETRY_BASE_DELAY = 1.0
+
 # Generic end-to-end VLM OCR prompt. Chandra is a formula + handwriting + layout
 # single model; the exact instruction wording can be refined per deployment via
 # the engine's ``extra_prompt`` setting. We keep a neutral, output-format-explicit
@@ -180,23 +184,48 @@ async def _call_vllm_page(
         "temperature": config.temperature,
     }
     async with sem:
-        response = await client.post(
-            f"{config.api_base_url}/chat/completions",
-            json=body,
-            headers=headers,
-            timeout=httpx.Timeout(config.timeout_s, connect=30.0),
+        last_status: int | None = None
+        for attempt in range(_VLLM_MAX_ATTEMPTS):
+            try:
+                response = await client.post(
+                    f"{config.api_base_url}/chat/completions",
+                    json=body,
+                    headers=headers,
+                    timeout=httpx.Timeout(config.timeout_s, connect=30.0),
+                )
+            except (
+                httpx.ConnectError,
+                httpx.ReadTimeout,
+                httpx.RemoteProtocolError,
+                httpx.PoolTimeout,
+            ) as exc:
+                if attempt + 1 >= _VLLM_MAX_ATTEMPTS:
+                    raise ChandraError(
+                        f"vLLM unreachable after {_VLLM_MAX_ATTEMPTS} attempts: {exc}"
+                    ) from exc
+                await asyncio.sleep(_VLLM_RETRY_BASE_DELAY * (2 ** attempt))
+                continue
+            if response.status_code in (429, 500, 502, 503, 504):
+                last_status = response.status_code
+                if attempt + 1 >= _VLLM_MAX_ATTEMPTS:
+                    break
+                await asyncio.sleep(_VLLM_RETRY_BASE_DELAY * (2 ** attempt))
+                continue
+            if response.status_code != 200:
+                snippet = response.text[:300]
+                raise ChandraError(
+                    f"vLLM returned HTTP {response.status_code} for page "
+                    f"{png_path.name}: {snippet}"
+                )
+            data = response.json()
+            choices = data.get("choices", [])
+            if not choices:
+                raise ChandraError(f"vLLM returned no choices for page {png_path.name}")
+            return choices[0].get("message", {}).get("content", "") or ""
+        raise ChandraError(
+            f"vLLM returned HTTP {last_status} for page {png_path.name} "
+            f"after {_VLLM_MAX_ATTEMPTS} attempts"
         )
-        if response.status_code != 200:
-            snippet = response.text[:300]
-            raise ChandraError(
-                f"vLLM returned HTTP {response.status_code} for page "
-                f"{png_path.name}: {snippet}"
-            )
-        data = response.json()
-        choices = data.get("choices", [])
-        if not choices:
-            raise ChandraError(f"vLLM returned no choices for page {png_path.name}")
-        return choices[0].get("message", {}).get("content", "") or ""
 
 
 # -- top-level parse entry point ---------------------------------------------

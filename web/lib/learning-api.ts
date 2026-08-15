@@ -271,6 +271,7 @@ export interface StudyWeakPoint {
   knowledge_point_id: string;
   name: string;
   module_id: string;
+  book_id: string;
   mastery: number;
   error_count: number;
   score: number;

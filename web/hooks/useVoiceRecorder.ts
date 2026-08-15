@@ -32,19 +32,30 @@ export function useVoiceRecorder(onTranscript: (text: string) => void) {
   const onTranscriptRef = useRef(onTranscript);
   onTranscriptRef.current = onTranscript;
 
+  // Synchronous re-entrancy guard: `state` updates asynchronously, so two rapid
+  // toggles both read "idle" and would otherwise open two mic streams (the first
+  // being overwritten and leaked). Kept true from the moment start() runs until
+  // React commits a non-idle state.
+  const startingRef = useRef(false);
+  useEffect(() => {
+    if (state !== "idle") startingRef.current = false;
+  }, [state]);
+
   const releaseStream = useCallback(() => {
     streamRef.current?.getTracks().forEach((track) => track.stop());
     streamRef.current = null;
   }, []);
 
   const start = useCallback(async () => {
-    if (state !== "idle") return;
+    if (state !== "idle" || startingRef.current) return;
+    startingRef.current = true;
     setError(null);
     if (
       typeof navigator === "undefined" ||
       !navigator.mediaDevices?.getUserMedia ||
       typeof MediaRecorder === "undefined"
     ) {
+      startingRef.current = false;
       setError("Recording is not supported in this browser.");
       return;
     }
@@ -52,6 +63,7 @@ export function useVoiceRecorder(onTranscript: (text: string) => void) {
     try {
       stream = await navigator.mediaDevices.getUserMedia({ audio: true });
     } catch {
+      startingRef.current = false;
       setError("Microphone permission denied.");
       return;
     }

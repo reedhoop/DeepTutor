@@ -1,5 +1,7 @@
 "use client";
 
+import i18n from "i18next";
+
 import { useCallback, useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import {
@@ -21,7 +23,8 @@ import {
 
 /** Chinese-first inline translation helper (mirrors DrawPad) — keeps the
  *  widget off web/locales/{en,zh}/app.json and the i18n parity gate. */
-const tr = (zh: string, _en: string) => zh;
+const tr = (zh: string, en: string) =>
+  i18n.language?.toLowerCase().startsWith("zh") ? zh : en;
 
 // ---------------------------------------------------------------------------
 // Global media-play capture. TTS playback in this app uses `new Audio(url)`
@@ -234,6 +237,7 @@ export function DigitalHumanWidget() {
 
   const playSample = useCallback(async () => {
     setTesting(true);
+    let objectUrl: string | null = null;
     try {
       const resp = await apiFetch(apiUrl("/api/v1/voice/tts"), {
         method: "POST",
@@ -242,8 +246,19 @@ export function DigitalHumanWidget() {
       });
       if (!resp.ok) return;
       const blob = await resp.blob();
-      const audio = new Audio(URL.createObjectURL(blob));
-      void audio.play();
+      objectUrl = URL.createObjectURL(blob);
+      const audio = new Audio(objectUrl);
+      const release = () => {
+        if (objectUrl) {
+          URL.revokeObjectURL(objectUrl);
+          objectUrl = null;
+        }
+      };
+      audio.addEventListener("ended", release, { once: true });
+      audio.addEventListener("error", release, { once: true });
+      // Autoplay policy / decoder failure must not surface an unhandled
+      // rejection; revoke the blob URL on any early failure too.
+      void audio.play().catch(release);
     } finally {
       setTesting(false);
     }
@@ -296,7 +311,7 @@ export function DigitalHumanWidget() {
                       src={s.iframe_url.trim()}
                       title={tr("数字人", "Digital human")}
                       className="h-full w-full border-0"
-                      sandbox="allow-scripts allow-same-origin allow-forms allow-modals"
+                      sandbox="allow-scripts allow-forms allow-modals"
                       allow="microphone; autoplay"
                     />
                   ) : (

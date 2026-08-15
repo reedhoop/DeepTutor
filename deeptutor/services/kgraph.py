@@ -374,9 +374,9 @@ class KGIndex:
         cache = self.__dict__.setdefault("_resolve_cache", {})
         key = (q, top_k)
         if key not in cache:
-            cache[key] = self._match_static(q, top_k)
-            if len(cache) > 4096:  # bound memory across many distinct queries
+            if len(cache) >= 4096:  # bound memory: evict before inserting
                 cache.clear()
+            cache[key] = self._match_static(q, top_k)
         ranked = cache[key]
         if ranked:
             return self._filter_subject(ranked, subject)

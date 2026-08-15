@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useRef, useState } from "react";
+import { useTranslation } from "react-i18next";
 import {
   BookOpenCheck,
   ChevronDown,
@@ -24,15 +25,15 @@ import {
   type ReviewQuestion,
 } from "@/lib/learning-api";
 
-/** Chinese-first inline translation helper (mirrors the other ER surfaces). */
-const tr = (zh: string, _en: string) => zh;
-
 const DEFAULT_BOOK_ID = "exercise_review";
 
 type Mode = "image" | "json";
 
 export default function ExerciseReviewPage() {
   const [mode, setMode] = useState<Mode>("image");
+  const { i18n } = useTranslation();
+  const zh = i18n.language?.toLowerCase().startsWith("zh");
+  const tr = useCallback((cn: string, en: string) => (zh ? cn : en), [zh]);
   const [bookId, setBookId] = useState(DEFAULT_BOOK_ID);
   const [imageBase64, setImageBase64] = useState("");
   const [imageName, setImageName] = useState("");

@@ -32,6 +32,7 @@ declare module "three" {
     quaternion: Quaternion;
     add(...objects: Object3D[]): this;
     remove(...objects: Object3D[]): this;
+    traverse(callback: (object: Object3D) => void): void;
   }
 
   export class Scene extends Object3D {
@@ -57,6 +58,7 @@ declare module "three" {
     setSize(width: number, height: number): void;
     render(scene: Scene, camera: PerspectiveCamera): void;
     dispose(): void;
+    forceContextLoss(): void;
   }
 
   export class BufferAttribute {
@@ -67,6 +69,7 @@ declare module "three" {
     setAttribute(name: string, attribute: BufferAttribute): this;
     setIndex(indices: number[] | BufferAttribute): this;
     computeVertexNormals(): void;
+    dispose(): void;
   }
 
   export class EdgesGeometry extends BufferGeometry {
@@ -75,6 +78,7 @@ declare module "three" {
 
   export class Material {
     transparent?: boolean;
+    dispose(): void;
   }
 
   export class MeshStandardMaterial extends Material {
@@ -87,10 +91,14 @@ declare module "three" {
 
   export class LineSegments extends Object3D {
     constructor(geometry?: BufferGeometry, material?: Material);
+    geometry?: BufferGeometry;
+    material?: Material | Material[];
   }
 
   export class Mesh extends Object3D {
     constructor(geometry?: BufferGeometry, material?: Material);
+    geometry?: BufferGeometry;
+    material?: Material | Material[];
   }
 
   export class AmbientLight extends Object3D {
@@ -108,6 +116,8 @@ declare module "three" {
       color1?: unknown,
       color2?: unknown,
     );
+    geometry: BufferGeometry;
+    material: Material | Material[];
   }
 
   export class Clock {
