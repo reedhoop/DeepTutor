@@ -14,7 +14,7 @@
 
 | 卡点 | 现状 | 本 harness 如何处理 |
 |---|---|---|
-| **K12-KGraph** 知识图 | 外置仓库 `K12-KGraph-data`（默认要放在 DeepTutor 同级 `../K12-KGraph-data`，或设 `K12_KGRAPH_DATA_DIR`） | ✅ 自动 clone + 设环境变量 |
+| **K12-KGraph** 知识图 | 已内嵌进私有 fork 仓库 `K12-KGraph-data/`（仅含运行时必需的 `global_KG/` + `subject_specific_KG/`，约 16MB；含来源与版权说明见该目录 `README.md`） | ✅ 开箱即用；也可设 `K12_KGRAPH_DATA_DIR` 指向外部副本 |
 | **4 个 VLM 解析引擎**（ovisocr2 / paddleocr_vl / pp_structurev3 / chandra） | 需自建外部 vLLM 服务 + HF/ModelScope 权重；不在 requirements；`deeptutor init` 完全不提示 | ⚠️ 自动写好引擎默认配置，文档说明如何起 vLLM（权重不自动下） |
 | **K12 配置初始化** | `.env.example` 只覆盖端口+TZ；KGraph 路径 / VLM / 语音 API key 全要手动补 | ✅ 非交互 seed `model_catalog.json` + `system.json` |
 
@@ -53,7 +53,7 @@ python scripts/deploy_k12.py all --non-interactive
 
 1. **preflight**：检查 python3.11+ / node20+ / git，并提示是否检测到密钥。
 2. **requirements 门禁**：若缺 `LLM_*` 或 `EMBEDDING_*`，**直接 FAIL 退出**（加 `--skip-key-check` 可绕过，仅用于部署空壳）。
-3. **clone**：DeepTutor 已在当前目录则跳过；克隆 `K12-KGraph-data` 到同级目录（自动先 `git lfs install`）。
+3. **clone**：DeepTutor 已在当前目录则跳过；`K12-KGraph-data` 已随仓库内嵌则跳过 clone，否则按 `K12_KGRAPH_REPO` 克隆到同级目录（自动先 `git lfs install`）。
 4. **install**：建 `.venv`，`pip install -e .`，`npm ci`（web 前端）。
 5. **configure**：非交互地生成 settings——LLM/Embedding/TTS/STT profile（来自环境变量）+ 4 个 VLM 引擎默认切片 + 端口 + `K12_KGRAPH_DATA_DIR`。
 6. **start**：后台拉起 `deeptutor start`，等待前端就绪。
@@ -148,12 +148,21 @@ STT_API_KEY / STT_BASE_URL / STT_MODEL / STT_BINDING
 
 ## 6. K12-KGraph 知识图
 
-- 脚本默认把仓库 clone 到 `DEEPTUTOR_HOME` 同级 `K12-KGraph-data`，并写 `K12_KGRAPH_DATA_DIR`（clone 前会自动 `git lfs install`）。
-- 也可手动 clone 后设置：`export K12_KGRAPH_DATA_DIR=/path/to/K12-KGraph-data`。
+- **数据已内嵌**于仓库 `K12-KGraph-data/`（仅 `global_KG/` + `subject_specific_KG/`，约 16MB），
+  默认即可用，无需单独 clone。来源、授权与版权说明见该目录 `README.md`。
+- **回退方案**：若仓库内无该目录（例如从上游拉取时未包含），`deploy_k12.py` 会按
+  `K12_KGRAPH_REPO`（`https://hf-mirror.com/datasets/lhpku20010120/K12-KGraph`）自动 clone 到
+  `DEEPTUTOR_HOME` 同级 `K12-KGraph-data` 并写 `K12_KGRAPH_DATA_DIR`（clone 前会自动 `git lfs install`）；
+  也可手动 clone 后设置：`export K12_KGRAPH_DATA_DIR=/path/to/K12-KGraph-data`。
 - ⚠️ **若该仓库含 git-lfs 大文件**：clone 前请确认本机已 `git lfs install`（脚本会尝试，但若失败，手动 clone 该仓库并设好 `K12_KGRAPH_DATA_DIR` 即可，不影响其余步骤）。
 - `node_vectors.json`（~232MB 语义向量缓存）**首次语义检索时自动生成**，需要可用的
   embedding 端点（见 §5 的 `EMBEDDING_*`）。想预热可设 `KGRAPH_WARM=true` 后再启动。
 - 缺 KGraph 时：大部分功能降级（跳过概念锚定、错题变式等少数路径会报错），其余照常。
+
+> **授权提醒**：上游 `haolpku/K12-KGraph` 含两份许可——`LICENSE`（**CC BY-NC-SA 4.0**，覆盖数据集/图谱/K12-Bench/K12-Train）
+> 与 `LICENSE-CODE`（**MIT**，覆盖源代码/脚本）。本内嵌副本**只含数据集**，故仅受 **CC BY-NC-SA 4.0** 约束。
+> **本项目明确为非商业用途**（研究/个人非盈利/高校课题），满足非商业（NC）条款；须署名 PKU 原项目+论文，
+> 且衍生图谱继续 CC BY-NC-SA 4.0。**商用须与上游（PKU 团队）另谈授权**。详见 `K12-KGraph-data/README.md`。
 
 ---
 

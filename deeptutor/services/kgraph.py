@@ -28,8 +28,18 @@ logger = logging.getLogger(__name__)
 # Paths
 # --------------------------------------------------------------------------- #
 def _default_data_dir() -> Path:
-    # deeptutor/services/kgraph.py -> parents[2] == DeepTutor ; .parent == 00_aiStudy
-    return Path(__file__).resolve().parents[2].parent / "K12-KGraph-data"
+    # deeptutor/services/kgraph.py
+    #   parents[2]       == DeepTutor (repo root)  -> vendored copy lives here
+    #   parents[2].parent == 00_aiStudy            -> legacy sibling clone lives here
+    # Prefer the in-repo copy; fall back to the sibling directory so existing
+    # deployments that cloned K12-KGraph-data next to DeepTutor keep working.
+    here = Path(__file__).resolve()
+    in_repo = here.parents[2] / "K12-KGraph-data"
+    sibling = here.parents[2].parent / "K12-KGraph-data"
+    for cand in (in_repo, sibling):
+        if (cand / "K12-KGraph").is_dir():
+            return cand
+    return in_repo
 
 
 def _default_cache_dir() -> Path:

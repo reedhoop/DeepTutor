@@ -8,8 +8,8 @@ deploy_k12.py — 一键部署「全功能 + K12」的 reedhoop/DeepTutor
 DeepTutor 基础部署已经很省事（PyPI / 源码 / Docker / `deeptutor init`+`start`），
 但 reedhoop 这个 K12 fork 在基础上叠了三层「没人帮你自动化」的东西：
 
-  1. K12-KGraph 外置仓库（默认要放在 DeepTutor 同级 `../K12-KGraph-data`，
-     或设环境变量 `K12_KGRAPH_DATA_DIR`）；
+  1. K12-KGraph 数据（已内嵌进本仓库 `K12-KGraph-data/`，约 16MB；也可设
+     环境变量 `K12_KGRAPH_DATA_DIR` 指向外部副本，或缺失时由脚本自动 clone）；
   2. 4 个 VLM 解析引擎（ovisocr2 / paddleocr_vl / pp_structurev3 / chandra）
      需要外部 vLLM 服务 + HF/ModelScope 权重，且 `deeptutor init` 完全不提示；
   3. K12 相关配置（KGraph 路径 / VLM / 语音 API key）全要手动补。
@@ -222,7 +222,13 @@ def load_config(cli_home: str | None) -> dict:
 def kgraph_dir(cfg: dict) -> Path:
     if cfg.get("K12_KGRAPH_DATA_DIR"):
         return Path(cfg["K12_KGRAPH_DATA_DIR"]).resolve()
-    return Path(cfg["DEEPTUTOR_HOME"]).resolve().parent / "K12-KGraph-data"
+    home = Path(cfg["DEEPTUTOR_HOME"]).resolve()
+    in_repo = home / "K12-KGraph-data"          # vendored copy inside DeepTutor
+    sibling = home.parent / "K12-KGraph-data"   # legacy sibling clone
+    for cand in (in_repo, sibling):
+        if (cand / "K12-KGraph").is_dir():
+            return cand
+    return sibling
 
 
 def venv_python(cfg: dict) -> Path:
@@ -316,8 +322,9 @@ def step_clone(cfg: dict) -> bool:
 
     # --- K12-KGraph ---
     kd = kgraph_dir(cfg)
-    if kd.exists() and (kd / ".git").exists():
-        log.skip("clone", f"K12-KGraph 已存在：{kd}")
+    if (kd / "K12-KGraph").is_dir():
+        # 已存在：可能是仓库内内嵌副本，也可能是同级 clone；均无需再拉
+        log.skip("clone", f"K12-KGraph 数据已存在：{kd}")
     else:
         kd.parent.mkdir(parents=True, exist_ok=True)
         log.run("clone", f"克隆 K12-KGraph → {kd}")
