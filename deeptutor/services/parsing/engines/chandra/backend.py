@@ -241,11 +241,10 @@ async def _parse_pages_async(
     """Concurrent page processing with rate limiting."""
     sem = asyncio.Semaphore(config.max_concurrency)
     headers = {"Authorization": f"Bearer {config.api_token}"} if config.api_token else {}
-
-    results: list[str] = []
     total = len(pages)
+
     async with httpx.AsyncClient(headers=headers) as client:
-        for idx, png_path in enumerate(pages, 1):
+        async def _process_one(idx: int, png_path: Path) -> str:
             if on_output:
                 on_output(f"Chandra parsing page {idx}/{total}...")
             try:
@@ -256,8 +255,11 @@ async def _parse_pages_async(
                 raise ChandraError(
                     f"vLLM call failed for page {idx}/{total}: {exc}"
                 ) from exc
-            results.append(_postprocess_page_markdown(md))
-    return results
+            return _postprocess_page_markdown(md)
+
+        return await asyncio.gather(
+            *(_process_one(i, p) for i, p in enumerate(pages, 1))
+        )
 
 
 def _build_prompt(config: ChandraConfig) -> str:

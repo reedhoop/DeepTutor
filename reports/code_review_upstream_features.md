@@ -283,6 +283,18 @@ kgraph_policy_overlay.py 调用）。
 
 验证：tsc --noEmit 通过（exit 0）；in-process 校验 defaultSchema 结构正确、自定义 schema 正确并入 video/math/svg 等标签（defaultSchema 原本不含）。
 
-### 剩余待处理（仅 1 项，需真实 vLLM 服务做集成测试）
-1. 解析引擎后端：vLLM 串行并发化（asyncio.gather 保序重构）+ PaddleOCR-VL 抽共享 helper（错误类型 +
-   enable_thinking 语义泄漏）。
+---
+
+## 19. 第十二轮修复（vLLM 并发化，已应用）
+
+| 项 | 文件 | 改动 |
+| --- | --- | --- |
+| 并发化 | deeptutor/services/parsing/engines/ovisocr2/backend.py、chandra/backend.py、paddleocr_vl/backend.py | _parse_pages_async 由串行 for 改为 asyncio.gather（保序 + 信号量限流），max_concurrency 真正生效 |
+| 线程安全 | paddleocr_vl/backend.py | 共享 PP-DocLayoutV2 推断加 threading.Lock 串行化（并发化后共享模型不再只被单线程访问） |
+
+验证：py_compile + tests/services/parsing（test_chandra + test_engines）28 passed、0 真实失败（4 个 tmp_path 沙箱 PermissionError 为环境限制）。
+
+### 剩余待处理（仅 1 项，纯装饰性）
+1. PaddleOCR-VL 复用 OvisOCR2 的 _call_vllm_page：错误类型标为 OvisOCR2Error、且带 Qwen 专属
+   enable_thinking=False（对 PaddleOCR-VL 无害但语义不准确）。需抽 model-agnostic 共享 helper 并把
+   错误类型/chat_template_kwargs 参数化——纯装饰性、无功能影响，建议后续独立小提交处理。

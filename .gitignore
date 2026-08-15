@@ -229,6 +229,7 @@ $RECYCLE.BIN/
 # Temporary Files
 # ============================================
 *.tmp
+.git_commit_msg_tmp*.txt
 *.temp
 *.bak
 *.backup

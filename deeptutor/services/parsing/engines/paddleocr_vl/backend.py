@@ -23,6 +23,7 @@ import asyncio
 import importlib.util
 import logging
 import tempfile
+import threading
 from pathlib import Path
 from typing import Any, Callable, Optional
 
@@ -105,6 +106,9 @@ def _normalize_bbox(coord) -> Optional[tuple[float, float, float, float]]:
 
 
 _LAYOUT_MODEL: Any = None
+# Serializes PP-DocLayoutV2 inference: the shared model is not guaranteed
+# thread-safe, and _parse_pages_async now drives pages concurrently.
+_LAYOUT_MODEL_LOCK = threading.Lock()
 
 
 def _get_layout_model() -> Any:
@@ -135,7 +139,8 @@ def _detect_layout(page_path: Path) -> Optional[list[dict]]:
     except Exception:
         return None
     try:
-        outputs = model.predict(str(page_path), batch_size=1, layout_nms=True)
+        with _LAYOUT_MODEL_LOCK:
+            outputs = model.predict(str(page_path), batch_size=1, layout_nms=True)
         regions: list[dict] = []
         for out in outputs:
             boxes = getattr(out, "boxes", None) or []
@@ -238,22 +243,22 @@ async def _parse_pages_async(
     sem: asyncio.Semaphore,
 ) -> list[str]:
     headers = {"Authorization": f"Bearer {config.api_token}"} if config.api_token else {}
-    results: list[str] = []
     total = len(pages)
+
     async with httpx.AsyncClient(headers=headers) as client:
-        for idx, page_path in enumerate(pages, 1):
+        async def _process_one(idx: int, page_path: Path) -> str:
             if on_output:
                 on_output(f"PaddleOCR-VL parsing page {idx}/{total}...")
             if config.enable_layout and _paddle_layout_available():
                 regions = await asyncio.to_thread(_detect_layout, page_path)
                 if regions:
-                    md = await _parse_page_layout(client, page_path, regions, config, sem)
-                else:
-                    md = await _parse_page_whole(client, page_path, config, sem)
-            else:
-                md = await _parse_page_whole(client, page_path, config, sem)
-            results.append(md)
-    return results
+                    return await _parse_page_layout(client, page_path, regions, config, sem)
+                return await _parse_page_whole(client, page_path, config, sem)
+            return await _parse_page_whole(client, page_path, config, sem)
+
+        return await asyncio.gather(
+            *(_process_one(i, p) for i, p in enumerate(pages, 1))
+        )
 
 
 def parse_pdf_via_paddleocr_vl(
