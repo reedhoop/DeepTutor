@@ -230,7 +230,7 @@ export default function TextbookNavigatorPage() {
   }, [tree]);
 
   return (
-    <div className="flex h-full min-h-0 flex-col">
+    <div className="flex min-h-0 flex-1 flex-col">
       {/* Toolbar: list / mindmap toggle + subject drill-down */}
       <div className="flex flex-wrap items-center gap-3 border-b border-[var(--border)] px-4 py-2">
         <div className="flex items-center gap-1 rounded-lg bg-[var(--muted)]/50 p-0.5">
@@ -293,7 +293,7 @@ export default function TextbookNavigatorPage() {
           )}
         </div>
       ) : (
-      <div className="flex h-full min-h-0">
+      <div className="flex min-h-0 flex-1">
       {/* Tree */}
       <aside className="flex w-80 shrink-0 flex-col border-r border-[var(--border)] bg-[var(--card)]/40">
         <header className="border-b border-[var(--border)] px-4 py-3">

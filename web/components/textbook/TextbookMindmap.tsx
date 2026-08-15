@@ -57,7 +57,24 @@ export default function TextbookMindmap({
 }) {
   const svgRef = useRef<SVGSVGElement | null>(null);
   const mmRef = useRef<Markmap | null>(null);
+  const roRef = useRef<ResizeObserver | null>(null);
   const markdown = treeToMarkdown(tree, scope);
+
+  // d3-zoom (used internally by markmap) reads svg.width.baseVal.value inside
+  // its defaultExtent. A responsive SVG sized only via CSS (w-full/h-full, i.e.
+  // width:100%) has no numeric width attribute, so reading .value throws
+  // "Could not resolve relative length" — and markmap's fit() triggers exactly
+  // that path. Give the SVG explicit numeric width/height attributes so the
+  // value resolves; CSS keeps the element responsive.
+  const syncSize = () => {
+    const svg = svgRef.current;
+    if (!svg) return;
+    const rect = svg.getBoundingClientRect();
+    if (rect.width && rect.height) {
+      svg.setAttribute("width", String(Math.round(rect.width)));
+      svg.setAttribute("height", String(Math.round(rect.height)));
+    }
+  };
 
   // Create the markmap instance once; reuse it across data updates.
   useEffect(() => {
@@ -68,6 +85,9 @@ export default function TextbookMindmap({
         import("markmap-view"),
       ]);
       if (cancelled || !svgRef.current || mmRef.current) return;
+      // Set explicit numeric width/height BEFORE markmap attaches d3-zoom,
+      // otherwise its first fit() throws "Could not resolve relative length".
+      syncSize();
       mmRef.current = Markmap.create(svgRef.current, {
         autoFit: true,
         duration: 300,
@@ -76,9 +96,15 @@ export default function TextbookMindmap({
         spacingHorizontal: 130,
         fitRatio: 0.92,
       });
+      // Keep the numeric extent correct as the container resizes.
+      const ro = new ResizeObserver(syncSize);
+      ro.observe(svgRef.current);
+      roRef.current = ro;
     })();
     return () => {
       cancelled = true;
+      roRef.current?.disconnect();
+      roRef.current = null;
     };
   }, []);
 

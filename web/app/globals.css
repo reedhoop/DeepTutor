@@ -210,7 +210,11 @@
   * {
     @apply border-[color:var(--border)];
     scrollbar-width: thin;
-    scrollbar-color: var(--border) transparent;
+    /* Thumb in muted-foreground at 25% opacity so it reads against the
+       transparent track across all themes without competing with content.
+       Solid muted-foreground is the fallback for browsers without color-mix(). */
+    scrollbar-color: var(--muted-foreground) transparent;
+    scrollbar-color: color-mix(in oklab, var(--muted-foreground) 25%, transparent) transparent;
   }
 
   html,
@@ -290,7 +294,11 @@
   }
 }
 
-/* ─── Scrollbar ─── */
+/* ─── Scrollbar ───
+   6px wide, thumb in muted-foreground at 25% opacity so it reads against the
+   transparent track across all themes without competing with content. Hover
+   ramps to 100% muted-foreground as feedback. The solid muted-foreground
+   line is a fallback for browsers without color-mix() support. */
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;
@@ -301,7 +309,8 @@
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--border);
+  background: var(--muted-foreground);
+  background: color-mix(in oklab, var(--muted-foreground) 25%, transparent);
   border-radius: 3px;
 }
 
