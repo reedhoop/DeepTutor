@@ -65,6 +65,20 @@ from deeptutor.services.settings.starter_settings import (
 from deeptutor.tools.builtin import USER_TOGGLEABLE_TOOL_NAMES
 
 router = APIRouter()
+
+# Long-standing toggleable tools that have shipped since the feature launched.
+# A persisted ``enabled_optional_tools`` that still contains every one of these
+# is treated as the user having never curated their list away from "enable
+# everything" — so conditionally-available tools are folded in automatically
+# once their dependency is installed (see ``load_ui_settings``).
+_DEFAULT_ON_SEED = frozenset(
+    name for name in USER_TOGGLEABLE_TOOL_NAMES if name != "math_animation"
+)
+
+# Tools that, the moment they become available (e.g. ``math_animation`` once
+# manim is installed), are auto-enabled for an "all on" user. Scoped to this
+# explicit tuple so we never silently turn on unrelated future tools.
+_AUTO_ENABLE_WHEN_AVAILABLE = ("math_animation",)
 # Public UI-settings router. The app shell bootstraps the interface language
 # from GET /api/settings/ui, and auth pages (/register, /login) must be
 # able to do the same *before* a session exists — so this one read endpoint
@@ -373,12 +387,29 @@ def load_ui_settings() -> dict[str, Any]:
                 # resolve_languages owns the legacy migration (a file predating
                 # the UI/response split inherits its one language into both).
                 merged = {**DEFAULT_UI_SETTINGS, **saved, **resolve_languages(saved)}
-                # Filter persisted enabled_optional_tools to current
-                # toggleable set so retired tool names can't leak into
-                # the per-turn payload.
-                merged["enabled_optional_tools"] = sanitize_enabled_tools(
-                    merged.get("enabled_optional_tools")
-                )
+                saved_tools = merged.get("enabled_optional_tools")
+                if isinstance(saved_tools, list):
+                    sanitized = sanitize_enabled_tools(saved_tools)
+                    # Self-heal: a list that still holds every long-standing
+                    # toggleable tool is interpreted as "enable everything".
+                    # Fold in any conditionally-available tool that is now
+                    # installed (e.g. math_animation after manim) so newly
+                    # unlocked tools work by default without hand-editing the
+                    # settings file. Users who deliberately curate their list
+                    # away from the full set keep their choice.
+                    if _DEFAULT_ON_SEED.issubset(set(sanitized)):
+                        extra = [
+                            t
+                            for t in _AUTO_ENABLE_WHEN_AVAILABLE
+                            if t in USER_TOGGLEABLE_TOOL_NAMES and t not in sanitized
+                        ]
+                        if extra:
+                            sanitized = sanitized + extra
+                    merged["enabled_optional_tools"] = sanitized
+                else:
+                    merged["enabled_optional_tools"] = sanitize_enabled_tools(
+                        saved_tools
+                    )
                 return merged
         except Exception:
             pass
