@@ -2,6 +2,10 @@
 
 from __future__ import annotations
 
+from unittest import mock
+
+import pytest
+
 from deeptutor.capabilities.mastery import error_book as eb
 from deeptutor.learning.models import (
     ErrorRecord,
@@ -12,6 +16,15 @@ from deeptutor.learning.models import (
     LearningProgress,
     QuizAttempt,
 )
+
+
+@pytest.fixture(autouse=True)
+def _pin_zh_response_language():
+    """weak_points / summarize are now language-aware; pin the response
+    language to zh so the Chinese assertions below stay deterministic
+    regardless of the host's interface.json."""
+    with mock.patch.object(eb, "get_response_language", return_value="zh"):
+        yield
 
 
 def _progress(**kwargs) -> LearningProgress:

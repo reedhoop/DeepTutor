@@ -452,7 +452,9 @@ def _resolve_error_type(
         return ErrorType.APPLICATION_ERROR
 
 
-def _enrich_variants(question: ReviewQuestionIn) -> ReviewQuestionOut:
+def _enrich_variants(question: ReviewQuestionIn, lang: str | None = None) -> ReviewQuestionOut:
+    if lang is None:
+        lang = get_response_language()
     out = ReviewQuestionOut(**question.model_dump())
     if not question.kp_id:
         return out
@@ -466,10 +468,18 @@ def _enrich_variants(question: ReviewQuestionIn) -> ReviewQuestionOut:
         )
         out.variant = variants[:3]
         if not variants:
-            out.variant_note = "未检索到变式题（知识图谱该知识点无配套习题）。"
+            out.variant_note = _L(
+                lang,
+                "未检索到变式题（知识图谱该知识点无配套习题）。",
+                "No variant exercises found (this knowledge point has no attached exercises).",
+            )
     except Exception as exc:  # noqa: BLE001 — KGraph dataset may be absent
         logger.debug("variant retrieval failed for %r: %s", question.kp_id, exc)
-        out.variant_note = "变式检索暂不可用（知识图谱数据未就绪）。"
+        out.variant_note = _L(
+            lang,
+            "变式检索暂不可用（知识图谱数据未就绪）。",
+            "Variant retrieval is unavailable (knowledge-graph data not ready).",
+        )
     return out
 
 
@@ -555,11 +565,18 @@ async def review_exercise_page(body: ReviewRequest) -> Any:
     splitter; otherwise a clear 400 hint is returned).
     """
     questions = list(body.questions)
+    lang = get_response_language()
     if not questions and body.auto_split:
         if not body.image_base64:
             return JSONResponse(
                 status_code=400,
-                content={"detail": "开启 auto_split 时必须提供 image_base64。"},
+                content={
+                    "detail": _L(
+                        lang,
+                        "开启 auto_split 时必须提供 image_base64。",
+                        "image_base64 is required when auto_split is enabled.",
+                    )
+                },
             )
         split = await asyncio.to_thread(
             _split_questions_from_image, body.image_base64
@@ -568,11 +585,21 @@ async def review_exercise_page(body: ReviewRequest) -> Any:
             return JSONResponse(
                 status_code=400,
                 content={
-                    "detail": (
-                        "自动切分暂不可用：OCR 未能从图片中提取出题目（请确认是 "
-                        "清晰的印刷体试卷照片），或本地 PaddleOCR 引擎不可用。"
-                        "也可以直接提供 questions（由任意视觉 LLM 抽取后粘贴 "
-                        "JSON），稍后再试。"
+                    "detail": _L(
+                        lang,
+                        (
+                            "自动切分暂不可用：OCR 未能从图片中提取出题目（请确认是 "
+                            "清晰的印刷体试卷照片），或本地 PaddleOCR 引擎不可用。"
+                            "也可以直接提供 questions（由任意视觉 LLM 抽取后粘贴 "
+                            "JSON），稍后再试。"
+                        ),
+                        (
+                            "Auto-split is unavailable: OCR could not extract questions "
+                            "from the image (please use a clear printed exam photo), or "
+                            "the local PaddleOCR engine is unavailable. You can also "
+                            "provide questions directly (paste JSON extracted by any "
+                            "vision LLM) and retry."
+                        ),
                     )
                 }
             )
@@ -583,14 +610,20 @@ async def review_exercise_page(body: ReviewRequest) -> Any:
     if not questions:
         return JSONResponse(
             status_code=400,
-            content={"detail": "请提供 questions（题目列表）或开启 auto_split 并上传整页图片。"},
+            content={
+                "detail": _L(
+                    lang,
+                    "请提供 questions（题目列表）或开启 auto_split 并上传整页图片。",
+                    "Provide questions (a list) or enable auto_split with a full-page image.",
+                )
+            },
         )
 
     book_id = body.book_id.strip() or DEFAULT_BOOK_ID
     tagged = await _auto_tag_kp_ids(questions)
     if tagged:
         logger.info("auto-tagged %d question(s) with kp_id via KGraph", tagged)
-    enriched = [_enrich_variants(q) for q in questions]
+    enriched = [_enrich_variants(q, lang) for q in questions]
     return ReviewResponse(book_id=book_id, questions=enriched)
 
 

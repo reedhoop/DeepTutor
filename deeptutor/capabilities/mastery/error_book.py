@@ -38,6 +38,7 @@ from deeptutor.learning.models import (
     LearningProgress,
 )
 from deeptutor.learning.policy import is_mastered
+from deeptutor.services.settings.interface_settings import get_response_language
 
 if TYPE_CHECKING:
     from deeptutor.learning.models import KnowledgePoint
@@ -57,6 +58,23 @@ ERROR_TYPE_LABELS: dict[ErrorType, str] = {
     ErrorType.APPLICATION_ERROR: "应用错误",
     ErrorType.METACOGNITIVE: "元认知型",
 }
+
+_ERROR_TYPE_LABELS_EN: dict[ErrorType, str] = {
+    ErrorType.KNOWLEDGE_STRUCTURAL: "Structural gap",
+    ErrorType.UNDERSTANDING_DEVIATION: "Misconception",
+    ErrorType.APPLICATION_ERROR: "Application error",
+    ErrorType.METACOGNITIVE: "Metacognitive",
+}
+
+
+def _L(lang: str, zh: str, en: str) -> str:
+    """Pick the reader-facing string for the given response language."""
+    return zh if lang == "zh" else en
+
+
+def _error_type_label(error_type: ErrorType, lang: str) -> str:
+    table = ERROR_TYPE_LABELS if lang == "zh" else _ERROR_TYPE_LABELS_EN
+    return table.get(error_type, error_type.value)
 
 
 @dataclass(frozen=True)
@@ -149,13 +167,17 @@ def refine_latest_error(progress: LearningProgress, kp_id: str, correct: bool) -
 # ── weak points + backfill ────────────────────────────────────────────────
 
 
-def weak_points(progress: LearningProgress, top_k: int = 5) -> list[WeakPoint]:
+def weak_points(
+    progress: LearningProgress, top_k: int = 5, lang: str | None = None
+) -> list[WeakPoint]:
     """Rank the learner's weakest knowledge points, worst first.
 
     Only points with a real signal (unmastered, or with an error record) are
     returned, so an untouched path yields an empty list rather than a wall of
     zero-mastery placeholders.
     """
+    if lang is None:
+        lang = get_response_language()
     error_counts: dict[str, int] = {}
     for record in progress.error_records:
         if record.status in ("active", "retrying"):
@@ -172,14 +194,18 @@ def weak_points(progress: LearningProgress, top_k: int = 5) -> list[WeakPoint]:
                 continue
             if not errors and kp.id not in attempted:
                 continue  # not yet studied — weak-by-default is not a signal
-            ranked.append(_score(progress, kp, module.id, errors))
+            ranked.append(_score(progress, kp, module.id, errors, lang))
 
     ranked.sort(key=lambda w: (-w.score, w.knowledge_point_id))
     return ranked[:top_k]
 
 
 def _score(
-    progress: LearningProgress, kp: KnowledgePoint, module_id: str, errors: int
+    progress: LearningProgress,
+    kp: KnowledgePoint,
+    module_id: str,
+    errors: int,
+    lang: str,
 ) -> WeakPoint:
     mastery = progress.mastery_levels.get(kp.id, 0.0)
     streak = progress.consecutive_wrong.get(kp.id, 0)
@@ -200,7 +226,7 @@ def _score(
         consecutive_wrong=streak,
         unmet_prereqs=unmet,
         score=round(score, 4),
-        reason=_reason(progress, kp, errors, streak, unmet),
+        reason=_reason(progress, kp, errors, streak, unmet, lang),
     )
 
 
@@ -210,15 +236,24 @@ def _reason(
     errors: int,
     streak: int,
     unmet: list[str],
+    lang: str,
 ) -> str:
     if unmet:
         names = "、".join(_kp_name(progress, pid) for pid in unmet[:2])
-        return f"前置「{names}」尚未掌握，先补根因"
+        return _L(
+            lang,
+            f"前置「{names}」尚未掌握，先补根因",
+            f"Prerequisite 「{names}」 not yet mastered — fix the root cause first",
+        )
     if streak >= _STUCK_STREAK:
-        return f"连续答错 {streak} 次，方法可能有偏差"
+        return _L(
+            lang,
+            f"连续答错 {streak} 次，方法可能有偏差",
+            f"Wrong {streak} times in a row — the approach may be off",
+        )
     if errors:
-        return f"错题 {errors} 道待订正"
-    return "掌握度未达标，建议再练"
+        return _L(lang, f"错题 {errors} 道待订正", f"{errors} wrong question(s) to correct")
+    return _L(lang, "掌握度未达标，建议再练", "Mastery not met — practice more")
 
 
 def _kp_name(progress: LearningProgress, kp_id: str) -> str:
@@ -267,12 +302,16 @@ def filter_records(
     return records
 
 
-def summarize(progress: LearningProgress, top_k: int = 5) -> dict:
+def summarize(
+    progress: LearningProgress, top_k: int = 5, lang: str | None = None
+) -> dict:
     """Error-book payload for the REST layer / dashboard."""
+    if lang is None:
+        lang = get_response_language()
     open_records = [r for r in progress.error_records if r.status in ("active", "retrying")]
     by_type: dict[str, int] = {}
     for record in open_records:
-        label = ERROR_TYPE_LABELS.get(record.error_type, record.error_type.value)
+        label = _error_type_label(record.error_type, lang)
         by_type[label] = by_type.get(label, 0) + 1
     return {
         "book_id": progress.book_id,
@@ -280,7 +319,7 @@ def summarize(progress: LearningProgress, top_k: int = 5) -> dict:
         "open_records": len(open_records),
         "graduated_records": sum(1 for r in progress.error_records if r.status == "graduated"),
         "by_error_type": by_type,
-        "weak_points": [w.to_dict() for w in weak_points(progress, top_k=top_k)],
+        "weak_points": [w.to_dict() for w in weak_points(progress, top_k=top_k, lang=lang)],
         "backfill_order": review_backfill(progress, top_k=top_k),
         "records": [
             {
@@ -289,7 +328,7 @@ def summarize(progress: LearningProgress, top_k: int = 5) -> dict:
                 "knowledge_point_name": _kp_name(progress, r.knowledge_point_id),
                 "module_id": r.module_id,
                 "error_type": r.error_type.value,
-                "error_type_label": ERROR_TYPE_LABELS.get(r.error_type, ""),
+                "error_type_label": _error_type_label(r.error_type, lang),
                 "status": r.status,
                 "retry_count": len(r.retry_history),
                 "created_at": r.created_at,
