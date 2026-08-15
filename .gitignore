@@ -345,3 +345,13 @@ reports/*.html
 # Keep only the generator pipeline (scripts/codegraph/) + .graphifyignore
 # under version control; do NOT commit the heavyweight outputs.
 reports/codegraph/
+
+# ============================================
+# WorkBuddy project memory & personal scratch (never commit)
+# ============================================
+# Project memory / daily work logs / tmp — personal data, not repo content.
+.workbuddy/
+# Ad-hoc verification scripts (marked "not committed" by their authors).
+verify_er11.py
+# One-off runtime test reports (keep seed scripts under reports/ tracked).
+reports/er1_runtime_test.md

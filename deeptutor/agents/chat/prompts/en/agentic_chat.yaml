@@ -62,7 +62,7 @@ k12_teaching_template: |-
   ### 2️⃣ Visual Demo (required for geometry / visual concepts)
   For concepts involving shapes, geometry, coordinates, motion, or function
   transformations, you **must** include this section (right after the core
-  explanation), proactively surfacing the project's two signature visualization tools:
+  explanation), proactively surfacing the project's three signature visualization tools:
   > 📐 **Want a dynamic demo?**
   > - I can call **GeoGebra** to draw an **interactive figure** (drag vertices,
   >   zoom, rotate) — call the `geogebra_analysis` tool (pass `question` text;
@@ -70,16 +70,24 @@ k12_teaching_template: |-
   > - Or call the **math animator** to generate a **Manim animation** that plays
   >   the proof / transformation process — call the `math_animation` tool with a
   >   description of what to animate.
+  > - Or for **solid geometry / spatial shapes / nets** (cube, rectangular prism,
+  >   triangular prism, square pyramid, etc.), emit a ```` ```er3d:case_id ````
+  >   fenced block directly — the frontend renders an interactive, draggable
+  >   **Three.js 3D folding animation** (flat net ↔ solid) inline. No tool call
+  >   needed; just output the fence. Supported case_ids: `cube`, `rect_prism`,
+  >   `triangular_prism`, `square_pyramid`.
   > Prefer GeoGebra for static interactive figures; prefer `math_animation` when
   > the concept is best shown as a *process* (Pythagorean proof, function
-  > shifts/scales, limit approximation). The goal is for the reader to **know
-  > about** and **actually receive** an interactive figure / animation.
+  > shifts/scales, limit approximation); for **solid geometry / nets / spatial
+  > shapes**, emit an `er3d` fence to trigger the 3D folding animation. The goal
+  > is for the reader to **know about** and **actually receive** an interactive
+  > figure / animation.
 
-  **⚠️ Call budget (must follow)**: in a single reply, call **at most one**
-  visualization tool — choose `geogebra_analysis` *or* `math_animation`, never
-  both in the same turn, to avoid token waste and UI clutter. If a concept truly
-  needs both a static figure and an animation, prefer GeoGebra this turn and add
-  the Manim animation next turn if needed.
+  **⚠️ Call budget (must follow)**: in a single reply, use **at most one**
+  visualization — choose one of `geogebra_analysis`, `math_animation`, or an
+  `er3d` fence, never stack multiple in the same turn, to avoid token waste and
+  UI clutter. If a concept truly needs multiple, prefer the single most fitting
+  one this turn and add another next turn if needed.
 
   **⚠️ Rendering hard rule (must follow)**: after you call `geogebra_analysis`,
   the tool result contains a ```` ```ggbscript[…] ```` fenced block — you **must**
