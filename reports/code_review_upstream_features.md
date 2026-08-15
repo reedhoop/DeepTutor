@@ -260,9 +260,20 @@ kgraph_policy_overlay.py 调用）。
 
 验证：py_compile + tests/test_exercise_review.py 32 passed、0 真实失败（5 个 tmp_path 沙箱 PermissionError 为环境限制）。
 
-### 剩余待处理（按优先级）
-1. 安全：rehype-sanitize 白名单仍建议作为长期方案（已用实体解码加固覆盖常见编码；正规 allowlist 更彻底）。
-2. 解析引擎后端（剩余）：vLLM 串行（max_concurrency 死代码，需 asyncio.gather 重构并保序）、
-   PaddleOCR-VL 复用 OvisOCR2 的 _call_vllm_page（错误类型 + enable_thinking 语义泄漏，需抽共享 helper）。
-3. i18n（剩余）：后端 400 提示、变式题提示、motivation 徽章名、study_archive 文案等错误/边角文案仍硬编码
-   中文（诊断报告的错因名 + 建议本轮已双语化，前端已全部双语化）。
+---
+
+## 17. 第十轮修复（后端 i18n 补全，已应用）
+
+| 项 | 文件 | 改动 |
+| --- | --- | --- |
+| 变式题提示 + 400 提示 | deeptutor/_local/exercise_review_router.py | _enrich_variants 加 lang 参数 + 提示双语化；review_exercise_page 三个 400 提示经 _L(lang, zh, en) |
+| 错题本/薄弱点 | deeptutor/capabilities/mastery/error_book.py | ERROR_TYPE_LABELS 增 en 表 + _error_type_label()；_reason 四条理由双语化；weak_points/summarize 增 lang 参数（默认 get_response_language） |
+| 测试确定性 | tests/test_error_book.py | 加 autouse fixture 固定 get_response_language=zh |
+
+验证：py_compile + tests（error_book/study_archive/exercise_review/motivation）83 passed、0 真实失败（7 个 tmp_path 沙箱 PermissionError 为环境限制）。后端所有用户可见文案现已全部双语化（study_archive/motivation 无硬编码中文）。
+
+### 剩余待处理（仅 2 项，均为较大重构 / 需额外运行时验证）
+1. 安全：rehype-sanitize 白名单（需引入 npm 依赖 + 自定义 allowlist schema 保留 MathML/video/svg；
+   已用实体解码加固兜底覆盖常见编码）。
+2. 解析引擎后端：vLLM 串行并发化（asyncio.gather 保序重构）+ PaddleOCR-VL 抽共享 helper（错误类型 +
+   enable_thinking 语义泄漏）——需真实 vLLM 服务做集成测试。
