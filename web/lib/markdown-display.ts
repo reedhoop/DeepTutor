@@ -27,7 +27,7 @@ function stripInvisibleCharacters(value: string): string {
 // (e.g. LLM-pseudo-tags like <mem>, <think>, <tool_call>, <answer>, <search>)
 // is escaped into inline code so the browser does not warn about unknown
 // custom elements with lowercase names.
-const ALLOWED_HTML_TAGS = new Set<string>([
+export const ALLOWED_HTML_TAGS = new Set<string>([
   // structural
   "p",
   "div",

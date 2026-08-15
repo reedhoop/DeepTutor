@@ -272,8 +272,17 @@ kgraph_policy_overlay.py 调用）。
 
 验证：py_compile + tests（error_book/study_archive/exercise_review/motivation）83 passed、0 真实失败（7 个 tmp_path 沙箱 PermissionError 为环境限制）。后端所有用户可见文案现已全部双语化（study_archive/motivation 无硬编码中文）。
 
-### 剩余待处理（仅 2 项，均为较大重构 / 需额外运行时验证）
-1. 安全：rehype-sanitize 白名单（需引入 npm 依赖 + 自定义 allowlist schema 保留 MathML/video/svg；
-   已用实体解码加固兜底覆盖常见编码）。
-2. 解析引擎后端：vLLM 串行并发化（asyncio.gather 保序重构）+ PaddleOCR-VL 抽共享 helper（错误类型 +
-   enable_thinking 语义泄漏）——需真实 vLLM 服务做集成测试。
+---
+
+## 18. 第十一轮修复（rehype-sanitize 白名单，已应用）
+
+| 项 | 文件 | 改动 |
+| --- | --- | --- |
+| 结构性 XSS 白名单 | web/lib/markdown-display.ts、web/components/common/RichMarkdownRenderer.tsx、web/package.json | 引入 rehype-sanitize@6；导出 ALLOWED_HTML_TAGS；自定义 schema（defaultSchema ∪ ALLOWED_HTML_TAGS + 媒体属性/protocols）在 rehype-raw 之后做 HAST 结构性消毒 |
+| 依赖 | web/package.json + package-lock.json | 新增 rehype-sanitize ^6.0.0（经工作区 npm 缓存安装） |
+
+验证：tsc --noEmit 通过（exit 0）；in-process 校验 defaultSchema 结构正确、自定义 schema 正确并入 video/math/svg 等标签（defaultSchema 原本不含）。
+
+### 剩余待处理（仅 1 项，需真实 vLLM 服务做集成测试）
+1. 解析引擎后端：vLLM 串行并发化（asyncio.gather 保序重构）+ PaddleOCR-VL 抽共享 helper（错误类型 +
+   enable_thinking 语义泄漏）。

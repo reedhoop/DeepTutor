@@ -14,6 +14,7 @@ import {
 import { KATEX_OPTIONS } from "@/lib/math-render";
 import { findCitationAnchor } from "@/lib/markdown-anchors";
 import {
+  ALLOWED_HTML_TAGS,
   citationAnchorIdFor,
   escapeUnknownHtmlTagsForDisplay,
   markdownUrlTransform,
@@ -76,7 +77,98 @@ type PluginBundle = {
   remarkMath?: unknown;
   rehypeKatex?: unknown;
   rehypeRaw?: unknown;
+  rehypeSanitize?: unknown;
+  sanitizeSchema?: unknown;
 };
+
+// Extend rehype-sanitize's default schema to keep the renderer's rich tags
+// (MathML / media / svg) while still stripping on* handlers, javascript: URLs
+// and clobbering ids/names. The renderer's own regex sanitizer (which runs
+// before rehype-raw) already strips the common vectors; this allowlist is a
+// second, structural line of defence that also covers entity-obfuscated URLs.
+function buildSanitizeSchema(defaultSchema: any): any {
+  return {
+    ...defaultSchema,
+    tagNames: [...(defaultSchema.tagNames ?? []), ...ALLOWED_HTML_TAGS],
+    attributes: {
+      ...defaultSchema.attributes,
+      video: ["src", "controls", "poster", "preload", "width", "height", "loop", "muted", "playsinline", "autoplay"],
+      audio: ["src", "controls", "preload", "loop", "muted", "autoplay"],
+      source: ["src", "type"],
+      track: ["src", "kind", "srclang", "label", "default"],
+      svg: ["viewBox", "xmlns", "width", "height"],
+      math: ["xmlns", "display"],
+    },
+    // hast-util-sanitize's `protocols` map is keyed by *property name* (src /
+    // href / …), NOT by tag name — so a `video: {src: […]}` shape would be a
+    // dead entry. We only need to widen `src` to also allow `data:` so the
+    // knowledge-base previews keep their self-contained base64 screenshots.
+    // That is safe because the renderer's own regex sanitizer (which runs
+    // BEFORE rehype-raw) already strips data:text/html and data:image/svg+xml,
+    // leaving only passive raster data:image/* URLs here.
+    protocols: {
+      ...defaultSchema.protocols,
+      src: [...(defaultSchema.protocols?.src ?? ["http", "https"]), "data"],
+    },
+  };
+}
+
+function extractText(children: React.ReactNode): string {
+  return React.Children.toArray(children)
+    .map((child) => {
+      if (typeof child === "string" || typeof child === "number") {
+        return String(child);
+      }
+
+      if (React.isValidElement<{ children?: React.ReactNode }>(child)) {
+        return extractText(child.props.children);
+      }
+
+      return "";
+    })
+    .join("");
+}
+
+function headingId(children: React.ReactNode): string | undefined {
+  const text = extractText(children)
+    .toLowerCase()
+    .replace(/[^\w\s-]/g, "")
+    .replace(/\s+/g, "-");
+  return text || undefined;
+}
+
+function hasRenderableChildren(children: React.ReactNode): boolean {
+  return (
+    extractText(children).replace(/[\s\u200B-\u200D\uFEFF]/g, "").length > 0
+  );
+}
+
+function hasRenderableDetailsBody(children: React.ReactNode): boolean {
+  return React.Children.toArray(children).some((child) => {
+    if (typeof child === "string" || typeof child === "number") {
+      return String(child).replace(/[\s\u200B-\u200D\uFEFF]/g, "").length > 0;
+    }
+
+    if (!React.isValidElement(child)) return false;
+    if (
+      typeof child.type === "string" &&
+      child.type.toLowerCase() === "summary"
+    ) {
+      return false;
+    }
+
+    return true;
+  });
+}
+
+function stripLeadingHashes(children: React.ReactNode): React.ReactNode {
+  const arr = React.Children.toArray(children);
+  if (arr.length > 0 && typeof arr[0] === "string") {
+    const cleaned = arr[0].replace(/^#{1,6}\s+/, "");
+    if (cleaned !== arr[0]) return [cleaned, ...arr.slice(1)];
+  }
+  return children;
+}
 
 function sourceLineAttr(node: any): { "data-source-line"?: number } {
   const line = node?.position?.start?.line;
@@ -166,8 +258,15 @@ export default function RichMarkdownRenderer({
       }
 
       if (allowHtml) {
-        const rehypeRawModule = await import("rehype-raw");
+        const [rehypeRawModule, rehypeSanitizeModule] = await Promise.all([
+          import("rehype-raw"),
+          import("rehype-sanitize"),
+        ]);
         nextPlugins.rehypeRaw = rehypeRawModule.default;
+        nextPlugins.rehypeSanitize = rehypeSanitizeModule.default;
+        nextPlugins.sanitizeSchema = buildSanitizeSchema(
+          rehypeSanitizeModule.defaultSchema,
+        );
       }
 
       if (!cancelled) {
@@ -750,11 +849,18 @@ export default function RichMarkdownRenderer({
 
   const rehypePlugins = useMemo(() => {
     const p: Array<any> = [];
-    if (allowHtml && plugins.rehypeRaw) p.push(plugins.rehypeRaw as never);
+    if (allowHtml && plugins.rehypeRaw) {
+      p.push(plugins.rehypeRaw as never);
+      // Sanitize the parsed HAST after rehype-raw has turned raw HTML strings
+      // into nodes — a structural allowlist that closes entity-obfuscated URL
+      // and id/name clobbering vectors the regex pre-sanitizer can't see.
+      if (plugins.rehypeSanitize && plugins.sanitizeSchema)
+        p.push([plugins.rehypeSanitize, plugins.sanitizeSchema] as never);
+    }
     if (enableMath && plugins.rehypeKatex)
       p.push([plugins.rehypeKatex, KATEX_OPTIONS] as never);
     return p;
-  }, [allowHtml, enableMath, plugins.rehypeRaw, plugins.rehypeKatex]);
+  }, [allowHtml, enableMath, plugins.rehypeRaw, plugins.rehypeSanitize, plugins.sanitizeSchema, plugins.rehypeKatex]);
 
   return (
     <div className={`${rootClasses} ${className}`}>
