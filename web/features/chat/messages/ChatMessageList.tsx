@@ -801,6 +801,8 @@ export function PlayAudioButton({
   } = useVoiceAutoplay(conversationKey);
   const { value: ttsVoice } = useTtsVoicePreference();
   const [state, setState] = useState<"idle" | "loading" | "playing">("idle");
+  const [error, setError] = useState<string | null>(null);
+  const errorTimerRef = useRef<number | null>(null);
   const [showPrompt, setShowPrompt] = useState(false);
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const urlRef = useRef<string | null>(null);
@@ -815,6 +817,24 @@ export function PlayAudioButton({
       URL.revokeObjectURL(urlRef.current);
       urlRef.current = null;
     }
+    if (errorTimerRef.current !== null) {
+      window.clearTimeout(errorTimerRef.current);
+      errorTimerRef.current = null;
+    }
+  }, []);
+
+  // Show a transient error hint next to the speaker button. Without this, a
+  // provider / config failure (e.g. invalid API token) just snaps the button
+  // back to idle and the user is left wondering why nothing played.
+  const flashError = useCallback((message: string) => {
+    if (errorTimerRef.current !== null) {
+      window.clearTimeout(errorTimerRef.current);
+    }
+    setError(message);
+    errorTimerRef.current = window.setTimeout(() => {
+      setError(null);
+      errorTimerRef.current = null;
+    }, 5000);
   }, []);
 
   const play = useCallback(async () => {
@@ -826,6 +846,17 @@ export function PlayAudioButton({
         body: JSON.stringify({ text: content, voice: ttsVoice || undefined }),
       });
       if (!resp.ok) {
+        // Surface provider / config errors instead of silently going back to idle.
+        let detail = t("Voice playback failed");
+        try {
+          const raw = await resp.text();
+          const parsed = JSON.parse(raw);
+          if (parsed && typeof parsed.detail === "string") detail = parsed.detail;
+          else if (raw) detail = raw;
+        } catch {
+          // body wasn't JSON or empty; fall back to the default detail
+        }
+        flashError(detail);
         cleanup();
         setState("idle");
         return;
@@ -846,9 +877,10 @@ export function PlayAudioButton({
       };
       await audio.play();
       setState("playing");
-    } catch {
+    } catch (err) {
       cleanup();
       setState("idle");
+      flashError(err instanceof Error ? err.message : t("Voice playback failed"));
     }
   }, [cleanup, content, ttsVoice]);
 
@@ -904,6 +936,15 @@ export function PlayAudioButton({
           )}
         </button>
       </Tooltip>
+      {error && (
+        <div
+          role="alert"
+          className="absolute bottom-full left-0 z-30 mb-1.5 flex w-72 items-start gap-1.5 rounded-md border border-[var(--destructive)]/40 bg-[var(--destructive)]/10 px-2 py-1.5 text-[11.5px] leading-snug text-[var(--destructive)] shadow-sm"
+        >
+          <AlertCircle size={12} className="mt-0.5 shrink-0" strokeWidth={1.8} />
+          <span className="break-words">{error}</span>
+        </div>
+      )}
       {showPrompt && (
         <div className="absolute bottom-full left-0 z-30 mb-2 w-60 rounded-lg border border-[var(--border)] bg-[var(--card)] p-3 shadow-lg">
           <p className="text-[12px] leading-relaxed text-[var(--foreground)]">
