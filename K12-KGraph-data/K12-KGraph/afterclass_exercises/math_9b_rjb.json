@@ -1,0 +1,1294 @@
+{
+    "book_prefix": "math_9b_rjb",
+    "subject": "数学",
+    "stage": "初中",
+    "grade": "九年级下册",
+    "publisher": "人教版-人民教育出版社",
+    "source_md": "math_9b_rjb.md",
+    "questions": [
+        {
+            "id": "math_9b_rjb_ch26_s1_t1",
+            "stem": "用函数解析式表示下列问题中变量间的对应关系：\n\n（1）一个游泳池的容积为 $2000\\mathrm{m}^3$ ，游泳池注满水所用时间 $t$ （单位：h）随注水速度 $v$ （单位： $\\mathrm{m}^3 /\\mathrm{h}$ ）的变化而变化；  \n（2）某长方体的体积为 $1000\\mathrm{cm}^3$ ，长方体的高 $h$ （单位：cm）随底面积S（单位： $\\mathrm{cm}^2$ ）的变化而变化；  \n(3)一个物体重 $100 \\mathrm{~N}$ , 物体对地面的压强 $p$ (单位: $\\mathrm{Pa}$ ) 随物体与地面的接触面积 $S$ (单位: $\\mathrm{m}^{2}$ ) 的变化而变化.",
+            "answer": "（1）t=2000/v（v>0）\n（2）h=1000/S（S>0）\n（3）p=100/S（S>0）",
+            "analysis": "（1）注水时间=容积÷速度，故t=2000/v。\n（2）长方体体积V=Sh，已知V=1000，故h=1000/S。\n（3）压强p=F/S，已知F=100N，故p=100/S。以上自变量均取正值。",
+            "difficulty": 2,
+            "type": "简答题",
+            "meta": {
+                "book_prefix": "math_9b_rjb",
+                "source_md": "ch26_s1.md",
+                "question_no_in_source": 1,
+                "global_no": 1
+            },
+            "links": {
+                "concept_names": [
+                    "反比例函数"
+                ]
+            }
+        },
+        {
+            "id": "math_9b_rjb_ch26_s1_t2",
+            "stem": "下列哪些关系式中的 $y$ 是 $x$ 的反比例函数？\n\n$$\ny = 4 x, \\frac {y}{x} = 3, y = - \\frac {2}{x}, y = 6 x + 1, y = x ^ {2} - 1, y = \\frac {1}{x ^ {2}}, x y = 1 2 3.\n$$",
+            "answer": "y=-\\frac{2}{x}，xy=123（即y=\\frac{123}{x}）",
+            "analysis": "反比例函数的一般形式为y=\\frac{k}{x}（k\\neq0）。逐一判断：y=4x、\\frac{y}{x}=3（即y=3x）、y=6x+1、y=x^2-1均为一次/二次函数；y=\\frac{1}{x^2}为幂函数，不是\\frac{k}{x}形式；y=-\\frac{2}{x}符合；xy=123可化为y=\\frac{123}{x}，也符合。",
+            "difficulty": 2,
+            "type": "选择题",
+            "meta": {
+                "book_prefix": "math_9b_rjb",
+                "source_md": "ch26_s1.md",
+                "question_no_in_source": 2,
+                "global_no": 2
+            },
+            "links": {
+                "concept_names": [
+                    "反比例函数"
+                ]
+            }
+        },
+        {
+            "id": "math_9b_rjb_ch26_s1_t3",
+            "stem": "已知y与 $x^{2}$ 成反比例，并且当 $x = 3$ 时， $y = 4$\n\n（1）写出 $y$ 关于 $x$ 的函数解析式；  \n（2）当 $x = 1.5$ 时，求 $y$ 的值；  \n（3）当y=6时，求x的值。",
+            "answer": "（1）y=36/x^2；（2）y=16；（3）x=±√6",
+            "analysis": "y与x^2成反比例，设y=k/x^2。由x=3，y=4得4=k/9，故k=36，所以解析式为y=36/x^2。代入x=1.5得y=36/(1.5)^2=36/2.25=16。令y=6，则6=36/x^2，得x^2=6，故x=±√6。",
+            "difficulty": 2,
+            "type": "应用题",
+            "meta": {
+                "book_prefix": "math_9b_rjb",
+                "source_md": "ch26_s1.md",
+                "question_no_in_source": 3,
+                "global_no": 3
+            },
+            "links": {
+                "concept_names": [
+                    "反比例函数"
+                ]
+            }
+        },
+        {
+            "id": "math_9b_rjb_ch26_s1_t6",
+            "stem": "已知一个反比例函数的图象经过点 $A(3, -4)$\n\n（1）这个函数的图象位于哪些象限？在图象的每一支上， $y$ 随 $x$ 的增大如何变化？  \n（2）点 $B(-3,4)$ ， $C(-2,6)$ ， $D(3,4)$ 是否在这个函数的图象上？为什么？",
+            "answer": "函数为 y=-12/x。\n（1）k=-12<0，图象位于第二、第四象限；在每一支上（x<0与x>0各一支），y都随x的增大而增大。\n（2）B(-3,4)在图象上，因为4=-12/(-3)；C(-2,6)在图象上，因为6=-12/(-2)；D(3,4)不在图象上，因为当x=3时y=-12/3=-4≠4。",
+            "analysis": "反比例函数设为y=k/x。代入A(3,-4)得-4=k/3，故k=-12，函数为y=-12/x。k<0时图象在第二、第四象限。由y=-12/x求导得y'=12/x^2>0（x≠0），所以在(-∞,0)与(0,∞)上均为增函数，即在每一支上y随x增大而增大。检验点是否在图象上：分别代入其x值计算y与给定y比较即可。",
+            "difficulty": 2,
+            "type": "简答题",
+            "meta": {
+                "book_prefix": "math_9b_rjb",
+                "source_md": "ch26_s1.md",
+                "question_no_in_source": 1,
+                "global_no": 4
+            },
+            "links": {
+                "concept_names": [
+                    "反比例函数",
+                    "反比例函数的图象",
+                    "反比例函数的性质（k<0）"
+                ]
+            }
+        },
+        {
+            "id": "math_9b_rjb_ch26_s1_t7",
+            "stem": "已知点 $A(x_{1}, y_{1})$ ， $B(x_{2}, y_{2})$ 在反比例函数 $y = \\frac{1}{x}$ 的图象上。如果 $x_{1} < x_{2}$ ，而且 $x_{1}, x_{2}$ 同号，那么 $y_{1}, y_{2}$ 有怎样的大小关系？为什么？",
+            "answer": "y1>y2。",
+            "analysis": "因为y1=1/x1，y2=1/x2。已知x1<x2且x1、x2同号：\n- 若x1、x2>0，则1/x在(0,+∞)上单调递减，x越大y越小，故1/x1>1/x2，即y1>y2。\n- 若x1、x2<0，同样1/x在(-∞,0)上单调递减，x1<x2时仍有1/x1>1/x2，即y1>y2。",
+            "difficulty": 2,
+            "type": "简答题",
+            "meta": {
+                "book_prefix": "math_9b_rjb",
+                "source_md": "ch26_s1.md",
+                "question_no_in_source": 2,
+                "global_no": 5
+            },
+            "links": {
+                "concept_names": [
+                    "反比例函数的性质（k>0）"
+                ]
+            }
+        },
+        {
+            "id": "math_9b_rjb_ch26_s1_t8",
+            "stem": "写出函数解析式表示下列关系，并指出它们各是什么函数：\n\n（1）体积是常数 $V$ 时，圆柱的底面积 $S$ 与高 $h$ 的关系；  \n（2）柳树乡共有耕地S（单位： $\\mathrm{hm}^2$ ），该乡人均耕地面积y（单位： $\\mathrm{hm}^2/$ 人）与全乡总人口 $\\mathcal{X}$ 的关系.",
+            "answer": "（1）由圆柱体积公式V=Sh，且V为常数，得S=V/h（h>0），S与h成反比例函数（反比例关系）。\n（2）人均耕地面积y=总耕地面积S/总人口x，得y=S/x（x>0），y与x成反比例函数（反比例关系）。",
+            "analysis": "（1）圆柱体积V=Sh，V固定不变，则S=V/h，变量在分母上，属于反比例函数。\n（2）人均量=总量÷人数，y=S/x，同样为反比例函数。",
+            "difficulty": 2,
+            "type": "简答题",
+            "meta": {
+                "book_prefix": "math_9b_rjb",
+                "source_md": "ch26_s1.md",
+                "question_no_in_source": 1,
+                "global_no": 6
+            },
+            "links": {
+                "concept_names": [
+                    "反比例函数"
+                ]
+            }
+        },
+        {
+            "id": "math_9b_rjb_ch26_s1_t9",
+            "stem": "下列函数中是反比例函数的是（ ）\n\n(A) $y = \\frac{x}{2}$\n\n(B) $y = -\\frac{\\sqrt{5}}{3x}$\n\n(C) $y = x^{2}$\n\n(D) $y = \\frac{2}{x + 1}$",
+            "answer": "B",
+            "analysis": "反比例函数的一般形式为 y = k/x（k≠0）。(A) y=x/2 为一次函数；(B) y=-(√5)/(3x) 符合 y=k/x；(C) y=x^2 为二次函数；(D) y=2/(x+1) 分母为 x+1，不是 y=k/x 形式。故选 B。",
+            "difficulty": 2,
+            "type": "选择题",
+            "meta": {
+                "book_prefix": "math_9b_rjb",
+                "source_md": "ch26_s1.md",
+                "question_no_in_source": 2,
+                "global_no": 7
+            },
+            "links": {
+                "concept_names": [
+                    "反比例函数"
+                ]
+            }
+        },
+        {
+            "id": "math_9b_rjb_ch26_s1_t11",
+            "stem": "如果 $y$ 是 $x$ 的反比例函数，那么 $x$ 也是 $y$ 的反比例函数吗？",
+            "answer": "是。若y=k/x(k≠0)，则可化为x=k/y，因此x也是y的反比例函数（对应自变量y≠0）。",
+            "analysis": "由反比例函数定义，若y是x的反比例函数，则y=k/x(k≠0)。两边交换并解出x：x=k/y。因为k≠0且y≠0时式子有意义，所以x关于y也是反比例函数。",
+            "difficulty": 2,
+            "type": "判断题",
+            "meta": {
+                "book_prefix": "math_9b_rjb",
+                "source_md": "ch26_s1.md",
+                "question_no_in_source": 4,
+                "global_no": 8
+            },
+            "links": {
+                "concept_names": [
+                    "反比例函数"
+                ]
+            }
+        },
+        {
+            "id": "math_9b_rjb_ch26_s2_t13",
+            "stem": "一司机驾驶汽车从甲地去乙地，他以 $80 \\mathrm{~km} / \\mathrm{h}$ 的平均速度用 $6 \\mathrm{~h}$ 到达目的地。\n\n（1）当他按原路匀速返回时，汽车的速度 $v$ 与时间 $t$ 有怎样的函数关系？  \n(2)如果该司机必须在 $4\\mathrm{\\;h}$ 之内回到甲地,那么返程时的平均速度不能小于多少？",
+            "answer": "（1）设返程路程为s=80×6=480（km），匀速返回时有s=vt，所以v与t的关系为v=480/t（t>0）（或t=480/v）。\n（2）要在4h内返回，平均速度v≥480/4=120（km/h），所以返程平均速度不能小于120km/h。",
+            "analysis": "先由去程求出甲乙两地距离：s=80×6=480km。返程若匀速，满足路程公式s=vt，因此v=480/t（或t=480/v），是反比例函数关系。若要求4h内到达，则480/v≤4，解得v≥120km/h。",
+            "difficulty": 3,
+            "type": "应用题",
+            "meta": {
+                "book_prefix": "math_9b_rjb",
+                "source_md": "ch26_s2.md",
+                "question_no_in_source": 2,
+                "global_no": 9
+            },
+            "links": {
+                "concept_names": [
+                    "反比例函数",
+                    "反比例关系"
+                ],
+                "skill_names": [
+                    "建立反比例函数模型解决问题"
+                ]
+            }
+        },
+        {
+            "id": "math_9b_rjb_ch26_s2_t14",
+            "stem": "新建成的住宅楼主体工程已经竣工，只剩下楼体外表面需要贴瓷砖。已知楼体外表面的面积为 $5 \\times 10^{3} \\mathrm{~m}^{2}$ 。\n\n（1）所需的瓷砖块数 $n$ 与每块瓷砖的面积 $S$ （单位： $\\mathrm{m}^2$ ）有怎样的函数关系？  \n（2）为了使住宅楼的外观更漂亮，建筑师决定采用灰、白和蓝三种颜色的瓷砖，每块瓷砖的面积都是 $80~\\mathrm{cm}^2$ ，且灰、白、蓝瓷砖使用数量的比为 $2:2:1$ ，需要三种瓷砖各多少块？",
+            "answer": "（1）n与S的函数关系：n=\\dfrac{5\\times10^{3}}{S}（S>0）。\n（2）每块面积80cm^2=0.008m^2，总块数n=\\dfrac{5\\times10^{3}}{0.008}=625000块。按2:2:1分配：灰瓷砖250000块，白瓷砖250000块，蓝瓷砖125000块。",
+            "analysis": "（1）楼体外表面总面积A=5×10^3 m^2，若每块瓷砖面积为S，则所需块数n=A÷S=5×10^3/S。\n（2）单位换算：80 cm^2=80×10^-4 m^2=0.008 m^2。总块数n=5000÷0.008=625000。数量比2:2:1总份数为5份，因此灰、白各为(2/5)×625000=250000，蓝为(1/5)×625000=125000。",
+            "difficulty": 2,
+            "type": "应用题",
+            "meta": {
+                "book_prefix": "math_9b_rjb",
+                "source_md": "ch26_s2.md",
+                "question_no_in_source": 3,
+                "global_no": 10
+            },
+            "links": {
+                "concept_names": [
+                    "反比例函数",
+                    "反比例关系"
+                ],
+                "skill_names": [
+                    "建立反比例函数模型解决问题"
+                ]
+            }
+        },
+        {
+            "id": "math_9b_rjb_ch26_s2_t15",
+            "stem": "请举出一个生活中应用反比例函数的例子.",
+            "answer": "例如：在路程一定时，速度v与所用时间t成反比例关系，t=\\frac{s}{v}（如走同一段路，速度越快，所用时间越少）。",
+            "analysis": "反比例函数的一般形式为y=\\frac{k}{x}(k\\neq0)。生活中“总量固定”的情形常出现反比例：设路程为s(常量)，速度为v，自变量取v，则时间t=\\frac{s}{v}，符合t=\\frac{k}{v}的形式，因此是反比例函数应用实例。",
+            "difficulty": 2,
+            "type": "简答题",
+            "meta": {
+                "book_prefix": "math_9b_rjb",
+                "source_md": "ch26_s2.md",
+                "question_no_in_source": 1,
+                "global_no": 11
+            },
+            "links": {
+                "concept_names": [
+                    "反比例函数"
+                ],
+                "skill_names": [
+                    "建立反比例函数模型解决问题"
+                ]
+            }
+        },
+        {
+            "id": "math_9b_rjb_ch26_s2_t16",
+            "stem": "某农业大学计划修建一块面积为 $2 \\times 10^{6} \\mathrm{~m}^{2}$ 的矩形试验田.\n\n（1）试验甲的长 $y$ （单位：m）关于宽 $x$ （单位：m）的函数解析式是什么？  \n(2) 如果试验田的长与宽的比为 $2: 1$ , 那么试验田的长与宽分别为多少?",
+            "answer": "(1) y=\\frac{2\\times10^{6}}{x}\\,(x>0)；(2) 宽x=1000\\,m，长y=2000\\,m",
+            "analysis": "由矩形面积S=xy=2×10^6，得y=2×10^6/x（x>0）。若长:宽=2:1，则y=2x，代入面积：x·2x=2×10^6 ⇒ 2x^2=2×10^6 ⇒ x^2=10^6 ⇒ x=1000（取正），y=2000。",
+            "difficulty": 2,
+            "type": "应用题",
+            "meta": {
+                "book_prefix": "math_9b_rjb",
+                "source_md": "ch26_s2.md",
+                "question_no_in_source": 2,
+                "global_no": 12
+            },
+            "links": {
+                "concept_names": [
+                    "反比例函数",
+                    "反比例关系"
+                ],
+                "skill_names": [
+                    "建立反比例函数模型解决问题"
+                ]
+            }
+        },
+        {
+            "id": "math_9b_rjb_ch26_s2_t17",
+            "stem": "小艳家用购电卡购买了 $1000 \\mathrm{~kW} \\cdot \\mathrm{h}$ 电, 这些电能够使用的天数 $m$ 与小艳家平均每天的用电度数 $n$ 有怎样的函数关系? 如果平均每天用 $4 \\mathrm{~kW} \\cdot \\mathrm{h}$ 电, 这些电可以用多长时间?",
+            "answer": "m与n的函数关系为 m=1000/n（n>0）。当n=4时，m=250天。",
+            "analysis": "总电量为1000 kW·h，若平均每天用电n kW·h，则可用天数m满足：m=总电量÷每天用电量=1000/n（n>0）。代入n=4得m=1000/4=250（天）。",
+            "difficulty": 2,
+            "type": "应用题",
+            "meta": {
+                "book_prefix": "math_9b_rjb",
+                "source_md": "ch26_s2.md",
+                "question_no_in_source": 3,
+                "global_no": 13
+            },
+            "links": {
+                "concept_names": [
+                    "反比例函数",
+                    "反比例关系"
+                ],
+                "skill_names": [
+                    "建立反比例函数模型解决问题"
+                ]
+            }
+        },
+        {
+            "id": "math_9b_rjb_ch26_s_26_t20",
+            "stem": "用解析式表示下列函数：\n\n（1）三角形的面积是 $12\\mathrm{cm}^2$ ，它的一边 $a$ （单位：cm）是这边上的高 $h$ （单位：cm）的函数：  \n（2）圆锥的体积是 $50~\\mathrm{cm}^3$ ，它的高 $h$ （单位：cm）是底面面积S（单位：cm²）的函数.",
+            "answer": "（1）由三角形面积公式12=\\frac12ah，得 a=\\frac{24}{h}（h>0）\\n（2）由圆锥体积公式50=\\frac13Sh，得 h=\\frac{150}{S}（S>0）",
+            "analysis": "（1）三角形面积A=\\frac12ah，已知A=12，解得a=\\frac{2A}{h}=\\frac{24}{h}。\\n（2）圆锥体积V=\\frac13Sh，已知V=50，解得h=\\frac{3V}{S}=\\frac{150}{S}。两式中h、S均为正。",
+            "difficulty": 2,
+            "type": "简答题",
+            "meta": {
+                "book_prefix": "math_9b_rjb",
+                "source_md": "ch26_s复习题26.md",
+                "question_no_in_source": 1,
+                "global_no": 14
+            }
+        },
+        {
+            "id": "math_9b_rjb_ch26_s_26_t21",
+            "stem": "填空：\n\n对于函数 $y = \\frac{3}{x}$ ，当 $x > 0$ 时， $y = 0$ ，这时函数图象位于第象限；对于函数 $y = -\\frac{3}{x}$ ，当 $x < 0$ 时， $y = 0$ ，这时函数图象位于第象限。",
+            "answer": "第一；第二",
+            "analysis": "对反比例函数判断所在象限只需看x、y的符号。y=3/x：当x>0时，y>0，点(x,y)在第一象限。y=-3/x：当x<0时，y=-3/x>0，点(x,y)在第二象限。",
+            "difficulty": 2,
+            "type": "填空题",
+            "meta": {
+                "book_prefix": "math_9b_rjb",
+                "source_md": "ch26_s复习题26.md",
+                "question_no_in_source": 2,
+                "global_no": 15
+            }
+        },
+        {
+            "id": "math_9b_rjb_ch26_s_26_t22",
+            "stem": "填空：\n\n（1）函数 $y = \\frac{10}{x}$ 的图象位于第____象限，在每一个象限内， $y$ 随 $x$ 的增大而____；  \n（2）函数 $y = -\\frac{10}{x}$ 的图象位于第____象限，在每一个象限内， $y$ 随 $x$ 的增大而____.",
+            "answer": "（1）第一、三；减小。（2）第二、四；增大。",
+            "analysis": "（1）y=10/x：当x>0时y>0在第一象限；当x<0时y<0在第三象限。y'= -10/x^2<0（x≠0），故在每个象限对应的区间内随x增大而减小。\n（2）y=-10/x：当x>0时y<0在第四象限；当x<0时y>0在第二象限。y'= 10/x^2>0（x≠0），故在每个象限对应的区间内随x增大而增大。",
+            "difficulty": 2,
+            "type": "填空题",
+            "meta": {
+                "book_prefix": "math_9b_rjb",
+                "source_md": "ch26_s复习题26.md",
+                "question_no_in_source": 3,
+                "global_no": 16
+            }
+        },
+        {
+            "id": "math_9b_rjb_ch26_s_26_t23",
+            "stem": "下面四个关系式中， $y$ 是 $x$ 的反比例函数的是（ ）.\n\n(A) $y = \\frac{1}{x^2}$\n\n(B) $yx = -\\sqrt{3}$\n\n(C) $y = 5x + 6$\n\n(D) $\\sqrt{x} = \\frac{1}{y}$",
+            "answer": "B",
+            "analysis": "反比例函数的一般形式为 y = k/x（k≠0），等价于 xy = k。逐项判断：A为 y=1/x^2，不是k/x；B中 yx=-√3，整理得 y=-√3/x，符合；C为一次函数；D中 √x=1/y，得 y=1/√x，不是k/x。因此选B。",
+            "difficulty": 2,
+            "type": "选择题",
+            "meta": {
+                "book_prefix": "math_9b_rjb",
+                "source_md": "ch26_s复习题26.md",
+                "question_no_in_source": 4,
+                "global_no": 17
+            }
+        },
+        {
+            "id": "math_9b_rjb_ch27_s1_t26",
+            "stem": "在比例尺为 $1:10000000$ 的地图上，量得甲、乙两地的距离是 $30 \\mathrm{~cm}$ ，求两地的实际距离.",
+            "answer": "3000千米",
+            "analysis": "比例尺1:10000000表示地图上1 cm代表实际10000000 cm。量得30 cm，则实际距离=30×10000000=300000000 cm=3000000 m=3000 km，所以两地实际距离为3000千米。",
+            "difficulty": 2,
+            "type": "应用题",
+            "meta": {
+                "book_prefix": "math_9b_rjb",
+                "source_md": "ch27_s1.md",
+                "question_no_in_source": 1,
+                "global_no": 18
+            },
+            "links": {
+                "concept_names": [
+                    "图形的放大与缩小"
+                ]
+            }
+        },
+        {
+            "id": "math_9b_rjb_ch27_s1_t29",
+            "stem": "两地的实际距离是 $2000 \\mathrm{~m}$ , 在地图上量得这两地的距离为 $2 \\mathrm{~cm}$ , 这幅地图的比例尺是多少?",
+            "answer": "1:100000",
+            "analysis": "把实际距离单位化成厘米：2000 m = 200000 cm。比例尺=图上距离:实际距离=2 cm:200000 cm=1:100000。",
+            "difficulty": 2,
+            "type": "填空题",
+            "meta": {
+                "book_prefix": "math_9b_rjb",
+                "source_md": "ch27_s1.md",
+                "question_no_in_source": 1,
+                "global_no": 19
+            },
+            "links": {
+                "concept_names": [
+                    "图形的放大与缩小"
+                ]
+            }
+        },
+        {
+            "id": "math_9b_rjb_ch27_s1_t30",
+            "stem": "任意两个矩形相似吗？为什么？",
+            "answer": "不一定相似。矩形都为直角，角相等，但相似还要求对应边成比例；只有当两个矩形的长宽比相同（即长:宽相等）时才相似，否则不相似。",
+            "analysis": "相似图形的判定条件：对应角相等且对应边成比例。任意两个矩形的四个角都是90°，因此对应角一定相等；但还需满足长与宽的比值相同，即设两个矩形分别为a×b、c×d，则需a/b=c/d（或a:c=b:d）才相似。若长宽比不同，则对应边不成比例，所以不相似。",
+            "difficulty": 2,
+            "type": "简答题",
+            "meta": {
+                "book_prefix": "math_9b_rjb",
+                "source_md": "ch27_s1.md",
+                "question_no_in_source": 2,
+                "global_no": 20
+            },
+            "links": {
+                "concept_names": [
+                    "相似图形"
+                ],
+                "skill_names": [
+                    "判断图形是否相似"
+                ]
+            }
+        },
+        {
+            "id": "math_9b_rjb_ch27_s2_t34",
+            "stem": "根据下列条件，判断 $\\triangle ABC$ 与 $\\triangle A'B'C'$ 是否相似，并说明理由：\n\n(1) $\\angle A = 40^{\\circ}$ $AB = 8\\mathrm{cm}$ $AC = 15\\mathrm{cm}$\n\n$$\n\\angle A ^ {\\prime} = 4 0 ^ {\\circ}, A ^ {\\prime} B ^ {\\prime} = 1 6 \\mathrm {c m}, A ^ {\\prime} C ^ {\\prime} = 3 0 \\mathrm {c m};\n$$\n\n(2) $AB = 10\\mathrm{cm}$ $BC = 8\\mathrm{cm}$ $AC = 16\\mathrm{cm}$\n\n$$\nA ^ {\\prime} B ^ {\\prime} = 1 6 \\mathrm {c m}, B ^ {\\prime} C ^ {\\prime} = 1 2. 8 \\mathrm {c m}, A ^ {\\prime} C ^ {\\prime} = 2 5. 6 \\mathrm {c m}.\n$$",
+            "answer": "(1) 相似。理由：∠A=∠A′=40°，且AB:A′B′=8:16=1:2，AC:A′C′=15:30=1:2，两边成比例且夹角相等，满足SAS判定，故△ABC∽△A′B′C′。\n(2) 相似。理由：AB:A′B′=10:16=5:8，BC:B′C′=8:12.8=5:8，AC:A′C′=16:25.6=5:8，三边对应成比例，满足SSS判定，故△ABC∽△A′B′C′。",
+            "analysis": "(1) 比较夹角：∠A与∠A′相等；再比较夹角两边：AB/A′B′=8/16=1/2，AC/A′C′=15/30=1/2，满足“两边对应成比例且夹角相等”(SAS)，判定相似。\n(2) 逐一比较三组对应边：10/16=8/12.8=16/25.6=0.625(=5/8)，满足“三边对应成比例”(SSS)，判定相似。",
+            "difficulty": 2,
+            "type": "简答题",
+            "meta": {
+                "book_prefix": "math_9b_rjb",
+                "source_md": "ch27_s2.md",
+                "question_no_in_source": 1,
+                "global_no": 21
+            },
+            "links": {
+                "concept_names": [
+                    "相似三角形",
+                    "三角形相似判定：两边及夹角（SAS）",
+                    "三角形相似判定：三边成比例（SSS）"
+                ],
+                "skill_names": [
+                    "利用相似三角形进行比例推理"
+                ]
+            }
+        },
+        {
+            "id": "math_9b_rjb_ch27_s2_t37",
+            "stem": "底角相等的两个等腰三角形是否相似？顶角相等的两个等腰三角形呢？证明你的结论.",
+            "answer": "是。底角相等的两个等腰三角形相似；顶角相等的两个等腰三角形也相似。",
+            "analysis": "（1）底角相等：设等腰△ABC中∠B=∠C，等腰△A'B'C'中∠B'=∠C'，且已知∠B=∠B'。则∠C=∠B=∠B'=∠C'。又∠A=180°−∠B−∠C=180°−2∠B，∠A'=180°−2∠B'，由∠B=∠B'得∠A=∠A'。因此三组对应角分别相等，△ABC∽△A'B'C'（AAA）。\n（2）顶角相等：设等腰△ABC中∠B=∠C，等腰△A'B'C'中∠B'=∠C'，且已知∠A=∠A'。则∠B=∠C=(180°−∠A)/2，∠B'=∠C'=(180°−∠A')/2。由∠A=∠A'得∠B=∠B'且∠C=∠C'。因此对应角相等，△ABC∽△A'B'C'（AAA）。",
+            "difficulty": 3,
+            "type": "证明题",
+            "meta": {
+                "book_prefix": "math_9b_rjb",
+                "source_md": "ch27_s2.md",
+                "question_no_in_source": 1,
+                "global_no": 22
+            },
+            "links": {
+                "concept_names": [
+                    "相似三角形"
+                ]
+            }
+        },
+        {
+            "id": "math_9b_rjb_ch27_s2_t39",
+            "stem": "如果Rt△ABC的两条直角边分别为3和4，那么以3k和 $4k$ （ $k$ 是正整数）为直角边的直角三角形一定与Rt△ABC相似吗？为什么？",
+            "answer": "一定相似。因为两直角边分别成比例：3k:4k=3:4，且两三角形都有一个直角（夹角相等），由两边及其夹角对应相等（SAS）可判定两三角形相似。",
+            "analysis": "设原直角三角形Rt△ABC的两直角边为3和4，另一直角三角形的两直角边为3k和4k（k为正整数）。\n(1) 两三角形都是直角三角形，直角对应相等。\n(2) 直角的两边对应成比例：3k/3=k，4k/4=k，所以3k:4k=3:4。\n(3) 直角为夹角，两边成比例且夹角相等，满足SAS相似判定，因此两三角形一定相似。",
+            "difficulty": 2,
+            "type": "简答题",
+            "meta": {
+                "book_prefix": "math_9b_rjb",
+                "source_md": "ch27_s2.md",
+                "question_no_in_source": 3,
+                "global_no": 23
+            },
+            "links": {
+                "concept_names": [
+                    "相似三角形",
+                    "三角形相似判定：两边及夹角（SAS）"
+                ],
+                "skill_names": [
+                    "利用相似三角形进行比例推理"
+                ]
+            }
+        },
+        {
+            "id": "math_9b_rjb_ch27_s2_t43",
+            "stem": "在某一时刻，测得一根高为 $1.8 \\mathrm{~m}$ 的竹竿的影长为 $3 \\mathrm{~m}$ ，同时测得一栋楼的影长为 $90 \\mathrm{~m}$ ，这栋楼的高度是多少？",
+            "answer": "54米",
+            "analysis": "同一时刻太阳光照射角相同，竹竿与楼的高度和影长成正比。设楼高为H，则有H/90=1.8/3=0.6，所以H=90×0.6=54（米）。",
+            "difficulty": 2,
+            "type": "应用题",
+            "meta": {
+                "book_prefix": "math_9b_rjb",
+                "source_md": "ch27_s2.md",
+                "question_no_in_source": 1,
+                "global_no": 24
+            },
+            "links": {
+                "concept_names": [
+                    "相似三角形",
+                    "相似三角形的性质：对应线段成比例"
+                ],
+                "skill_names": [
+                    "利用相似三角形进行比例推理"
+                ]
+            }
+        },
+        {
+            "id": "math_9b_rjb_ch27_s2_t45",
+            "stem": "有一块三角形的草地，它的一条边长为 $25 \\mathrm{~m}$ 。在图纸上，这条边的长为 $5 \\mathrm{~cm}$ ，其他两条边的长都为 $4 \\mathrm{~cm}$ ，求其他两边的实际长度。",
+            "answer": "其他两边的实际长度各为20 m。",
+            "analysis": "先求比例尺：图上5 cm对应实际25 m=2500 cm，所以1 cm对应2500÷5=500 cm=5 m。图上其他两边各长4 cm，实际长度为4×5=20 m，因此其他两边实际长度各为20 m。",
+            "difficulty": 2,
+            "type": "应用题",
+            "meta": {
+                "book_prefix": "math_9b_rjb",
+                "source_md": "ch27_s2.md",
+                "question_no_in_source": 1,
+                "global_no": 25
+            },
+            "links": {
+                "concept_names": [
+                    "相似三角形的性质：对应线段成比例"
+                ],
+                "skill_names": [
+                    "利用相似三角形进行比例推理"
+                ]
+            }
+        },
+        {
+            "id": "math_9b_rjb_ch27_s2_t46",
+            "stem": "根据下列条件，判断 $\\triangle ABC$ 与 $\\triangle A'B'C'$ 是否相似，并说明理由：\n\n(1) $AB = 10\\mathrm{cm}$ $BC = 12\\mathrm{cm}$ $AC = 15\\mathrm{cm}$ $A'B' = 150\\mathrm{cm}$ $B'C' = 180\\mathrm{cm}$ $A'C' = 225\\mathrm{cm}$   \n(2) $\\angle A = 70^{\\circ}$ , $\\angle B = 48^{\\circ}$ , $\\angle A' = 70^{\\circ}$ , $\\angle C' = 62^{\\circ}$ .",
+            "answer": "(1) 相似。因为对应三边成比例：A'B'/AB=150/10=15，B'C'/BC=180/12=15，A'C'/AC=225/15=15，满足SSS相似判定。\n(2) 相似。由∠A=70°，∠B=48°得∠C=180°-70°-48°=62°；而∠A'=70°，∠C'=62°，所以有两组对应角相等（∠A=∠A'，∠C=∠C'），满足AA相似判定。",
+            "analysis": "(1) 计算三组对应边的比值，若三边对应成比例则两三角形相似（SSS）。本题三组比值均为15，所以相似。\n(2) 先利用三角形内角和求出△ABC的∠C=62°，与给出的∠C'=62°对应相等，同时∠A=∠A'=70°，两角对应相等即可判定相似（AA）。",
+            "difficulty": 2,
+            "type": "简答题",
+            "meta": {
+                "book_prefix": "math_9b_rjb",
+                "source_md": "ch27_s2.md",
+                "question_no_in_source": 2,
+                "global_no": 26
+            },
+            "links": {
+                "concept_names": [
+                    "相似三角形",
+                    "三角形相似判定：三边成比例（SSS）"
+                ]
+            }
+        },
+        {
+            "id": "math_9b_rjb_ch27_s2_t50",
+            "stem": "如果把两条直角边分别为 $30 \\mathrm{~cm}, 40 \\mathrm{~cm}$ 的直角三角形按相似比 $\\frac{3}{5}$ 进行缩小, 得到的直角三角形的两条直角边的长和面积各是多少?",
+            "answer": "两直角边分别为18 cm、24 cm；面积为216 cm²。",
+            "analysis": "相似比为3/5，边长按3/5缩小：30×3/5=18(cm)，40×3/5=24(cm)。原三角形面积=1/2×30×40=600(cm²)，面积按相似比的平方缩小：600×(3/5)²=600×9/25=216(cm²)。",
+            "difficulty": 2,
+            "type": "应用题",
+            "meta": {
+                "book_prefix": "math_9b_rjb",
+                "source_md": "ch27_s2.md",
+                "question_no_in_source": 6,
+                "global_no": 27
+            },
+            "links": {
+                "concept_names": [
+                    "相似三角形的性质：对应线段成比例",
+                    "相似三角形的面积关系"
+                ],
+                "skill_names": [
+                    "利用相似三角形进行比例推理"
+                ]
+            }
+        },
+        {
+            "id": "math_9b_rjb_ch27_s_27_t58",
+            "stem": "$\\triangle ABC$ 三个顶点的坐标分别为 $A(2,2)$ ， $B(4,2)$ ， $C(6,4)$ 。以原点 $o$ 为位似中心，将 $\\triangle ABC$ 缩小得到 $\\triangle DEF$ ，使 $\\triangle DEF$ 与 $\\triangle ABC$ 对应边的比为 $1:2$ ，这时 $\\triangle DEF$ 各个顶点的坐标分别是多少？",
+            "answer": "D(1,1)，E(2,1)，F(3,2)",
+            "analysis": "以原点为位似中心，缩小后对应边比为1:2，位似比k=1/2。位似变换下点的坐标按比例缩放： (x,y)→(kx,ky)。因此A(2,2)→D(1,1)，B(4,2)→E(2,1)，C(6,4)→F(3,2)。",
+            "difficulty": 2,
+            "type": "填空题",
+            "meta": {
+                "book_prefix": "math_9b_rjb",
+                "source_md": "ch27_s复习题27.md",
+                "question_no_in_source": 3,
+                "global_no": 28
+            }
+        },
+        {
+            "id": "math_9b_rjb_ch27_s_27_t60",
+            "stem": "$\\triangle ABC$ 的三边长分别为5，12，13，与它相似的 $\\triangle DEF$ 的最小边长为15，求 $\\triangle DEF$ 的其他两条边长和周长.",
+            "answer": "其他两边分别为36和39，周长为90。",
+            "analysis": "△ABC三边为5、12、13，最小边为5。相似△DEF的最小边为15，对应5，故相似比k=15/5=3。于是其余两边为12×3=36，13×3=39，周长=15+36+39=90。",
+            "difficulty": 2,
+            "type": "应用题",
+            "meta": {
+                "book_prefix": "math_9b_rjb",
+                "source_md": "ch27_s复习题27.md",
+                "question_no_in_source": 2,
+                "global_no": 29
+            }
+        },
+        {
+            "id": "math_9b_rjb_ch27_s_27_t62",
+            "stem": "李华要在报纸上刊登广告，一块 $10 \\mathrm{~cm} \\times 5 \\mathrm{~cm}$ 的长方形版面要付180元的广告费。如果他要把版面的边长扩大为原来的3倍，要付多少广告费（假设每平方厘米版面的广告费相同）？",
+            "answer": "1620元",
+            "analysis": "原版面面积为10×5=50平方厘米，费用180元，则每平方厘米费用为180÷50=3.6元。边长都扩大为原来的3倍，面积扩大为3×3=9倍，新面积为50×9=450平方厘米。广告费为450×3.6=1620元。",
+            "difficulty": 2,
+            "type": "应用题",
+            "meta": {
+                "book_prefix": "math_9b_rjb",
+                "source_md": "ch27_s复习题27.md",
+                "question_no_in_source": 4,
+                "global_no": 30
+            }
+        },
+        {
+            "id": "math_9b_rjb_ch28_s1_t65",
+            "stem": "在 Rt $\\triangle ABC$ 中， $\\angle C = 90^\\circ$ ， $\\angle A = 60^\\circ$ ，求 $\\sin A$ 的值",
+            "answer": "√3/2",
+            "analysis": "已知∠A=60°，直接利用特殊角三角函数值：sin60°=√3/2，因此sinA=√3/2。",
+            "difficulty": 1,
+            "type": "填空题",
+            "meta": {
+                "book_prefix": "math_9b_rjb",
+                "source_md": "ch28_s1.md",
+                "question_no_in_source": 2,
+                "global_no": 31
+            },
+            "links": {
+                "concept_names": [
+                    "正弦",
+                    "特殊角三角函数值"
+                ]
+            }
+        },
+        {
+            "id": "math_9b_rjb_ch28_s1_t67",
+            "stem": "在 $Rt\\triangle ABC$ 中, $\\angle C = 90^\\circ$ . 如果各边长都扩大到原来的 2 倍, 那么 $\\angle A$ 的正弦值、余弦值和正切值有变化吗? 说明理由.",
+            "answer": "没有变化。因为把三边都扩大到原来的2倍后，新三角形与原三角形对应角相等（相似），而sin A=对边/斜边、cos A=邻边/斜边、tan A=对边/邻边都是边长比值，边同时按相同比例放大时比值不变，所以sinA、cosA、tanA均不变。",
+            "analysis": "设原Rt△ABC中∠C=90°，对应于∠A有：sinA=BC/AB，cosA=AC/AB，tanA=BC/AC。把各边都变为原来的2倍后，得到新三角形A'B'C'，有B'C'=2BC，A'C'=2AC，A'B'=2AB，因此sinA'=B'C'/A'B'=(2BC)/(2AB)=BC/AB=sinA；cosA'=A'C'/A'B'=(2AC)/(2AB)=AC/AB=cosA；tanA'=B'C'/A'C'=(2BC)/(2AC)=BC/AC=tanA。故三角函数值不变。",
+            "difficulty": 2,
+            "type": "简答题",
+            "meta": {
+                "book_prefix": "math_9b_rjb",
+                "source_md": "ch28_s1.md",
+                "question_no_in_source": 2,
+                "global_no": 32
+            },
+            "links": {
+                "concept_names": [
+                    "正弦",
+                    "余弦",
+                    "正切",
+                    "锐角三角函数"
+                ],
+                "skill_names": [
+                    "利用相似三角形证明边比恒定"
+                ]
+            }
+        },
+        {
+            "id": "math_9b_rjb_ch28_s1_t68",
+            "stem": "求下列各式的值：\n\n（1）1-2sin $30^{\\circ}\\cos 30^{\\circ}$   \n(2) $3\\tan 30^{\\circ} - \\tan 45^{\\circ} + 2\\sin 60^{\\circ}$   \n(3) $(\\cos^2 30^\\circ + \\sin^2 30^\\circ) \\times \\tan 60^\\circ$ .",
+            "answer": "（1）1-\\frac{\\sqrt{3}}{2}\\n（2）2\\sqrt{3}-1\\n（3）\\sqrt{3}",
+            "analysis": "（1）sin30°=1/2，cos30°=\\sqrt{3}/2，2sin30°cos30°=2\\times(1/2)\\times(\\sqrt{3}/2)=\\sqrt{3}/2，故原式=1-\\sqrt{3}/2。\\n（2）tan30°=\\sqrt{3}/3，所以3tan30°=\\sqrt{3}；tan45°=1；sin60°=\\sqrt{3}/2，所以2sin60°=\\sqrt{3}，故原式=\\sqrt{3}-1+\\sqrt{3}=2\\sqrt{3}-1。\\n（3）cos^2 30°+sin^2 30°=1，所以原式=1\\times tan60°=\\sqrt{3}。",
+            "difficulty": 2,
+            "type": "填空题",
+            "meta": {
+                "book_prefix": "math_9b_rjb",
+                "source_md": "ch28_s1.md",
+                "question_no_in_source": 1,
+                "global_no": 33
+            },
+            "links": {
+                "concept_names": [
+                    "特殊角三角函数值",
+                    "锐角三角函数",
+                    "正弦",
+                    "余弦",
+                    "正切"
+                ]
+            }
+        },
+        {
+            "id": "math_9b_rjb_ch28_s1_t69",
+            "stem": "在 $Rt\\triangle ABC$ 中， $\\angle C = 90^{\\circ}$ ， $BC = \\sqrt{7}$ ， $AC = \\sqrt{21}$ ，求 $\\angle A$ ， $\\angle B$ 的度数。",
+            "answer": "∠A=30°，∠B=60°",
+            "analysis": "在直角三角形ABC中，∠C=90°，两直角边BC=√7，AC=√21。先求斜边：AB=√(BC^2+AC^2)=√(7+21)=√28=2√7。∠A的对边是BC，因此sinA=BC/AB=√7/(2√7)=1/2，可得∠A=30°。又因∠A+∠B=90°，所以∠B=60°。",
+            "difficulty": 2,
+            "type": "简答题",
+            "meta": {
+                "book_prefix": "math_9b_rjb",
+                "source_md": "ch28_s1.md",
+                "question_no_in_source": 2,
+                "global_no": 34
+            },
+            "links": {
+                "concept_names": [
+                    "正切",
+                    "锐角三角函数",
+                    "特殊角三角函数值"
+                ]
+            }
+        },
+        {
+            "id": "math_9b_rjb_ch28_s1_t70",
+            "stem": "用计算器求下列锐角三角函数值：\n\n（1）sin $20^{\\circ}$ ，cos $70^{\\circ}$\n\nsin $35^{\\circ}$ ,cos $55^{\\circ}$\n\nsin $15^{\\circ}32^{\\prime}$ ，cos $74^{\\circ}28^{\\prime}$\n\n(2) $\\tan 3^{\\circ} 8'$ , $\\tan 80^{\\circ} 25' 43''$ .",
+            "answer": "（1）sin20°≈0.3420，cos70°≈0.3420；sin35°≈0.5736，cos55°≈0.5736；sin15°32′≈0.2678，cos74°28′≈0.2678。\n（2）tan3°8′≈0.0548；tan80°25′43″≈5.9297。",
+            "analysis": "用计算器按“角度制(°)”输入角度求值；注意互余角关系：sinθ=cos(90°−θ)，所以sin20°=cos70°，sin35°=cos55°，且15°32′与74°28′互余，因此sin15°32′=cos74°28′。tan按给定角度(含分、秒)直接计算即可。",
+            "difficulty": 2,
+            "type": "简答题",
+            "meta": {
+                "book_prefix": "math_9b_rjb",
+                "source_md": "ch28_s1.md",
+                "question_no_in_source": 1,
+                "global_no": 35
+            },
+            "links": {
+                "concept_names": [
+                    "正弦",
+                    "余弦",
+                    "正切",
+                    "锐角三角函数"
+                ]
+            }
+        },
+        {
+            "id": "math_9b_rjb_ch28_s1_t71",
+            "stem": "已知下列锐角三角函数值，用计算器求其相应锐角的度数：\n\n(1) $\\sin A = 0.6275$ , $\\sin B = 0.0547$ ;\n\n(2) $\\cos A = 0.6252$ , $\\cos B = 0.1659$ ;\n\n(3) $\\tan A = 4.8425$ , $\\tan B = 0.8816$ .\n\n分析第（1）题的结果，你能得出什么猜想？你能说明自己的猜想吗？",
+            "answer": "(1) A≈38.9°，B≈3.1°；(2) A≈51.3°，B≈80.5°；(3) A≈78.4°，B≈41.5°。猜想：锐角范围内(0°<θ<90°)，已知sin(或cos、tan)的值能唯一确定该锐角；例如已知sinA可得A唯一。说明：在(0°,90°)内，sinθ单调递增(一一对应)，因此同一个正弦值只对应一个锐角；虽然一般有sinθ=sin(180°−θ)，但180°−θ不是锐角，因此不产生第二个锐角解。",
+            "analysis": "用计算器分别按反三角函数求角度：A=arcsin(0.6275)，B=arcsin(0.0547)；A=arccos(0.6252)，B=arccos(0.1659)；A=arctan(4.8425)，B=arctan(0.8816)，并将结果用度表示、取近似值。对(1)可观察到在锐角范围内只有一个解：因为sinθ在(0°,90°)上严格递增，所以同一正弦值只能对应唯一的锐角；若不限定为锐角，则还可能有补角解(180°−θ)。",
+            "difficulty": 3,
+            "type": "简答题",
+            "meta": {
+                "book_prefix": "math_9b_rjb",
+                "source_md": "ch28_s1.md",
+                "question_no_in_source": 2,
+                "global_no": 36
+            },
+            "links": {
+                "concept_names": [
+                    "正弦",
+                    "锐角三角函数"
+                ]
+            }
+        },
+        {
+            "id": "math_9b_rjb_ch28_s1_t73",
+            "stem": "在 Rt $\\triangle ABC$ 中， $\\angle C = 90^\\circ$ 。当 $\\angle A$ 确定时，它的正弦值是否随之确定？余弦值呢？正切值呢？为什么？",
+            "answer": "是。因为在直角三角形中，当∠A确定时，三边之比（对边/斜边、邻边/斜边、对边/邻边）只由该角决定，与三角形大小无关，所以sin A、cos A、tan A都随之确定。",
+            "analysis": "在Rt△ABC中，∠C=90°。当∠A确定时，△ABC的形状（相似类）确定；任意两个满足同一∠A的直角三角形相似。相似三角形对应边成比例，因此\nsin A=BC/AB、cos A=AC/AB、tan A=BC/AC这三个比值在所有这类三角形中都相同，只取决于∠A，不随三角形放大或缩小而改变，所以正弦、余弦、正切值都确定。",
+            "difficulty": 2,
+            "type": "简答题",
+            "meta": {
+                "book_prefix": "math_9b_rjb",
+                "source_md": "ch28_s1.md",
+                "question_no_in_source": 2,
+                "global_no": 37
+            },
+            "links": {
+                "concept_names": [
+                    "正弦",
+                    "余弦",
+                    "正切",
+                    "锐角三角函数"
+                ],
+                "skill_names": [
+                    "利用相似三角形证明边比恒定"
+                ]
+            }
+        },
+        {
+            "id": "math_9b_rjb_ch28_s1_t74",
+            "stem": "求下列各式的值：\n\n（1）sin45°+√2 2\n\n（2）sin $45^{\\circ}\\cos 60^{\\circ}$ -cos $45^{\\circ}$\n\n（3）cos²45°+tan60°cos30°;\n\n（4） $\\frac{1 - \\cos 30^{\\circ}}{\\sin 60^{\\circ}} + \\tan 30^{\\circ}.$",
+            "answer": "（1）√2；（2）-√2/4；（3）2；（4）√3-1",
+            "analysis": "（1）sin45°=√2/2，所以sin45°+√2/2=√2。\n（2）sin45°cos60°-cos45°=(√2/2)(1/2)-√2/2=√2/4-2√2/4=-√2/4。\n（3）cos²45°+tan60°cos30°=(√2/2)²+(√3)(√3/2)=1/2+3/2=2。\n（4）(1-cos30°)/sin60°+tan30°=(1-√3/2)/(√3/2)+1/√3=((2-√3)/2)·(2/√3)+1/√3=(2-√3)/√3+1/√3=3/√3-1=√3-1。",
+            "difficulty": 2,
+            "type": "填空题",
+            "meta": {
+                "book_prefix": "math_9b_rjb",
+                "source_md": "ch28_s1.md",
+                "question_no_in_source": 3,
+                "global_no": 38
+            },
+            "links": {
+                "concept_names": [
+                    "正弦",
+                    "余弦",
+                    "正切",
+                    "锐角三角函数",
+                    "特殊角三角函数值"
+                ]
+            }
+        },
+        {
+            "id": "math_9b_rjb_ch28_s1_t76",
+            "stem": "已知下列锐角三角函数值，用计算器求锐角 $A$ ， $B$ 的度数：\n\n(1) $\\sin A = 0.7$ ， $\\sin B = 0.01$   \n(2) $\\cos A = 0.15, \\cos B = 0.8$ ;   \n(3) $\\tan A = 2.4$ , $\\tan B = 0.5$ .",
+            "answer": "(1) A≈44.4°，B≈0.57°；(2) A≈81.4°，B≈36.9°；(3) A≈67.4°，B≈26.6°",
+            "analysis": "利用计算器的反三角函数求锐角：A=arcsin(0.7)，B=arcsin(0.01)；A=arccos(0.15)，B=arccos(0.8)；A=arctan(2.4)，B=arctan(0.5)。因A、B均为锐角，直接取主值并化为角度制，得到近似值如答案。",
+            "difficulty": 2,
+            "type": "填空题",
+            "meta": {
+                "book_prefix": "math_9b_rjb",
+                "source_md": "ch28_s1.md",
+                "question_no_in_source": 5,
+                "global_no": 39
+            },
+            "links": {
+                "concept_names": [
+                    "锐角三角函数",
+                    "正弦",
+                    "余弦",
+                    "正切"
+                ]
+            }
+        },
+        {
+            "id": "math_9b_rjb_ch28_s2_t81",
+            "stem": "在 Rt $\\triangle ABC$ 中， $\\angle C = 90^\\circ$ ，根据下列条件解直角三角形：\n\n（1） $c = 8$ ， $\\angle A = 30^{\\circ}$   \n(2) $b = 7, \\angle A = 15^\\circ$ ;   \n（3） $a = 5$ ， $b = 12$",
+            "answer": "（1）a=4，b=4√3，∠B=60°；（2）∠B=75°，c=7(√6−√2)，a=7(2−√3)；（3）c=13，sinA=5/13，cosA=12/13，∠A=arctan(5/12)≈22.62°，∠B≈67.38°",
+            "analysis": "在Rt△ABC中∠C=90°，c为斜边。利用a=c·sinA，b=c·cosA，且∠A+∠B=90°。\n（1）已知c=8，A=30°：a=8sin30°=4，b=8cos30°=4√3，B=60°。\n（2）已知b=7，A=15°：B=75°；b=c·cos15°⇒c=7/cos15°=7(√6−√2)；a=b·tan15°=7(2−√3)。\n（3）已知a=5，b=12：c=√(5^2+12^2)=13；A=arctan(a/b)=arctan(5/12)，B=90°−A（或用sinA=5/13，cosA=12/13求角）。",
+            "difficulty": 3,
+            "type": "应用题",
+            "meta": {
+                "book_prefix": "math_9b_rjb",
+                "source_md": "ch28_s2.md",
+                "question_no_in_source": 1,
+                "global_no": 40
+            },
+            "links": {
+                "concept_names": [
+                    "解直角三角形",
+                    "直角三角形的五个元素",
+                    "锐角三角函数",
+                    "勾股定理",
+                    "两锐角互余"
+                ]
+            }
+        },
+        {
+            "id": "math_9b_rjb_ch28_s2_t84",
+            "stem": "从高出海平面 $55 \\mathrm{~m}$ 的灯塔处收到一艘帆船的求助信号, 从灯塔看帆船的俯角为 $21^{\\circ}$ , 此时帆船距灯塔有多远 (结果取整数)?",
+            "answer": "约143 m",
+            "analysis": "设帆船到灯塔底部的水平距离为x m。灯塔高55 m，从灯塔顶端看帆船的俯角为21°，则在直角三角形中有 tan21°=55/x，因此 x=55/tan21°≈55/0.3839≈143.3 m，取整数约为143 m。",
+            "difficulty": 2,
+            "type": "应用题",
+            "meta": {
+                "book_prefix": "math_9b_rjb",
+                "source_md": "ch28_s2.md",
+                "question_no_in_source": 4,
+                "global_no": 41
+            },
+            "links": {
+                "concept_names": [
+                    "解直角三角形",
+                    "锐角三角函数"
+                ],
+                "skill_names": [
+                    "实际问题的几何抽象"
+                ]
+            }
+        },
+        {
+            "id": "math_9b_rjb_ch28_s_28_t86",
+            "stem": "在 $Rt\\triangle ABC$ 中， $\\angle C = 90^\\circ$ ， $a = 2$ ， $c = 6$ ，求 $\\sin A$ ， $\\cos A$ 和 $\\tan A$ 的值.",
+            "answer": "sinA=1/3，cosA=2√2/3，tanA=√2/4",
+            "analysis": "在Rt△ABC中，∠C=90°，所以c为斜边。已知a=2，c=6。先由勾股定理求b：b=√(c^2−a^2)=√(36−4)=√32=4√2。于是sinA=a/c=2/6=1/3，cosA=b/c=(4√2)/6=2√2/3，tanA=a/b=2/(4√2)=√2/4。",
+            "difficulty": 2,
+            "type": "填空题",
+            "meta": {
+                "book_prefix": "math_9b_rjb",
+                "source_md": "ch28_s复习题28.md",
+                "question_no_in_source": 1,
+                "global_no": 42
+            }
+        },
+        {
+            "id": "math_9b_rjb_ch28_s_28_t87",
+            "stem": "在 $\\triangle ABC$ 中， $\\angle C = 90^\\circ$ ， $\\cos A = \\frac{\\sqrt{3}}{2}$ ， $AC = 4\\sqrt{3}$ ，求 $BC$ 的长.",
+            "answer": "4",
+            "analysis": "∠C=90°，cosA=AC/AB=√3/2，且AC=4√3，所以AB=AC÷cosA=4√3÷(√3/2)=8。由sinA=√(1-cos^2A)=1/2（或A=30°），得BC=AB·sinA=8·1/2=4。",
+            "difficulty": 2,
+            "type": "填空题",
+            "meta": {
+                "book_prefix": "math_9b_rjb",
+                "source_md": "ch28_s复习题28.md",
+                "question_no_in_source": 2,
+                "global_no": 43
+            }
+        },
+        {
+            "id": "math_9b_rjb_ch28_s_28_t88",
+            "stem": "求下列各式的值：\n\n（1） $\\sqrt{2}\\cos 45^{\\circ} - \\tan 45^{\\circ}$\n\n(2) $\\sqrt{3}\\sin 60^{\\circ} + \\tan 60^{\\circ} - 2\\cos^{2}30^{\\circ}.$",
+            "answer": "（1）0；（2）\\sqrt{3}",
+            "analysis": "（1）cos45°=\\sqrt{2}/2，tan45°=1，故\\sqrt{2}cos45°-tan45°=\\sqrt{2}\\cdot(\\sqrt{2}/2)-1=1-1=0。\\n（2）sin60°=\\sqrt{3}/2，tan60°=\\sqrt{3}，cos30°=\\sqrt{3}/2，所以\\sqrt{3}sin60°=\\sqrt{3}\\cdot(\\sqrt{3}/2)=3/2，2cos^2 30°=2\\cdot( (\\sqrt{3}/2)^2 )=2\\cdot(3/4)=3/2。原式=3/2+\\sqrt{3}-3/2=\\sqrt{3}。",
+            "difficulty": 1,
+            "type": "填空题",
+            "meta": {
+                "book_prefix": "math_9b_rjb",
+                "source_md": "ch28_s复习题28.md",
+                "question_no_in_source": 3,
+                "global_no": 44
+            }
+        },
+        {
+            "id": "math_9b_rjb_ch28_s_28_t89",
+            "stem": "用计算器求下列各式的值：\n\n（1）cos $76^{\\circ}39^{\\prime} + \\sin 17^{\\circ}52^{\\prime}$\n\n(2）sin $57^{\\circ}18^{\\prime}$ -tan $22^{\\circ}30^{\\prime}$\n\n（3）tan $83^{\\circ}6^{\\prime}$ -cos $4^{\\circ}59^{\\prime}$\n\n（4）tan $12^{\\circ}30^{\\prime}$ -sin $15^{\\circ}$",
+            "answer": "（1）0.5377\n（2）0.4273\n（3）7.2673\n（4）-0.0371",
+            "analysis": "把角度的分转换成度（如76°39′=76.65°），计算器设为“角度(°)”模式分别求出cos、sin、tan的近似值，再按给定的加减运算求结果，最后取四舍五入到小数点后4位。",
+            "difficulty": 2,
+            "type": "填空题",
+            "meta": {
+                "book_prefix": "math_9b_rjb",
+                "source_md": "ch28_s复习题28.md",
+                "question_no_in_source": 4,
+                "global_no": 45
+            }
+        },
+        {
+            "id": "math_9b_rjb_ch28_s_28_t90",
+            "stem": "已知下列锐角的三角函数值，用计算器求锐角 $A$ 的度数：\n\n(1) $\\cos A = 0.7651$\n\n(2) $\\sin A = 0.9343$\n\n(3) $\\tan A = 35.26$\n\n(4) $\\tan A = 0.707$ .",
+            "answer": "(1) A≈40.0°；(2) A≈69.3°；(3) A≈88.4°；(4) A≈35.3°",
+            "analysis": "锐角A满足A=arccos(0.7651)、A=arcsin(0.9343)、A=arctan(35.26)、A=arctan(0.707)。用计算器分别求反三角函数值，并取锐角范围(0°,90°)内的结果：arccos(0.7651)≈40.0°；arcsin(0.9343)≈69.3°；arctan(35.26)≈88.4°；arctan(0.707)≈35.3°。",
+            "difficulty": 2,
+            "type": "填空题",
+            "meta": {
+                "book_prefix": "math_9b_rjb",
+                "source_md": "ch28_s复习题28.md",
+                "question_no_in_source": 5,
+                "global_no": 46
+            }
+        },
+        {
+            "id": "math_9b_rjb_ch28_s_28_t91",
+            "stem": "等腰三角形的底角是 $30^{\\circ}$ , 腰长为 $2\\sqrt{3}$ , 求它的周长.",
+            "answer": "6+4\\sqrt{3}",
+            "analysis": "等腰三角形底角各30°，则顶角为180°-30°-30°=120°。设腰长a=2\\sqrt{3}，底边为b。由余弦定理：b^2=a^2+a^2-2a^2\\cos120°=2a^2-2a^2\\left(-\\tfrac12\\right)=3a^2，所以b=a\\sqrt{3}=2\\sqrt{3}\\cdot\\sqrt{3}=6。周长P=2a+b=2\\cdot2\\sqrt{3}+6=6+4\\sqrt{3}。",
+            "difficulty": 2,
+            "type": "应用题",
+            "meta": {
+                "book_prefix": "math_9b_rjb",
+                "source_md": "ch28_s复习题28.md",
+                "question_no_in_source": 6,
+                "global_no": 47
+            }
+        },
+        {
+            "id": "math_9b_rjb_ch28_s_28_t92",
+            "stem": "从一艘船上测得海岸上高为 $42 \\mathrm{~m}$ 的灯塔顶部的仰角为 $33^{\\circ}$ 时，船离海岸多远（结果取整数）？",
+            "answer": "约65米",
+            "analysis": "设船到海岸（灯塔底部）的水平距离为x米。由仰角33°得tan33°=42/x，因此x=42/tan33°≈42/0.6494≈64.7（米），取整数为65米。",
+            "difficulty": 2,
+            "type": "应用题",
+            "meta": {
+                "book_prefix": "math_9b_rjb",
+                "source_md": "ch28_s复习题28.md",
+                "question_no_in_source": 7,
+                "global_no": 48
+            }
+        },
+        {
+            "id": "math_9b_rjb_ch26_s1_t104",
+            "stem": "正比例函数 $y = x$ 的图象与反比例函数 $y = \\frac{k}{x}$ 的图象有一个交点的纵坐标是 2.\n\n（1）当 $x = -3$ 时，求反比例函数 $y = \\frac{k}{x}$ 的值；  \n（2）当 $-3 < x < -1$ 时，求反比例函数 $y = \\frac{k}{x}$ 的取值范围",
+            "answer": "（1）-4/3；（2）-4 < y < -4/3",
+            "analysis": "交点满足 y=x 且 y=k/x，已知交点纵坐标为2，则 y=2⇒x=2。代入 2=k/2 得 k=4，所以反比例函数为 y=4/x。\n（1）x=-3 时，y=4/(-3)=-4/3。\n（2）在区间 -3<x<-1 上，y=4/x 单调递减（导数 -4/x^2<0），因此取值介于 y(-1)=-4 与 y(-3)=-4/3 之间，且端点不取：-4<y<-4/3。",
+            "difficulty": 2,
+            "type": "简答题",
+            "meta": {
+                "book_prefix": "math_9b_rjb",
+                "source_md": "ch26_s1.md",
+                "question_no_in_source": 5,
+                "global_no": 49
+            },
+            "links": {
+                "concept_names": [
+                    "反比例函数",
+                    "反比例函数的图象",
+                    "反比例函数的性质（k>0）"
+                ]
+            }
+        },
+        {
+            "id": "math_9b_rjb_ch26_s1_t105",
+            "stem": "如果 $y$ 是 $z$ 的反比例函数， $z$ 是 $x$ 的反比例函数，那么 $y$ 与 $x$ 具有怎样的函数关系？",
+            "answer": "y与x成正比例函数关系（y=kx，k≠0）",
+            "analysis": "设y与z成反比例：y=a/z（a≠0）；z与x成反比例：z=b/x（b≠0）。代入得y=a/(b/x)=ax/b=(a/b)x。故y=kx（k=a/b≠0），即y与x成正比例函数关系。",
+            "difficulty": 2,
+            "type": "简答题",
+            "meta": {
+                "book_prefix": "math_9b_rjb",
+                "source_md": "ch26_s1.md",
+                "question_no_in_source": 6,
+                "global_no": 50
+            },
+            "links": {
+                "concept_names": [
+                    "反比例函数"
+                ]
+            }
+        },
+        {
+            "id": "math_9b_rjb_ch26_s1_t106",
+            "stem": "如果 $y$ 是 $z$ 的反比例函数, $z$ 是 $x$ 的正比例函数, 且 $x \\neq 0$ , 那么 $y$ 与 $x$ 具有怎样的函数关系?",
+            "answer": "y与x成反比例函数关系（y = k/x，k≠0）",
+            "analysis": "由“y是z的反比例函数”得 y = a/z（a≠0）；由“z是x的正比例函数”得 z = bx（b≠0）。代入得 y = a/(bx) = (a/b)·1/x = k/x（k≠0），因此y与x成反比例函数关系。",
+            "difficulty": 2,
+            "type": "简答题",
+            "meta": {
+                "book_prefix": "math_9b_rjb",
+                "source_md": "ch26_s1.md",
+                "question_no_in_source": 7,
+                "global_no": 51
+            },
+            "links": {
+                "concept_names": [
+                    "反比例函数"
+                ]
+            }
+        },
+        {
+            "id": "math_9b_rjb_ch26_s1_t108",
+            "stem": "已知反比例函数 $y = \\frac{w - \\sqrt{2}}{x}$ 的图象的一支位于第一象限.\n\n（1）图象的另一支位于哪个象限？常数 $w$ 的取值范围是什么？\n\n（2）在这个函数图象上任取点 $A(x_{1},y_{1})$ 和 $B(x_{2},y_{2})$ 如果 $y_{1} > y_{2}$ ，那么 $x_{1}$ 与 $x_{2}$ 有怎样的大小关系？",
+            "answer": "（1）另一支在第三象限；w−√2>0，故w>√2。\n（2）y=\\frac{k}{x}(k=w−\\sqrt2>0)在x≠0时单调递减，因此若y1>y2，则x1<x2。",
+            "analysis": "设k=w−\\sqrt2，则函数为y=\\frac{k}{x}。反比例函数的两支所在象限由k的符号决定：k>0在第一、三象限；k<0在第二、四象限。题给“一支在第一象限”，故k>0，即w>\\sqrt2，另一支必在第三象限。又y=\\frac{k}{x}的导数为y'=-\\frac{k}{x^2}<0(x≠0)，在(0,+∞)与(-∞,0)上均单调递减，因此在其图象上若y1>y2，则对应x1<x2。",
+            "difficulty": 3,
+            "type": "简答题",
+            "meta": {
+                "book_prefix": "math_9b_rjb",
+                "source_md": "ch26_s1.md",
+                "question_no_in_source": 9,
+                "global_no": 52
+            },
+            "links": {
+                "concept_names": [
+                    "反比例函数",
+                    "反比例函数的图象",
+                    "反比例函数的性质（k>0）",
+                    "反比例函数的对称性"
+                ]
+            }
+        },
+        {
+            "id": "math_9b_rjb_ch26_s2_t110",
+            "stem": "红星粮库需要把晾晒场上的 1200t 玉米入库封存。\n\n（1）入库所需的时间 $d$ （单位：天）与入库平均速度 $v$ （单位：t/天）有怎样的函数关系？\n\n（2）已知粮库有职工 60 名，每天最多可入库 300t 玉米，预计玉米入库最快可在几天内完成？\n\n（3）粮库职工连续工作两天后，天气预报说未来几天会下雨，粮库决定次日把剩下的玉米全部入库，至少需要增加多少职工？",
+            "answer": "（1）d与v成反比例关系：v·d=1200，故d=1200/v（v>0）。\n（2）每天最多入库300t，最快时间d=1200÷300=4（天）。\n（3）两天后最多已入库2×300=600t，剩余600t需次日入库；60名职工对应300t/天，平均每人5t/天。完成600t需600÷5=120（名）职工，至少增加120-60=60（名）。",
+            "analysis": "（1）总量一定为1200t，入库量=速度×时间，所以v·d=1200，得d=1200/v。\n（2）在速度取最大300t/天时，用时最少：1200/300=4天。\n（3）按最大速度工作两天入库600t，剩600t；由60人/天最多300t得人均5t/天。要一天入库600t需120人，因此至少增加60人。",
+            "difficulty": 3,
+            "type": "应用题",
+            "meta": {
+                "book_prefix": "math_9b_rjb",
+                "source_md": "ch26_s2.md",
+                "question_no_in_source": 7,
+                "global_no": 53
+            },
+            "links": {
+                "concept_names": [
+                    "反比例函数"
+                ],
+                "skill_names": [
+                    "建立反比例函数模型解决问题"
+                ]
+            }
+        },
+        {
+            "id": "math_9b_rjb_ch26_s2_t112",
+            "stem": "某汽车油箱的容积为 $70 \\mathrm{~L}$ , 小王把油箱加满油后驾驶汽车从县城到 $300 \\mathrm{~km}$ 外的省城接客人, 接到客人后立即按原路返回. 请回答下列问题:\n\n（1）油箱加满油后，汽车行驶的总路程 $s$ （单位：km）与平均耗油量 $b$ （单位： $\\mathrm{L / km}$ ）有怎样的函数关系？  \n(2) 小王以平均每千米耗油 0.1 L 的速度驾驶汽车到达省城, 返程时由于下雨,小王降低了车速, 此时平均每千米的耗油量增加了一倍. 如果小王始终以此速度行驶, 不需加油能否回到县城? 如果不能, 至少还需加多少油?",
+            "answer": "（1）总耗油量为70 L，平均每千米耗油量为b(L/km)，总路程为s(km)，则 b·s=70，所以 s=70/b（b>0）。\n（2）去程300 km，耗油0.1×300=30 L，剩余70-30=40 L；返程耗油量为0.2 L/km，用40 L最多行驶40/0.2=200 km，不能回到县城；还差300-200=100 km，至少需加油0.2×100=20 L。",
+            "analysis": "（1）油箱加满为70 L，若平均耗油量为b(L/km)，行驶s(km)耗油为b·s。油刚好用完时b·s=70，得s=70/b（b>0）。\n（2）去省城300 km，耗油0.1 L/km：用油30 L，剩40 L。返程因耗油量加倍为0.2 L/km，用剩余40 L可行驶200 km，小于300 km，故不能回县城；缺少100 km，对应需油0.2×100=20 L。",
+            "difficulty": 3,
+            "type": "应用题",
+            "meta": {
+                "book_prefix": "math_9b_rjb",
+                "source_md": "ch26_s2.md",
+                "question_no_in_source": 9,
+                "global_no": 54
+            },
+            "links": {
+                "concept_names": [
+                    "反比例函数",
+                    "反比例关系"
+                ],
+                "skill_names": [
+                    "建立反比例函数模型解决问题"
+                ]
+            }
+        },
+        {
+            "id": "math_9b_rjb_ch26_s_26_t113",
+            "stem": "在反比例函数 $y = \\frac{k - 1}{x}$ 的图象的每一支上， $y$ 都随 $x$ 的增大而减小，求 $k$ 的取值范围.",
+            "answer": "k>1",
+            "analysis": "函数 y=(k-1)/x 记作 y=a/x，其中 a=k-1。其导数 y'=-a/x^2。因 x^2>0（x≠0），要使在每一支上 y 随 x 增大而减小，即 y'<0 恒成立，需要 -a<0，即 a>0。故 k-1>0，得到 k>1。",
+            "difficulty": 2,
+            "type": "填空题",
+            "meta": {
+                "book_prefix": "math_9b_rjb",
+                "source_md": "ch26_s复习题26.md",
+                "question_no_in_source": 5,
+                "global_no": 55
+            }
+        },
+        {
+            "id": "math_9b_rjb_ch26_s_26_t115",
+            "stem": "已知某品牌显示器的寿命大约为 $2\\times 10^{4}\\mathrm{h}$\n\n（1）这种显示器可工作的天数 $d$ 与平均每日工作的小时数 $t$ 之间具有怎样的函数关系？  \n(2)如果平均每天工作 $10 \\mathrm{~h}$ , 那么这种显示器大约可使用多长时间?",
+            "answer": "(1) 总寿命约为2×10^4 h，设可工作天数为d，平均每日工作小时数为t，则d·t=2×10^4，故d=2×10^4/t（t>0），d与t成反比例函数关系。\n(2) 当t=10 h/天时，d=2×10^4/10=2000天，约为2000/365≈5.48年（约5年半）。",
+            "analysis": "把“寿命2×10^4 h”理解为总可工作小时数。若每天平均工作t小时，共工作d天，则总小时数为d·t。由d·t=2×10^4得d=2×10^4/t，为反比例关系。代入t=10可得d=2000天，再按1年≈365天换算为约5.48年。",
+            "difficulty": 2,
+            "type": "应用题",
+            "meta": {
+                "book_prefix": "math_9b_rjb",
+                "source_md": "ch26_s复习题26.md",
+                "question_no_in_source": 7,
+                "global_no": 56
+            }
+        },
+        {
+            "id": "math_9b_rjb_ch26_s_26_t117",
+            "stem": "两个不同的反比例函数的图象能否相交？为什么？",
+            "answer": "不能相交。因为反比例函数为y=k/x（k≠0），若两条不同的反比例函数y=k1/x与y=k2/x相交，则存在x≠0使k1/x=k2/x，从而得k1=k2，与“不同”（k1≠k2）矛盾。",
+            "analysis": "设两函数分别为y=k1/x与y=k2/x（k1≠k2）。若有交点，则在交点处有k1/x=k2/x。由于x≠0，两边同乘x得k1=k2，矛盾，因此两图象不相交。",
+            "difficulty": 2,
+            "type": "简答题",
+            "meta": {
+                "book_prefix": "math_9b_rjb",
+                "source_md": "ch26_s复习题26.md",
+                "question_no_in_source": 9,
+                "global_no": 57
+            }
+        },
+        {
+            "id": "math_9b_rjb_ch26_s_26_t118",
+            "stem": "在同一直角坐标系中，若正比例函数 $y = k_{1}x$ 的图象与反比例函数 $y = \\frac{k_{2}}{x}$ 的图象没有交点，试确定 $k_{1}k_{2}$ 的取值范围.",
+            "answer": "k_{1}k_{2}<0",
+            "analysis": "两图象交点满足 k_{1}x=\\frac{k_{2}}{x}（x\\neq0），即 k_{1}x^{2}=k_{2}，从而 x^{2}=\\frac{k_{2}}{k_{1}}。要有实数解需 \\frac{k_{2}}{k_{1}}>0；题设“没有交点”则要求 \\frac{k_{2}}{k_{1}}<0（因反比例函数与正比例函数中参数均不为0），即 k_{1},k_{2}异号，故 k_{1}k_{2}<0。",
+            "difficulty": 3,
+            "type": "填空题",
+            "meta": {
+                "book_prefix": "math_9b_rjb",
+                "source_md": "ch26_s复习题26.md",
+                "question_no_in_source": 10,
+                "global_no": 58
+            }
+        },
+        {
+            "id": "math_9b_rjb_ch26_s_26_t119",
+            "stem": "市政府计划建设一项水利工程，工程需要运送的土石方总量为 $10^{6} \\mathrm{~m}^{3}$ ，某运输公司承担了运送土石方的任务.\n\n（1）运输公司平均运送速度 $v$ （单位： $\\mathrm{m}^3 /$ 天）与完成运送任务所需时间 $t$ （单位：天）之间具有怎样的函数关系？  \n（2）这个运输公司共有100辆卡车，每天可运送土石方 $10^{4}\\mathrm{m}^{3}$ ，公司完成全部运输任务需要多长时间？  \n（3）当公司以问题（2）中的速度工作了40天后，由于工程进度的需要，剩下的所有运输任务必须在50天内完成，公司至少应增加多少辆卡车？",
+            "answer": "（1）v与t成反比例关系：vt=10^6，故v=10^6/t（t>0）。\n（2）t=10^6÷10^4=100（天）。\n（3）40天已运4×10^5 m^3，剩6×10^5 m^3；需在50天完成，日均需6×10^5÷50=1.2×10^4 m^3/天。原来100辆对应1×10^4 m^3/天，则需120辆，至少增加20辆。",
+            "analysis": "（1）总土石方量固定为10^6 m^3，平均速度v与时间t满足“工作总量=速度×时间”，即vt=10^6，所以v=10^6/t，为反比例函数关系。\n（2）已知日运量为10^4 m^3/天，则完成时间t=10^6/10^4=100天。\n（3）前40天完成量为40×10^4=4×10^5，剩余为10^6−4×10^5=6×10^5；要求50天内完成，则所需日运量为6×10^5/50=1.2×10^4。原配置100辆对应1×10^4，按比例需120辆，因此需增加120−100=20辆。",
+            "difficulty": 3,
+            "type": "应用题",
+            "meta": {
+                "book_prefix": "math_9b_rjb",
+                "source_md": "ch26_s复习题26.md",
+                "question_no_in_source": 11,
+                "global_no": 59
+            }
+        },
+        {
+            "id": "math_9b_rjb_ch27_s1_t123",
+            "stem": "如果两个多边形仅有角分别相等，它们相似吗？如果仅有边成比例呢？若不一定相似，请举出反例。",
+            "answer": "不一定相似。仅有对应角分别相等：不一定相似，反例：矩形1×2与矩形1×3，四个角都为90°但边不成比例，所以不相似。仅有对应边成比例：也不一定相似，反例：正方形与菱形（取菱形边长与正方形相同，则对应边成比例为1:1，但菱形角不为90°，所以不相似）。",
+            "analysis": "多边形相似需要“对应角相等且对应边成比例”同时满足。对四边形及以上，仅满足其中一个条件都不能保证形状唯一确定：角全相等仍可能边比不同（如不同长宽比的矩形）；边比相同仍可能角不同（如正方形与非正方形的菱形）。因此两种情况都不一定相似。",
+            "difficulty": 3,
+            "type": "简答题",
+            "meta": {
+                "book_prefix": "math_9b_rjb",
+                "source_md": "ch27_s1.md",
+                "question_no_in_source": 7,
+                "global_no": 60
+            },
+            "links": {
+                "concept_names": [
+                    "相似图形"
+                ],
+                "skill_names": [
+                    "判断图形是否相似"
+                ]
+            }
+        },
+        {
+            "id": "math_9b_rjb_ch27_s_27_t136",
+            "stem": "某同学的座位到黑板的距离是 $6 \\mathrm{~m}$ , 老师在黑板上要写多大的字, 才能使这名同学看黑板上的字时, 与他看相距 $30 \\mathrm{~cm}$ 的教科书上的字的感觉相同 (教科书上的小四号字大小约为 $0.42 \\mathrm{~cm} \\times 0.42 \\mathrm{~cm})$ ?",
+            "answer": "黑板上的字大小约为 8.4 cm × 8.4 cm。",
+            "analysis": "要“看起来一样大”，需保持视角相同，即字的线性尺寸与观看距离成正比。教科书：距离30 cm，字边长0.42 cm；黑板：距离6 m=600 cm。放大倍数=600/30=20，因此黑板字边长=0.42×20=8.4 cm，约为8.4 cm×8.4 cm。",
+            "difficulty": 2,
+            "type": "应用题",
+            "meta": {
+                "book_prefix": "math_9b_rjb",
+                "source_md": "ch27_s复习题27.md",
+                "question_no_in_source": 6,
+                "global_no": 61
+            }
+        },
+        {
+            "id": "math_9b_rjb_ch28_s1_t147",
+            "stem": "在 $Rt\\triangle ABC$ 中， $\\angle C = 90^\\circ$ ， $\\angle A$ 的正弦、余弦之间有什么关系？（提示：利用锐角三角函数的定义及勾股定理。）",
+            "answer": "sin^2A+cos^2A=1",
+            "analysis": "在Rt△ABC中，∠C=90°，设AC、BC为直角边，AB为斜边。由定义：sinA=BC/AB，cosA=AC/AB。则sin^2A+cos^2A=(BC^2/AB^2)+(AC^2/AB^2)=(AC^2+BC^2)/AB^2。由勾股定理AC^2+BC^2=AB^2，所以sin^2A+cos^2A=1。",
+            "difficulty": 2,
+            "type": "简答题",
+            "meta": {
+                "book_prefix": "math_9b_rjb",
+                "source_md": "ch28_s1.md",
+                "question_no_in_source": 10,
+                "global_no": 62
+            },
+            "links": {
+                "concept_names": [
+                    "正弦",
+                    "余弦",
+                    "锐角三角函数"
+                ]
+            }
+        },
+        {
+            "id": "math_9b_rjb_ch28_s2_t148",
+            "stem": "在 Rt $\\triangle ABC$ 中， $\\angle C = 90^\\circ$\n\n（1）已知 $\\angle A$ ， $c$ ，写出解 $\\mathrm{Rt}\\triangle \\mathrm{ABC}$ 的过程；  \n(2)已知 $\\angle A$ ， $a$ ，写出解 $\\mathrm{Rt}\\triangle \\mathrm{ABC}$ 的过程；  \n（3）已知 $a, c$ ，写出解 $\\mathrm{Rt}\\triangle ABC$ 的过程",
+            "answer": "设Rt△ABC中∠C=90°，按常用记号：a=BC(对∠A)，b=AC(对∠B)，c=AB(斜边)。\n(1) 已知∠A、c：先求∠B=90°-∠A；由sinA=a/c得a=c·sinA；由cosA=b/c得b=c·cosA。\n(2) 已知∠A、a：先求∠B=90°-∠A；由sinA=a/c得c=a/sinA；再由tanA=a/b得b=a/tanA(或b=c·cosA)。\n(3) 已知a、c：由sinA=a/c求∠A=arcsin(a/c)；再求∠B=90°-∠A；由勾股定理b=√(c²-a²)。",
+            "analysis": "本题为直角三角形解三角。利用∠C=90°先得两锐角互余：B=90°-A；再根据已知边角选择三角函数关系（sinA=a/c，cosA=b/c，tanA=a/b）求未知边；若已知两边（a,c）则先由sinA=a/c求角，再用勾股定理b=√(c²-a²)求第三边。",
+            "difficulty": 3,
+            "type": "简答题",
+            "meta": {
+                "book_prefix": "math_9b_rjb",
+                "source_md": "ch28_s2.md",
+                "question_no_in_source": 6,
+                "global_no": 63
+            },
+            "links": {
+                "concept_names": [
+                    "解直角三角形",
+                    "直角三角形的五个元素",
+                    "锐角三角函数",
+                    "勾股定理",
+                    "两锐角互余"
+                ]
+            }
+        },
+        {
+            "id": "math_9b_rjb_ch28_s2_t151",
+            "stem": "为方便行人横过马路，打算修建一座高 $5 \\mathrm{~m}$ 的过街天桥。已知天桥的斜面坡度为 $1:1.5$ ，计算斜坡 $AB$ 的长度（结果取整数）。",
+            "answer": "9米",
+            "analysis": "坡度为1:1.5表示竖直上升1m对应水平前进1.5m。天桥高度为5m，则水平长度为5×1.5=7.5m。斜坡AB为直角三角形斜边，AB=√(5^2+7.5^2)=√(25+56.25)=√81.25≈9.01m，取整数为9m。",
+            "difficulty": 2,
+            "type": "应用题",
+            "meta": {
+                "book_prefix": "math_9b_rjb",
+                "source_md": "ch28_s2.md",
+                "question_no_in_source": 9,
+                "global_no": 64
+            },
+            "links": {
+                "concept_names": [
+                    "勾股定理"
+                ],
+                "skill_names": [
+                    "实际问题的几何抽象"
+                ]
+            }
+        },
+        {
+            "id": "math_9b_rjb_ch28_s2_t152",
+            "stem": "海中有一小岛 $P$ ，在以 $P$ 为圆心、半径为 $16\\sqrt{2}$ n mile 的圆形海域内有暗礁。一轮船自西向东航行，它在 $A$ 处时测得小岛 $P$ 位于北偏东 $60^{\\circ}$ 方向上，且 $A$ ， $P$ 之间的距离为 $32\\mathrm{~n~}$ mile。若轮船继续向正东方向航行，轮船有无触礁危险？请通过计算加以说明。如果有危险，轮船自 $A$ 处开始沿南偏东多少度的方向航行，能安全通过这一海域？",
+            "answer": "有触礁危险；若从A处改为沿“南偏东15°”方向航行，可安全通过该海域。",
+            "analysis": "设A为原点，取东为x轴正向、北为y轴正向。由“P在北偏东60°且AP=32”知，\\n∠(AP与正东)=90°−60°=30°，\\n故P的坐标为(x_P,y_P)=(32cos30°,32sin30°)=(16\\sqrt3,16)。\\n轮船若继续正东航行，其航线为y=0，到P的最短距离为|y_P|=16。暗礁危险半径r=16\\sqrt2，因16<16\\sqrt2，故正东航行会进入危险圆域，有触礁危险。\\n若从A改道使航线恰与以P为圆心、半径r的圆相切即可安全通过。由切线性质，在直角三角形(切点T)中有\\n\\nsin∠PAT = PT/AP = r/32 = (16\\sqrt2)/32 = \\sqrt2/2，\\n故∠PAT=45°。而AP与正东夹角为30°且P在正东之上，为使航线位于正东之下(南偏东)，需从AP向下转到切线：\\n30°+\\theta=45°，得\\theta=15°。\\n因此从A沿南偏东15°方向航行可与危险圆域相切并安全通过。",
+            "difficulty": 4,
+            "type": "应用题",
+            "meta": {
+                "book_prefix": "math_9b_rjb",
+                "source_md": "ch28_s2.md",
+                "question_no_in_source": 10,
+                "global_no": 65
+            },
+            "links": {
+                "concept_names": [
+                    "解直角三角形",
+                    "锐角三角函数",
+                    "勾股定理"
+                ],
+                "skill_names": [
+                    "实际问题的几何抽象"
+                ]
+            }
+        },
+        {
+            "id": "math_9b_rjb_ch28_s_28_t158",
+            "stem": "在 $\\square ABCD$ 中，已知 $AB$ 、$BC$ 及其夹角 $\\angle B$ （$\\angle B$ 是锐角），能求出 $\\square ABCD$ 的面积 $S$ 吗？如果能，用 $AB$ 、$BC$ 及其夹角 $\\angle B$ 表示 $S$ 。",
+            "answer": "能，S=AB·BC·sin∠B。",
+            "analysis": "平行四边形面积等于“底×高”。取AB为底，则高为从C向AB作垂线所得的高h。因为∠B为AB与BC的夹角，所以在以BC为斜边的直角三角形中，h=BC·sin∠B。故S=AB·h=AB·BC·sin∠B。",
+            "difficulty": 2,
+            "type": "简答题",
+            "meta": {
+                "book_prefix": "math_9b_rjb",
+                "source_md": "ch28_s复习题28.md",
+                "question_no_in_source": 12,
+                "global_no": 66
+            }
+        },
+        {
+            "id": "math_9b_rjb_ch29_s1_t162",
+            "stem": "一个圆锥的轴截面平行于投影面，圆锥的正投影是边长为 3 的等边三角形，求圆锥的体积和表面积。",
+            "answer": "半径r=3/2，高h=3√3/2，体积V=9√3π/8，表面积S=27π/4。",
+            "analysis": "圆锥的轴截面为等腰三角形，底边为直径2r，两腰为母线长l。题给正投影为边长3的等边三角形且轴截面平行投影面，可视为轴截面的真实形状：2r=3，l=3，得r=3/2。由l^2=r^2+h^2，h=√(9-(3/2)^2)=√(27/4)=3√3/2。体积V=(1/3)πr^2h=(1/3)π·(9/4)·(3√3/2)=9√3π/8。表面积S=侧面积+底面积=πrl+πr^2=π·(3/2)·3+π·(9/4)=27π/4。",
+            "difficulty": 3,
+            "type": "应用题",
+            "meta": {
+                "book_prefix": "math_9b_rjb",
+                "source_md": "ch29_s1.md",
+                "question_no_in_source": 4,
+                "global_no": 67
+            },
+            "links": {
+                "concept_names": [
+                    "投影面",
+                    "正投影"
+                ],
+                "skill_names": [
+                    "判断物体与投影面的空间位置关系"
+                ]
+            }
+        }
+    ]
+}

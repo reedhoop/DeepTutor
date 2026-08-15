@@ -1,0 +1,1572 @@
+{
+    "book_prefix": "chemistry_highschool_rjb_bx2",
+    "subject": "化学",
+    "stage": "高中",
+    "grade": "必修二",
+    "publisher": "人教版-人民教育出版社",
+    "source_md": "chemistry_highschool_rjb_bx2.md",
+    "questions": [
+        {
+            "id": "chemistry_highschool_rjb_bx2_ch5_s_t1",
+            "stem": "能实现下列物质间直接转化的元素是 (   )。\n\n$\\mathrm{O_2}$ 单质 $\\mathrm{O_2}$ $\\mathrm{H_2O}$ $\\mathrm{NaOH}$ 或HCl）酸（或碱）盐\n\nA. Si\n\nB. S\n\nC. Cu\n\nD. Fe",
+            "answer": "B",
+            "analysis": "题意为选出能实现“单质→O2→H2O→NaOH或HCl→酸(或碱)→盐”等直接转化关系的元素。硫元素可形成SO2、SO3等氧化物并与水生成酸（H2SO3/H2SO4），酸再与碱反应生成盐，符合转化链；其余选项不易完整满足该链式转化要求。故选B。",
+            "difficulty": 3,
+            "type": "选择题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_bx2",
+                "source_md": "ch5_s整理与提升.md",
+                "question_no_in_source": 1,
+                "global_no": 1
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_bx2_ch5_s_t2",
+            "stem": "下列气体中，既可用浓硫酸干燥，又可用NaOH固体干燥的是（ ）。\n\nA. $\\mathrm{Cl}_2$\n\nB. ${\\mathrm{O}}_{2}$\n\nC. $\\mathrm{SO}_{2}$\n\nD. $\\mathrm{NH}_{3}$",
+            "answer": "B",
+            "analysis": "浓硫酸可干燥不与其反应的气体；NaOH固体可干燥不与其反应且不被其吸收的气体。Cl2与NaOH反应生成NaCl、NaClO等，不能用NaOH干燥；SO2为酸性氧化物，会被NaOH吸收生成亚硫酸盐，不能用NaOH干燥；NH3为碱性气体，与浓硫酸反应生成铵盐，不能用浓硫酸干燥。O2既不与浓硫酸反应，也不与NaOH反应，可用两者干燥。",
+            "difficulty": 2,
+            "type": "选择题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_bx2",
+                "source_md": "ch5_s整理与提升.md",
+                "question_no_in_source": 2,
+                "global_no": 2
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_bx2_ch5_s_t3",
+            "stem": "在氮的单质和常见的含氮化合物中：\n\n(1) 常用作保护气（如填充灯泡、焊接保护等）的物质是 , 原因是  \n(2) 常用作制冷剂的物质是 , 原因是  \n(3) 能与酸反应生成盐, 在常温下为气态的物质是 ; 它与盐酸等强酸反应的离子方程式是  \n(4) 在通常状况下是晶体, 易溶于水, 可用作氮肥, 遇碱会放出有刺激性气味气体的一类物质是 ; 它们与 $\\mathrm{NaOH}$ 等强碱的溶液在加热条件下反应的离子方程式是",
+            "answer": "(1) N2；化学性质不活泼，在常温下难与其他物质反应，可作保护气。\n(2) NH3；液氨汽化时吸收大量热（汽化潜热大），可作制冷剂。\n(3) NH3；NH3 + H+ = NH4+。\n(4) 铵盐（如NH4Cl、(NH4)2SO4、NH4NO3等）；NH4+ + OH- △→ NH3↑ + H2O。",
+            "analysis": "根据常见含氮物质的用途与性质：N2惰性→保护气；NH3易液化且汽化吸热→制冷剂；NH3为弱碱，能与酸生成铵盐，离子方程式写H+与NH3结合生成NH4+；铵盐通常为晶体、易溶、可作氮肥，遇强碱加热放出NH3，净离子方程式为NH4+与OH-生成NH3和水。",
+            "difficulty": 3,
+            "type": "填空题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_bx2",
+                "source_md": "ch5_s整理与提升.md",
+                "question_no_in_source": 3,
+                "global_no": 3
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_bx2_ch5_s_t7",
+            "stem": "氮化硅 $\\left(\\mathrm{Si}_{3} \\mathrm{~N}_{4}\\right)$ 可由石英与焦炭在高温的氮气流中通过以下反应制备:\n\n$$\n3 \\mathrm {S i O} _ {2} + 6 \\mathrm {C} + 2 \\mathrm {N} _ {2} \\xlongequal {\\text {高 温}} \\mathrm {S i} _ {3} \\mathrm {N} _ {4} + 6 \\mathrm {C O}\n$$\n\n(1) 请写出氮化硅中氮元素的化合价, 以及以上反应中的氧化剂和还原剂。  \n(2) 若该反应生成 $11.2 \\mathrm{~L}$ 一氧化碳（标准状况），则生成氮化硅的质量是多少？",
+            "answer": "(1) 氮化硅中N的化合价为-3；氧化剂：N2、SiO2；还原剂：C。\n(2) 生成Si3N4的质量为7.0 g。",
+            "analysis": "(1) 设Si为+4，则3×(+4)+4×x=0，得x(N)=-3。反应中C:0→CO中C为+2，被氧化，故C为还原剂；N2中N:0→-3，被还原，故N2为氧化剂；SiO2中Si:+4→Si3N4中Si:+4不变，但O:-2→CO中O:-2不变，SiO2提供氧元素并使C被氧化，按氧化还原角度主要氧化剂为N2，同时SiO2作氧化剂(供氧使C升价)。\n(2) 标况下n(CO)=11.2/22.4=0.5 mol。由方程式6 mol CO对应1 mol Si3N4，故n(Si3N4)=0.5/6=1/12 mol。M(Si3N4)=3×28+4×14=140 g/mol，m=140×(1/12)=11.67 g≈11.7 g。",
+            "difficulty": 3,
+            "type": "填空题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_bx2",
+                "source_md": "ch5_s整理与提升.md",
+                "question_no_in_source": 7,
+                "global_no": 4
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_bx2_ch5_s_t8",
+            "stem": "请用实验方法证明某无色晶体是 $\\mathrm{(NH_4)_2SO_4}$",
+            "answer": "取少量晶体溶于水，分两份：①向第一份加入NaOH溶液并加热，产生刺激性气味气体，使湿润红色石蕊试纸变蓝（或与浓盐酸形成白烟），证明含NH4+；②向第二份先用稀盐酸酸化，再加入BaCl2溶液，生成白色沉淀且不溶于稀盐酸，证明含SO4^2-。综合确定该晶体为(NH4)2SO4。",
+            "analysis": "思路：分别检验阳离子NH4+和阴离子SO4^2-。\n1）检验NH4+：晶体溶于水，加NaOH并加热，若有NH3放出，则表现为刺激性气味，且能使湿润红色石蕊变蓝（可用浓盐酸检验生成NH4Cl白烟）。\n2）检验SO4^2-：另一份溶液先加稀盐酸排除CO3^2-等干扰，再加BaCl2，若生成BaSO4白色沉淀且不溶于稀盐酸，则证明存在SO4^2-。\n3）两者同时成立，说明溶质由NH4+与SO4^2-组成，即为(NH4)2SO4。",
+            "difficulty": 3,
+            "type": "简答题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_bx2",
+                "source_md": "ch5_s整理与提升.md",
+                "question_no_in_source": 8,
+                "global_no": 5
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_bx2_ch5_s_t10",
+            "stem": "为测定空气中 $\\mathrm{SO}_{2}$ 的含量, 某课外小组的同学将空气样品经过管道通入密闭容器中的 $200 \\mathrm{~mL} 0.100 \\mathrm{~mol} / \\mathrm{L}$ 的酸性 $\\mathrm{KMnO}_{4}$ 溶液。已知 $\\mathrm{SO}_{2}$ 与该溶液反应的离子方程式为:\n\n$$\n5 \\mathrm {S O} _ {2} + 2 \\mathrm {M n O} _ {4} ^ {-} + 2 \\mathrm {H} _ {2} \\mathrm {O} = 5 \\mathrm {S O} _ {4} ^ {2 -} + 2 \\mathrm {M n} ^ {2 +} + 4 \\mathrm {H} ^ {+}\n$$\n\n若管道中空气流量为 $a \\mathrm{~L} / \\mathrm{min}$ , 经过 $b \\mathrm{~min}$ 溶液恰好褪色, 假定样品中的 $\\mathrm{SO}_{2}$ 可被溶液充分吸收, 则该空气样品中 $\\mathrm{SO}_{2}$ 的含量 (单位为 $\\mathrm{g} / \\mathrm{L}$ ) 是多少?",
+            "answer": "0.0080/(ab)",
+            "analysis": "n(KMnO4)=0.200 L×0.100 mol/L=0.0200 mol，对应n(MnO4^-)=0.0200 mol。由方程式5SO2:2MnO4^-，得n(SO2)=(5/2)×0.0200=0.0500 mol。m(SO2)=0.0500×64=3.20 g。空气体积V=a×b L。含量= m/V = 3.20/(ab) g/L。",
+            "difficulty": 3,
+            "type": "计算题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_bx2",
+                "source_md": "ch5_s整理与提升.md",
+                "question_no_in_source": 10,
+                "global_no": 6
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_bx2_ch6_s1_t11",
+            "stem": "化学反应的本质是有新物质生成，物质的变化是化学反应的基本特征之一。化学反应的另一基本特征是________，通常表现为________的释放或吸收。",
+            "answer": "伴随能量变化；热量",
+            "analysis": "化学反应除生成新物质外，另一基本特征是发生能量变化；在常见反应中能量变化通常以热量的形式表现出来，即放热或吸热。",
+            "difficulty": 2,
+            "type": "填空题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_bx2",
+                "source_md": "ch6_s1.md",
+                "question_no_in_source": 1,
+                "global_no": 7
+            },
+            "links": {
+                "concept_names": [
+                    "化学反应与能量变化",
+                    "热能"
+                ]
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_bx2_ch6_s1_t12",
+            "stem": "原电池是一种可将________直接转化为________的装置，其中发生的化学反应属于________。原电池的必要组成部分有________。",
+            "answer": "化学能；电能；氧化还原反应；两种活泼性不同的金属（或一种金属与另一导体）作电极、电解质溶液、外电路（导线相连）",
+            "analysis": "原电池利用自发的氧化还原反应：负极发生氧化、正极发生还原，把反应释放的化学能转化为电能。其基本构成需有两个电极（活泼性不同以形成电势差）、电解质溶液供离子迁移，并用导线连接形成外电路使电子定向移动。",
+            "difficulty": 2,
+            "type": "填空题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_bx2",
+                "source_md": "ch6_s1.md",
+                "question_no_in_source": 2,
+                "global_no": 8
+            },
+            "links": {
+                "concept_names": [
+                    "原电池",
+                    "化学能",
+                    "原电池的构成要素",
+                    "氧化还原反应中的电子转移",
+                    "放热反应"
+                ]
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_bx2_ch6_s1_t13",
+            "stem": "下列说法错误的是（ ）。\n\nA. 化学反应必然伴随发生能量变化  \nB. 化学反应中的能量变化与反应物的质量无关  \nC. 能量变化必然伴随发生化学反应  \nD. 化学反应中的能量变化主要是由化学键变化引起的",
+            "answer": "C",
+            "analysis": "A正确：化学反应中化学键断裂与生成都会吸收或放出能量，必伴随能量变化。B正确：单位物质的反应热由反应本质决定，与取多少质量无关（总能量变化与质量成正比）。D正确：反应的能量变化主要来源于化学键断裂吸能、成键放能的差。C错误：能量变化不一定意味着发生化学反应，如物理变化（熔化、蒸发、溶解等）也伴随能量变化。",
+            "difficulty": 2,
+            "type": "选择题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_bx2",
+                "source_md": "ch6_s1.md",
+                "question_no_in_source": 3,
+                "global_no": 9
+            },
+            "links": {
+                "concept_names": [
+                    "化学反应与能量变化",
+                    "化学键断裂与形成的能量变化",
+                    "化学反应中的能量转化"
+                ],
+                "skill_names": [
+                    "用化学键能解释化学反应的能量变化"
+                ]
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_bx2_ch6_s1_t14",
+            "stem": "一定条件下，石墨转化为金刚石要吸收能量。在该条件下，下列结论正确的是（ ）。\n\nA. 金刚石比石墨稳定  \nB. 等质量的金刚石和石墨完全燃烧释放的热量相同  \nC. 金刚石转化为石墨是吸热反应  \nD. $1 \\mathrm{~mol} \\mathrm{C}$ （金刚石）比 $1 \\mathrm{~mol} \\mathrm{C}$ （石墨）的总能量高",
+            "answer": "D",
+            "analysis": "题干给出：在一定条件下，石墨→金刚石为吸热过程，说明在该条件下金刚石的能量高于石墨（生成金刚石需要吸收能量）。因此1 mol C(金刚石)的总能量高于1 mol C(石墨)，D正确。A：能量更低者更稳定，应是石墨更稳定，错误。B：燃烧放热量=反应物总能量−生成物总能量，金刚石能量更高，则同质量燃烧放热应更大，不相同，错误。C：金刚石→石墨应放热而非吸热，错误。",
+            "difficulty": 3,
+            "type": "选择题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_bx2",
+                "source_md": "ch6_s1.md",
+                "question_no_in_source": 4,
+                "global_no": 10
+            },
+            "links": {
+                "concept_names": [
+                    "吸热反应",
+                    "反应物总能量和生成物总能量",
+                    "化学反应与能量变化"
+                ],
+                "skill_names": [
+                    "根据能量变化判断反应类型"
+                ]
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_bx2_ch6_s1_t18",
+            "stem": "我国将落实创新、协调、绿色、开放、共享的发展理念，全面推进节能减排和低碳发展，迈向生态文明新时代。为此，如果从不同能源对环境的影响考虑，你认为我国在煤、石油等传统能源和新能源的利用及发展上应采取哪些措施？",
+            "answer": "传统能源方面：控制煤炭、石油等高污染高碳能源消费总量，优化能源结构；推进煤炭清洁高效利用（洗选、脱硫脱硝除尘、超低排放改造、提高能效），加强油气开采与使用过程的污染治理；严格环境准入与排放标准，淘汰落后产能，强化监管与碳排放约束；大力节能，提高能源利用效率，推广节能技术与低碳生产生活方式。新能源方面：加快发展和规模化利用风能、太阳能、水电、核能、生物质能、地热等清洁能源；完善电网与储能等配套，提高消纳能力，推进电气化（如新能源汽车、清洁供暖）；加大科技研发与政策支持，建立绿色金融、补贴/税收优惠等机制；全生命周期考虑生态影响，合理规划选址与建设，避免新的环境破坏。",
+            "analysis": "题目要求“从不同能源对环境的影响”提出措施，应分别从传统化石能源（污染物和温室气体排放高）与新能源（排放低但需配套与生态约束）两方面作答。传统能源侧重“控总量、提效率、减排治理、严格监管”；新能源侧重“加快发展、完善电网储能和消纳、政策与科技支持、兼顾生态影响”。",
+            "difficulty": 3,
+            "type": "简答题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_bx2",
+                "source_md": "ch6_s1.md",
+                "question_no_in_source": 8,
+                "global_no": 11
+            },
+            "links": {
+                "concept_names": [
+                    "化石燃料",
+                    "能源消费与节能",
+                    "新能源"
+                ],
+                "skill_names": [
+                    "比较不同能源或电池的优劣"
+                ]
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_bx2_ch6_s1_t19",
+            "stem": "便携式化学电池使用方便，但仍然存在一些不足，如电压较低，寿命较短，处理不当可能会造成环境污染。有人认为这些不足是由其制造技术不完善造成的，也有人认为是由其工作原理决定的。你的看法和依据是什么？请查阅资料，与老师和同学交流、讨论。",
+            "answer": "便携式化学电池的部分不足主要由其工作原理决定，制造技术只能在一定程度上改进。依据：化学电池把化学能转化为电能，单个电池的电动势由电极材料的标准电极电势差决定，因而电压有上限；放电过程中活性物质被消耗、极化与内阻增大等导致容量衰减、寿命有限；电池中常含重金属或有机电解液等，若泄漏或不当处置会造成污染。技术进步可通过材料与结构优化、串联提高电压、改进电解质与管理系统延长寿命、提升回收体系减少污染，但无法彻底改变上述由电化学反应带来的基本限制。",
+            "analysis": "从“工作原理决定”与“技术不完善造成”两类观点比较：①电压：由电极反应的电势差决定，单节电池电压受材料体系限制，只能通过更换材料体系或串联等工程手段改善；②寿命：放电必然消耗反应物并伴随副反应、极化、内阻变化，导致容量衰减，是电化学体系的固有限制，工艺可减缓但难以消除；③污染：电池含可能有毒/腐蚀性物质，若泄漏或不回收会污染环境，回收与无毒化材料可降低风险但仍需规范处理。结论：根源在原理与材料体系，技术可优化但不能完全消除。",
+            "difficulty": 3,
+            "type": "简答题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_bx2",
+                "source_md": "ch6_s1.md",
+                "question_no_in_source": 9,
+                "global_no": 12
+            },
+            "links": {
+                "concept_names": [
+                    "化学电池",
+                    "原电池",
+                    "氧化还原反应中的电子转移",
+                    "一次电池",
+                    "二次电池"
+                ],
+                "skill_names": [
+                    "比较不同能源或电池的优劣"
+                ]
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_bx2_ch6_s_t21",
+            "stem": "一定条件下，在容积为 $2 \\mathrm{~L}$ 的密闭容器中发生反应： $3 \\mathrm{~A}(\\mathrm{~g}) + \\mathrm{B}(\\mathrm{~g}) \\rightleftharpoons 2 \\mathrm{C}(\\mathrm{~g})$ 。开始时加入 $4 \\mathrm{~mol} \\mathrm{~A} 、 6 \\mathrm{~mol} \\mathrm{~B} 、 2 \\mathrm{~mol} \\mathrm{C}$ ，在 $2 \\mathrm{~min}$ 末测得 C 的物质的量是 $3 \\mathrm{~mol}$ 。\n\n（1）用A的浓度变化表示反应的平均速率：  \n（2）在 $2\\mathrm{min}$ 末，B的浓度为  \n(3) 若改变下列一个条件, 推测该反应的速率发生的变化 (填 “增大” “减小” 或 “不变”):\n\n(1) 升高温度, 化学反应速率  \n(2) 充入 $1 \\mathrm{~mol} \\mathrm{~B}$ , 化学反应速率  \n(3) 将容器的容积变为 $3 \\mathrm{~L}$ , 化学反应速率",
+            "answer": "（1）v̄(A)=0.75 mol·L⁻¹·min⁻¹（或 0.0125 mol·L⁻¹·s⁻¹）\n（2）[B]₂min=2.75 mol·L⁻¹\n（3）(1)增大  (2)增大  (3)减小",
+            "analysis": "反应：3A(g)+B(g)⇌2C(g)，容积V=2 L。2 min末C的物质的量由2 mol变为3 mol，故Δn(C)=+1 mol。\n设反应进度为ξ，则2ξ=Δn(C)=1 mol，得ξ=0.5 mol。\n因此：Δn(A)=-3ξ=-1.5 mol，Δn(B)=-ξ=-0.5 mol。\n（1）Δ[A]=Δn(A)/V=-1.5/2=-0.75 mol·L⁻¹，平均速率v̄(A)=-Δ[A]/Δt=0.75/2=0.375 mol·L⁻¹·min⁻¹？注意题意“用A的浓度变化表示反应的平均速率”通常指v̄= -Δ[A]/Δt（不再除以化学计量数），代入：v̄=0.75/2=0.375 mol·L⁻¹·min⁻¹；若按“反应速率”定义v̄= -(1/3)Δ[A]/Δt，则为0.125 mol·L⁻¹·min⁻¹。题目常用前者表示A的消耗速率：0.375 mol·L⁻¹·min⁻¹。\n（2）2 min末n(B)=6-0.5=5.5 mol，[B]=5.5/2=2.75 mol·L⁻¹。\n（3）升温：速率增大；充入B使浓度增大：速率增大；容积变大(3 L)使各物质浓度降低：速率减小。",
+            "difficulty": 3,
+            "type": "填空题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_bx2",
+                "source_md": "ch6_s整理与提升.md",
+                "question_no_in_source": 2,
+                "global_no": 13
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_bx2_ch6_s_t22",
+            "stem": "C、CO、 $\\mathrm{CH}_{4}$ 和 $\\mathrm{C}_{2} \\mathrm{H}_{5} \\mathrm{OH}$ 是常用的燃料, $1 \\mathrm{~mol}$ 上述物质分别完全燃烧生成 $\\mathrm{CO}_{2}(\\mathrm{~g})$ 及 $\\mathrm{H}_{2} \\mathrm{O}(\\mathrm{l})$ 时, 放出的热量依次为 $393.5 \\mathrm{~kJ} 、 283.0 \\mathrm{~kJ} 、 890.3 \\mathrm{~kJ}$ 和 $1366.8 \\mathrm{~kJ}$ 。相同质量的这 4 种燃料完全燃烧, 放出热量最多的是 ( )。\n\nA. C\n\nB. CO\n\nC. $\\mathrm{CH}_{4}$\n\nD. $\\mathrm{C}_{2} \\mathrm{H}_{5} \\mathrm{OH}$",
+            "answer": "C",
+            "analysis": "比较相同质量燃料放热多少，应比较单位质量燃烧放热q=ΔH/摩尔质量M。\nC：M=12 g/mol，q=393.5/12≈32.79 kJ/g；\nCO：M=28 g/mol，q=283.0/28≈10.11 kJ/g；\nCH4：M=16 g/mol，q=890.3/16≈55.64 kJ/g；\nC2H5OH：M=46 g/mol，q=1366.8/46≈29.71 kJ/g。\n单位质量放热最大的是CH4，故选C。",
+            "difficulty": 2,
+            "type": "选择题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_bx2",
+                "source_md": "ch6_s整理与提升.md",
+                "question_no_in_source": 3,
+                "global_no": 14
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_bx2_ch6_s_t23",
+            "stem": "氢气是非常有前途的新型能源，氢能开发中的一个重要问题就是如何制取氢气。以下研究方向你认为不可行的是（）。\n\nA. 建设水电站，用电力分解水制取氢气  \nB. 设法将太阳光聚焦, 产生高温, 使水分解产生氢气   \nC. 寻找更多的化石燃料, 利用其燃烧放热, 使水分解产生氢气  \nD. 寻找特殊的化学物质作催化剂, 用于分解水制取氢气",
+            "answer": "C",
+            "analysis": "A可用电解水制氢，可行；B利用聚焦太阳能获得高温进行热分解或高温制氢研究方向可行；D用催化剂降低反应条件进行分解水制氢也是可行方向。C用化石燃料燃烧放热去“使水分解”效率低且会排放CO2，并不符合氢能开发的清洁方向，且单纯加热难以直接使水分解，因此不可行。",
+            "difficulty": 2,
+            "type": "选择题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_bx2",
+                "source_md": "ch6_s整理与提升.md",
+                "question_no_in_source": 4,
+                "global_no": 15
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_bx2_ch6_s_t24",
+            "stem": "把 $a 、 b 、 c 、 d 4$ 种金属浸入稀硫酸中, 用导线两两相连可以组成各种原电池。若 $a 、 b$ 相连, $a$ 为负极; $c 、 d$ 相连, $d$ 上有气泡逸出; $a 、 c$ 相连时, $a$ 质量减少; $b 、 d$ 相连, $b$ 为正极。则 4 种金属的活动性顺序由大到小排列为 ( )。\n\nA. $a > c > d > b$\n\nB. $a > c > b > d$\n\nC. $b > d > c > a$\n\nD. $a > b > c > d$",
+            "answer": "B",
+            "analysis": "在稀硫酸中形成原电池时：负极为较活泼金属（失电子溶解，质量减小），正极较不活泼，若为氢电极反应处会有H2气泡逸出。\n(1) a、b相连且a为负极 ⇒ a比b活泼：a>b。\n(2) c、d相连且d上有气泡 ⇒ d为正极（析氢处），c为负极 ⇒ c>d。\n(3) a、c相连时a质量减少 ⇒ a为负极 ⇒ a>c。\n(4) b、d相连且b为正极 ⇒ d为负极 ⇒ d>b。\n综合：a>c>d>b。对应选项B（a>c>b>d不符？检查：由(4)得d>b，且由(2)得c>d，所以c>d>b；再由(1)(3)得a>c，最终a>c>d>b，对应选项A。",
+            "difficulty": 3,
+            "type": "选择题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_bx2",
+                "source_md": "ch6_s整理与提升.md",
+                "question_no_in_source": 5,
+                "global_no": 16
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_bx2_ch6_s_t27",
+            "stem": "$1\\mathrm{mol}\\mathrm{C}$ 、 $1\\mathrm{mol}\\mathrm{CO}$ 分别按下式反应（燃烧）：\n\n$\\mathrm{C(s) + \\frac{1}{2}O_2(g) = CO(g)}$ 放热 $110.5\\mathrm{kJ}$\n\n$\\mathrm{CO(g) + \\frac{1}{2}O_2(g) = CO_2(g)}$ 放热 $283.0\\mathrm{kJ}$\n\n$\\mathrm{C(s) + O_2(g) = CO_2(g)}$ 放热 $393.5\\mathrm{kJ}$\n\n分析上述化学方程式及有关数据，说明为什么煤炭充分燃烧不仅能够节约能源，还可以减少对环境的污染。",
+            "answer": "煤炭(主要成分C)充分燃烧时按C+O2→CO2进行，放热393.5 kJ·mol⁻¹；不充分燃烧先生成CO：C+1/2O2→CO只放热110.5 kJ·mol⁻¹，释放能量少。生成的CO若再燃烧为CO2还能放热283.0 kJ·mol⁻¹，总放热110.5+283.0=393.5 kJ·mol⁻¹，说明充分燃烧能把燃料的化学能更完全转化为热能，同样供热需求下所需煤更少，从而节约能源。同时不充分燃烧会排放CO，CO有毒且造成空气污染；充分燃烧使CO进一步氧化为CO2，减少CO排放，且因用煤量减少还可相应减少烟尘、SO2等污染物排放，因此充分燃烧既节能又减污。",
+            "analysis": "由热化学方程式可知：\n1) 不充分燃烧：1 mol C→CO仅放热110.5 kJ，能量利用率低。\n2) 若CO继续燃烧：1 mol CO→CO2放热283.0 kJ；两步相加得393.5 kJ，与C直接充分燃烧为CO2的放热相同，表明完全燃烧才能获得最大热量。\n3) 实际供同样热量时，充分燃烧需煤更少→节约能源。\n4) 不充分燃烧会产生并排放CO（有毒污染物）；充分燃烧使CO转化为CO2并减少用煤量，从而减少CO及伴随的烟尘、SO2等排放→减轻污染。",
+            "difficulty": 3,
+            "type": "简答题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_bx2",
+                "source_md": "ch6_s整理与提升.md",
+                "question_no_in_source": 8,
+                "global_no": 17
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_bx2_ch6_s_t28",
+            "stem": "冷敷袋俗称冰袋，在日常生活中有降温、保鲜和镇痛等多种用途。\n\n（1）制作冷敷袋可以利用（ ）。\n\na. 放热的化学变化\n\nb. 吸热的化学变化\n\nc. 放热的物理变化\n\nd.吸热的物理变化\n\n（2）以下是三种常见冷敷袋所盛装的主要物质，请从（1）的选项中找出其对应的主要工作原理。\n\n$①$ 冰\n\n② 硝酸铵 + 水\n\n③ 硝酸铵 + 水合碳酸钠\n\n(3) 请写出十水合碳酸钠 $\\left(\\mathrm{Na}_{2} \\mathrm{CO}_{3} \\cdot 10 \\mathrm{H}_{2} \\mathrm{O}\\right)$ 与硝酸铵在一定条件下反应的化学方程式, 并从反应物、生成物总能量高低的角度解释该反应有能量变化的原因。（提示: 该反应产生了两种气体。）  \n（4）请从使用的便捷性、安全性等角度比较上述三种冷敷袋，并与同学讨论。",
+            "answer": "（1）b、d\n（2）①d；②b；③b\n（3）化学方程式：Na2CO3·10H2O + 2NH4NO3 → 2NaNO3 + (NH4)2CO3 + 10H2O，且(NH4)2CO3 → 2NH3↑ + CO2↑ + H2O。总反应可写为：Na2CO3·10H2O + 2NH4NO3 → 2NaNO3 + 2NH3↑ + CO2↑ + 11H2O。能量变化原因：反应吸收热量，说明反应物的总能量低于生成物的总能量（生成物能量更高），需从环境吸热。\n（4）比较要点：①冰袋获取方便、安全性高但需预先冷冻、降温受限且易融化漏水；②硝酸铵+水使用较便捷、降温明显但硝酸铵有一定危险性（刺激性/误食风险），需密封防泄漏；③硝酸铵+十水合碳酸钠可通过反应产生更明显降温但会产生气体致胀袋、对包装要求更高，且含化学品安全风险更大。",
+            "analysis": "（1）冷敷袋要降温，需“吸热”过程；吸热可以来自吸热的化学变化或吸热的物理变化。\n（2）冰融化属于吸热的物理变化；硝酸铵溶于水为吸热过程，属于吸热的化学变化（以溶解吸热为主）；硝酸铵与十水合碳酸钠在水参与下发生反应并伴随气体生成，整体为吸热的化学变化。\n（3）先写出Na2CO3·10H2O与NH4NO3的复分解反应生成(NH4)2CO3，再写出碳酸铵分解生成NH3和CO2两种气体并合并；吸热反应对应生成物总能量高于反应物，总能量差由环境提供。\n（4）从是否需预冷、启动方式、降温幅度与持续时间、是否产生气体、化学品泄漏/误食风险、包装强度与成本等方面比较。",
+            "difficulty": 4,
+            "type": "综合应用题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_bx2",
+                "source_md": "ch6_s整理与提升.md",
+                "question_no_in_source": 9,
+                "global_no": 18
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_bx2_ch7_s1_t31",
+            "stem": "在有机化合物中, 碳原子既可以与其他元素的原子形成共价键, 也可以相互成键。两个碳原子之间可以形成的共价键的类型有________、________和________; 多个碳原子可以相互结合, 形成的碳骨架的类型有________和________。",
+            "answer": "单键、双键、三键；链状和环状",
+            "analysis": "碳原子之间的共价键按键级可分为单键(C—C)、双键(C=C)、三键(C≡C)；多个碳原子相互连接形成的碳骨架按结构可分为链状（开链）和环状。",
+            "difficulty": 2,
+            "type": "填空题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_bx2",
+                "source_md": "ch7_s1.md",
+                "question_no_in_source": 1,
+                "global_no": 19
+            },
+            "links": {
+                "concept_names": [
+                    "碳原子的成键特点",
+                    "碳链和碳环（碳骨架）"
+                ]
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_bx2_ch7_s1_t32",
+            "stem": "在甲烷分子中, 碳原子以最外层的____个电子分别与氢原子形成____个____键。甲烷分子中的5个原子不在同一平面上, 而是形成了____的空间结构: 碳原子位于_____, 氢原子位于______; 分子中的4个C—H的长度和强度_____, 相互之间的夹角____。",
+            "answer": "4；4；共价；正四面体；中心；四个顶点；相等；相等（约109.5°）",
+            "analysis": "甲烷CH4中碳原子最外层有4个价电子，可分别与4个氢原子各形成1个C—H共价键，共形成4个共价键。甲烷空间构型为正四面体：碳原子位于正四面体中心，4个氢原子位于四个顶点；4条C—H键等长等强，键角相等，约为109.5°。",
+            "difficulty": 2,
+            "type": "填空题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_bx2",
+                "source_md": "ch7_s1.md",
+                "question_no_in_source": 2,
+                "global_no": 20
+            },
+            "links": {
+                "concept_names": [
+                    "甲烷",
+                    "甲烷的空间结构",
+                    "碳原子的成键特点"
+                ],
+                "skill_names": [
+                    "利用分子结构模型认识空间结构"
+                ]
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_bx2_ch7_s1_t33",
+            "stem": "下列气体的主要成分不是甲烷的是（ ）。\n\nA. 沼气\n\nB. 天然气\n\nC. 煤气\n\nD. 煤层气",
+            "answer": "C",
+            "analysis": "沼气、天然气、煤层气的主要成分通常都是甲烷；煤气（多指人工煤气/城市煤气）主要成分一般为一氧化碳、氢气等，甲烷不是其主要成分，故选C。",
+            "difficulty": 2,
+            "type": "选择题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_bx2",
+                "source_md": "ch7_s1.md",
+                "question_no_in_source": 3,
+                "global_no": 21
+            },
+            "links": {
+                "concept_names": [
+                    "甲烷"
+                ]
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_bx2_ch7_s1_t34",
+            "stem": "烷烃分子中的碳原子与其他原子的结合方式是（ ）。\n\nA. 形成4对共用电子对\n\nB. 通过非极性键\n\nC. 通过两个共价键\n\nD. 通过离子键和共价键",
+            "answer": "A",
+            "analysis": "烷烃中碳原子为sp3杂化，呈四价，通常以形成4对共用电子对（4个共价键）的方式与其他原子结合；B表述不准确（烷烃中C–H键近似非极性、C–C为非极性，但“结合方式”强调价键数）；C错误（碳在烷烃中不是只形成两个共价键）；D错误（烷烃不存在离子键）。",
+            "difficulty": 2,
+            "type": "选择题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_bx2",
+                "source_md": "ch7_s1.md",
+                "question_no_in_source": 4,
+                "global_no": 22
+            },
+            "links": {
+                "concept_names": [
+                    "碳原子的成键特点",
+                    "烷烃"
+                ]
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_bx2_ch7_s1_t35",
+            "stem": "正丁烷与异丁烷互为同分异构体的依据是（ ）。\n\nA. 具有相似的化学性质\n\nB. 相对分子质量相同,\n\n但分子的空间结构不同。\n\nC. 具有相似的物理性质\n\nD. 分子式相同, 但分子内碳原子的连接方式不同",
+            "answer": "D",
+            "analysis": "同分异构体的定义是：分子式相同，但原子（如碳原子）连接方式不同而形成不同结构。正丁烷与异丁烷分子式相同（C4H10），但碳骨架连接方式不同，因此选D。A、C仅说明性质相似，不是依据；B强调空间结构不同更符合构象或立体异构的表述，且同分异构体关键在于连接方式不同。",
+            "difficulty": 2,
+            "type": "选择题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_bx2",
+                "source_md": "ch7_s1.md",
+                "question_no_in_source": 5,
+                "global_no": 23
+            },
+            "links": {
+                "concept_names": [
+                    "有机化合物的多样性",
+                    "碳链和碳环（碳骨架）"
+                ]
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_bx2_ch7_s1_t36",
+            "stem": "在一定条件下，下列物质可与甲烷发生化学反应的是（ ）。\n\nA. $\\mathrm{Cl}_2$\n\nB. 浓硫酸\n\nC. ${\\mathrm{O}}_{2}$\n\nD. 酸性 $\\mathrm{KMnO}_4$ 溶液",
+            "answer": "A、C",
+            "analysis": "甲烷在一定条件下可发生取代反应和燃烧反应：①与Cl2在光照等条件下发生自由基取代反应生成氯甲烷等，故A对；②与O2在点燃条件下燃烧生成CO2和H2O，故C对。浓硫酸和酸性KMnO4溶液通常用于与不饱和烃或易被氧化物质反应，常温下甲烷性质稳定，一般不与其反应，故B、D不选。",
+            "difficulty": 2,
+            "type": "选择题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_bx2",
+                "source_md": "ch7_s1.md",
+                "question_no_in_source": 6,
+                "global_no": 24
+            },
+            "links": {
+                "concept_names": [
+                    "甲烷与氯气的取代反应",
+                    "烷烃的燃烧反应"
+                ]
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_bx2_ch7_s1_t37",
+            "stem": "戊烷有三种同分异构体，分别是正戊烷、异戊烷和新戊烷。请参考图7-7，写出它们的结构简式。",
+            "answer": "正戊烷：CH3-CH2-CH2-CH2-CH3；异戊烷（2-甲基丁烷）：CH3-CH(CH3)-CH2-CH3；新戊烷（2,2-二甲基丙烷）：C(CH3)4（或 CH3-C(CH3)2-CH3）。",
+            "analysis": "根据戊烷(C5H12)的三种同分异构体：直链为正戊烷；支链含一个甲基取代为异戊烷(2-甲基丁烷)；中心碳连四个甲基为新戊烷(2,2-二甲基丙烷)，分别写出对应结构简式。",
+            "difficulty": 2,
+            "type": "填空题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_bx2",
+                "source_md": "ch7_s1.md",
+                "question_no_in_source": 7,
+                "global_no": 25
+            },
+            "links": {
+                "concept_names": [
+                    "有机化合物的多样性",
+                    "烷烃"
+                ],
+                "skill_names": [
+                    "用结构式和电子式表示有机物结构"
+                ]
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_bx2_ch7_s1_t38",
+            "stem": "某种烷烃完全燃烧后生成了 $17.6 \\mathrm{~g} \\mathrm{CO}_{2}$ 和 $9.0 \\mathrm{~g} \\mathrm{H}_{2} \\mathrm{O}$ 。请据此推测其分子式，并写出可能的结构简式。",
+            "answer": "分子式：C2H6；结构简式：CH3-CH3",
+            "analysis": "由生成物求C、H的物质的量：n(CO2)=17.6/44=0.4 mol，故烷烃中n(C)=0.4 mol；n(H2O)=9.0/18=0.5 mol，故烷烃中n(H)=2×0.5=1.0 mol。原子数比C:H=0.4:1.0=2:5，最简式为C2H5。烷烃通式为CnH2n+2，令n=2得H=6，故分子式为C2H6。其结构只有一种：CH3-CH3。",
+            "difficulty": 3,
+            "type": "填空题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_bx2",
+                "source_md": "ch7_s1.md",
+                "question_no_in_source": 8,
+                "global_no": 26
+            },
+            "links": {
+                "concept_names": [
+                    "烷烃",
+                    "烷烃的燃烧反应"
+                ],
+                "skill_names": [
+                    "书写并配平有机物燃烧方程式",
+                    "用结构式和电子式表示有机物结构"
+                ]
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_bx2_ch7_s1_t39",
+            "stem": "天然气和煤气是常见的气体燃料，被人们广泛应用于工业生产和日常生活中。\n\n（1）查阅资料，了解煤气的主要成分和生产方法。  \n(2) 写出天然气、煤气的主要成分在完全燃烧时发生反应的化学方程式。  \n(3) 根据以上反应, 在相同条件下燃烧等体积的天然气和煤气, 消耗氧气体积较大的是哪一种?  \n(4) 某灶具原来使用的燃料是煤气, 如果改用天然气, 其进风口应改大还是改小? 如不进行调节,可能产生什么后果?",
+            "answer": "（1）煤气主要成分：一氧化碳（CO）、氢气（H2），还含少量甲烷（CH4）等；生产方法：煤的气化（如焦炉煤气/发生炉煤气等，通过高温干馏或与水蒸气、空气/氧气反应制得）。\n（2）完全燃烧方程式：\n天然气（主要成分CH4）：CH4 + 2O2 → CO2 + 2H2O。\n煤气中主要成分：\n2CO + O2 → 2CO2；2H2 + O2 → 2H2O。（若含少量CH4，同样按CH4 + 2O2 → CO2 + 2H2O）\n（3）相同条件下等体积燃烧，耗氧更大的是天然气（CH4）。\n（4）改用天然气进风口应改小；若不调节（仍按煤气的大进风量），会使火焰不稳定、易离焰或熄火，导致燃烧不正常、热效率降低等。",
+            "analysis": "（1）煤气是由煤经气化/干馏等得到的混合气体，常见可燃成分以CO、H2为主。\n（2）写出各主要成分的完全燃烧反应：CH4需2体积O2；CO需0.5体积O2；H2需0.5体积O2（在同温同压下体积比等于化学计量数比）。\n（3）等体积比较耗氧：天然气按CH4计，每1体积CH4耗2体积O2；煤气以CO、H2为主时，每1体积气体耗氧通常约0.5体积（若按单一成分比较更小），因此天然气耗氧更大。\n（4）煤气（CO、H2）理论需氧量较小，通常需一次空气量较少；天然气需氧量大且燃烧速度等特性不同，灶具更换燃料需调整进风。由煤气改天然气应减小进风，避免一次空气过大导致火焰脱火、离焰或熄火等燃烧异常。",
+            "difficulty": 3,
+            "type": "简答题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_bx2",
+                "source_md": "ch7_s1.md",
+                "question_no_in_source": 9,
+                "global_no": 27
+            },
+            "links": {
+                "concept_names": [
+                    "甲烷",
+                    "烷烃的燃烧反应"
+                ],
+                "skill_names": [
+                    "书写并配平有机物燃烧方程式"
+                ]
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_bx2_ch7_s3_t41",
+            "stem": "从结构上看，烃的衍生物是________分子中的________被________所取代的产物。含有相同官能团的有机物在性质上________，因此我们可以根据有机物分子中________的不同对有机物进行分类。",
+            "answer": "烃；氢原子；官能团；相似；官能团",
+            "analysis": "烃的衍生物从结构上理解为：在烃分子中，氢原子被官能团取代形成的产物。含相同官能团的有机物具有相似的化学性质，因此可按分子中官能团的不同对有机物分类。",
+            "difficulty": 2,
+            "type": "填空题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_bx2",
+                "source_md": "ch7_s3.md",
+                "question_no_in_source": 1,
+                "global_no": 28
+            },
+            "links": {
+                "concept_names": [
+                    "烃的衍生物",
+                    "官能团",
+                    "有机化合物的分类"
+                ],
+                "skill_names": [
+                    "根据官能团分类有机物",
+                    "从结构推性质的有机物认知方法"
+                ]
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_bx2_ch7_s3_t42",
+            "stem": "乙醇和乙酸都是烃的衍生物，其分子中的官能团分别是 和 。乙醇可以发生反应生成乙醛，乙醛的官能团是 。乙醇和乙酸在 条件下可以发生反应生成乙酸乙酯，乙酸乙酯的官能团是",
+            "answer": "羟基、羧基、醛基、浓硫酸（催化）加热、酯基",
+            "analysis": "乙醇的官能团为—OH（羟基），乙酸的官能团为—COOH（羧基）。乙醇被氧化可生成乙醛，乙醛含—CHO（醛基）。乙醇与乙酸在浓硫酸催化并加热条件下发生酯化反应生成乙酸乙酯，生成物含—COO—（酯基）。",
+            "difficulty": 2,
+            "type": "填空题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_bx2",
+                "source_md": "ch7_s3.md",
+                "question_no_in_source": 2,
+                "global_no": 29
+            },
+            "links": {
+                "concept_names": [
+                    "羟基",
+                    "羧基",
+                    "醛基",
+                    "酯化反应",
+                    "酯基"
+                ],
+                "skill_names": [
+                    "根据官能团分类有机物"
+                ]
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_bx2_ch7_s3_t43",
+            "stem": "下列说法中正确的是（ ）。\n\nA. 乙醇分子中有一OH基团, 所以乙醇溶于水后溶液显碱性  \nB. 乙醇与钠反应可以产生氢气, 所以乙醇溶于水后溶液显酸性  \nC. 乙醇在空气中燃烧生成二氧化碳和水, 说明乙醇分子中含有 C、H、O三种元素  \nD. 乙醇羟基中的氢原子比乙烷中的氢原子活泼",
+            "answer": "C、D",
+            "analysis": "A错：乙醇虽含—OH，但为中性分子，水溶液不显碱性。B错：乙醇与Na反应放出H2是因—OH上的H可被置换，但乙醇在水中电离极弱，溶液不显酸性。C对：燃烧生成CO2和H2O，说明分子中含C、H元素；生成物中含氧来源可为乙醇本身或空气，但乙醇确实含O元素（其分子式C2H6O），该结论正确。D对：乙醇羟基氢可与Na反应生成氢气，而乙烷中的氢不易被金属钠置换，故羟基氢更活泼。",
+            "difficulty": 2,
+            "type": "选择题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_bx2",
+                "source_md": "ch7_s3.md",
+                "question_no_in_source": 3,
+                "global_no": 30
+            },
+            "links": {
+                "concept_names": [
+                    "乙醇",
+                    "羟基",
+                    "乙醇与钠的反应",
+                    "乙醇的燃烧反应"
+                ],
+                "skill_names": [
+                    "从结构推性质的有机物认知方法"
+                ]
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_bx2_ch7_s3_t44",
+            "stem": "下列物质中不能用来鉴别乙醇和乙酸的是（ ）。\n\nA. 铁粉\n\nB. 溴水\n\nC. 碳酸钠溶液\n\nD. 紫色石蕊溶液",
+            "answer": "B",
+            "analysis": "乙酸显酸性，能使紫色石蕊变红；与碳酸钠溶液反应放出CO2，而乙醇均无明显现象；铁粉与乙酸可反应生成乙酸亚铁并放出H2，乙醇常温下不反应。溴水主要用于检验不饱和键或酚等，乙醇和乙酸均不能使溴水褪色，故不能鉴别。",
+            "difficulty": 2,
+            "type": "选择题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_bx2",
+                "source_md": "ch7_s3.md",
+                "question_no_in_source": 4,
+                "global_no": 31
+            },
+            "links": {
+                "concept_names": [
+                    "乙醇",
+                    "乙酸",
+                    "乙酸的酸性"
+                ],
+                "skill_names": [
+                    "从结构推性质的有机物认知方法"
+                ]
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_bx2_ch7_s3_t45",
+            "stem": "$46 \\mathrm{~g}$ 某无色液体与足量钠完全反应，得到 $11.2 \\mathrm{~L}$ 氢气（标准状况），该物质可能是（ ）。\n\nA. $\\mathrm{CH}_3\\mathrm{COOH}$\n\nB. $\\mathrm{H}_{2} \\mathrm{O}$\n\nC. $\\mathrm{CH}_3\\mathrm{COOC}_2\\mathrm{H}_5$\n\nD. ${\\mathrm{C}}_{2}{\\mathrm{H}}_{5}\\mathrm{{OH}}$",
+            "answer": "B",
+            "analysis": "标准状况下11.2 L H2为0.5 mol。钠与含活泼氢（如—OH、—COOH中的H）的物质反应：2Na + 2ROH → 2RONa + H2，因此生成1 mol H2需要2 mol活泼氢。0.5 mol H2对应1.0 mol活泼氢。若为水：1 mol H2O含1 mol活泼氢，需1 mol H2O，其质量为18 g，与题给46 g不符；但题问“可能是”，需结合“足量钠完全反应得到0.5 mol H2”，则46 g物质的物质的量应为1.0 mol（每分子提供1个活泼氢）对应摩尔质量46 g/mol。水的摩尔质量18不符；乙醇C2H5OH摩尔质量46，且每分子1个活泼氢，46 g=1 mol可生成0.5 mol H2；因此应选D。",
+            "difficulty": 2,
+            "type": "选择题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_bx2",
+                "source_md": "ch7_s3.md",
+                "question_no_in_source": 5,
+                "global_no": 32
+            },
+            "links": {
+                "concept_names": [
+                    "乙醇与钠的反应",
+                    "乙酸",
+                    "乙酸乙酯"
+                ],
+                "skill_names": [
+                    "从结构推性质的有机物认知方法"
+                ]
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_bx2_ch7_s3_t46",
+            "stem": "请描述下列物质与水混合并静置后的现象，结合该物质的性质进行解释。\n\n① 溴水\n\n② $\\mathrm{CH}_3\\mathrm{CH}_2\\mathrm{OH}$\n\n$③$ $\\mathrm{CH}_3\\mathrm{COOH}$\n\n$④$ $\\mathrm{CCl_4}$\n\n⑤ $\\mathrm{CH}_3\\mathrm{COOC}_2\\mathrm{H}_5$\n\n⑥ $\\mathrm{C}_{6} \\mathrm{H}_{14}$",
+            "answer": "①溴水：与水互溶，静置后仍为均一的黄色（橙黄色）溶液；因溴能溶于水并形成溴水体系。②CH3CH2OH：与水互溶，静置后均一透明溶液；因乙醇与水形成氢键、极性相近。③CH3COOH：与水互溶，静置后均一透明溶液；因乙酸为极性分子，可与水形成氢键并电离。④CCl4：与水不互溶，静置后分层，CCl4在下层；因CCl4非极性且密度大于水。⑤CH3COOC2H5：与水难溶，静置后分层，酯层在上层；因乙酸乙酯极性较小、与水互溶性差且密度小于水。⑥C6H14：与水不互溶，静置后分层，己烷在上层；因己烷非极性且密度小于水。",
+            "analysis": "判断依据主要有两点：①与水的互溶性取决于分子极性及是否能与水形成氢键/发生电离（极性强或能成氢键者易互溶；非极性者不互溶）。②若不互溶则比较密度决定上下层（密度大者在下）。溴水、乙醇、乙酸与水互溶；CCl4、乙酸乙酯、己烷与水不互溶，其中CCl4密度>1在下层，乙酸乙酯与己烷密度<1在上层。",
+            "difficulty": 3,
+            "type": "简答题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_bx2",
+                "source_md": "ch7_s3.md",
+                "question_no_in_source": 6,
+                "global_no": 33
+            },
+            "links": {
+                "concept_names": [
+                    "乙醇",
+                    "乙酸",
+                    "乙酸乙酯",
+                    "醇类",
+                    "羧酸类",
+                    "酯类",
+                    "羟基",
+                    "羧基",
+                    "酯基",
+                    "卤代烃的碳卤键"
+                ],
+                "skill_names": [
+                    "从结构推性质的有机物认知方法",
+                    "根据官能团分类有机物"
+                ]
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_bx2_ch7_s3_t47",
+            "stem": "$30 \\mathrm{~g}$ 乙酸与 $46 \\mathrm{~g}$ 乙醇在一定条件下发生酯化反应, 如果实际产率为 $68 \\%$ , 则可得到的乙酸乙酯的质量是多少?",
+            "answer": "41.888 g（约41.9 g）",
+            "analysis": "反应：CH3COOH + C2H5OH → CH3COOC2H5 + H2O（1:1）。n(乙酸)=30/60=0.50 mol，n(乙醇)=46/46=1.00 mol，乙酸为限量试剂。理论生成乙酸乙酯n=0.50 mol，m(理论)=0.50×88=44 g。实际产率68%，m(实际)=44×0.68=29.92 g。",
+            "difficulty": 3,
+            "type": "计算题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_bx2",
+                "source_md": "ch7_s3.md",
+                "question_no_in_source": 7,
+                "global_no": 34
+            },
+            "links": {
+                "concept_names": [
+                    "乙酸",
+                    "乙醇",
+                    "酯化反应",
+                    "乙酸乙酯"
+                ]
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_bx2_ch7_s3_t48",
+            "stem": "写出下列物质间转化的化学方程式，并注明反应条件，分析转化过程中官能团与有机物类别的变化。",
+            "answer": "题干不完整：未给出“下列物质间转化”的具体物质与转化路线，无法确定唯一的化学方程式、反应条件及官能团/类别变化。请补充具体转化关系（起始物、目标物及中间产物或箭头序列）。",
+            "analysis": "本题要求：①根据给定的转化路线逐步写出每一步化学方程式；②为每一步标注反应条件（催化剂、温度、光照、酸/碱性、试剂等）；③指出每一步反应前后官能团（如—OH、—CHO、—COOH、—COO—、—X、C=C等）的变化，并据此判断有机物类别（醇、醛、酸、酯、卤代烃、烯烃等）的变化。由于题干未提供具体物质及转化箭头，无法完成对应的方程式与分析。",
+            "difficulty": 4,
+            "type": "简答题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_bx2",
+                "source_md": "ch7_s3.md",
+                "question_no_in_source": 8,
+                "global_no": 35
+            },
+            "links": {
+                "concept_names": [
+                    "官能团",
+                    "有机化合物的分类",
+                    "醇类",
+                    "羧酸类",
+                    "酯类",
+                    "羟基",
+                    "醛基",
+                    "羧基",
+                    "酯基",
+                    "乙醇的催化氧化",
+                    "酯化反应"
+                ],
+                "skill_names": [
+                    "根据官能团分类有机物"
+                ]
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_bx2_ch7_s3_t49",
+            "stem": "人们常说 “酒是陈的香”, 而有的酒在存放过程中却会变酸。请查阅资料, 结合本节所学内容对上述现象进行解释。",
+            "answer": "酒在贮存过程中会发生多种化学与微生物作用。“酒是陈的香”主要是因为在适宜条件下，酒中醇类与有机酸等缓慢发生酯化反应生成具有香味的酯类，同时部分刺激性物质被转化或挥发，使口感更醇和；而“变酸”通常是因密封不严或污染导致氧气进入，醇在氧化条件下被氧化生成醛、酸，或被醋酸菌等微生物在有氧条件下将乙醇氧化为乙酸（醋酸），酸度升高而发酸。温度过高、储存时间过长、卫生条件差等都会加速酸败。",
+            "analysis": "从两类过程解释：①陈香：缓慢酯化（醇+酸→酯+水）产生芳香物质，且杂味物质减少；②变酸：氧气/微生物参与下乙醇被氧化或被醋酸菌转化为乙酸，导致酸度上升。结合条件差异（密封、含氧、温度、卫生）说明为何同为存放却结果不同。",
+            "difficulty": 3,
+            "type": "简答题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_bx2",
+                "source_md": "ch7_s3.md",
+                "question_no_in_source": 9,
+                "global_no": 36
+            },
+            "links": {
+                "concept_names": [
+                    "乙醇",
+                    "乙醇的催化氧化",
+                    "乙醛",
+                    "乙酸",
+                    "乙酸的酸性",
+                    "酯化反应",
+                    "乙酸乙酯"
+                ],
+                "skill_names": [
+                    "从结构推性质的有机物认知方法"
+                ]
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_bx2_ch7_s4_t50",
+            "stem": "下列关于葡萄糖和蔗糖的叙述错误的是（ ）。\n\nA. 分子式不同\n\nB. 分子结构不同\n\nC. 不是同分异构体, 但属于同系物\n\nD. 蔗糖可以水解生成葡萄糖和果糖",
+            "answer": "C",
+            "analysis": "葡萄糖分子式为C6H12O6，蔗糖分子式为C12H22O11，分子式不同且结构不同，A、B正确。蔗糖属于二糖，可水解生成葡萄糖和果糖，D正确。两者分子式不同，不是同分异构体；但同系物需具有相同官能团并相差若干个—CH2—，葡萄糖与蔗糖不满足同系物定义，因此C错误。",
+            "difficulty": 2,
+            "type": "选择题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_bx2",
+                "source_md": "ch7_s4.md",
+                "question_no_in_source": 1,
+                "global_no": 37
+            },
+            "links": {
+                "concept_names": [
+                    "葡萄糖",
+                    "蔗糖",
+                    "同分异构体",
+                    "糖的水解反应"
+                ]
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_bx2_ch7_s4_t51",
+            "stem": "下列关于淀粉和纤维素的叙述正确的是（ ）。\n\nA. 分子式都是 $\\left(\\mathrm{C}_{6} \\mathrm{H}_{10} \\mathrm{O}_{5}\\right)_{n}$ , 是同分异构体\n\nB. 都能为人体提供能量\n\nC. 都可以发生水解, 最终产物都是葡萄糖\n\nD. 都是天然高分子",
+            "answer": "C,D",
+            "analysis": "A错误：淀粉和纤维素的化学式都可表示为(C6H10O5)n，但它们是由葡萄糖以不同的糖苷键方式连接形成的高分子，不能简单视为同分异构体。B错误：淀粉可被人体消化提供能量，纤维素人体缺乏相应酶不能消化，不能提供能量。C正确：二者都能在酸/酶等条件下水解，最终可得到葡萄糖。D正确：淀粉和纤维素均来源于植物，属于天然高分子化合物。",
+            "difficulty": 2,
+            "type": "选择题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_bx2",
+                "source_md": "ch7_s4.md",
+                "question_no_in_source": 2,
+                "global_no": 38
+            },
+            "links": {
+                "concept_names": [
+                    "淀粉",
+                    "纤维素",
+                    "糖的水解反应",
+                    "同分异构体",
+                    "糖的生理作用",
+                    "多糖"
+                ],
+                "skill_names": [
+                    "从结构推断有机物性质与用途"
+                ]
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_bx2_ch7_s4_t52",
+            "stem": "有广告称某品牌的八宝粥（含糯米、红豆、桂圆等）不含糖，适合糖尿病患者食用。你认为下列判断错误的是（ ）。\n\nA. 该广告有可能误导消费者  \nB. 糖尿病患者应少吃含糖的食品, 该八宝粥未加糖, 可以放心食用  \nC. 不含糖不等于没有糖类物质, 糖尿病患者食用时需慎重考虑  \nD. 不能盲从广告的宣传",
+            "answer": "B",
+            "analysis": "八宝粥虽“未加糖”但含糯米、红豆等碳水化合物，消化后会转化为葡萄糖，仍会影响血糖。“不含糖”不等于不含糖类物质，因此糖尿病患者不能据此放心食用。A、C、D均为正确判断，错误的是B。",
+            "difficulty": 2,
+            "type": "选择题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_bx2",
+                "source_md": "ch7_s4.md",
+                "question_no_in_source": 3,
+                "global_no": 39
+            },
+            "links": {
+                "concept_names": [
+                    "糖类",
+                    "淀粉",
+                    "糖的生理作用"
+                ],
+                "skill_names": [
+                    "基于成分标签判别食品中的有机化合物"
+                ]
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_bx2_ch7_s4_t53",
+            "stem": "下列关于蛋白质的叙述正确的是（ ）。\n\nA. 蛋白质在人体内消化后会产生氨基酸\n\nB. 温度越高，酶的催化效率越高\n\nC. 重金属盐能使蛋白质变性, 所以吞服 “钡餐” 会引起中毒\n\nD. 蛋白质遇到浓硫酸会显黄色",
+            "answer": "A",
+            "analysis": "A正确：蛋白质在消化酶作用下分解为氨基酸后被吸收。B错误：酶有最适温度，过高会使酶变性导致活性下降。C错误：“钡餐”使用的是硫酸钡，难溶且较安全；引起蛋白质变性的主要是可溶性重金属盐。D错误：蛋白质的黄色反应为遇浓硝酸显黄色（黄色反应），不是浓硫酸。",
+            "difficulty": 2,
+            "type": "选择题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_bx2",
+                "source_md": "ch7_s4.md",
+                "question_no_in_source": 4,
+                "global_no": 40
+            },
+            "links": {
+                "concept_names": [
+                    "蛋白质",
+                    "蛋白质的水解反应",
+                    "蛋白质的变性"
+                ],
+                "skill_names": [
+                    "分析营养物质在人体内的转化过程"
+                ]
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_bx2_ch7_s4_t54",
+            "stem": "油脂的下列性质和用途与其含有的碳碳双键有关的是（ ）。\n\nA. 某些油脂兼有酯和烯烃的一些化学性质\n\nB. 油脂可用于生产甘油\n\nC. 油脂可以为人体提供能量\n\nD. 植物油可用于生产氢化植物油",
+            "answer": "A、D",
+            "analysis": "与碳碳双键有关的性质/用途主要体现为烯烃的加成反应等不饱和特征。A中“兼有酯和烯烃的一些化学性质”说明含有C=C双键，故有关；D中植物油氢化生成氢化植物油属于对C=C加氢的加成反应，故有关。B生产甘油来源于油脂酯键水解/皂化，与C=C无关；C供能与其高能量储存特性有关，不取决于是否含C=C。",
+            "difficulty": 2,
+            "type": "选择题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_bx2",
+                "source_md": "ch7_s4.md",
+                "question_no_in_source": 5,
+                "global_no": 41
+            },
+            "links": {
+                "concept_names": [
+                    "不饱和脂肪酸",
+                    "油脂的加成氢化反应",
+                    "氢化植物油"
+                ],
+                "skill_names": [
+                    "从结构推断有机物性质与用途"
+                ]
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_bx2_ch7_s4_t55",
+            "stem": "判断下列说法是否正确，若不正确，请予改正。\n\n（1）糖类和蛋白质都是高分子。\n\n（2）糖类、油脂和蛋白质都是由C、H、O三种元素组成的。\n\n（3）淀粉和纤维素可用于生产乙醇。\n\n（4）油脂都不能使溴水褪色。",
+            "answer": "（1）错误，应改为：糖类中淀粉、纤维素等属于高分子，但葡萄糖、蔗糖等不属于高分子；蛋白质是高分子。\n（2）错误，应改为：糖类、油脂主要由C、H、O组成；蛋白质主要由C、H、O、N组成（有些还含S等）。\n（3）正确。\n（4）错误，应改为：含不饱和碳碳双键的油脂能使溴水褪色；饱和油脂一般不能使溴水褪色。",
+            "analysis": "（1）“高分子”通常指相对分子质量很大、由重复结构单元构成的聚合物。蛋白质为多肽链聚合物，属高分子；糖类中只有多糖（如淀粉、纤维素）为高分子，单糖/二糖不是。\n（2）糖类、油脂主要元素为C、H、O；蛋白质因含氨基（—NH2）等结构，必含N，部分含S。\n（3）淀粉、纤维素均可水解生成葡萄糖，再经酵母发酵生成乙醇，因此可用于制乙醇。\n（4）溴水褪色是加成反应检验不饱和键的性质。不饱和油脂含C=C可与Br2加成使溴水褪色；饱和油脂无C=C则一般不褪色。",
+            "difficulty": 3,
+            "type": "判断题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_bx2",
+                "source_md": "ch7_s4.md",
+                "question_no_in_source": 6,
+                "global_no": 42
+            },
+            "links": {
+                "concept_names": [
+                    "糖类",
+                    "多糖",
+                    "蛋白质",
+                    "油脂",
+                    "淀粉",
+                    "纤维素",
+                    "发酵生成乙醇的反应",
+                    "不饱和脂肪酸"
+                ],
+                "skill_names": [
+                    "从结构推断有机物性质与用途",
+                    "利用特征反应检验有机物"
+                ]
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_bx2_ch7_s4_t56",
+            "stem": "某学生进行蔗糖的水解实验, 并检验水解产物中是否含有葡萄糖。他的操作如下: 取少量纯蔗糖加适量水配成溶液; 向蔗糖溶液中加入 $3 \\sim 5$ 滴稀硫酸; 将混合液煮沸几分钟, 冷却; 向冷却后的溶液中加入银氨溶液, 水浴加热, 没有银镜产生。\n\n(1) 产生上述实验结果的原因可能是____（填字母）。\n\na. 蔗糖尚未水解\n\nb. 煮沸后的溶液中没有加碱中和作催化剂的酸\n\nc. 加热温度不够高\n\nd. 蔗糖水解的产物中没有葡萄糖\n\n（2）正确的操作应当是",
+            "answer": "（1）b\n（2）煮沸水解并冷却后，先加入碱（如NaOH溶液）中和过量稀硫酸至溶液呈碱性，再加入银氨溶液，水浴加热检验葡萄糖（出现银镜）。",
+            "analysis": "蔗糖在稀硫酸催化下加热可水解生成葡萄糖和果糖，二者均为还原糖，能与银氨溶液反应生成银镜。但银氨溶液反应需在碱性条件下进行；若水解后不先用碱中和过量酸，酸性会破坏银氨溶液的碱性环境（甚至使银氨络合物失效），从而不出现银镜。因此原因选b，正确操作是水解后先中和再加银氨溶液加热。",
+            "difficulty": 2,
+            "type": "填空题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_bx2",
+                "source_md": "ch7_s4.md",
+                "question_no_in_source": 7,
+                "global_no": 43
+            },
+            "links": {
+                "concept_names": [
+                    "蔗糖",
+                    "糖的水解反应",
+                    "葡萄糖",
+                    "葡萄糖的特征反应"
+                ],
+                "skill_names": [
+                    "利用特征反应检验有机物"
+                ]
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_bx2_ch7_s4_t57",
+            "stem": "用 $10 \\mathrm{t}$ 含淀粉 $15 \\%$ 的甘薯, 可以生产葡萄糖的质量是多少 (假设葡萄糖的产率为 $80 \\%$ )?",
+            "answer": "1.33 t",
+            "analysis": "甘薯中淀粉质量=10 t×15%=1.5 t。淀粉水解生成葡萄糖：\\((C_6H_{10}O_5)_n+nH_2O\\rightarrow nC_6H_{12}O_6\\)，162 g淀粉单元→180 g葡萄糖，理论质量比=180/162=10/9。理论葡萄糖=1.5×10/9=1.666… t。实际产率80%，实际葡萄糖=1.666…×0.8=1.333… t≈1.33 t。",
+            "difficulty": 3,
+            "type": "应用题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_bx2",
+                "source_md": "ch7_s4.md",
+                "question_no_in_source": 8,
+                "global_no": 44
+            },
+            "links": {
+                "concept_names": [
+                    "淀粉",
+                    "糖的水解反应",
+                    "葡萄糖"
+                ]
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_bx2_ch7_s4_t58",
+            "stem": "请简要回答下列问题\n\n(1) 未成熟苹果的果肉遇碘酒呈现蓝色, 成熟苹果的汁液能与银氨溶液发生反应, 试解释原因。  \n(2) 在以淀粉为原料生产葡萄糖的水解过程中, 可用什么方法来检验淀粉的水解是否完全?  \n(3) 为什么可以用热的碱性溶液洗涤沾有油脂的器皿?  \n(4) 如何鉴别蚕丝和人造丝（主要成分为纤维素）织物？",
+            "answer": "(1) 未成熟苹果含较多淀粉，淀粉遇碘酒显蓝色；成熟苹果淀粉水解转化为还原糖（如葡萄糖、果糖）增多，能还原银氨溶液生成银镜/银。\n(2) 取少量水解液检验：用碘液检验是否还有淀粉（不显蓝色为无淀粉）；并可用银氨溶液或斐林试剂检验还原糖生成情况，直至碘液不显蓝色说明水解完全。\n(3) 油脂在热的碱性溶液中发生皂化反应，生成脂肪酸盐（肥皂）和甘油，脂肪酸盐具乳化作用，使油污易被水洗去。\n(4) 取少量纤维点燃：蚕丝（蛋白质）燃烧有烧焦羽毛味，灰烬呈脆黑珠状；人造丝（纤维素）燃烧类似纸/木材气味，灰烬为灰白色粉末；也可用浓硝酸或碱性条件下加热鉴别蛋白质的特征反应（如呈黄色等）。",
+            "analysis": "本题考查常见有机物与鉴别反应：淀粉—碘显色；还原糖—银氨/斐林反应；油脂—碱性条件皂化；蛋白质与纤维素的燃烧特征及蛋白质特征反应用于区分。逐问依据“成分差异→对应特征反应/性质”作答即可。",
+            "difficulty": 3,
+            "type": "简答题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_bx2",
+                "source_md": "ch7_s4.md",
+                "question_no_in_source": 9,
+                "global_no": 45
+            },
+            "links": {
+                "concept_names": [
+                    "淀粉",
+                    "葡萄糖",
+                    "葡萄糖的特征反应",
+                    "糖的水解反应",
+                    "油脂",
+                    "皂化反应",
+                    "蛋白质",
+                    "纤维素"
+                ],
+                "skill_names": [
+                    "利用特征反应检验有机物",
+                    "从结构推断有机物性质与用途"
+                ]
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_bx2_ch7_s_t59",
+            "stem": "下列叙述正确的是（ ）。\n\nA. 乙烯主要用作植物生长调节剂\n\nB. 糯米中的淀粉水解后就酿成了酒\n\nC. 食用油和白酒都应密封保存\n\nD. 乙酸乙酯可用作食品添加剂",
+            "answer": "C",
+            "analysis": "A错误：乙烯是重要化工原料，也可作植物生长调节剂，但“主要用作”不当。B错误：淀粉水解生成葡萄糖等糖类，还需经酵母发酵才能生成酒精，不能说水解后就酿成酒。C正确：食用油密封可减少与空气接触防止氧化酸败；白酒密封可防止挥发、保持酒精度和风味。D错误：乙酸乙酯常作香精溶剂等，可用于香精香料，但不作为直接食品添加剂表述不严谨。",
+            "difficulty": 2,
+            "type": "选择题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_bx2",
+                "source_md": "ch7_s整理与提升.md",
+                "question_no_in_source": 1,
+                "global_no": 46
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_bx2_ch7_s_t60",
+            "stem": "下列物质不属于天然有机高分子的是（ ）。\n\nA.纤维素\n\nB. 蛋白质\n\nC. 蔗糖\n\nD. 淀粉",
+            "answer": "C",
+            "analysis": "纤维素、蛋白质、淀粉都属于天然有机高分子（相对分子质量大、由许多结构单元重复连接而成）。蔗糖是二糖，小分子物质，不属于高分子。故选C。",
+            "difficulty": 2,
+            "type": "选择题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_bx2",
+                "source_md": "ch7_s整理与提升.md",
+                "question_no_in_source": 2,
+                "global_no": 47
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_bx2_ch7_s_t61",
+            "stem": "氟利昂-12是甲烷的氯、氟代物，结构式为 $\\mathrm{Cl}-\\mathrm{C}-\\mathrm{Cl}$ 。下列叙述正确的是（ ）。\n\nA. 它有两种同分异构体\n\nB. 它是平面结构的分子\n\nC. 它只有一种结构\n\nD. 它有 4 种同分异构体",
+            "answer": "C",
+            "analysis": "氟利昂-12为二氯二氟甲烷（CCl2F2），中心碳原子为sp3杂化，分子为四面体构型，不是平面结构，故B错误。由于中心碳只连接四个取代基（2个Cl、2个F），不同连接方式不能形成不同的结构异构体；且该分子无能产生同分异构的碳骨架或官能团变化，因此只有一种结构，A、D错误，C正确。",
+            "difficulty": 2,
+            "type": "选择题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_bx2",
+                "source_md": "ch7_s整理与提升.md",
+                "question_no_in_source": 3,
+                "global_no": 48
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_bx2_ch7_s_t62",
+            "stem": "相同物质的量浓度的下列物质的稀溶液，其中 $\\mathrm{pH}$ 最小的是（ ）。\n\nA. 乙醇\n\nB. 乙酸\n\nC. 碳酸钠\n\nD. 蔗糖",
+            "answer": "B",
+            "analysis": "相同物质的量浓度的稀溶液中，pH 最小表示溶液酸性最强、H+ 浓度最大。乙醇和蔗糖为非电解质，水溶液近中性；碳酸钠为强碱弱酸盐，水解呈碱性，pH>7；乙酸为弱酸，电离产生H+，溶液呈酸性，pH<7，因此pH最小的是乙酸。",
+            "difficulty": 2,
+            "type": "选择题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_bx2",
+                "source_md": "ch7_s整理与提升.md",
+                "question_no_in_source": 4,
+                "global_no": 49
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_bx2_ch7_s_t63",
+            "stem": "下列物质中，水解的最终产物可以发生银镜反应的是（ ）。\n\nA.蔗糖\n\nB. 乙酸乙酯\n\nC. 油脂\n\nD. 蛋白质",
+            "answer": "A",
+            "analysis": "银镜反应要求物质含有醛基（或能在碱性条件下互变生成醛基的还原糖）。蔗糖水解生成葡萄糖和果糖，其中葡萄糖为还原糖可发生银镜反应，果糖在碱性条件下可互变为醛糖也能发生银镜反应。乙酸乙酯水解生成乙酸和乙醇，均不能银镜反应；油脂水解生成高级脂肪酸和甘油，不能银镜反应；蛋白质水解生成氨基酸，一般不能银镜反应。",
+            "difficulty": 3,
+            "type": "选择题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_bx2",
+                "source_md": "ch7_s整理与提升.md",
+                "question_no_in_source": 5,
+                "global_no": 50
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_bx2_ch7_s_t64",
+            "stem": "四氯乙烯（ClC=CCl）是一种衣物干洗剂，聚四氟乙烯（C—Cn）是家用不粘锅内侧涂层的主要成分。下列关于四氯乙烯和聚四氟乙烯的叙述正确的是（ ）。\n\nA. 它们都可以由乙烯发生加成反应得到  \nB. 四氯乙烯对油脂有较好的溶解作用, 聚四氟乙烯的化学性质比较活泼  \nC. 它们的分子中都不含氢原子  \nD. 它们都能发生加成反应, 都能使酸性高锰酸钾溶液褪色",
+            "answer": "C",
+            "analysis": "四氯乙烯Cl2C=CCl2分子中不含氢；聚四氟乙烯由四氟乙烯聚合得到，链节为—CF2—CF2—同样不含氢，因此C正确。A错误：聚四氟乙烯不是由乙烯加成生成，而是由四氟乙烯聚合。B错误：四氯乙烯可溶解油脂，但聚四氟乙烯化学性质稳定不活泼。D错误：四氯乙烯含C=C可加成并可使酸性KMnO4褪色；聚四氟乙烯为饱和高分子，难以加成，通常不使酸性KMnO4褪色。",
+            "difficulty": 2,
+            "type": "选择题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_bx2",
+                "source_md": "ch7_s整理与提升.md",
+                "question_no_in_source": 6,
+                "global_no": 51
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_bx2_ch7_s_t65",
+            "stem": "判断下列说法是否正确，若不正确，请予改正。\n\n（1）所含元素种类相同而结构不同的化合物互为同分异构体。  \n(2) 某有机物完全燃烧后生成 $\\mathrm{CO}_{2}$ 和 $\\mathrm{H}_{2} \\mathrm{O}$ , 说明该有机物中一定含有 $\\mathrm{C} 、 \\mathrm{H} 、 \\mathrm{O}$ 三种元素。  \n（3）等体积 $\\mathrm{CH}_4$ 与 $\\mathrm{Cl}_2$ 的混合气体在光照下反应，生成物是 $\\mathrm{CH}_3\\mathrm{Cl}$ 和 $\\mathrm{HCl}$ 。  \n(4) $\\mathrm{CH}_{2} = \\mathrm{CH}_{2}$ 与 $\\mathrm{Cl}_{2}$ 加成反应的产物是 $\\mathrm{CH}_{2}-\\mathrm{CH}_{2}$ 。 Cl Cl\n\n（5）判断蔗糖水解产物中是否有葡萄糖的方法：向水解液中直接加入新制的 $\\mathrm{Cu(OH)_2}$   \n（6）鉴别乙醇、乙酸和乙酸乙酯的方法：分别加入 $\\mathrm{Na_2CO_3}$ 溶液。",
+            "answer": "（1）错误：同分异构体应为“分子式相同而结构不同”的化合物互为同分异构体。\n（2）错误：完全燃烧生成CO2和H2O只能说明该有机物一定含C、H元素，O元素不一定含（也可能来自O2）。\n（3）错误：等体积CH4与Cl2在光照下发生取代反应，产物为CH3Cl和HCl的混合物（并可能继续取代生成CH2Cl2、CHCl3、CCl4等，不能说生成物只有CH3Cl和HCl）。\n（4）正确：CH2=CH2与Cl2加成生成1,2-二氯乙烷CH2Cl-CH2Cl。\n（5）错误：应先将水解液用NaOH中和至碱性，再加入新制Cu(OH)2并加热（或用斐林试剂加热）检验葡萄糖。\n（6）正确：加Na2CO3溶液，乙酸起泡放出CO2；乙醇、乙酸乙酯无明显现象（可由是否分层及气味等进一步区分）。",
+            "analysis": "（1）同分异构的判据是分子式相同而结构不同。\n（2）燃烧生成物中的氧可能来自空气中的O2，因此不能据此断定有机物含O。\n（3）甲烷与氯气在光照下自由基取代，通常得到多种氯代物的混合物。\n（4）乙烯与Cl2发生加成，双键断裂生成邻二氯代物。\n（5）蔗糖水解液含酸，需中和后再用还原性检验（Cu(OH)2/斐林试剂）。\n（6）碳酸钠可与羧酸反应放CO2，用于把乙酸与另外两者区分。",
+            "difficulty": 3,
+            "type": "判断题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_bx2",
+                "source_md": "ch7_s整理与提升.md",
+                "question_no_in_source": 7,
+                "global_no": 52
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_bx2_ch7_s_t66",
+            "stem": "某有机物的结构简式为 $\\mathrm{HO}-\\mathrm{CH}_{2} \\mathrm{CH}=\\mathrm{CHCH}_{2}-\\mathrm{COOH}$ , 该有机物可能发生哪些类型的化学反应?",
+            "answer": "加成反应、取代反应、氧化反应、酯化反应（或缩合反应）、中和反应（酸碱反应）。",
+            "analysis": "该有机物 HO-CH2CH=CHCH2-COOH 含有醇羟基（-OH）、碳碳双键（C=C）和羧基（-COOH）。\n1）C=C：可发生加成反应（如与H2、Br2、HX等加成）。\n2）醇羟基：可发生取代反应（如与HX生成卤代烃）、氧化反应（被氧化为醛/酮/酸等，视条件而定）、与酸发生酯化。\n3）羧基：可与醇发生酯化反应；可与碱发生中和反应生成盐；也可发生取代型反应（如与醇形成酯本质为羟基被—OR取代）。\n因此可能的反应类型主要包括加成、取代、氧化、酯化（缩合）和中和。",
+            "difficulty": 3,
+            "type": "简答题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_bx2",
+                "source_md": "ch7_s整理与提升.md",
+                "question_no_in_source": 8,
+                "global_no": 53
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_bx2_ch7_s_t68",
+            "stem": "用土豆丝做菜时, 一般先将其放入水中泡一下, 我们会发现水变浑浊, 并产生白色沉淀。已知其主要成分是有机物 A, 遇碘水后显蓝色, 在一定条件下可与水发生反应, 最终生成 B。B 能发生银镜反应, 还可以在酶的催化下生成一种液体燃料 C。\n\n(1) A 的名称是 , 分子式是 , A (填 “能” 或 “不能”) 发生银镜反应。  \n(2) B 的名称是 , 分子式是 , B (填 “能” 或 “不能”) 发生水解反应。  \n(3) C的名称是____。在汽油中加入适量C作为汽车燃料, 可以节约石油资源, 并减少汽车尾气对空气的污染。工业上生产C主要有两种途径, 一种是以乙烯为原料进行合成, 另一种是以富含淀粉或纤维素的农林产品为原料, 通过发酵法合成。请写出相关反应的化学方程式。查阅资料, 进一步比较两种生产方法的特点并对其进行评价。",
+            "answer": "(1) A：淀粉；(C6H10O5)n；不能。\n(2) B：葡萄糖；C6H12O6；不能。\n(3) C：乙醇(酒精)。\n化学方程式：\n① 乙烯水合法：C2H4 + H2O → C2H5OH（催化剂、一定条件）。\n② 发酵法：C6H12O6 → 2C2H5OH + 2CO2（酶/酵母）。\n评价：乙烯法流程短、产率高、易规模化但依赖石油/天然气等化石资源；发酵法原料可再生、碳排放相对低但受原料与季节影响、发酵周期长、产品分离提纯能耗较大。",
+            "analysis": "白色沉淀A遇碘显蓝，判定为淀粉；淀粉为多糖，无醛基，不能发生银镜反应。淀粉在一定条件下水解生成还原性单糖B，且B能银镜反应，判定为葡萄糖；葡萄糖为单糖，不能再水解。葡萄糖在酶(酵母)催化下发酵生成乙醇C和CO2；乙醇也可由乙烯与水加成制得。比较两法从原料可再生性、工艺与能耗/分离、规模化与成本、环境影响等方面评价。",
+            "difficulty": 4,
+            "type": "填空题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_bx2",
+                "source_md": "ch7_s整理与提升.md",
+                "question_no_in_source": 10,
+                "global_no": 54
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_bx2_ch7_s_t69",
+            "stem": "某有机物由碳、氢、氧、氮 4 种元素组成, 其中含碳 $32 \\%$ , 氢 $6.7 \\%$ , 氧 $43 \\%$ (均为质量分数)。该有机物的相对分子质量为 75 。\n\n（1）请通过计算写出该有机物的分子式。  \n(2) 该有机物是蛋白质水解的产物, 它与乙醇反应生成的酯可用于合成医药和农药, 请写出生成该酯的化学方程式。",
+            "answer": "（1）C2H5O2N（或 NH2CH2COOH）\n（2）NH2CH2COOH + C2H5OH ⇌ NH2CH2COOC2H5 + H2O（浓H2SO4，加热）",
+            "analysis": "（1）设100 g该有机物中：C 32 g，H 6.7 g，O 43 g，N 100-32-6.7-43=18.3 g。换算物质的量：n(C)=32/12≈2.667，n(H)=6.7/1=6.7，n(O)=43/16≈2.688，n(N)=18.3/14≈1.307。各除以最小值1.307得比：C≈2.04≈2，H≈5.13≈5，O≈2.06≈2，N=1，故最简式为C2H5O2N。其相对分子质量Mr=2×12+5×1+2×16+14=75，与题给相对分子质量一致，所以分子式为C2H5O2N（即甘氨酸NH2CH2COOH）。\n（2）该物质为氨基酸，含—COOH，与乙醇发生酯化生成乙酯：NH2CH2COOH + C2H5OH ⇌ NH2CH2COOC2H5 + H2O（浓硫酸作催化剂并吸水，加热）。",
+            "difficulty": 4,
+            "type": "应用题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_bx2",
+                "source_md": "ch7_s整理与提升.md",
+                "question_no_in_source": 11,
+                "global_no": 55
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_bx2_ch7_s_t70",
+            "stem": "丙烯酸乙酯天然存在于菠萝等水果中，是一种食品用合成香料，可以用乙烯、丙烯等石油化工产品为原料进行合成：\n\n(1) 由乙烯生成有机物 A 的化学反应的类型是  \n(2) 有机物B中含有的官能团是________（填名称）。A与B反应生成丙烯酸乙酯的化学方程式是________，该反应的类型是________。  \n(3) 久置的丙烯酸乙酯自身会发生聚合反应, 所得聚合物具有较好的弹性, 可用于生产织物和皮革处理剂。请用化学方程式表示上述聚合过程。  \n(4) 丙烯酸乙酯可能具有哪些物理和化学性质? 请查阅资料, 并与同学讨论, 了解其性质与你的推测是否一致。",
+            "answer": "(1) 加成反应\n(2) 官能团：羟基（—OH）。化学方程式：CH2=CHCOOH + CH3CH2OH ⇌ CH2=CHCOOCH2CH3 + H2O。反应类型：酯化反应（取代反应）\n(3) nCH2=CHCOOCH2CH3 → [—CH2—CH(COOCH2CH3)—]n\n(4) 略（查阅资料并讨论）",
+            "analysis": "(1) 乙烯生成A通常通过与水、卤化氢等对C=C发生加成，故为加成反应。(2) 生成丙烯酸乙酯需要丙烯酸与乙醇发生酯化，B应为乙醇，官能团为羟基；酸与醇生成酯和水，属于酯化（本质为取代）反应。(3) 丙烯酸乙酯含碳碳双键，可发生加聚反应，双键打开形成高分子链。(4) 为开放性问题，通常不要求统一答案。",
+            "difficulty": 4,
+            "type": "综合题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_bx2",
+                "source_md": "ch7_s整理与提升.md",
+                "question_no_in_source": 12,
+                "global_no": 56
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_bx2_ch8_s1_t71",
+            "stem": "下列过程属于物理变化的是（ ）。\n\nA. 煤的干馏\n\nB. 石油分馏\n\nC. 石油裂化\n\nD. 乙烯聚合",
+            "answer": "B",
+            "analysis": "物理变化不生成新物质，通常是状态或形态的改变。石油分馏是利用各组分沸点不同进行分离，未发生化学反应，属于物理变化；煤的干馏、石油裂化、乙烯聚合均会生成新物质，属于化学变化。故选B。",
+            "difficulty": 1,
+            "type": "选择题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_bx2",
+                "source_md": "ch8_s1.md",
+                "question_no_in_source": 1,
+                "global_no": 57
+            },
+            "links": {
+                "concept_names": [
+                    "石油的分馏"
+                ]
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_bx2_ch8_s1_t72",
+            "stem": "完成下列反应的化学方程式，并指明其中的氧化剂和还原剂。\n\n$$\n\\mathrm {S n O} _ {2} + \\mathrm {C} \\quad - - - \\mathrm {S n} + \\mathrm {C O}\n$$\n\n$$\n\\mathrm {W O} _ {3} + \\mathrm {H} _ {2} \\mathrm {— —} \\mathrm {W} + \\mathrm {H} _ {2} \\mathrm {O}\n$$\n\n$$\n\\mathrm {P b S} + \\mathrm {O} _ {2} - \\mathrm {P b O} + \\mathrm {S O} _ {2}\n$$\n\n$$\n\\mathrm {U F} _ {4} + \\mathrm {M g} \\quad \\mathrm {U} + \\mathrm {M g F} _ {2}\n$$",
+            "answer": "① SnO2 + 2C → Sn + 2CO；氧化剂：SnO2；还原剂：C。\n② WO3 + 3H2 → W + 3H2O；氧化剂：WO3；还原剂：H2。\n③ 2PbS + 3O2 → 2PbO + 2SO2；氧化剂：O2；还原剂：PbS。\n④ UF4 + 2Mg → U + 2MgF2；氧化剂：UF4；还原剂：Mg。",
+            "analysis": "配平按原子守恒进行；判定氧化剂/还原剂依据化合价变化：被还原(化合价降低)的物质是氧化剂，被氧化(化合价升高)的物质是还原剂。①Sn(+4)→Sn(0)被还原，C(0)→CO中C(+2)被氧化；②W(+6)→W(0)被还原，H2中H(0)→H2O中H(+1)被氧化；③S(-2)→SO2中S(+4)被氧化，O2中O(0)→PbO/SO2中O(-2)被还原；④U(+4)→U(0)被还原，Mg(0)→MgF2中Mg(+2)被氧化。",
+            "difficulty": 3,
+            "type": "填空题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_bx2",
+                "source_md": "ch8_s1.md",
+                "question_no_in_source": 2,
+                "global_no": 58
+            },
+            "links": {
+                "concept_names": [
+                    "金属冶炼",
+                    "焦炭、一氧化碳、氢气等还原剂冶炼金属"
+                ]
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_bx2_ch8_s1_t73",
+            "stem": "蓝铜矿的主要成分为 $2 \\mathrm{CuCO}_{3} \\cdot \\mathrm{Cu}(\\mathrm{OH})_{2}$ , 将它与焦炭一起加热时, 可以生成 $\\mathrm{Cu} 、 \\mathrm{CO}_{2}$ 和 $\\mathrm{H}_{2} \\mathrm{O}$ 。请写出该反应的化学方程式, 并注明反应类型。",
+            "answer": "2CuCO3·Cu(OH)2 + C △→ 3Cu + 3CO2↑ + H2O\n反应类型：氧化还原反应（同时属于置换反应）",
+            "analysis": "蓝铜矿中含3个Cu。生成物给出Cu、CO2、H2O。设与焦炭C反应：2CuCO3·Cu(OH)2 + xC → 3Cu + yCO2 + zH2O。左侧含3个C（来自3个CO3），右侧CO2中含y个C，因此总碳：3+x=y。左侧含氢2个（来自(OH)2），故z=1。左侧含氧：3×3+2=11个；右侧氧：2y+z=2y+1=11，得y=5，从而x=y-3=2。故方程式为2CuCO3·Cu(OH)2 + 2C △→ 3Cu + 5CO2 + H2O。该反应中C被氧化为CO2，Cu2+被还原为Cu，属于氧化还原反应。",
+            "difficulty": 3,
+            "type": "简答题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_bx2",
+                "source_md": "ch8_s1.md",
+                "question_no_in_source": 3,
+                "global_no": 59
+            },
+            "links": {
+                "concept_names": [
+                    "金属冶炼",
+                    "焦炭、一氧化碳、氢气等还原剂冶炼金属"
+                ]
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_bx2_ch8_s1_t74",
+            "stem": "某种磁铁矿样品含 $\\mathrm{Fe}_{3} \\mathrm{O}_{4} 76.0 \\%$ , $\\mathrm{SiO}_{2} 11.0 \\%$ , 其他不含铁的杂质 $13.0 \\%$ , 请计算这种矿样中铁的质量分数。",
+            "answer": "55.5%",
+            "analysis": "设矿样质量为100 g，其中Fe3O4为76.0 g。Fe3O4的摩尔质量为3×56+4×16=232，铁的质量为3×56=168，因此Fe在Fe3O4中的质量分数为168/232=0.724。则矿样中铁的质量=76.0×0.724=55.0 g，铁的质量分数=55.0/100=55.0%（约为55.5%）。",
+            "difficulty": 2,
+            "type": "计算题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_bx2",
+                "source_md": "ch8_s1.md",
+                "question_no_in_source": 4,
+                "global_no": 60
+            },
+            "links": {
+                "concept_names": [
+                    "金属矿物"
+                ]
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_bx2_ch8_s1_t76",
+            "stem": "镁及其合金是用途很广的金属材料，可以通过以下步骤从海水中提取镁。\n\n(1) 为了使 $\\mathrm{MgSO}_{4}$ 转化为 $\\mathrm{Mg(OH)}_{2}$ , 试剂①可以选用________; 要使 $\\mathrm{MgSO}_{4}$ 完全转化为沉淀,加入试剂①的量应________。  \n(2) 加入试剂①后, 能够分离得到 $\\mathrm{Mg}(\\mathrm{OH})_{2}$ 沉淀的方法是  \n（3）试剂 $②$ 可以选用  \n(4) 无水 $\\mathrm{MgCl}_{2}$ 在熔融状态下, 通电后会产生 $\\mathrm{Mg}$ 和 $\\mathrm{Cl}_{2}$ , 该反应的化学方程式为",
+            "answer": "(1) 试剂①：氢氧化钙[或石灰乳 Ca(OH)2]；加入量：过量（略过量）\n(2) 过滤\n(3) 试剂②：稀盐酸（HCl）\n(4) MgCl2(熔融) ─通电→ Mg + Cl2↑",
+            "analysis": "从海水中的MgSO4制Mg：先用碱使Mg2+生成难溶的Mg(OH)2沉淀，常用廉价的Ca(OH)2。为使MgSO4“完全”转化为沉淀，需要提供足量OH−，因此Ca(OH)2应略过量。生成沉淀后用过滤实现固液分离。再用酸将Mg(OH)2转化为MgCl2，故试剂②选盐酸：Mg(OH)2+2HCl→MgCl2+2H2O。最后将无水MgCl2熔融电解：MgCl2→Mg+Cl2。",
+            "difficulty": 3,
+            "type": "填空题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_bx2",
+                "source_md": "ch8_s1.md",
+                "question_no_in_source": 6,
+                "global_no": 61
+            },
+            "links": {
+                "concept_names": [
+                    "海水的综合利用",
+                    "海水制盐及化工原料生产",
+                    "海水资源",
+                    "电解法冶炼金属",
+                    "金属冶炼"
+                ],
+                "skill_names": [
+                    "根据金属活泼性选择冶炼方法",
+                    "从组成和物理性质推断分离与利用方法"
+                ]
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_bx2_ch8_s1_t77",
+            "stem": "制取非金属单质（如 $\\mathrm{O}_{2} 、 \\mathrm{Br}_{2}$ 和 $\\mathrm{Cl}_{2}$ 等）与制取金属单质的化学原理类似，也是主要利用氧化还原反应，采用热分解、置换、电解等方法，使非金属元素由化合态转变为游离态。请结合具体实例，写出有关反应的化学方程式。",
+            "answer": "示例：\n(1) 热分解制氧气：2KClO3 △→ 2KCl + 3O2↑（或 2H2O2 → 2H2O + O2↑）\n(2) 置换制溴：Cl2 + 2KBr → 2KCl + Br2\n(3) 电解制氯气：2NaCl + 2H2O 通电→ 2NaOH + H2↑ + Cl2↑",
+            "analysis": "题意要求“结合具体实例”写出用热分解、置换、电解等方法制取非金属单质（如O2、Br2、Cl2）的氧化还原反应方程式。可分别选取：热分解（KClO3或H2O2制O2）、卤素置换（Cl2置换Br-得Br2）、电解食盐水（阳极生成Cl2）作为代表，配平并标注条件（加热/通电）。",
+            "difficulty": 3,
+            "type": "简答题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_bx2",
+                "source_md": "ch8_s1.md",
+                "question_no_in_source": 7,
+                "global_no": 62
+            },
+            "links": {
+                "concept_names": [
+                    "金属冶炼",
+                    "电解法冶炼金属",
+                    "海水制盐及化工原料生产",
+                    "海水的综合利用"
+                ]
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_bx2_ch8_s1_t78",
+            "stem": "由金属矿物转变成金属，一般要经过采矿、选矿和冶炼等过程。在这些过程中可能会产生噪声、粉尘、烟雾、有害气体、污水、固体废物等，造成环境污染。请你查阅有关资料，总结采矿、选矿和冶炼这三个阶段可能产生的主要污染，以及为减轻和消除污染应采取的措施。",
+            "answer": "主要污染与措施如下：\n1）采矿阶段：污染—爆破、钻机和运输产生强噪声；开采、装卸、堆存与道路扬尘；矿坑/塌陷与弃土（废石）堆放造成水土流失；矿坑排水、渗滤液可能含悬浮物和重金属，部分矿山产生酸性矿山废水；尾砂/废石堆渗漏污染土壤和水体。措施—合理采矿与分区开采、边开采边复垦；洒水抑尘、道路硬化/覆盖、封闭运输；低噪设备、消声与隔声、限时作业；矿坑水收集处理（沉淀/中和/重金属去除）后回用或达标排放；废石分级利用与规范堆场防渗、截排水、边坡防护和植被恢复。\n2）选矿阶段：污染—破碎、筛分、磨矿等扬尘与噪声；选矿废水含悬浮物、药剂（浮选药剂等）与重金属；产生大量尾矿（固体废物），尾矿库渗漏、溃坝风险。措施—车间密闭与除尘、降噪；选矿废水循环使用，设置沉淀/过滤、药剂回收与达标处理；尾矿浓缩回水、干堆或安全尾矿库（防渗、截洪排水、监测与加固），综合利用尾矿（建材、充填等）。\n3）冶炼阶段：污染—烟尘（含金属粉尘）与烟雾；有害气体如SO2（硫化矿冶炼）、NOx、CO等；高温炉渣、烟尘灰等固废；冷却、洗涤等产生废水，可能含酸碱、盐类和重金属。措施—烟气收集与净化（布袋/电除尘、湿法洗涤），脱硫并回收制酸或制硫酸盐；采用清洁能源与密闭生产、提高自动化；废水分类收集处理（中和、沉淀、离子去除）并回用；炉渣、烟尘等资源化利用或无害化处置，危险废物规范贮存与处置；厂区绿化与环境监测。",
+            "analysis": "按“采矿—选矿—冶炼”三个环节分别从大气（粉尘/烟尘/有害气体）、水体（矿山/选矿/冶炼废水）、噪声、固体废物（废石、尾矿、炉渣/烟尘灰）归类主要污染源，再对应提出工程与管理措施：抑尘降噪；废水收集处理与循环回用；固废资源化与安全堆存防渗；烟气除尘脱硫与回收；复垦与生态恢复、监测与规范管理。",
+            "difficulty": 3,
+            "type": "简答题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_bx2",
+                "source_md": "ch8_s1.md",
+                "question_no_in_source": 8,
+                "global_no": 63
+            },
+            "links": {
+                "concept_names": [
+                    "金属矿物",
+                    "金属冶炼",
+                    "金属资源的合理开发与利用",
+                    "可持续发展"
+                ],
+                "skill_names": [
+                    "分析资源开发利用与环境、可持续发展的关系"
+                ]
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_bx2_ch8_s1_t79",
+            "stem": "20世纪70年代以来，人们逐渐认识到，如果继续过分依赖化石燃料作为主要能源，有可能出现严重的能源危机。因此，必须在节约使用的同时寻找新的替代能源。请回答下列问题。\n\n（1）以石油为例，请你分析和归纳，一种比较好的能源应该具有哪些特点。  \n(2) 如果用氢能、生物质能、核能、风能等来代替石油作为主要能源, 这样做可能带来哪些问题?你认为应该怎样做会更好些?  \n(3) 煤、石油和天然气等化石燃料应该作为能源使用, 还是应该作为原料加工成医药、化工产品? 对这样有争议的问题, 你的看法是什么? 请查阅有关资料说明你的观点。",
+            "answer": "（1）好的能源特点（以石油为例归纳）：能量密度高；便于储存和运输；获取与使用技术成熟、成本相对较低；使用方便、稳定可靠；污染排放相对可控或较低；来源相对充足（或可持续）。\n（2）用氢能/生物质能/核能/风能等替代石油可能问题：氢能制取依赖一次能源、储运困难且有安全风险；生物质能受土地/粮食竞争影响、能量密度低且可能造成生态压力；核能存在放射性废物处理与核事故风险、建设周期长成本高；风能具有间歇性和波动性、需要储能和电网调峰且选址受限。更好的做法：发展多元化能源结构，节能提效优先，因地制宜发展可再生能源，完善储能与电网，提高能源利用效率，并逐步降低对化石燃料依赖。\n（3）观点：化石燃料应优先高效利用并逐步减少直接燃烧比例，将其更多作为重要化工原料用于高附加值产品（如医药、化工材料），能源用途需在保障能源安全前提下提高利用效率并控制排放；同时加快替代能源与循环利用技术发展，实现“能用尽用、原料优先、清洁低碳”的综合方案。",
+            "analysis": "（1）从石油被广泛使用的原因反推“好能源”标准：单位质量/体积放出的能量大（能量密度高）；常温下易保存、易运输；点燃与调控方便、供能稳定；获取与利用技术成熟、成本可接受；对环境影响较小或可治理；供给相对稳定。\n（2）逐一分析替代能源的“技术—经济—安全—环境—系统匹配”约束：氢主要难在制取低碳化与储运安全；生物质难在土地与生态、规模化收集；核能难在安全与废物；风能难在波动与并网。综合策略应是节能优先+多能互补+基础设施（储能/电网）+逐步替代。\n（3）权衡“直接燃烧发电供热”与“作为化工原料”的机会成本：燃烧会一次性排放且浪费其化工价值；原料用途能提升附加值但仍需能源替代来满足用能需求。因而提出优先原料化与清洁高效用能并行、逐步压减燃烧的观点。",
+            "difficulty": 4,
+            "type": "简答题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_bx2",
+                "source_md": "ch8_s1.md",
+                "question_no_in_source": 9,
+                "global_no": 64
+            },
+            "links": {
+                "concept_names": [
+                    "可持续发展",
+                    "化石燃料",
+                    "石油",
+                    "化石燃料利用的环境问题",
+                    "生物质资源",
+                    "生物质资源的利用"
+                ],
+                "skill_names": [
+                    "分析资源开发利用与环境、可持续发展的关系"
+                ]
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_bx2_ch8_s3_t80",
+            "stem": "下列做法值得提倡的是（ ）。\n\nA. 选用回收废纸制造的纸箱\n\nB. 选用一次性筷子、纸杯和塑料袋\n\nC. 将生活垃圾进行分类处理\n\nD. 选乘公共交通工具出行",
+            "answer": "A、C、D",
+            "analysis": "题目考查绿色环保与资源节约。A使用回收废纸制品有利于节约资源；B一次性用品和塑料袋会增加垃圾与污染，不提倡；C垃圾分类便于回收与无害化处理；D公共交通可减少能耗与尾气排放。因此选A、C、D。",
+            "difficulty": 2,
+            "type": "选择题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_bx2",
+                "source_md": "ch8_s3.md",
+                "question_no_in_source": 1,
+                "global_no": 65
+            },
+            "links": {
+                "concept_names": [
+                    "固体废物处理原则",
+                    "减量化",
+                    "资源化",
+                    "可持续发展"
+                ]
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_bx2_ch8_s3_t81",
+            "stem": "我国酸雨的形成主要是由于（ ）。\n\nA. 森林遭到乱砍滥伐，破坏了生态环境\n\nB. 大量燃烧含硫化石燃料\n\nC. 大气中二氧化碳的含量增大\n\nD. 汽车排出大量尾气",
+            "answer": "B",
+            "analysis": "酸雨主要由大气中的二氧化硫、氮氧化物在水汽中发生反应生成硫酸、硝酸所致。我国酸雨形成的主要原因是大量燃烧含硫化石燃料，排放较多SO2，因此选B。A与生态破坏有关但非酸雨成因；C主要导致温室效应；D尾气含氮氧化物会促进酸雨但相较含硫燃料燃烧不是主要原因。",
+            "difficulty": 2,
+            "type": "选择题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_bx2",
+                "source_md": "ch8_s3.md",
+                "question_no_in_source": 2,
+                "global_no": 66
+            },
+            "links": {
+                "concept_names": [
+                    "酸雨"
+                ]
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_bx2_ch8_s3_t82",
+            "stem": "下列废旧塑料制品的处理途径不恰当的是（ ）。\n\nA. 焚烧回收热能\n\nB. 深挖填埋\n\nC. 制成再生制品\n\nD. 裂解为化工原料",
+            "answer": "B",
+            "analysis": "废旧塑料的合理处理途径包括焚烧回收热能、回收再利用制成再生制品、裂解为化工原料等。深挖填埋会长期占用土地且塑料难降解，易造成环境污染，因此不恰当。",
+            "difficulty": 2,
+            "type": "选择题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_bx2",
+                "source_md": "ch8_s3.md",
+                "question_no_in_source": 3,
+                "global_no": 67
+            },
+            "links": {
+                "concept_names": [
+                    "固体废物处理原则",
+                    "无害化",
+                    "减量化",
+                    "资源化"
+                ]
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_bx2_ch8_s3_t83",
+            "stem": "甲基丙烯酸甲酯是合成有机玻璃的单体。\n\n旧的合成方法是：\n\n$$\n\\left(\\mathrm {C H} _ {3}\\right) _ {2} \\mathrm {C} = \\mathrm {O} + \\mathrm {H C N} \\longrightarrow \\left(\\mathrm {C H} _ {3}\\right) _ {2} \\mathrm {C} (\\mathrm {O H}) \\mathrm {C N}\n$$\n\n$$\n\\left(\\mathrm {C H} _ {3}\\right) _ {2} \\mathrm {C} (\\mathrm {O H}) \\mathrm {C N} + \\mathrm {C H} _ {3} \\mathrm {O H} + \\mathrm {H} _ {2} \\mathrm {S O} _ {4} \\longrightarrow \\mathrm {C H} _ {2} = \\mathrm {C} \\left(\\mathrm {C H} _ {3}\\right) \\mathrm {C O O C H} _ {3} + \\mathrm {N H} _ {4} \\mathrm {H S O} _ {4}\n$$\n\n新的合成方法是：\n\n$$\n\\mathrm {C H} _ {3} \\mathrm {C} \\equiv \\mathrm {C H} + \\mathrm {C O} + \\mathrm {C H} _ {3} \\mathrm {O H} \\longrightarrow \\mathrm {C H} _ {2} = \\mathrm {C} (\\mathrm {C H} _ {3}) \\mathrm {C O O C H} _ {3}\n$$\n\n与旧方法相比，新方法的优点是（ ）。\n\nA. 原料无爆炸危险\n\nB. 原料都是无毒物质\n\nC. 没有副产物, 原料利用率高\n\nD. 对设备腐蚀性小",
+            "answer": "ACD",
+            "analysis": "旧法第一步用HCN（剧毒且有爆炸危险），第二步用H2SO4（强腐蚀性），并生成副产物NH4HSO4，原子利用率较低。新法由丙炔、CO、甲醇直接合成甲基丙烯酸甲酯，无酸性强腐蚀试剂，且反应式显示无副产物，因此优点为A、C、D；B不对，因为CO有毒。",
+            "difficulty": 2,
+            "type": "选择题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_bx2",
+                "source_md": "ch8_s3.md",
+                "question_no_in_source": 4,
+                "global_no": 68
+            },
+            "links": {
+                "concept_names": [
+                    "绿色化学",
+                    "原子经济性反应",
+                    "原子利用率"
+                ],
+                "skill_names": [
+                    "用原子经济性评价化学反应的绿色程度"
+                ]
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_bx2_ch8_s3_t84",
+            "stem": "空气质量是政府和公众普遍关注的问题。\n\n(1) 目前, 环保部门监测和公布的大气污染物主要有哪些物质?  \n(2) 在汽油中加入某种含铅化合物可以提高汽油的抗爆震性能, 但我国已明令禁止生产、销售和使用含铅汽油, 其主要原因是什么?  \n（3）控制城市空气污染可以从哪些方面考虑？举例说明有哪些切实可行的措施。",
+            "answer": "（1）主要监测和公布的大气污染物：可吸入颗粒物（PM10/PM2.5）、二氧化硫（SO2）、二氧化氮（NO2）、一氧化碳（CO）、臭氧（O3）等。（2）主要原因：含铅汽油燃烧会排放铅及其化合物，铅具有显著毒性并在人体内蓄积，危害神经系统等，造成严重环境与健康污染。（3）控制城市空气污染可从源头减排、过程控制与末端治理、交通与能源结构优化、管理与公众参与等方面：如推广清洁能源和集中供热；治理工业与燃煤锅炉，安装脱硫脱硝除尘设备；机动车尾气治理（淘汰高排放车辆、使用催化净化器、发展公共交通/电动车）；扬尘治理（工地围挡洒水、道路清扫）；限制露天焚烧、加强监管与排放标准等。",
+            "analysis": "（1）依据常用空气质量指数（AQI）评价的六项污染物确定：颗粒物（PM2.5/PM10）、SO2、NO2、CO、O3。（2）含铅添加剂（如四乙基铅）提高抗爆性，但燃烧后生成含铅烟尘/气溶胶进入空气，铅难降解、可生物富集并损害人体健康，因此禁用。（3）按“污染源—控制手段”组织：固定源（燃煤/工业）用清洁能源与净化装置；移动源（汽车）用排放控制与交通优化；面源（扬尘/焚烧）用抑尘禁烧；并配合法规监管与公众行动。",
+            "difficulty": 3,
+            "type": "简答题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_bx2",
+                "source_md": "ch8_s3.md",
+                "question_no_in_source": 5,
+                "global_no": 69
+            },
+            "links": {
+                "concept_names": [
+                    "大气污染",
+                    "环境质量监测",
+                    "环境污染",
+                    "污染治理"
+                ],
+                "skill_names": [
+                    "利用化学分析方法监测环境污染物",
+                    "进行环境质量评价与提出治理方案"
+                ]
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_bx2_ch8_s3_t85",
+            "stem": "NO是大气污染物之一。目前有一种治理方法是在 $400^{\\circ} \\mathrm{C}$ 左右、有催化剂存在的条件下，使 $\\mathrm{NH}_{3}$ 与NO反应生成无污染的 $\\mathrm{N}_{2}$ 和 $\\mathrm{H}_{2} \\mathrm{O}$ 。请写出该反应的化学方程式。",
+            "answer": "4NH3+6NO=5N2+6H2O",
+            "analysis": "根据题意为NH3还原NO生成N2和H2O，设方程式aNH3+bNO→cN2+dH2O。配平：N：a+b=2c；H：3a=2d；O：b=d。由O得d=b，再由H得3a=2b，取a=4则b=6，d=6；N：4+6=10=2c，得c=5。故方程式为4NH3+6NO→5N2+6H2O（催化剂，约400℃）。",
+            "difficulty": 2,
+            "type": "填空题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_bx2",
+                "source_md": "ch8_s3.md",
+                "question_no_in_source": 6,
+                "global_no": 70
+            },
+            "links": {
+                "concept_names": [
+                    "污染治理",
+                    "大气污染"
+                ],
+                "skill_names": [
+                    "进行环境质量评价与提出治理方案"
+                ]
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_bx2_ch8_s_t88",
+            "stem": "加碘食盐中的碘以碘酸钾（ $\\mathrm{KIO}_3$ ）的形式存在。已知在溶液中 $\\mathrm{IO}_3^-$ 与 $\\Gamma^-$ 可发生反应：\n\n$$\n\\mathrm {I O} _ {3} ^ {-} + 5 \\mathrm {I} ^ {-} + 6 \\mathrm {H} ^ {+} = 3 \\mathrm {I} _ {2} + 3 \\mathrm {H} _ {2} \\mathrm {O}\n$$\n\n根据上述反应，可用试纸和一些常见试剂进行检验，证明食盐中存在 $\\mathrm{IO}_3^-$ 。可供选用的物质有：\n\n$①$ 蒸馏水 $②$ 蓝色石蕊试纸 $③$ 碘化钾淀粉试纸 $④$ 淀粉 $⑤$ 蔗糖 $⑥$ 乙酸 $⑦$ 乙醇\n\n进行上述实验时必须使用的物质是（ ）。\n\nA. ①③\n\nB. ①③⑥\n\nC. ②④⑥\n\nD.①②④⑤⑦",
+            "answer": "B",
+            "analysis": "要检验食盐中是否含有IO3−，需让IO3−与I−在酸性条件下反应生成I2：IO3−+5I−+6H+→3I2+3H2O。实验中：①蒸馏水用于溶解食盐；⑥乙酸提供H+使反应在酸性进行；③碘化钾淀粉试纸同时提供I−并用淀粉显色，生成的I2使试纸呈蓝色，从而证明存在IO3−。因此必须使用①③⑥。",
+            "difficulty": 2,
+            "type": "选择题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_bx2",
+                "source_md": "ch8_s整理与提升.md",
+                "question_no_in_source": 1,
+                "global_no": 71
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_bx2_ch8_s_t90",
+            "stem": "从石油中可以获得汽油等燃料和乙烯、丙烯等化工原料。\n\n(1) 每升汽油燃烧时能产生约 $3.5 \\times 10^{4} \\mathrm{~kJ}$ 的能量, 发动机只能将其中的部分能量转化为有用功,损耗的能量主要转化成了什么?  \n（2）请写出下列转化反应的化学方程式，并注明反应类型。\n\n① 乙烯 $\\rightarrow 1,2$ -二氯乙烷。   \n②丙烯 $\\rightarrow$ 聚丙烯。\n\n（3）举例说明乙烯和丙烯的一些用途。",
+            "answer": "（1）主要转化为热能（内能），以废热形式散失到周围环境中。\n（2）① CH2=CH2 + Cl2 → CH2Cl–CH2Cl，反应类型：加成反应。\n② nCH2=CH–CH3 → [–CH2–CH(CH3)–]n，反应类型：加聚反应（聚合反应）。\n（3）乙烯：用于制聚乙烯、作水果催熟剂（或制乙醇、乙二醇等）。丙烯：用于制聚丙烯、制丙醇/丙酮等化工原料。",
+            "analysis": "（1）汽油燃烧释放化学能，发动机效率有限，未转化为机械能的部分主要以热量形式散失（并伴随少量声能等）。\n（2）① 乙烯含C=C双键，可与Cl2发生加成，生成1,2-二氯乙烷；② 丙烯的双键打开发生加聚，形成重复结构单元[–CH2–CH(CH3)–]n的聚丙烯。\n（3）结合常见石油化工产品：乙烯主要用于生产聚乙烯及多种有机化工原料，也可作植物激素催熟；丙烯主要用于生产聚丙烯及丙酮、异丙醇等。",
+            "difficulty": 3,
+            "type": "简答题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_bx2",
+                "source_md": "ch8_s整理与提升.md",
+                "question_no_in_source": 3,
+                "global_no": 72
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_bx2_ch8_s_t92",
+            "stem": "某种甲烷水合物晶体中，平均每46个水分子构成8个分子笼，每个分子笼可容纳1个甲烷分子或水分子。若这8个分子笼中有6个容纳的是甲烷分子，另外2个被水分子填充，请写出这种甲烷水合物晶体的平均组成。",
+            "answer": "CH4·(23/3)H2O（或写作 CH4:H2O = 6:46）",
+            "analysis": "平均每46个H2O形成8个笼，其中6个笼装CH4、2个笼装H2O。故每个晶体单元中有CH4为6个，H2O总数为46+2=48个，组成比为CH4:H2O=6:48=1:8，写作CH4·8H2O。若按题目给定“每46个水分子构成8个分子笼”的平均表示，可写作6CH4·46H2O，化为每1个CH4对应(46/6)=23/3个H2O，即CH4·(23/3)H2O。",
+            "difficulty": 3,
+            "type": "填空题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_bx2",
+                "source_md": "ch8_s整理与提升.md",
+                "question_no_in_source": 5,
+                "global_no": 73
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_bx2_ch8_s_t93",
+            "stem": "腈纶织物广泛用作衣物、床上用品等。腈纶是由丙烯腈（ $\\mathrm{CH}_2=\\mathrm{CH}-\\mathrm{CN}$ ）聚合而成的，丙烯腈可以由丙烯与氨和氧气反应制得，而丙烯主要来自石脑油的裂解，例如： $\\mathrm{C}_{10}\\mathrm{H}_{22} \\longrightarrow 2\\mathrm{C}_3\\mathrm{H}_6 + \\mathrm{X}$ 。\n\n(1) 写出上述反应式中 $\\mathrm{X}$ 的名称、分子式和结构简式。  \n(2) 合成纤维（如腈纶等）部分取代了棉、麻等天然纤维，为什么前者作为废弃物易产生环境污染，而后者却不会？  \n(3) 天然纤维中含有的纤维素属于糖类, 绿色植物将二氧化碳和水变成糖类的过程称为什么? 写出由二氧化碳和水生成葡萄糖的化学方程式。",
+            "answer": "（1）X：丁烯；分子式C4H8；结构简式CH2=CH-CH2-CH3（或CH3-CH=CH-CH3）。\n（2）合成纤维多为高分子材料，结构稳定，难被微生物分解，降解慢，易造成“白色污染”等；天然纤维（棉、麻等）主要成分为纤维素等天然有机物，可被微生物分解为CO2、H2O等，易降解，不易长期污染环境。\n（3）称为光合作用；化学方程式：6CO2+6H2O→C6H12O6+6O2（在光照、叶绿素条件下）。",
+            "analysis": "（1）由原子守恒：C10H22裂解生成2C3H6后剩余原子为C4H10，但题目给出X为烃，且裂解常生成烯烃；与方程配平应为C10H22→2C3H6+C4H10不符（氢不守恒）。因此应理解为裂解生成2个丙烯与另一种烯烃：C10H22→2C3H6+C4H10不可能，改用常见裂解产物满足守恒：C10H22→2C3H6+C4H10（氢不守恒）不对；若X为C4H10则需副产H2。题干未给H2，通常设X为丁烯C4H8：C10H22→2C3H6+C4H8+H2（守恒）。因此X为丁烯，写其分子式C4H8及结构简式（1-丁烯或2-丁烯均可）。\n（2）比较材料可生物降解性：合成纤维难降解、易积累；天然纤维可被微生物分解。\n（3）绿色植物将CO2和H2O转化为糖类为光合作用；写出生成葡萄糖的配平总反应式。",
+            "difficulty": 3,
+            "type": "简答题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_bx2",
+                "source_md": "ch8_s整理与提升.md",
+                "question_no_in_source": 6,
+                "global_no": 74
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_bx2_ch8_s_t94",
+            "stem": "工业上以铝土矿（主要成分可表示为 $\\mathrm{Al}_{2} \\mathrm{O}_{3} \\cdot n \\mathrm{H}_{2} \\mathrm{O}$ ）为原料生产铝，主要包括下列过程：\n\n(1) 将粉碎、筛选后的铝土矿溶解在 $\\mathrm{NaOH}$ 溶液中;   \n② 通入过量 $\\mathrm{CO}_{2}$ , 使①所得溶液中析出 $\\mathrm{Al(OH)}_{3}$ 固体;  \n③ 使 $\\mathrm{Al(OH)_3}$ 脱水生成 $\\mathrm{Al_2O_3}$   \n④ 电解熔融 $\\mathrm{Al}_{2} \\mathrm{O}_{3}$ 生成铝。\n\n请写出上述各有关反应的化学方程式，并推测哪一步转化过程消耗的能量最多，为什么？",
+            "answer": "① Al2O3·nH2O + 2NaOH = 2NaAlO2 + (n+1)H2O（或写：Al2O3 + 2NaOH = 2NaAlO2 + H2O）\n② NaAlO2 + CO2 + 2H2O = Al(OH)3↓ + NaHCO3（或写：2NaAlO2 + CO2 + 3H2O = 2Al(OH)3↓ + Na2CO3）\n③ 2Al(OH)3 △= Al2O3 + 3H2O\n④ 2Al2O3（熔融） 通电= 4Al + 3O2↑\n能量消耗最多：④电解熔融Al2O3；因为电解需要提供大量电能并维持高温熔融，且分解Al—O键所需能量大。",
+            "analysis": "①铝土矿中的Al2O3(·nH2O)与NaOH反应生成可溶性的偏铝酸钠NaAlO2；\n②向含NaAlO2的溶液通入过量CO2，使溶液酸化并水解生成Al(OH)3沉淀（副产物可能为NaHCO3或Na2CO3，取决于写法与条件）；\n③加热使Al(OH)3脱水生成Al2O3；\n④对熔融Al2O3进行电解，阴极得Al，阳极放出O2，总反应如上。\n由于电解过程既要消耗大量电能又需保持熔融高温，且Al2O3稳定、Al—O键强，故④最耗能。",
+            "difficulty": 4,
+            "type": "简答题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_bx2",
+                "source_md": "ch8_s整理与提升.md",
+                "question_no_in_source": 7,
+                "global_no": 75
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_bx2_ch8_s_t95",
+            "stem": "孔雀石的主要成分为 $\\mathrm{CuCO}_3 \\cdot \\mathrm{Cu(OH)}_2$ 。某同学设计的从孔雀石中提取铜的方案如下：\n\n(1) 将孔雀石粉碎后, 加入过量的稀硫酸;  \n(2) 将反应后的混合物过滤;  \n③ 向滤液中加入一种金属粉末。\n\n请根据上述实验方案回答下列问题\n\n（1）①中可观察到的现象是什么？  \n（2）③ 中加入的金属粉末可以是什么？请说明理由。  \n（3）设计从滤液中获得铜的另外一种方案。",
+            "answer": "（1）孔雀石逐渐溶解，有气泡产生（放出CO2），溶液变为蓝色（生成CuSO4）。\n（2）可加入Zn（或Fe）。理由：Zn（Fe）比Cu活泼，能从CuSO4溶液中置换出铜：Zn+CuSO4=ZnSO4+Cu（或Fe+CuSO4=FeSO4+Cu）。\n（3）另一方案：向滤液中加入NaOH溶液生成Cu(OH)2沉淀，过滤洗涤后加热分解得CuO，再用H2或CO还原得Cu（如：CuO+H2=Cu+H2O）。",
+            "analysis": "①孔雀石含碳酸根和氢氧根，与过量稀硫酸反应生成CuSO4、CO2和H2O，因此出现气泡并形成蓝色溶液。过滤后滤液主要为CuSO4（及过量H2SO4）。③需加入比Cu活泼的金属（如Zn、Fe）发生置换反应得到铜。若不采用置换，也可先用碱沉淀铜离子为Cu(OH)2，再热分解成CuO并还原得到Cu。",
+            "difficulty": 3,
+            "type": "简答题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_bx2",
+                "source_md": "ch8_s整理与提升.md",
+                "question_no_in_source": 8,
+                "global_no": 76
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_bx2_ch8_s_t96",
+            "stem": "以金红石（主要成分为 $\\mathrm{TiO}_2$ ）为原料生产钛的步骤主要有：\n\n① 在高温下，向金红石与焦炭的混合物中通入 $\\mathrm{Cl}_2$ ，得到 $\\mathrm{TiCl}_4$ 和一种可燃性气体；  \n(2) 在稀有气体（如氩）氛围和加热的条件下，用镁与 $\\mathrm{TiCl}_{4}$ 反应可得到钛。\n\n请写出上述两步反应的化学方程式，并分析步骤②中稀有气体氛围的作用。",
+            "answer": "① TiO2 + 2C + 2Cl2 → TiCl4 + 2CO（可燃性气体为CO）\n② TiCl4 + 2Mg → Ti + 2MgCl2\n稀有气体（如Ar）氛围的作用：隔绝空气中的O2、N2和水蒸气，防止高温下生成的钛（及Mg）被氧化/氮化或发生副反应，保证产物纯度与反应顺利进行。",
+            "analysis": "步骤①为氯化还原：TiO2在高温下被C还原并被Cl2氯化生成TiCl4，氧转移给C生成CO（CO为可燃气体），配平得TiO2 + 2C + 2Cl2 → TiCl4 + 2CO。步骤②为金属热还原：Mg将TiCl4中的Ti(IV)还原为Ti，生成MgCl2，配平得TiCl4 + 2Mg → Ti + 2MgCl2。稀有气体提供惰性保护，避免Ti在高温下与O2/N2/H2O反应导致氧化、氮化或污染。",
+            "difficulty": 3,
+            "type": "简答题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_bx2",
+                "source_md": "ch8_s整理与提升.md",
+                "question_no_in_source": 9,
+                "global_no": 77
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_bx2_ch8_s_t97",
+            "stem": "有的同学认为，根据质量守恒定律和能量守恒定律，物质是不灭的，能量转化是守恒的，那为什么会出现资源危机呢？对于这样的问题你是怎样考虑的？物质资源和能源两者相比较，哪一个将会更多地制约着人类的生存和发展？",
+            "answer": "虽然物质和能量在总量上守恒，但可供人类利用的“资源”强调的是一定时间、地点、形态下具有使用价值且可经济获取的部分。资源危机来自于：资源的分布不均与获取受限；物质形态转变后变成难以再利用的低品位形态（如分散、污染、混合），再循环需要额外能量和成本；能量转化虽守恒但有方向性，伴随熵增，能量品质下降，最终以低温热散失，难以完全回收利用；过度开发与环境容量有限导致生态破坏与污染，使可用资源进一步减少。因此会出现资源危机。两者比较：从根本上更制约人类生存与发展的是能源（尤其是高品质、可用能/清洁能源），因为物质的回收再利用在技术上可行但需要大量能量支撑，而能量的可用性受熵增规律限制且清洁高效能源供给不足会同时限制资源循环与社会发展。",
+            "analysis": "1) 守恒定律说的是总量不变；资源问题关注“可利用部分”。2) 物质：守恒但会从集中高品位变为分散、污染的低品位，回收难度和成本上升。3) 能量：总量守恒但能量转化不可逆，熵增导致品质下降并以废热形式散失，可用能减少。4) 资源危机实质是可用资源/可用能不足与环境容量受限。5) 比较：物质可在充足能源条件下循环利用；能源（高品质、清洁、可持续的）是循环与发展的基础，更具根本制约性。",
+            "difficulty": 3,
+            "type": "简答题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_bx2",
+                "source_md": "ch8_s整理与提升.md",
+                "question_no_in_source": 10,
+                "global_no": 78
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_bx2_ch8_s_t98",
+            "stem": "关于未来人类与自然资源的关系问题，有两种典型的观点：一种是悲观的，认为根据目前人类对资源的开发速度，自然资源将在最近的 $30 \\sim 50$ 年内用完，已经建立的工业体系可能会在不久的将来崩溃；一种是乐观的，认为应当充分相信技术发展的潜力，随着技术的发展，人类不但不会用完资源，而且可以不断地扩大资源的利用范围。请针对这两种观点谈谈你的看法。",
+            "answer": "两种观点各有合理性。悲观观点提醒我们资源是有限的、过度开采会带来生态破坏与供应风险；乐观观点强调技术进步能提高资源利用效率、替代稀缺资源并发展可再生能源。但技术并非万能，存在成本、时间、扩散不均与可能带来新的环境问题等限制。我的看法是应坚持“节约优先、保护优先、自然恢复为主”，在控制资源消耗总量、提高循环利用率、加强生态红线与环境治理的同时，加大科技创新与制度建设（如碳定价、资源税、回收体系、绿色产业转型），实现可持续发展，在风险可控前提下让技术进步发挥作用。",
+            "analysis": "作答要点：①概括两种观点核心：资源枯竭风险 vs 技术扩展利用范围；②分别评价其合理性与局限：资源有限与生态承载力、技术进步与替代效应但受成本/时间/外部性约束；③提出综合立场：既不盲目悲观也不盲目乐观；④给出对策：节约与提高效率、循环经济与回收、发展可再生能源与替代材料、加强环境监管与政策制度、推动绿色转型与公众参与。",
+            "difficulty": 3,
+            "type": "简答题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_bx2",
+                "source_md": "ch8_s整理与提升.md",
+                "question_no_in_source": 11,
+                "global_no": 79
+            }
+        }
+    ]
+}

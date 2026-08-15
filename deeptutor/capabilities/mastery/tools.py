@@ -305,8 +305,11 @@ async def _sync_mastery_attempt_to_question_bank(
         "correct_answer": correct_answer or pending.expected_answer,
         # Carried from mastery_quiz. Without these the bank held a bare
         # right/wrong for every mastery attempt — reviewable only as a score.
-        "explanation": pending.explanation,
-        "difficulty": pending.difficulty,
+        # Prefer the post-grade worked solution (analysis) when the error-book
+        # flow has produced one; otherwise fall back to the reference
+        # explanation posed with the quiz.
+        "explanation": pending.analysis or pending.explanation or "",
+        "difficulty": pending.difficulty or "",
         "user_answer": user_answer,
         "is_correct": is_correct,
         "source": "mastery_path",
@@ -648,7 +651,11 @@ class MasteryGradeTool(BaseTool):
                 "mastery_quiz. Grading is deterministic against the stored "
                 "expected answer; this updates mastery, advances spaced "
                 "repetition, and tells you whether the objective's gate is now "
-                "cleared. Then give the learner feedback."
+                "cleared. Then give the learner feedback: if the result carries a "
+                "non-empty 'analysis' (the textbook worked solution for a "
+                "variant_exercise question), walk the learner through it — explain "
+                "the key steps and where they went wrong; otherwise explain the "
+                "answer yourself."
             ),
             parameters=[
                 ToolParameter(
@@ -770,6 +777,9 @@ class MasteryGradeTool(BaseTool):
             "mastery": round(display_mastery(progress, kp), 3) if kp else 0.0,
             "threshold": round(gate_threshold(kp.type), 3) if kp else 0.0,
             "mastered": mastered,
+            # [KGRAPH-EXT] worked solution for a textbook variant, if any — walk
+            # the learner through it as part of feedback. Empty for LLM questions.
+            "analysis": pending.analysis or "",
             "next": next_objective(progress).to_dict(),
         }
         return _json_result(payload, meta_key="mastery_grade")
@@ -1386,6 +1396,7 @@ class VariantExerciseTool(BaseTool):
             question_type=chosen["question_type"],
             expected_answer=chosen["expected_answer"],
             options=chosen["options"],
+            analysis=chosen.get("analysis") or "",
         )
         service.set_pending_question(progress, pending)
         return _json_result(

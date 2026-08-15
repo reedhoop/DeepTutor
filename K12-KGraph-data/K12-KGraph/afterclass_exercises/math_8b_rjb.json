@@ -1,0 +1,2738 @@
+{
+    "book_prefix": "math_8b_rjb",
+    "subject": "数学",
+    "stage": "初中",
+    "grade": "八年级下册",
+    "publisher": "人教版-人民教育出版社",
+    "source_md": "math_8b_rjb.md",
+    "questions": [
+        {
+            "id": "math_8b_rjb_ch16_s1_t2",
+            "stem": "当 $a$ 是怎样的实数时, 下列各式在实数范围内有意义?\n\n(1) $\\sqrt{a - 1}$\n\n(2) $\\sqrt{2a + 3}$\n\n(3) $\\sqrt{-a}$\n\n（4） $\\sqrt{5 - a}$\n\n当 $a > 0$ 时， $\\sqrt{a}$ 表示 $a$ 的算术平方根，因此 $\\sqrt{a} > 0$ ；当 $a = 0$ 时， $\\sqrt{a}$ 表示 0 的算术平方根，因此 $\\sqrt{a} = 0$ 。这就是说，当 $a \\geq 0$ 时， $\\sqrt{a} \\geq 0$ 。",
+            "answer": "(1) a≥1；(2) a≥-3/2；(3) a≤0；(4) a≤5。",
+            "analysis": "在实数范围内，根号内必须≥0。\n(1) a-1≥0⇒a≥1；\n(2) 2a+3≥0⇒a≥-3/2；\n(3) -a≥0⇒a≤0；\n(4) 5-a≥0⇒a≤5。",
+            "difficulty": 2,
+            "type": "填空题",
+            "meta": {
+                "book_prefix": "math_8b_rjb",
+                "source_md": "ch16_s1.md",
+                "question_no_in_source": 2,
+                "global_no": 1
+            },
+            "links": {
+                "concept_names": [
+                    "二次根式有意义的条件",
+                    "算术平方根"
+                ],
+                "skill_names": [
+                    "检验二次根式的定义域"
+                ]
+            }
+        },
+        {
+            "id": "math_8b_rjb_ch16_s1_t3",
+            "stem": "计算：\n\n(1) $(\\sqrt{3})^2$\n\n(2) $(3\\sqrt{2})^2$",
+            "answer": "(1) 3；(2) 18",
+            "analysis": "(1) (\\sqrt{3})^2=3；(2) (3\\sqrt{2})^2=3^2\\cdot(\\sqrt{2})^2=9\\cdot2=18。",
+            "difficulty": 1,
+            "type": "填空题",
+            "meta": {
+                "book_prefix": "math_8b_rjb",
+                "source_md": "ch16_s1.md",
+                "question_no_in_source": 1,
+                "global_no": 2
+            },
+            "links": {
+                "concept_names": [
+                    "(√a)^2 = a",
+                    "二次根式"
+                ]
+            }
+        },
+        {
+            "id": "math_8b_rjb_ch16_s1_t4",
+            "stem": "说出下列各式的值：\n\n(1) $\\sqrt{0.3^2}$\n\n(2) $\\sqrt{\\left(-\\frac{1}{7}\\right)^2}$\n\n（3） $-\\sqrt{(-\\pi)^2}$\n\n（4） $\\sqrt{10^{-2}}$",
+            "answer": "(1) 0.3\n(2) \\(\\frac{1}{7}\\)\n(3) \\(-\\pi\\)\n(4) \\(10^{-1}=0.1\\)",
+            "analysis": "利用\\(\\sqrt{a^2}=|a|\\)。\n(1) \\(\\sqrt{0.3^2}=|0.3|=0.3\\)。\n(2) \\(\\sqrt{\\left(-\\frac17\\right)^2}=\\left|-\\frac17\\right|=\\frac17\\)。\n(3) \\(-\\sqrt{(-\\pi)^2}=-| -\\pi |=-\\pi\\)。\n(4) \\(\\sqrt{10^{-2}}=10^{-1}=0.1\\)。",
+            "difficulty": 2,
+            "type": "填空题",
+            "meta": {
+                "book_prefix": "math_8b_rjb",
+                "source_md": "ch16_s1.md",
+                "question_no_in_source": 2,
+                "global_no": 3
+            },
+            "links": {
+                "concept_names": [
+                    "二次根式",
+                    "算术平方根",
+                    "√(a^2) = a"
+                ]
+            }
+        },
+        {
+            "id": "math_8b_rjb_ch16_s1_t5",
+            "stem": "当 $a$ 是怎样的实数时，下列各式在实数范围内有意义？\n\n(1) $\\sqrt{a + 2}$\n\n(2) $\\sqrt{3 - a}$\n\n(3) $\\sqrt{5a}$\n\n(4) $\\sqrt{2a + 1}$",
+            "answer": "(1) a≥-2；(2) a≤3；(3) a≥0；(4) a≥-1/2",
+            "analysis": "在实数范围内，二次根式有意义的条件是被开方数≥0。\n(1) a+2≥0→a≥-2；\n(2) 3-a≥0→a≤3；\n(3) 5a≥0→a≥0；\n(4) 2a+1≥0→a≥-1/2。",
+            "difficulty": 2,
+            "type": "填空题",
+            "meta": {
+                "book_prefix": "math_8b_rjb",
+                "source_md": "ch16_s1.md",
+                "question_no_in_source": 1,
+                "global_no": 4
+            },
+            "links": {
+                "concept_names": [
+                    "二次根式有意义的条件"
+                ],
+                "skill_names": [
+                    "检验二次根式的定义域"
+                ]
+            }
+        },
+        {
+            "id": "math_8b_rjb_ch16_s1_t6",
+            "stem": "计算：\n\n(1) $(\\sqrt{5})^2$\n\n(2) $(- \\sqrt{0.2})^2$ ;\n\n(3) $\\left(\\sqrt{\\frac{2}{7}}\\right)^2$\n\n(4) $(5\\sqrt{5})^2$\n\n(5) $\\sqrt{(-10)^2}$\n\n(6) $\\left(-7\\sqrt{\\frac{2}{7}}\\right)^2$ ;\n\n(7) $\\sqrt{\\left(-\\frac{2}{3}\\right)^2}$\n\n（8） $-\\sqrt{\\left(-\\frac{2}{5}\\right)^{2}}$",
+            "answer": "(1) 5；(2) 0.2；(3) 2/7；(4) 125；(5) 10；(6) 14；(7) 2/3；(8) -2/5",
+            "analysis": "利用性质：①(√a)^2=a(a≥0)；②(−x)^2=x^2；③√(x^2)=|x|（平方根取算术平方根）；④(a·b)^2=a^2b^2。逐题：\n(1)(√5)^2=5；\n(2)(−√0.2)^2=(√0.2)^2=0.2；\n(3)(√(2/7))^2=2/7；\n(4)(5√5)^2=25·5=125；\n(5)√((−10)^2)=|−10|=10；\n(6)(−7√(2/7))^2=49·(2/7)=14；\n(7)√((−2/3)^2)=|−2/3|=2/3；\n(8)−√((−2/5)^2)=−|−2/5|=−2/5。",
+            "difficulty": 2,
+            "type": "填空题",
+            "meta": {
+                "book_prefix": "math_8b_rjb",
+                "source_md": "ch16_s1.md",
+                "question_no_in_source": 2,
+                "global_no": 5
+            },
+            "links": {
+                "concept_names": [
+                    "(√a)^2 = a",
+                    "√(a^2) = a",
+                    "算术平方根"
+                ]
+            }
+        },
+        {
+            "id": "math_8b_rjb_ch16_s1_t7",
+            "stem": "用代数式表示：\n\n（1）面积为 $S$ 的圆的半径；  \n（2）面积为 $S$ 且两条邻边的比为 $2:3$ 的长方形的长和宽",
+            "answer": "（1）r=\\sqrt{\\frac{S}{\\pi}}；（2）设长方形长、宽分别为3k和2k，则6k^2=S，k=\\sqrt{\\frac{S}{6}}，所以长=3\\sqrt{\\frac{S}{6}}=\\sqrt{\\frac{3S}{2}}，宽=2\\sqrt{\\frac{S}{6}}=\\sqrt{\\frac{2S}{3}}",
+            "analysis": "（1）由圆面积公式S=\\pi r^2，解得r=\\sqrt{S/\\pi}。 （2）邻边比2:3，设宽=2k、长=3k，则面积S=(2k)(3k)=6k^2，故k=\\sqrt{S/6}，代回得长、宽分别为3\\sqrt{S/6}与2\\sqrt{S/6}。",
+            "difficulty": 2,
+            "type": "填空题",
+            "meta": {
+                "book_prefix": "math_8b_rjb",
+                "source_md": "ch16_s1.md",
+                "question_no_in_source": 3,
+                "global_no": 6
+            },
+            "links": {
+                "concept_names": [
+                    "代数式",
+                    "算术平方根",
+                    "二次根式"
+                ]
+            }
+        },
+        {
+            "id": "math_8b_rjb_ch16_s1_t8",
+            "stem": "利用 $a = (\\sqrt{a})^2$ （ $a \\geq 0$ ），把下列非负数分别写成一个非负数的平方的形式：\n\n(1) 9;\n\n(2) 5;\n\n(3)2.5;\n\n(4) 0.25;\n\n(5) $\\frac{1}{2}$\n\n(6)0.",
+            "answer": "(1) 9=(\\sqrt9)^2=3^2；(2) 5=(\\sqrt5)^2；(3) 2.5=(\\sqrt{2.5})^2=\\left(\\sqrt{\\frac52}\\right)^2；(4) 0.25=(\\sqrt{0.25})^2=\\left(\\frac12\\right)^2；(5) \\frac12=\\left(\\sqrt{\\frac12}\\right)^2；(6) 0=(\\sqrt0)^2=0^2",
+            "analysis": "根据恒等式a=(\\sqrt a)^2(a\\ge0)，把每个非负数a写成(\\sqrt a)^2即可；其中0.25=1/4，故\\sqrt{0.25}=1/2，0的平方根为0。",
+            "difficulty": 1,
+            "type": "填空题",
+            "meta": {
+                "book_prefix": "math_8b_rjb",
+                "source_md": "ch16_s1.md",
+                "question_no_in_source": 4,
+                "global_no": 7
+            },
+            "links": {
+                "concept_names": [
+                    "算术平方根",
+                    "(√a)^2 = a"
+                ]
+            }
+        },
+        {
+            "id": "math_8b_rjb_ch16_s2_t9",
+            "stem": "计算：\n\n(1) $\\sqrt{2} \\times \\sqrt{5}$\n\n(2) $\\sqrt{3} \\times \\sqrt{12}$\n\n(3) $2\\sqrt{6} \\times \\sqrt{\\frac{1}{2}}$ ;\n\n（4）√288×√",
+            "answer": "(1) \\(\\sqrt{10}\\)；(2) \\(6\\)；(3) \\(2\\sqrt{3}\\)；(4) 题干不完整，无法确定结果",
+            "analysis": "(1) 利用\\(\\sqrt{a}\\cdot\\sqrt{b}=\\sqrt{ab}\\)：\\(\\sqrt{2}\\cdot\\sqrt{5}=\\sqrt{10}\\)。\n(2) \\(\\sqrt{3}\\cdot\\sqrt{12}=\\sqrt{36}=6\\)。\n(3) \\(2\\sqrt{6}\\cdot\\sqrt{\\tfrac12}=2\\sqrt{6\\cdot\\tfrac12}=2\\sqrt{3}\\)。\n(4) 只给出\\(\\sqrt{288}\\times\\sqrt{\\,}\\)，第二个根号内的数缺失，无法计算。",
+            "difficulty": 2,
+            "type": "填空题",
+            "meta": {
+                "book_prefix": "math_8b_rjb",
+                "source_md": "ch16_s2.md",
+                "question_no_in_source": 1,
+                "global_no": 8
+            },
+            "links": {
+                "concept_names": [
+                    "二次根式的乘法法则",
+                    "最简二次根式"
+                ],
+                "skill_names": [
+                    "二次根式化简"
+                ]
+            }
+        },
+        {
+            "id": "math_8b_rjb_ch16_s2_t10",
+            "stem": "化简：\n\n(1) $\\sqrt{49 \\times 121}$\n\n(2) $\\sqrt{225}$\n\n(3) $\\sqrt{4y}$\n\n（4） $\\sqrt{16ab^2c^3}$",
+            "answer": "(1) 77；(2) 15；(3) 2\\sqrt{y}；(4) 4bc\\sqrt{ac}",
+            "analysis": "(1) \\sqrt{49\\times121}=\\sqrt{49}\\cdot\\sqrt{121}=7\\times11=77。 (2) \\sqrt{225}=15。 (3) \\sqrt{4y}=\\sqrt{4}\\cdot\\sqrt{y}=2\\sqrt{y}。 (4) \\sqrt{16ab^2c^3}=\\sqrt{16}\\cdot\\sqrt{a}\\cdot\\sqrt{b^2}\\cdot\\sqrt{c^2\\cdot c}=4\\cdot b\\cdot c\\cdot\\sqrt{ac}=4bc\\sqrt{ac}（默认字母表示非负数；否则应写为4|b||c|\\sqrt{ac}）。",
+            "difficulty": 2,
+            "type": "填空题",
+            "meta": {
+                "book_prefix": "math_8b_rjb",
+                "source_md": "ch16_s2.md",
+                "question_no_in_source": 2,
+                "global_no": 9
+            },
+            "links": {
+                "concept_names": [
+                    "二次根式的乘法法则",
+                    "最简二次根式"
+                ],
+                "skill_names": [
+                    "二次根式化简"
+                ]
+            }
+        },
+        {
+            "id": "math_8b_rjb_ch16_s2_t11",
+            "stem": "一个长方形的长和宽分别是 $\\sqrt{10}$ 和 $2\\sqrt{2}$ . 求这个长方形的面积.",
+            "answer": "4\\sqrt{5}",
+            "analysis": "长方形面积=长×宽=\\sqrt{10}×2\\sqrt{2}=2\\sqrt{20}=2\\sqrt{4×5}=2×2\\sqrt{5}=4\\sqrt{5}。",
+            "difficulty": 1,
+            "type": "填空题",
+            "meta": {
+                "book_prefix": "math_8b_rjb",
+                "source_md": "ch16_s2.md",
+                "question_no_in_source": 3,
+                "global_no": 10
+            },
+            "links": {
+                "concept_names": [
+                    "二次根式的乘法法则",
+                    "最简二次根式"
+                ],
+                "skill_names": [
+                    "二次根式化简"
+                ]
+            }
+        },
+        {
+            "id": "math_8b_rjb_ch16_s2_t12",
+            "stem": "计算：\n\n(1) $\\sqrt{18} \\div \\sqrt{2}$ ;\n\n(2) $\\frac{\\sqrt{72}}{\\sqrt{6}}$ ;\n\n(3) $\\sqrt{2a} \\div \\sqrt{6a}$ ;\n\n(4) $\\sqrt{\\frac{b}{5}} \\div \\sqrt{\\frac{b}{20a^2}}$ .",
+            "answer": "(1) 3；(2) 2\\sqrt{3}；(3) \\frac{\\sqrt{3}}{3}；(4) 2a（默认a>0,b>0）",
+            "analysis": "(1) \\sqrt{18}÷\\sqrt{2}=\\sqrt{18/2}=\\sqrt{9}=3。\\n(2) \\frac{\\sqrt{72}}{\\sqrt{6}}=\\sqrt{72/6}=\\sqrt{12}=2\\sqrt{3}。\\n(3) \\sqrt{2a}÷\\sqrt{6a}=\\sqrt{\\frac{2a}{6a}}=\\sqrt{\\frac{1}{3}}=\\frac{\\sqrt{3}}{3}（a>0）。\\n(4) \\sqrt{\\frac{b}{5}}÷\\sqrt{\\frac{b}{20a^2}}=\\sqrt{\\frac{\\frac{b}{5}}{\\frac{b}{20a^2}}}=\\sqrt{\\frac{b}{5}\\cdot\\frac{20a^2}{b}}=\\sqrt{4a^2}=2a（默认a>0；若不限定则为2|a|）。",
+            "difficulty": 2,
+            "type": "简答题",
+            "meta": {
+                "book_prefix": "math_8b_rjb",
+                "source_md": "ch16_s2.md",
+                "question_no_in_source": 1,
+                "global_no": 11
+            },
+            "links": {
+                "concept_names": [
+                    "二次根式的除法法则",
+                    "最简二次根式"
+                ],
+                "skill_names": [
+                    "二次根式化简"
+                ]
+            }
+        },
+        {
+            "id": "math_8b_rjb_ch16_s2_t13",
+            "stem": "把下列二次根式化成最简二次根式：\n\n(1) $\\sqrt{32}$\n\n(2) $\\sqrt{40}$\n\n(3) $\\sqrt{1.5}$\n\n(4) $\\sqrt{\\frac{4}{3}}$ .",
+            "answer": "(1) \\(\\sqrt{32}=4\\sqrt{2}\\)；(2) \\(\\sqrt{40}=2\\sqrt{10}\\)；(3) \\(\\sqrt{1.5}=\\sqrt{\\tfrac{3}{2}}=\\tfrac{\\sqrt{6}}{2}\\)；(4) \\(\\sqrt{\\tfrac{4}{3}}=\\tfrac{2\\sqrt{3}}{3}\\)。",
+            "analysis": "利用\\(\\sqrt{ab}=\\sqrt a\\sqrt b\\)（a、b≥0），把被开方数分解出完全平方因数；分母含根号时进行分母有理化。(1) 32=16×2，\\(\\sqrt{32}=\\sqrt{16}\\sqrt2=4\\sqrt2\\)；(2) 40=4×10，\\(\\sqrt{40}=\\sqrt4\\sqrt{10}=2\\sqrt{10}\\)；(3) 1.5=\\(\\tfrac{3}{2}\\)，\\(\\sqrt{\\tfrac{3}{2}}=\\tfrac{\\sqrt3}{\\sqrt2}=\\tfrac{\\sqrt3\\sqrt2}{2}=\\tfrac{\\sqrt6}{2}\\)；(4) \\(\\sqrt{\\tfrac{4}{3}}=\\tfrac{\\sqrt4}{\\sqrt3}=\\tfrac{2}{\\sqrt3}=\\tfrac{2\\sqrt3}{3}\\)。",
+            "difficulty": 2,
+            "type": "填空题",
+            "meta": {
+                "book_prefix": "math_8b_rjb",
+                "source_md": "ch16_s2.md",
+                "question_no_in_source": 2,
+                "global_no": 12
+            },
+            "links": {
+                "concept_names": [
+                    "最简二次根式"
+                ],
+                "skill_names": [
+                    "二次根式化简"
+                ]
+            }
+        },
+        {
+            "id": "math_8b_rjb_ch16_s2_t14",
+            "stem": "设长方形的面积为 $S$ ，相邻两边长分别为 $a$ ， $b$ .已知 $S = 16$ ， $b = \\sqrt{10}$ ，求 $a$",
+            "answer": "a=\\frac{16}{\\sqrt{10}}=\\frac{8\\sqrt{10}}{5}",
+            "analysis": "长方形面积S=ab，已知S=16，b=\\sqrt{10}，则a=\\frac{S}{b}=\\frac{16}{\\sqrt{10}}。分母有根号，化简得a=\\frac{16\\sqrt{10}}{10}=\\frac{8\\sqrt{10}}{5}。",
+            "difficulty": 1,
+            "type": "填空题",
+            "meta": {
+                "book_prefix": "math_8b_rjb",
+                "source_md": "ch16_s2.md",
+                "question_no_in_source": 3,
+                "global_no": 13
+            },
+            "links": {
+                "concept_names": [
+                    "二次根式的除法法则",
+                    "最简二次根式"
+                ],
+                "skill_names": [
+                    "二次根式化简"
+                ]
+            }
+        },
+        {
+            "id": "math_8b_rjb_ch16_s2_t15",
+            "stem": "计算：\n\n(1) $\\sqrt{24} \\times \\sqrt{27}$ ;\n\n(2) $\\sqrt{6} \\times (-\\sqrt{15})$ ;\n\n(3) $\\sqrt{18} \\times \\sqrt{20} \\times \\sqrt{75}$ ;\n\n（4） $\\sqrt{3^2\\times 4^3\\times 5}$",
+            "answer": "(1) 18\\sqrt{2}；(2) -3\\sqrt{10}；(3) 30\\sqrt{30}；(4) 24\\sqrt{5}",
+            "analysis": "(1) \\sqrt{24}\\cdot\\sqrt{27}=\\sqrt{24\\times27}=\\sqrt{648}=\\sqrt{81\\times8}=9\\cdot2\\sqrt2=18\\sqrt2。\\n(2) \\sqrt6\\cdot(-\\sqrt{15})=-\\sqrt{6\\times15}=-\\sqrt{90}=-\\sqrt{9\\times10}=-3\\sqrt{10}。\\n(3) \\sqrt{18}\\cdot\\sqrt{20}\\cdot\\sqrt{75}=\\sqrt{18\\times20\\times75}=\\sqrt{27000}=\\sqrt{(30)^2\\times30}=30\\sqrt{30}。\\n(4) \\sqrt{3^2\\times4^3\\times5}=\\sqrt{3^2\\times(2^6)\\times5}=3\\cdot2^3\\sqrt5=24\\sqrt5。",
+            "difficulty": 2,
+            "type": "简答题",
+            "meta": {
+                "book_prefix": "math_8b_rjb",
+                "source_md": "ch16_s2.md",
+                "question_no_in_source": 1,
+                "global_no": 14
+            },
+            "links": {
+                "concept_names": [
+                    "二次根式的乘法法则",
+                    "最简二次根式"
+                ],
+                "skill_names": [
+                    "二次根式化简"
+                ]
+            }
+        },
+        {
+            "id": "math_8b_rjb_ch16_s2_t16",
+            "stem": "计算：\n\n(1) $\\sqrt{18} \\div \\sqrt{8}$ ;\n\n(2) $\\frac{4\\sqrt{15}}{2\\sqrt{5}}$\n\n(3) $\\sqrt{1\\frac{2}{3}} \\div \\sqrt{\\frac{5}{6}}$ ;\n\n(4) $\\frac{2\\sqrt{x^2y}}{3\\sqrt{xy}}$ .",
+            "answer": "(1) \\(\\frac{3}{2}\\)；(2) \\(2\\sqrt{3}\\)；(3) \\(\\sqrt{2}\\)；(4) \\(\\frac{2\\sqrt{x}}{3}\\)",
+            "analysis": "(1) \\(\\sqrt{18}\\div\\sqrt{8}=\\sqrt{\\frac{18}{8}}=\\sqrt{\\frac{9}{4}}=\\frac{3}{2}\\)。\n(2) \\(\\frac{4\\sqrt{15}}{2\\sqrt{5}}=2\\cdot\\frac{\\sqrt{15}}{\\sqrt{5}}=2\\sqrt{\\frac{15}{5}}=2\\sqrt{3}\\)。\n(3) \\(1\\frac{2}{3}=\\frac{5}{3}\\)，所以 \\(\\sqrt{\\frac{5}{3}}\\div\\sqrt{\\frac{5}{6}}=\\sqrt{\\frac{\\frac{5}{3}}{\\frac{5}{6}}}=\\sqrt{\\frac{5}{3}\\cdot\\frac{6}{5}}=\\sqrt{2}\\)。\n(4) 取\\(x,y>0\\)：\\(\\frac{2\\sqrt{x^2y}}{3\\sqrt{xy}}=\\frac{2\\sqrt{x^2}\\sqrt{y}}{3\\sqrt{x}\\sqrt{y}}=\\frac{2x}{3\\sqrt{x}}=\\frac{2\\sqrt{x}}{3}\\)。",
+            "difficulty": 2,
+            "type": "填空题",
+            "meta": {
+                "book_prefix": "math_8b_rjb",
+                "source_md": "ch16_s2.md",
+                "question_no_in_source": 2,
+                "global_no": 15
+            },
+            "links": {
+                "concept_names": [
+                    "二次根式的除法法则",
+                    "最简二次根式"
+                ],
+                "skill_names": [
+                    "二次根式化简"
+                ]
+            }
+        },
+        {
+            "id": "math_8b_rjb_ch16_s2_t17",
+            "stem": "化简：\n\n(1) $\\sqrt{4 \\times 49}$\n\n(2) $\\sqrt{300}$\n\n(3) $\\sqrt{\\frac{9}{49}}$ ;\n\n（4）√",
+            "answer": "(1) 14；(2) 10\\sqrt{3}；(3) \\frac{3}{7}；(4) 题干不完整，无法确定",
+            "analysis": "(1) \\sqrt{4\\times49}=\\sqrt{196}=14。 (2) \\sqrt{300}=\\sqrt{100\\times3}=10\\sqrt{3}。 (3) \\sqrt{\\frac{9}{49}}=\\frac{\\sqrt9}{\\sqrt{49}}=\\frac{3}{7}。 (4) 表达式缺失，无法化简。",
+            "difficulty": 1,
+            "type": "填空题",
+            "meta": {
+                "book_prefix": "math_8b_rjb",
+                "source_md": "ch16_s2.md",
+                "question_no_in_source": 3,
+                "global_no": 16
+            },
+            "links": {
+                "concept_names": [
+                    "二次根式的乘法法则",
+                    "二次根式的除法法则",
+                    "最简二次根式"
+                ],
+                "skill_names": [
+                    "二次根式化简"
+                ]
+            }
+        },
+        {
+            "id": "math_8b_rjb_ch16_s2_t18",
+            "stem": "化简：\n\n(1) $\\frac{\\sqrt{12}}{2}$ ;\n\n(2) $\\frac{3}{\\sqrt{6}}$ ;\n\n(3) $\\frac{\\sqrt{2}}{3\\sqrt{40}}$ ;\n\n(4) $\\frac{5n}{3\\sqrt{n}}$\n\n(5) $\\frac{2xy}{\\sqrt{2x}}$ ;\n\n(6) $\\frac{-\\sqrt{45y^2}}{3\\sqrt{5y}}$ .",
+            "answer": "(1) \\(\\sqrt{3}\\)；(2) \\(\\frac{\\sqrt{6}}{2}\\)；(3) \\(\\frac{\\sqrt{5}}{30}\\)；(4) \\(\\frac{5\\sqrt{n}}{3}\\)；(5) \\(y\\sqrt{2x}\\)；(6) \\(-\\sqrt{y}\\)。",
+            "analysis": "(1) \\(\\sqrt{12}=\\sqrt{4\\cdot3}=2\\sqrt3\\Rightarrow \\frac{\\sqrt{12}}2=\\sqrt3\\)。\n(2) \\(\\frac{3}{\\sqrt6}\\cdot\\frac{\\sqrt6}{\\sqrt6}=\\frac{3\\sqrt6}{6}=\\frac{\\sqrt6}{2}\\)。\n(3) \\(\\sqrt{40}=\\sqrt{4\\cdot10}=2\\sqrt{10}\\Rightarrow \\frac{\\sqrt2}{3\\sqrt{40}}=\\frac{\\sqrt2}{6\\sqrt{10}}\\cdot\\frac{\\sqrt{10}}{\\sqrt{10}}=\\frac{\\sqrt{20}}{60}=\\frac{2\\sqrt5}{60}=\\frac{\\sqrt5}{30}\\)。\n(4) \\(\\frac{5n}{3\\sqrt n}=\\frac{5}{3}\\cdot\\frac{n}{\\sqrt n}=\\frac{5}{3}\\sqrt n\\)。\n(5) \\(\\frac{2xy}{\\sqrt{2x}}\\cdot\\frac{\\sqrt{2x}}{\\sqrt{2x}}=\\frac{2xy\\sqrt{2x}}{2x}=y\\sqrt{2x}\\)。\n(6) \\(\\sqrt{45y^2}=\\sqrt{9\\cdot5\\cdot y^2}=3y\\sqrt5\\)，且 \\(\\sqrt{5y}=\\sqrt5\\sqrt y\\)，所以 \\(\\frac{-\\sqrt{45y^2}}{3\\sqrt{5y}}=\\frac{-3y\\sqrt5}{3\\sqrt5\\sqrt y}=-\\frac{y}{\\sqrt y}=-\\sqrt y\\)（默认字母取正）。",
+            "difficulty": 2,
+            "type": "填空题",
+            "meta": {
+                "book_prefix": "math_8b_rjb",
+                "source_md": "ch16_s2.md",
+                "question_no_in_source": 4,
+                "global_no": 17
+            },
+            "links": {
+                "concept_names": [
+                    "二次根式的乘法法则",
+                    "二次根式的除法法则",
+                    "最简二次根式"
+                ],
+                "skill_names": [
+                    "二次根式化简"
+                ]
+            }
+        },
+        {
+            "id": "math_8b_rjb_ch16_s2_t19",
+            "stem": "根据下列条件求代数式 $\\frac{-b + \\sqrt{b^2 - 4ac}}{2a}$ 的值：\n\n（1） $a = 1$ ， $b = 10$ ， $c = -15$   \n(2) $a = 2, b = -8, c = 5$ .",
+            "answer": "（1）-5+2\\sqrt{10}；（2）2+\\frac{\\sqrt{6}}{2}",
+            "analysis": "将所给a,b,c代入表达式\\(\\frac{-b+\\sqrt{b^2-4ac}}{2a}\\)。\n（1）\\(b^2-4ac=10^2-4\\cdot1\\cdot(-15)=160\\)，\\(\\sqrt{160}=4\\sqrt{10}\\)，所以值为\\(\\frac{-10+4\\sqrt{10}}{2}=-5+2\\sqrt{10}\\)。\n（2）\\(b^2-4ac=(-8)^2-4\\cdot2\\cdot5=24\\)，\\(\\sqrt{24}=2\\sqrt{6}\\)，所以值为\\(\\frac{8+2\\sqrt{6}}{4}=2+\\frac{\\sqrt{6}}{2}\\)。",
+            "difficulty": 2,
+            "type": "填空题",
+            "meta": {
+                "book_prefix": "math_8b_rjb",
+                "source_md": "ch16_s2.md",
+                "question_no_in_source": 5,
+                "global_no": 18
+            },
+            "links": {
+                "concept_names": [
+                    "最简二次根式"
+                ],
+                "skill_names": [
+                    "二次根式化简"
+                ]
+            }
+        },
+        {
+            "id": "math_8b_rjb_ch16_s3_t20",
+            "stem": "下列计算是否正确？为什么？\n\n（1） $\\sqrt{8} -\\sqrt{3} = \\sqrt{8 - 3}$   \n（2） $\\sqrt{4} +\\sqrt{9} = \\sqrt{4 + 9}$   \n(3) $3\\sqrt{2} - \\sqrt{2} = 2\\sqrt{2}$ .",
+            "answer": "（1）不正确。因为一般情况下√a±√b≠√(a±b)，如√8−√3≈2.828−1.732≈1.096，而√(8−3)=√5≈2.236，不相等。\n（2）不正确。因为一般情况下√a+√b≠√(a+b)，如√4+√9=2+3=5，而√(4+9)=√13≈3.606，不相等。\n（3）正确。因为同类二次根式可以合并：3√2−√2=(3−1)√2=2√2。",
+            "analysis": "判断根式运算是否能“把根号里相加减”：只有乘除时可用√a·√b=√(ab)（a,b≥0），加减不能合并到同一个根号内；但同类二次根式（根号内相同）可以像同类项一样合并系数。故（1）（2）错误，（3）正确。",
+            "difficulty": 2,
+            "type": "简答题",
+            "meta": {
+                "book_prefix": "math_8b_rjb",
+                "source_md": "ch16_s3.md",
+                "question_no_in_source": 1,
+                "global_no": 19
+            },
+            "links": {
+                "concept_names": [
+                    "二次根式",
+                    "二次根式的加减法"
+                ]
+            }
+        },
+        {
+            "id": "math_8b_rjb_ch16_s3_t21",
+            "stem": "计算：\n\n（1） $2\\sqrt{7} -6\\sqrt{7}$   \n(2) $\\sqrt{80} - \\sqrt{20} + \\sqrt{5}$ ;   \n(3) $\\sqrt{18} + (\\sqrt{98} - \\sqrt{27})$ ;   \n(4) $(\\sqrt{24} + \\sqrt{0.5}) - \\left(\\sqrt{\\frac{1}{8}} - \\sqrt{6}\\right)$ .",
+            "answer": "(1) -4\\sqrt{7}\\n(2) 3\\sqrt{5}\\n(3) 10\\sqrt{2}-3\\sqrt{3}\\n(4) 3\\sqrt{6}+\\frac{\\sqrt{2}}{4}",
+            "analysis": "(1) 合并同类二次根式：2\\sqrt{7}-6\\sqrt{7}=(2-6)\\sqrt{7}=-4\\sqrt{7}。\\n(2) 先化简根式：\\sqrt{80}=\\sqrt{16\\cdot5}=4\\sqrt{5}，\\sqrt{20}=\\sqrt{4\\cdot5}=2\\sqrt{5}，所以4\\sqrt{5}-2\\sqrt{5}+\\sqrt{5}=3\\sqrt{5}。\\n(3) \\sqrt{18}=\\sqrt{9\\cdot2}=3\\sqrt{2}，\\sqrt{98}=\\sqrt{49\\cdot2}=7\\sqrt{2}，\\sqrt{27}=\\sqrt{9\\cdot3}=3\\sqrt{3}，代入得3\\sqrt{2}+(7\\sqrt{2}-3\\sqrt{3})=10\\sqrt{2}-3\\sqrt{3}。\\n(4) \\sqrt{24}=\\sqrt{4\\cdot6}=2\\sqrt{6}，\\sqrt{0.5}=\\sqrt{\\tfrac12}=\\tfrac{\\sqrt2}{2}，\\sqrt{\\tfrac18}=\\sqrt{\\tfrac{1}{8}}=\\tfrac{\\sqrt2}{4}。原式=(2\\sqrt6+\\tfrac{\\sqrt2}{2})-(\\tfrac{\\sqrt2}{4}-\\sqrt6)=2\\sqrt6+\\tfrac{\\sqrt2}{2}-\\tfrac{\\sqrt2}{4}+\\sqrt6=3\\sqrt6+\\tfrac{\\sqrt2}{4}。",
+            "difficulty": 2,
+            "type": "填空题",
+            "meta": {
+                "book_prefix": "math_8b_rjb",
+                "source_md": "ch16_s3.md",
+                "question_no_in_source": 2,
+                "global_no": 20
+            },
+            "links": {
+                "concept_names": [
+                    "二次根式的加减法",
+                    "最简二次根式"
+                ],
+                "skill_names": [
+                    "化成最简二次根式"
+                ]
+            }
+        },
+        {
+            "id": "math_8b_rjb_ch16_s3_t23",
+            "stem": "计算：\n\n(1) $\\sqrt{2} (\\sqrt{3} +\\sqrt{5})$\n\n(2) $(\\sqrt{80} + \\sqrt{40}) \\div \\sqrt{5}$ ;\n\n(3) $(\\sqrt{5} + 3)(\\sqrt{5} + 2)$ ;\n\n（4） $(\\sqrt{6} +\\sqrt{2})(\\sqrt{6} -\\sqrt{2}).$",
+            "answer": "(1) \\(\\sqrt6+\\sqrt{10}\\)；(2) \\(4+2\\sqrt2\\)；(3) \\(11+5\\sqrt5\\)；(4) \\(4\\)。",
+            "analysis": "(1) 利用分配律：\\(\\sqrt2(\\sqrt3+\\sqrt5)=\\sqrt2\\cdot\\sqrt3+\\sqrt2\\cdot\\sqrt5=\\sqrt6+\\sqrt{10}\\)。\n(2) 先化简根式：\\(\\sqrt{80}=4\\sqrt5\\)，\\(\\sqrt{40}=2\\sqrt{10}\\)，所以\\((\\sqrt{80}+\\sqrt{40})/\\sqrt5=(4\\sqrt5+2\\sqrt{10})/\\sqrt5=4+2\\cdot\\sqrt{10}/\\sqrt5=4+2\\sqrt2\\)。\n(3) 展开：\\((\\sqrt5+3)(\\sqrt5+2)=5+2\\sqrt5+3\\sqrt5+6=11+5\\sqrt5\\)。\n(4) 平方差公式：\\((\\sqrt6+\\sqrt2)(\\sqrt6-\\sqrt2)=6-2=4\\)。",
+            "difficulty": 2,
+            "type": "填空题",
+            "meta": {
+                "book_prefix": "math_8b_rjb",
+                "source_md": "ch16_s3.md",
+                "question_no_in_source": 1,
+                "global_no": 21
+            },
+            "links": {
+                "concept_names": [
+                    "二次根式",
+                    "最简二次根式",
+                    "二次根式的加减法"
+                ],
+                "skill_names": [
+                    "化成最简二次根式"
+                ]
+            }
+        },
+        {
+            "id": "math_8b_rjb_ch16_s3_t24",
+            "stem": "计算：\n\n（1） $(4 + \\sqrt{7})(4 - \\sqrt{7})$   \n(2) $(\\sqrt{a} + \\sqrt{b})(\\sqrt{a} - \\sqrt{b})$   \n(3) $(\\sqrt{3} + 2)^2$ ;   \n（4） $(2\\sqrt{5} -\\sqrt{2})^2$",
+            "answer": "（1）9；（2）a-b；（3）7+4\\sqrt{3}；（4）22-4\\sqrt{10}",
+            "analysis": "（1）（x+y）（x−y）=x^2−y^2：16−7=9。\n（2）（\\sqrt{a}+\\sqrt{b})(\\sqrt{a}-\\sqrt{b})=(\\sqrt{a})^2-(\\sqrt{b})^2=a-b。\n（3）（\\sqrt{3}+2）^2=(\\sqrt{3})^2+2\\cdot\\sqrt{3}\\cdot2+2^2=3+4\\sqrt{3}+4=7+4\\sqrt{3}。\n（4）（2\\sqrt{5}-\\sqrt{2})^2=(2\\sqrt{5})^2-2\\cdot2\\sqrt{5}\\cdot\\sqrt{2}+(\\sqrt{2})^2=20-4\\sqrt{10}+2=22-4\\sqrt{10}。",
+            "difficulty": 2,
+            "type": "填空题",
+            "meta": {
+                "book_prefix": "math_8b_rjb",
+                "source_md": "ch16_s3.md",
+                "question_no_in_source": 2,
+                "global_no": 22
+            },
+            "links": {
+                "concept_names": [
+                    "二次根式",
+                    "最简二次根式"
+                ],
+                "skill_names": [
+                    "化成最简二次根式"
+                ]
+            }
+        },
+        {
+            "id": "math_8b_rjb_ch16_s3_t25",
+            "stem": "下列计算是否正确？为什么？\n\n(1) $\\sqrt{2} + \\sqrt{3} = \\sqrt{5}$\n\n(2) $2 + \\sqrt{2} = 2\\sqrt{2}$\n\n（3） $3\\sqrt{2} -\\sqrt{2} = 3$\n\n(4) $\\frac{\\sqrt{18} - \\sqrt{8}}{2} = \\sqrt{9} - \\sqrt{4} = 3 - 2 = 1.$",
+            "answer": "(1) 不正确；(2) 不正确；(3) 不正确；(4) 不正确。",
+            "analysis": "(1) 设\\(\\sqrt2+\\sqrt3=\\sqrt5\\)，两边平方得\\(2+3+2\\sqrt6=5\\)，即\\(2\\sqrt6=0\\)矛盾，故不成立。\\n(2) \\(2\\)与\\(\\sqrt2\\)不是同类项，不能合并；实际上\\(2+\\sqrt2\\neq2\\sqrt2\\)。\\n(3) 同类根式可合并：\\(3\\sqrt2-\\sqrt2=(3-1)\\sqrt2=2\\sqrt2\\neq3\\)。\\n(4) \\(\\sqrt{18}=3\\sqrt2,\\ \\sqrt8=2\\sqrt2\\)，所以\\(\\frac{\\sqrt{18}-\\sqrt8}{2}=\\frac{3\\sqrt2-2\\sqrt2}{2}=\\frac{\\sqrt2}{2}\\)。且\\(\\frac{\\sqrt{18}-\\sqrt8}{2}\\)不能拆成\\(\\sqrt9-\\sqrt4\\)，因此等式链不成立。",
+            "difficulty": 2,
+            "type": "判断题",
+            "meta": {
+                "book_prefix": "math_8b_rjb",
+                "source_md": "ch16_s3.md",
+                "question_no_in_source": 1,
+                "global_no": 23
+            },
+            "links": {
+                "concept_names": [
+                    "二次根式",
+                    "最简二次根式",
+                    "二次根式的加减法"
+                ],
+                "skill_names": [
+                    "化成最简二次根式"
+                ]
+            }
+        },
+        {
+            "id": "math_8b_rjb_ch16_s3_t26",
+            "stem": "计算：\n\n(1) $2\\sqrt{12} + \\sqrt{27}$ ;\n\n(2) $\\sqrt{18} - \\sqrt{\\frac{9}{2}}$ ;\n\n(3) $\\frac{2}{3}\\sqrt{9x} + 6\\sqrt{\\frac{x}{4}}$ ;\n\n（4） $a^2\\sqrt{8a} +3a\\sqrt{50a^3}.$",
+            "answer": "(1) 7√3；(2) (3√2)/2；(3) 5√x；(4) 17a^2√(2a)。",
+            "analysis": "(1) 2√12=2·√(4·3)=4√3，√27=√(9·3)=3√3，和为7√3。 (2) √18=√(9·2)=3√2，√(9/2)=3/√2=(3√2)/2，差为(3√2)/2。 (3) (2/3)√(9x)=(2/3)·3√x=2√x，6√(x/4)=6·(√x/2)=3√x，和为5√x。 (4) a^2√(8a)=a^2·2√(2a)，3a√(50a^3)=3a·5a√(2a)=15a^2√(2a)，相加得17a^2√(2a)。",
+            "difficulty": 2,
+            "type": "简答题",
+            "meta": {
+                "book_prefix": "math_8b_rjb",
+                "source_md": "ch16_s3.md",
+                "question_no_in_source": 2,
+                "global_no": 24
+            },
+            "links": {
+                "concept_names": [
+                    "二次根式",
+                    "最简二次根式",
+                    "二次根式的加减法"
+                ],
+                "skill_names": [
+                    "化成最简二次根式"
+                ]
+            }
+        },
+        {
+            "id": "math_8b_rjb_ch16_s3_t27",
+            "stem": "计算：\n\n(1) $\\sqrt{18} - \\sqrt{32} + \\sqrt{2}$\n\n(2)√75-√54+√96-√108；\n\n(3) $(\\sqrt{45} + \\sqrt{18}) - (\\sqrt{8} - \\sqrt{125})$ ;\n\n（4） $\\frac{1}{2} (\\sqrt{2} +\\sqrt{3}) - \\frac{3}{4} (\\sqrt{2} +\\sqrt{27}).$",
+            "answer": "(1) 0；(2) √6−√3；(3) 8√5+√2；(4) −(√2+7√3)/4",
+            "analysis": "将各根式化为最简根式并合并同类根式：\n(1) √18=3√2，√32=4√2，故3√2−4√2+√2=0。\n(2) √75=5√3，√54=3√6，√96=4√6，√108=6√3，故(5−6)√3+(−3+4)√6=√6−√3。\n(3) √45=3√5，√18=3√2，√8=2√2，√125=5√5，去括号合并得8√5+√2。\n(4) √27=3√3，展开：1/2(√2+√3)=2/4√2+2/4√3，3/4(√2+3√3)=3/4√2+9/4√3，相减得−1/4√2−7/4√3=−(√2+7√3)/4。",
+            "difficulty": 2,
+            "type": "填空题",
+            "meta": {
+                "book_prefix": "math_8b_rjb",
+                "source_md": "ch16_s3.md",
+                "question_no_in_source": 3,
+                "global_no": 25
+            },
+            "links": {
+                "concept_names": [
+                    "二次根式",
+                    "最简二次根式",
+                    "二次根式的加减法"
+                ],
+                "skill_names": [
+                    "化成最简二次根式"
+                ]
+            }
+        },
+        {
+            "id": "math_8b_rjb_ch16_s3_t28",
+            "stem": "计算：\n\n(1) $(\\sqrt{12} + 5\\sqrt{8})\\sqrt{3}$ ;\n\n（2） $(2\\sqrt{3} +3\\sqrt{2})(2\\sqrt{3} -3\\sqrt{2})$\n\n(3) $(5\\sqrt{3} + 2\\sqrt{5})^2$ ;\n\n（4） $(\\sqrt{48} +\\frac{1}{4}\\sqrt{6})\\div \\sqrt{27}.$",
+            "answer": "(1) 6+10\\sqrt{6}；(2) -6；(3) 95+20\\sqrt{15}；(4) \\frac{16+\\sqrt{2}}{12}",
+            "analysis": "(1) \\sqrt{12}=2\\sqrt{3},\\ \\sqrt{8}=2\\sqrt{2}，原式=(2\\sqrt{3}+10\\sqrt{2})\\sqrt{3}=6+10\\sqrt{6}。 (2) 设a=2\\sqrt{3},b=3\\sqrt{2}，则(a+b)(a-b)=a^2-b^2=12-18=-6。 (3) (5\\sqrt{3}+2\\sqrt{5})^2=(5\\sqrt{3})^2+2\\cdot5\\sqrt{3}\\cdot2\\sqrt{5}+(2\\sqrt{5})^2=75+20\\sqrt{15}+20=95+20\\sqrt{15}。 (4) \\sqrt{48}=4\\sqrt{3},\\ \\sqrt{27}=3\\sqrt{3}，原式=\\frac{4\\sqrt{3}+\\frac14\\sqrt{6}}{3\\sqrt{3}}=\\frac43+\\frac{1}{12}\\cdot\\frac{\\sqrt{6}}{\\sqrt{3}}=\\frac43+\\frac{\\sqrt{2}}{12}=\\frac{16+\\sqrt{2}}{12}。",
+            "difficulty": 2,
+            "type": "计算题",
+            "meta": {
+                "book_prefix": "math_8b_rjb",
+                "source_md": "ch16_s3.md",
+                "question_no_in_source": 4,
+                "global_no": 26
+            },
+            "links": {
+                "concept_names": [
+                    "二次根式",
+                    "最简二次根式",
+                    "二次根式的加减法"
+                ],
+                "skill_names": [
+                    "化成最简二次根式"
+                ]
+            }
+        },
+        {
+            "id": "math_8b_rjb_ch16_s_16_t29",
+            "stem": "当 $x$ 是怎样的实数时，下列各式在实数范围内有意义？\n\n(1) $\\sqrt{3 + x}$\n\n(2) $\\frac{1}{\\sqrt{2x - 1}}$\n\n(3) $\\sqrt{\\frac{1}{2 - 3x}}$ ;\n\n(4) $\\sqrt{\\frac{1}{(x - 1)^2}}$ .",
+            "answer": "(1) x≥-3；(2) x>1/2；(3) x<2/3；(4) x≠1。",
+            "analysis": "在实数范围内有意义的条件：根号内≥0，且分母≠0。\n(1) 3+x≥0 ⇒ x≥-3。\n(2) 分母为√(2x-1)，需2x-1>0（既保证根号内非负又保证分母不为0）⇒ x>1/2。\n(3) 需1/(2-3x)≥0且2-3x≠0。因分子1>0，故要求2-3x>0 ⇒ x<2/3。\n(4) 需1/(x-1)^2≥0且(x-1)^2≠0。平方恒≥0且当且仅当x=1时为0，会使分母为0，故x≠1。",
+            "difficulty": 2,
+            "type": "填空题",
+            "meta": {
+                "book_prefix": "math_8b_rjb",
+                "source_md": "ch16_s复习题16.md",
+                "question_no_in_source": 1,
+                "global_no": 27
+            }
+        },
+        {
+            "id": "math_8b_rjb_ch16_s_16_t30",
+            "stem": "化简：\n\n(1) $\\sqrt{500}$\n\n(2) $\\sqrt{12x}$\n\n(3) $\\sqrt{4\\frac{2}{3}}$\n\n(4) $\\sqrt{\\frac{2}{3a^2}}$ ;\n\n(5) $\\sqrt{2x^2y^3}$\n\n(6) $\\sqrt{\\frac{5a^5}{6}}$ .",
+            "answer": "(1) 10\\sqrt{5}\\n(2) 2\\sqrt{3x}\\n(3) \\frac{\\sqrt{42}}{3}\\n(4) \\frac{\\sqrt{6}}{3|a|}\\n(5) |x||y|\\sqrt{2y}\\n(6) \\frac{a^2\\sqrt{30a}}{6}",
+            "analysis": "利用\\sqrt{ab}=\\sqrt a\\sqrt b(\\,a,b\\ge0\\,)把被开方数分解为“完全平方因子×其余因子”，把完全平方部分开方提出；分数根式先分别对分子分母开方，再按需要有理化。含字母时，\\sqrt{x^2}=|x|，因此(4)(5)出现绝对值。\\n(1) 500=100·5→10\\sqrt5；(2) 12x=4·3x→2\\sqrt{3x}；(3) 4\\tfrac23=\\tfrac{14}{3}=\\tfrac{42}{9}→\\tfrac{\\sqrt{42}}{3}；(4) \\sqrt{\\tfrac{2}{3a^2}}=\\tfrac{\\sqrt2}{\\sqrt3|a|}→\\tfrac{\\sqrt6}{3|a|}；(5) 2x^2y^3=2·x^2·y^2·y→|x||y|\\sqrt{2y}；(6) \\tfrac{5a^5}{6}=\\tfrac{5}{6}·a^4·a→a^2\\sqrt{\\tfrac{5a}{6}}=\\tfrac{a^2\\sqrt{30a}}{6}。",
+            "difficulty": 3,
+            "type": "简答题",
+            "meta": {
+                "book_prefix": "math_8b_rjb",
+                "source_md": "ch16_s复习题16.md",
+                "question_no_in_source": 2,
+                "global_no": 28
+            }
+        },
+        {
+            "id": "math_8b_rjb_ch16_s_16_t31",
+            "stem": "计算：\n\n(1) $\\left(\\sqrt{24} - \\sqrt{\\frac{1}{2}}\\right) - \\left(\\sqrt{\\frac{1}{8}} + \\sqrt{6}\\right)$ ;\n\n(2) $2\\sqrt{12} \\times \\frac{\\sqrt{3}}{4} \\div 5\\sqrt{2}$ ;\n\n（3） $(2\\sqrt{3} +\\sqrt{6})(2\\sqrt{3} -\\sqrt{6})$\n\n(4) $(2\\sqrt{48} - 3\\sqrt{27}) \\div \\sqrt{6}$ ;\n\n(5) $(2\\sqrt{2} + 3\\sqrt{3})^2$ ;\n\n(6) $\\left(\\frac{3}{2}\\sqrt{1\\frac{2}{3}} - \\sqrt{1\\frac{1}{4}}\\right)^2$ .",
+            "answer": "(1) \\(\\sqrt6-\\frac{3\\sqrt2}{4}\\)；(2) \\(\\frac{3\\sqrt2}{10}\\)；(3) \\(6\\)；(4) \\(-\\frac{\\sqrt2}{2}\\)；(5) \\(35+12\\sqrt6\\)；(6) \\(5-\\frac{5\\sqrt3}{2}\\)",
+            "analysis": "(1) \\(\\sqrt{24}=2\\sqrt6,\\ \\sqrt\\frac12=\\frac{\\sqrt2}{2},\\ \\sqrt\\frac18=\\frac{\\sqrt2}{4}\\)，原式=\\((2\\sqrt6-\\frac{\\sqrt2}{2})-(\\frac{\\sqrt2}{4}+\\sqrt6)=\\sqrt6-\\frac{3\\sqrt2}{4}\\)。\n(2) \\(2\\sqrt{12}=4\\sqrt3\\)，则\\(4\\sqrt3\\cdot\\frac{\\sqrt3}{4}=3\\)，再除以\\(5\\sqrt2\\)得\\(\\frac{3}{5\\sqrt2}=\\frac{3\\sqrt2}{10}\\)。\n(3) 平方差：\\((2\\sqrt3)^2-(\\sqrt6)^2=12-6=6\\)。\n(4) \\(\\sqrt{48}=4\\sqrt3,\\ \\sqrt{27}=3\\sqrt3\\)，分子\\(2\\sqrt{48}-3\\sqrt{27}=8\\sqrt3-9\\sqrt3=-\\sqrt3\\)，再除以\\(\\sqrt6\\)：\\(-\\frac{\\sqrt3}{\\sqrt6}=-\\sqrt\\frac12=-\\frac{\\sqrt2}{2}\\)。\n(5) 完全平方：\\((2\\sqrt2)^2+2\\cdot2\\sqrt2\\cdot3\\sqrt3+(3\\sqrt3)^2=8+12\\sqrt6+27=35+12\\sqrt6\\)。\n(6) \\(1\\frac23=\\frac53,\\ 1\\frac14=\\frac54\\)，所以\\(\\sqrt\\frac53=\\frac{\\sqrt15}{3},\\ \\sqrt\\frac54=\\frac{\\sqrt5}{2}\\)。括号内=\\(\\frac32\\cdot\\frac{\\sqrt15}{3}-\\frac{\\sqrt5}{2}=\\frac{\\sqrt15-\\sqrt5}{2}\\)。平方得\\(\\frac{(\\sqrt15-\\sqrt5)^2}{4}=\\frac{20-2\\sqrt{75}}{4}=\\frac{20-10\\sqrt3}{4}=5-\\frac{5\\sqrt3}{2}\\)。",
+            "difficulty": 3,
+            "type": "填空题",
+            "meta": {
+                "book_prefix": "math_8b_rjb",
+                "source_md": "ch16_s复习题16.md",
+                "question_no_in_source": 3,
+                "global_no": 29
+            }
+        },
+        {
+            "id": "math_8b_rjb_ch16_s_16_t32",
+            "stem": "正方形的边长为 $a \\mathrm{~cm}$ ，它的面积与长为 $96 \\mathrm{~cm}$ 、宽为 $12 \\mathrm{~cm}$ 的长方形的面积相等。求 $a$ 的值。",
+            "answer": "a=24\\sqrt{2}\\text{ cm}",
+            "analysis": "长方形面积为96\\times12=1152\\text{ cm}^2。正方形面积为a^2，与之相等，所以a^2=1152，a=\\sqrt{1152}=\\sqrt{576\\times2}=24\\sqrt{2}(\\text{cm})。",
+            "difficulty": 2,
+            "type": "填空题",
+            "meta": {
+                "book_prefix": "math_8b_rjb",
+                "source_md": "ch16_s复习题16.md",
+                "question_no_in_source": 4,
+                "global_no": 30
+            }
+        },
+        {
+            "id": "math_8b_rjb_ch17_s1_t33",
+            "stem": "设直角三角形的两条直角边长分别为 $a$ 和 $b$ ，斜边长为 $c$\n\n（1）已知 $a = 6$ ， $c = 10$ ，求 $b$   \n（2）已知 $a = 5$ ， $b = 12$ ，求 $c$   \n（3）已知 $c = 25$ ， $b = 15$ ，求 $a$",
+            "answer": "（1）b=8；（2）c=13；（3）a=20",
+            "analysis": "利用勾股定理：a^2+b^2=c^2。\n（1）b^2=c^2-a^2=10^2-6^2=100-36=64，b=8。\n（2）c^2=a^2+b^2=5^2+12^2=25+144=169，c=13。\n（3）a^2=c^2-b^2=25^2-15^2=625-225=400，a=20。",
+            "difficulty": 2,
+            "type": "填空题",
+            "meta": {
+                "book_prefix": "math_8b_rjb",
+                "source_md": "ch17_s1.md",
+                "question_no_in_source": 1,
+                "global_no": 31
+            },
+            "links": {
+                "concept_names": [
+                    "勾股定理",
+                    "直角三角形"
+                ],
+                "skill_names": [
+                    "利用勾股定理计算线段长度"
+                ]
+            }
+        },
+        {
+            "id": "math_8b_rjb_ch17_s1_t37",
+            "stem": "在数轴上作出表示 $\\sqrt{17}$ 的点.",
+            "answer": "在数轴上以原点O为起点，作出到O距离为\\(\\sqrt{17}\\)的点P（即P的坐标为\\(\\sqrt{17}\\)，约为4.123）。",
+            "analysis": "利用勾股定理构造\\(\\sqrt{17}\\)：在数轴上取O为0点，向右取点A使\\(OA=4\\)。过A作数轴的垂线，在垂线上取点B使\\(AB=1\\)。连接OB，则\\(OB=\\sqrt{4^2+1^2}=\\sqrt{17}\\)。以O为圆心、OB为半径作圆，与数轴正半轴交于点P，则P所表示的数为\\(\\sqrt{17}\\)。",
+            "difficulty": 3,
+            "type": "简答题",
+            "meta": {
+                "book_prefix": "math_8b_rjb",
+                "source_md": "ch17_s1.md",
+                "question_no_in_source": 1,
+                "global_no": 32
+            },
+            "links": {
+                "concept_names": [
+                    "勾股定理",
+                    "直角三角形"
+                ],
+                "skill_names": [
+                    "在数轴上表示根号数"
+                ]
+            }
+        },
+        {
+            "id": "math_8b_rjb_ch17_s1_t39",
+            "stem": "设直角三角形的两条直角边长分别为 $a$ 和 $b$ ，斜边长为 $c$ 。\n\n（1）已知 $a = 12$ ， $b = 5$ ，求 $c$   \n（2）已知 $a = 3$ ， $c = 4$ ，求 $b$   \n（3）已知 $c = 10$ ， $b = 9$ ，求 $a$",
+            "answer": "（1）c=13；（2）b=√7；（3）a=√19",
+            "analysis": "由勾股定理 a^2+b^2=c^2。\n（1）c=√(12^2+5^2)=√(144+25)=√169=13。\n（2）b=√(c^2-a^2)=√(4^2-3^2)=√(16-9)=√7。\n（3）a=√(c^2-b^2)=√(10^2-9^2)=√(100-81)=√19。",
+            "difficulty": 2,
+            "type": "应用题",
+            "meta": {
+                "book_prefix": "math_8b_rjb",
+                "source_md": "ch17_s1.md",
+                "question_no_in_source": 1,
+                "global_no": 33
+            },
+            "links": {
+                "concept_names": [
+                    "勾股定理",
+                    "直角三角形"
+                ],
+                "skill_names": [
+                    "利用勾股定理计算线段长度"
+                ]
+            }
+        },
+        {
+            "id": "math_8b_rjb_ch17_s1_t40",
+            "stem": "一木杆在离地面 $3 \\mathrm{~m}$ 处折断，木杆顶端落在离木杆底端 $4 \\mathrm{~m}$ 处. 木杆折断之前有多高？",
+            "answer": "8 m",
+            "analysis": "木杆在离地3m处折断，折断点到地面的垂直距离为3m；顶端落地点到木杆底端的水平距离为4m。折断后的上半段形成直角三角形的斜边，长度为√(3^2+4^2)=5m。木杆原长=下半段3m+上半段5m=8m。",
+            "difficulty": 2,
+            "type": "应用题",
+            "meta": {
+                "book_prefix": "math_8b_rjb",
+                "source_md": "ch17_s1.md",
+                "question_no_in_source": 2,
+                "global_no": 34
+            },
+            "links": {
+                "concept_names": [
+                    "勾股定理",
+                    "直角三角形"
+                ],
+                "skill_names": [
+                    "利用勾股定理计算线段长度"
+                ]
+            }
+        },
+        {
+            "id": "math_8b_rjb_ch17_s1_t44",
+            "stem": "在数轴上作出表示 $\\sqrt{20}$ 的点.",
+            "answer": "在数轴上取原点O，向右取点A使OA=4；过A作垂线取点B使AB=2，连结OB，则OB=\\sqrt{4^2+2^2}=\\sqrt{20}。以O为圆心、OB为半径在数轴正半轴上截取点P，则P对应的数为\\sqrt{20}(约4.47)。",
+            "analysis": "利用勾股定理构造长度\\sqrt{20}：先在数轴上得到长度4，再在该点作垂线取长度2，形成直角三角形OAB，斜边OB的长度为\\sqrt{4^2+2^2}=\\sqrt{20}。再把该长度用圆规从原点截到数轴上即可得到表示\\sqrt{20}的点。",
+            "difficulty": 3,
+            "type": "应用题",
+            "meta": {
+                "book_prefix": "math_8b_rjb",
+                "source_md": "ch17_s1.md",
+                "question_no_in_source": 6,
+                "global_no": 35
+            },
+            "links": {
+                "concept_names": [
+                    "勾股定理",
+                    "直角三角形"
+                ],
+                "skill_names": [
+                    "在数轴上表示根号数"
+                ]
+            }
+        },
+        {
+            "id": "math_8b_rjb_ch17_s2_t45",
+            "stem": "如果三条线段长 $a, b, c$ 满足 $a^2 = c^2 - b^2$ ，这三条线段组成的三角形是不是直角三角形？为什么？",
+            "answer": "是直角三角形（以c为斜边）。因为由a^2=c^2-b^2可得a^2+b^2=c^2，若a、b、c能组成三角形，则根据勾股定理的逆定理，该三角形为直角三角形，且直角对着边c。",
+            "analysis": "由题设a^2=c^2-b^2，两边同加b^2得a^2+b^2=c^2。若线段a、b、c能组成三角形（满足任意两边之和大于第三边），且c为最长边，则满足勾股定理逆定理的条件：两直角边平方和等于第三边平方，因此该三角形为直角三角形，直角夹在a与b之间，c为斜边。",
+            "difficulty": 3,
+            "type": "简答题",
+            "meta": {
+                "book_prefix": "math_8b_rjb",
+                "source_md": "ch17_s2.md",
+                "question_no_in_source": 1,
+                "global_no": 36
+            },
+            "links": {
+                "concept_names": [
+                    "勾股定理的逆定理"
+                ],
+                "skill_names": [
+                    "利用平方关系判定直角三角形"
+                ]
+            }
+        },
+        {
+            "id": "math_8b_rjb_ch17_s2_t46",
+            "stem": "说出下列命题的逆命题. 这些逆命题成立吗?\n\n（1）两条直线平行，内错角相等；  \n（2）如果两个实数相等，那么它们的绝对值相等；  \n（3）全等三角形的对应角相等；  \n（4）在角的内部，到角的两边距离相等的点在角的平分线上.",
+            "answer": "（1）逆命题：内错角相等，两条直线平行；成立（在两直线被第三条直线所截的前提下）。\n（2）逆命题：如果两个实数的绝对值相等，那么这两个实数相等；不成立（如1与-1）。\n（3）逆命题：如果两个三角形的对应角相等，那么这两个三角形全等；不成立（只能推出相似，未必全等）。\n（4）逆命题：在角的平分线上的点，到角的两边距离相等；成立。",
+            "analysis": "写逆命题的方法是交换“条件”和“结论”。（1）属于平行线判定定理：内错角相等⇒两直线平行（需有截线情境），因此成立。（2）|a|=|b|只能推出a=b或a=-b，故不成立。（3）对应角相等只能保证两三角形相似，边长不一定相等，故不成立。（4）角平分线性质：平分线上的点到两边距离相等，故逆命题成立。",
+            "difficulty": 3,
+            "type": "简答题",
+            "meta": {
+                "book_prefix": "math_8b_rjb",
+                "source_md": "ch17_s2.md",
+                "question_no_in_source": 2,
+                "global_no": 37
+            },
+            "links": {
+                "concept_names": [
+                    "逆命题",
+                    "互逆命题"
+                ]
+            }
+        },
+        {
+            "id": "math_8b_rjb_ch17_s2_t48",
+            "stem": "判断由线段 $a, b, c$ 组成的三角形是不是直角三角形：\n\n(1) $a = 7, b = 24, c = 25$ ;   \n（2） $a = \\sqrt{41}$ ， $b = 4$ ， $c = 5$   \n(3) $a = \\frac{5}{4}, b = 1, c = \\frac{3}{4}$   \n（4） $a = 40$ ， $b = 50$ ， $c = 60$",
+            "answer": "(1) 是直角三角形；(2) 是直角三角形；(3) 是直角三角形；(4) 不是直角三角形。",
+            "analysis": "用勾股定理判断：先找最大边作斜边，检验两短边平方和是否等于最大边平方。(1) 7^2+24^2=49+576=625=25^2，成立；(2) 4^2+5^2=16+25=41=(√41)^2，成立；(3) 1^2+(3/4)^2=1+9/16=25/16=(5/4)^2，成立；(4) 40^2+50^2=4100≠60^2=3600，不成立。",
+            "difficulty": 2,
+            "type": "判断题",
+            "meta": {
+                "book_prefix": "math_8b_rjb",
+                "source_md": "ch17_s2.md",
+                "question_no_in_source": 1,
+                "global_no": 38
+            },
+            "links": {
+                "concept_names": [
+                    "勾股定理的逆定理",
+                    "勾股数"
+                ],
+                "skill_names": [
+                    "利用平方关系判定直角三角形"
+                ]
+            }
+        },
+        {
+            "id": "math_8b_rjb_ch17_s2_t49",
+            "stem": "下列各命题都成立，写出它们的逆命题。这些逆命题成立吗？\n\n（1）同旁内角互补，两直线平行；  \n（2）如果两个角是直角，那么它们相等；  \n（3）全等三角形的对应边相等；  \n（4）如果两个实数相等，那么它们的平方相等",
+            "answer": "（1）逆命题：两直线平行，则同旁内角互补。成立。\n（2）逆命题：如果两个角相等，那么它们都是直角。 不成立。\n（3）逆命题：如果两个三角形的对应边分别相等，那么这两个三角形全等。成立。\n（4）逆命题：如果两个实数的平方相等，那么这两个实数相等。 不成立。",
+            "analysis": "写逆命题就是把原命题的“条件”和“结论”对调。\n（1）平行线性质：两直线平行，同旁内角互补，故逆命题真。\n（2）两角相等不一定是直角（可为任意相等角），故逆命题假。\n（3）对应三边分别相等可推出三角形全等（SSS判定），故逆命题真。\n（4）x^2=y^2只能推出x=y或x=-y，如1^2=(-1)^2，故逆命题假。",
+            "difficulty": 3,
+            "type": "简答题",
+            "meta": {
+                "book_prefix": "math_8b_rjb",
+                "source_md": "ch17_s2.md",
+                "question_no_in_source": 2,
+                "global_no": 39
+            },
+            "links": {
+                "concept_names": [
+                    "逆命题",
+                    "互逆命题"
+                ]
+            }
+        },
+        {
+            "id": "math_8b_rjb_ch17_s2_t50",
+            "stem": "小明向东走 $80 \\mathrm{~m}$ 后，沿另一方向又走了 $60 \\mathrm{~m}$ ，再沿第三个方向走 $100 \\mathrm{~m}$ 回到原地。小明向东走 $80 \\mathrm{~m}$ 后是向哪个方向走的？",
+            "answer": "向北或向南（与向东垂直的方向）",
+            "analysis": "设出发点为A，向东80 m到B，则AB=80。再走到C，BC=60，最后从C回到A，CA=100。由三角形ABC用余弦定理：CA^2=AB^2+BC^2−2·AB·BC·cos∠ABC，即100^2=80^2+60^2−2·80·60·cos∠ABC。计算得10000=10000−9600cos∠ABC，所以cos∠ABC=0，∠ABC=90°。因此第二段路BC与向东的AB垂直，方向只能是向北或向南。",
+            "difficulty": 3,
+            "type": "简答题",
+            "meta": {
+                "book_prefix": "math_8b_rjb",
+                "source_md": "ch17_s2.md",
+                "question_no_in_source": 3,
+                "global_no": 40
+            },
+            "links": {
+                "concept_names": [
+                    "勾股定理的逆定理"
+                ],
+                "skill_names": [
+                    "利用平方关系判定直角三角形"
+                ]
+            }
+        },
+        {
+            "id": "math_8b_rjb_ch17_s_17_t51",
+            "stem": "两人从同一地点同时出发，一人以 $20\\mathrm{m / min}$ 的速度向北直行，一人以 $30\\mathrm{m / min}$ 的速度向东直行， $10\\mathrm{min}$ 后他们相距多远（结果取整数）？",
+            "answer": "361米",
+            "analysis": "10 min后，向北走的距离为20×10=200 m，向东走的距离为30×10=300 m。两人路径互相垂直，距离为勾股定理：d=√(200^2+300^2)=√(40000+90000)=√130000≈360.56 m，取整数为361 m。",
+            "difficulty": 2,
+            "type": "应用题",
+            "meta": {
+                "book_prefix": "math_8b_rjb",
+                "source_md": "ch17_s复习题17.md",
+                "question_no_in_source": 1,
+                "global_no": 41
+            }
+        },
+        {
+            "id": "math_8b_rjb_ch17_s_17_t55",
+            "stem": "一个三角形三边的比为 $1: \\sqrt{3}: 2$ ，这个三角形是直角三角形吗？",
+            "answer": "是直角三角形，且斜边对应边长比为2的那一边。",
+            "analysis": "设三边分别为k、k√3、2k（k>0）。检验勾股定理：k^2+(k√3)^2=k^2+3k^2=4k^2=(2k)^2，因此满足勾股定理，为直角三角形，斜边为2k。",
+            "difficulty": 2,
+            "type": "判断题",
+            "meta": {
+                "book_prefix": "math_8b_rjb",
+                "source_md": "ch17_s复习题17.md",
+                "question_no_in_source": 5,
+                "global_no": 42
+            }
+        },
+        {
+            "id": "math_8b_rjb_ch17_s_17_t56",
+            "stem": "下列各命题都成立，写出它们的逆命题. 这些逆命题成立吗？\n\n（1）两条直线平行，同位角相等；\n\n（2）如果两个实数都是正数，那么它们的积是正数；\n\n（3）等边三角形是锐角三角形；\n\n（4）线段垂直平分线上的点到这条线段两个端点的距离相等",
+            "answer": "（1）逆命题：如果两条直线的同位角相等，那么这两条直线平行。成立。\n（2）逆命题：如果两个实数的积是正数，那么这两个实数都是正数。 不成立（也可能都为负数）。\n（3）逆命题：如果一个三角形是锐角三角形，那么它是等边三角形。 不成立。\n（4）逆命题：如果平面内一点到线段两个端点的距离相等，那么这个点在线段的垂直平分线上。成立。",
+            "analysis": "（1）利用平行线判定定理：同位角相等⇒两直线平行。\n（2）积为正说明两数同号，可能同为正或同为负，故“都为正”不一定。\n（3）锐角三角形只要求三个角都小于90°，并不必然三边相等。\n（4）线段垂直平分线的性质与判定互为逆：到两端点距离相等⇔在垂直平分线上。",
+            "difficulty": 3,
+            "type": "简答题",
+            "meta": {
+                "book_prefix": "math_8b_rjb",
+                "source_md": "ch17_s复习题17.md",
+                "question_no_in_source": 6,
+                "global_no": 43
+            }
+        },
+        {
+            "id": "math_8b_rjb_ch17_s_17_t57",
+            "stem": "已知直角三角形的两条直角边的长分别为 $2\\sqrt{3} + 1$ 和 $2\\sqrt{3} - 1$ ，求斜边 $c$ 的长.",
+            "answer": "√26",
+            "analysis": "由勾股定理 c=\\sqrt{a^2+b^2}。a=2\\sqrt{3}+1，b=2\\sqrt{3}-1。\\n(2\\sqrt{3}+1)^2=12+4\\sqrt{3}+1=13+4\\sqrt{3}；\\n(2\\sqrt{3}-1)^2=12-4\\sqrt{3}+1=13-4\\sqrt{3}。\\n相加得 a^2+b^2=26，因此 c=\\sqrt{26}。",
+            "difficulty": 2,
+            "type": "填空题",
+            "meta": {
+                "book_prefix": "math_8b_rjb",
+                "source_md": "ch17_s复习题17.md",
+                "question_no_in_source": 7,
+                "global_no": 44
+            }
+        },
+        {
+            "id": "math_8b_rjb_ch18_s1_t58",
+            "stem": "在□ABCD中，\n\n（1）已知 $AB = 5$ ， $BC = 3$ ，求它的周长；  \n（2）已知 $\\angle A = 38^{\\circ}$ ，求其余各内角的度数",
+            "answer": "（1）周长为16；（2）∠B=142°，∠C=38°，∠D=142°。",
+            "analysis": "□ABCD为平行四边形。（1）平行四边形对边相等，周长P=2(AB+BC)=2(5+3)=16。（2）平行四边形邻角互补、对角相等：∠B=180°−∠A=180°−38°=142°；∠C=∠A=38°；∠D=∠B=142°。",
+            "difficulty": 2,
+            "type": "简答题",
+            "meta": {
+                "book_prefix": "math_8b_rjb",
+                "source_md": "ch18_s1.md",
+                "question_no_in_source": 1,
+                "global_no": 45
+            },
+            "links": {
+                "concept_names": [
+                    "平行四边形的性质：对边相等",
+                    "平行四边形的性质：对角相等"
+                ]
+            }
+        },
+        {
+            "id": "math_8b_rjb_ch18_s1_t64",
+            "stem": "为了保证铁路的两条直铺的铁轨互相平行，只要使互相平行的夹在铁轨之间的枕木长相等就可以了。你能说出其中的道理吗？",
+            "answer": "枕木是连接两条铁轨的横向线段，可看作两条直线间的“距离”。若每根枕木长度都相等，就表示两条铁轨在各处的间距处处相等；而在平面内，两条直线若处处保持相等的距离，就不可能相交，因此它们必互相平行。",
+            "analysis": "把两条铁轨看作同一平面内的两条直线，把枕木看作在不同位置测得的两轨间距。若两条直线不平行，则它们会相交，随着位置变化，两线间的距离会逐渐变小并在交点处为0，不可能在多处都保持同一距离。题中枕木长度都相等，说明两轨间距在多处相同并保持不变，因此两条铁轨应平行。",
+            "difficulty": 3,
+            "type": "简答题",
+            "meta": {
+                "book_prefix": "math_8b_rjb",
+                "source_md": "ch18_s1.md",
+                "question_no_in_source": 3,
+                "global_no": 46
+            },
+            "links": {
+                "concept_names": [
+                    "平行线之间的距离"
+                ]
+            }
+        },
+        {
+            "id": "math_8b_rjb_ch18_s1_t69",
+            "stem": "如果四边形 $ABCD$ 是平行四边形， $AB = 6$ ，且 $AB$ 的长是 $\\square ABCD$ 周长的 $\\frac{3}{16}$ ，那么 $BC$ 的长是多少？",
+            "answer": "10",
+            "analysis": "平行四边形的周长P=2(AB+BC)。已知AB=6，且AB是周长的3/16，则P=6÷(3/16)=6×16/3=32。代入周长公式：2(6+BC)=32，得6+BC=16，故BC=10。",
+            "difficulty": 2,
+            "type": "填空题",
+            "meta": {
+                "book_prefix": "math_8b_rjb",
+                "source_md": "ch18_s1.md",
+                "question_no_in_source": 1,
+                "global_no": 47
+            },
+            "links": {
+                "concept_names": [
+                    "平行四边形",
+                    "平行四边形的性质：对边相等"
+                ]
+            }
+        },
+        {
+            "id": "math_8b_rjb_ch18_s2_t76",
+            "stem": "求证：矩形的对角线相等",
+            "answer": "设矩形ABCD的对角线为AC、BD，则AC=BD。",
+            "analysis": "在矩形ABCD中，∠ABC=∠BAD=90°，且AB为公共边，BC=AD（矩形对边相等）。因此直角三角形△ABC与△BAD满足两直角边分别相等（AB=AB，BC=AD），由直角三角形全等（HL或两直角边对应相等）得△ABC≌△BAD，从而对应斜边相等，即AC=BD。",
+            "difficulty": 2,
+            "type": "证明题",
+            "meta": {
+                "book_prefix": "math_8b_rjb",
+                "source_md": "ch18_s2.md",
+                "question_no_in_source": 1,
+                "global_no": 48
+            },
+            "links": {
+                "concept_names": [
+                    "矩形",
+                    "矩形性质：对角线相等"
+                ]
+            }
+        },
+        {
+            "id": "math_8b_rjb_ch18_s2_t77",
+            "stem": "一个矩形的一条对角线长为 8, 两条对角线的一个交角为 $120^{\\circ}$ . 求这个矩形的边长 (结果保留小数点后两位).",
+            "answer": "矩形两边长分别为 4.00 和 6.93",
+            "analysis": "设矩形边长为a,b，则两条对角线对应向量可取为(a,b)与(a,-b)。两对角线夹角θ满足：cosθ=(a^2-b^2)/(a^2+b^2)。已知θ=120°，cos120°=-1/2，故(a^2-b^2)/(a^2+b^2)=-1/2，解得3a^2=b^2，即b=\\sqrt3 a。又对角线长为8，故a^2+b^2=64，代入得a^2+3a^2=64→a^2=16→a=4，b=4\\sqrt3≈6.93。",
+            "difficulty": 3,
+            "type": "应用题",
+            "meta": {
+                "book_prefix": "math_8b_rjb",
+                "source_md": "ch18_s2.md",
+                "question_no_in_source": 2,
+                "global_no": 49
+            },
+            "links": {
+                "concept_names": [
+                    "矩形",
+                    "矩形性质：对角线相等",
+                    "平行四边形"
+                ]
+            }
+        },
+        {
+            "id": "math_8b_rjb_ch18_s2_t78",
+            "stem": "矩形是轴对称图形吗？如果是，它有几条对称轴？",
+            "answer": "是。矩形是轴对称图形，有2条对称轴。",
+            "analysis": "矩形关于通过中心且分别垂直于一组对边的两条直线对称：一条连接两条长边的中点，另一条连接两条短边的中点。沿任一条折叠，两侧能完全重合，所以共有2条对称轴。",
+            "difficulty": 1,
+            "type": "简答题",
+            "meta": {
+                "book_prefix": "math_8b_rjb",
+                "source_md": "ch18_s2.md",
+                "question_no_in_source": 3,
+                "global_no": 50
+            },
+            "links": {
+                "concept_names": [
+                    "矩形"
+                ]
+            }
+        },
+        {
+            "id": "math_8b_rjb_ch18_s2_t79",
+            "stem": "八年级（3）班同学要在广场上布置一个矩形的花坛，计划用红花摆成两条对角线。如果一条对角线用了38盆红花，还需要从花房运来多少盆红花？为什么？如果一条对角线用了49盆呢？",
+            "answer": "当一条对角线用38盆时，还需要运来38盆；当一条对角线用49盆时，还需要运来48盆。",
+            "analysis": "矩形两条对角线等长，因此每条对角线需要的红花盆数相同。两条对角线在中心相交：若每条对角线的盆数为偶数（如38），中心点不对应某一盆花，两条对角线不共用花盆，所以第二条还需同样的38盆；若为奇数（如49），中心处正好有一盆花被两条对角线共用，因此总盆数为2×49−1=97盆，已用49盆，还需97−49=48盆。",
+            "difficulty": 2,
+            "type": "应用题",
+            "meta": {
+                "book_prefix": "math_8b_rjb",
+                "source_md": "ch18_s2.md",
+                "question_no_in_source": 1,
+                "global_no": 51
+            },
+            "links": {
+                "concept_names": [
+                    "矩形性质：对角线相等"
+                ]
+            }
+        },
+        {
+            "id": "math_8b_rjb_ch18_s2_t81",
+            "stem": "四边形 $ABCD$ 是菱形，对角线 $AC$ ， $BD$ 相交于点 $O$ ，且 $AB = 5$ ， $AO = 4$ ，求 $AC$ 和 $BD$ 的长.",
+            "answer": "AC=8，BD=6",
+            "analysis": "菱形的对角线互相平分且垂直。已知AO=4，故AC=2AO=8。又因∠AOB=90°，在直角三角形AOB中，AB=5为斜边，AO=4为直角边，得BO=\\sqrt{AB^2-AO^2}=\\sqrt{25-16}=3，因此BD=2BO=6。",
+            "difficulty": 2,
+            "type": "简答题",
+            "meta": {
+                "book_prefix": "math_8b_rjb",
+                "source_md": "ch18_s2.md",
+                "question_no_in_source": 1,
+                "global_no": 52
+            },
+            "links": {
+                "concept_names": [
+                    "菱形",
+                    "菱形性质：对角线垂直且平分对角"
+                ]
+            }
+        },
+        {
+            "id": "math_8b_rjb_ch18_s2_t82",
+            "stem": "已知菱形的两条对角线的长分别是 6 和 8 , 求菱形的周长和面积.",
+            "answer": "周长20，面积24",
+            "analysis": "菱形两条对角线互相垂直且平分。半对角线分别为3和4，菱形边长为√(3^2+4^2)=5，因此周长=4×5=20。面积=对角线乘积的一半=6×8÷2=24。",
+            "difficulty": 2,
+            "type": "应用题",
+            "meta": {
+                "book_prefix": "math_8b_rjb",
+                "source_md": "ch18_s2.md",
+                "question_no_in_source": 2,
+                "global_no": 53
+            },
+            "links": {
+                "concept_names": [
+                    "菱形",
+                    "菱形性质：四条边都相等",
+                    "菱形性质：对角线垂直且平分对角"
+                ]
+            }
+        },
+        {
+            "id": "math_8b_rjb_ch18_s2_t83",
+            "stem": "求证：\n\n（1）对角线互相垂直的平行四边形是菱形；  \n（2）四条边相等的四边形是菱形",
+            "answer": "（1）对角线互相垂直的平行四边形是菱形；（2）四条边相等的四边形是菱形。",
+            "analysis": "（1）设平行四边形ABCD的对角线AC与BD交于点O，且AC⊥BD。平行四边形对角线互相平分，故AO=CO，BO=DO。又因AC⊥BD，得∠AOB=∠BOC=90°。在直角三角形AOB与COB中，OB为公共边，AO=CO，且夹角均为90°，故两三角形全等（SAS或直角三角形的两直角边对应相等），从而AB=BC。同理可证BC=CD或AB=AD。结合平行四边形对边相等（AB=CD，BC=AD），可得AB=BC=CD=AD，所以ABCD为菱形。\n（2）设四边形ABCD满足AB=BC=CD=DA。作对角线AC。则在三角形ABC与ADC中：AB=AD，BC=CD，且AC为公共边，故△ABC≌△ADC（SSS），从而∠BAC=∠CAD，∠BCA=∠ACD。于是AB∥CD，BC∥AD，故ABCD是平行四边形。又因其相邻两边AB=BC，平行四边形有一组邻边相等则四边相等，故ABCD为菱形。",
+            "difficulty": 4,
+            "type": "证明题",
+            "meta": {
+                "book_prefix": "math_8b_rjb",
+                "source_md": "ch18_s2.md",
+                "question_no_in_source": 1,
+                "global_no": 54
+            },
+            "links": {
+                "concept_names": [
+                    "菱形判定：对角线垂直的平行四边形是菱形",
+                    "菱形判定：四条边相等的四边形是菱形"
+                ]
+            }
+        },
+        {
+            "id": "math_8b_rjb_ch18_s2_t84",
+            "stem": "一个平行四边形的一条边长是9，两条对角线的长分别是12和 $6\\sqrt{5}$ ，这是一个特殊的平行四边形吗？为什么？求出它的面积.",
+            "answer": "是特殊的平行四边形，为菱形（但不是正方形）。面积为36√5。",
+            "analysis": "设平行四边形两邻边长为a、b，其中a=9，对角线长d1=12，d2=6√5。由平行四边形定理：d1^2+d2^2=2(a^2+b^2)。代入得144+180=2(81+b^2)→324=162+2b^2→b^2=81→b=9，所以两邻边相等，该平行四边形为菱形（对角线不相等，故不是矩形/正方形）。菱形面积S=(d1·d2)/2=12·6√5/2=36√5。",
+            "difficulty": 3,
+            "type": "应用题",
+            "meta": {
+                "book_prefix": "math_8b_rjb",
+                "source_md": "ch18_s2.md",
+                "question_no_in_source": 2,
+                "global_no": 55
+            },
+            "links": {
+                "concept_names": [
+                    "平行四边形",
+                    "菱形",
+                    "菱形性质：对角线垂直且平分对角",
+                    "菱形判定：四条边相等的四边形是菱形"
+                ],
+                "skill_names": [
+                    "从一般到特殊的研究方法"
+                ]
+            }
+        },
+        {
+            "id": "math_8b_rjb_ch18_s2_t88",
+            "stem": "满足下列条件的四边形是不是正方形？为什么？\n\n（1）对角线互相垂直且相等的平行四边形；  \n（2）对角线互相垂直的矩形；  \n（3）对角线相等的菱形；  \n（4）对角线互相垂直平分且相等的四边形",
+            "answer": "（1）是正方形。平行四边形对角线相等→矩形；对角线互相垂直→菱形；既是矩形又是菱形→正方形。\n（2）是正方形。矩形对角线若互相垂直，则矩形成为菱形；矩形且为菱形→正方形。\n（3）是正方形。菱形对角线相等→菱形成为矩形；矩形且为菱形→正方形。\n（4）是正方形。对角线互相垂直平分→该四边形是菱形；又对角线相等→同时是矩形；因此为正方形。",
+            "analysis": "关键性质：\n1）平行四边形对角线相等⇔矩形；平行四边形对角线互相垂直⇔菱形。\n2）菱形对角线互相垂直且互相平分；菱形对角线相等⇔正方形（等价于“菱形且为矩形”）。\n据此逐问判断：\n（1）平行四边形+对角线相等⇒矩形；又对角线垂直⇒菱形；两者兼有⇒正方形。\n（2）矩形本是平行四边形，对角线垂直⇒为菱形；矩形∩菱形⇒正方形。\n（3）菱形+对角线相等⇒为矩形；菱形∩矩形⇒正方形。\n（4）对角线互相垂直且互相平分⇒菱形；再加对角线相等⇒矩形；因此为正方形。",
+            "difficulty": 3,
+            "type": "简答题",
+            "meta": {
+                "book_prefix": "math_8b_rjb",
+                "source_md": "ch18_s2.md",
+                "question_no_in_source": 3,
+                "global_no": 56
+            },
+            "links": {
+                "concept_names": [
+                    "平行四边形",
+                    "矩形",
+                    "矩形性质：对角线相等",
+                    "矩形判定：对角线相等的平行四边形是矩形",
+                    "菱形",
+                    "菱形性质：对角线垂直且平分对角",
+                    "菱形判定：对角线垂直的平行四边形是菱形",
+                    "正方形",
+                    "正方形性质：对角线相等且垂直平分"
+                ],
+                "skill_names": [
+                    "从一般到特殊的研究方法"
+                ]
+            }
+        },
+        {
+            "id": "math_8b_rjb_ch18_s2_t90",
+            "stem": "求证：四个角都相等的四边形是矩形",
+            "answer": "设四边形ABCD的四个内角都相等，则∠A=∠B=∠C=∠D。又因为四边形内角和为360°，所以4∠A=360°，得∠A=90°，从而四个角都为90°。因此AB⊥BC，BC⊥CD，CD⊥DA，DA⊥AB。由AB⊥BC且CD⊥BC可得AB∥CD；由BC⊥AB且AD⊥AB可得BC∥AD。故ABCD为平行四边形且有一个角为直角，所以ABCD是矩形。",
+            "analysis": "利用四边形内角和为360°先求出每个角为90°；再用“同垂直于一条直线的两条直线互相平行”分别推出两组对边平行，得到平行四边形；最后用“有一个角为直角的平行四边形是矩形”完成证明。",
+            "difficulty": 3,
+            "type": "证明题",
+            "meta": {
+                "book_prefix": "math_8b_rjb",
+                "source_md": "ch18_s2.md",
+                "question_no_in_source": 2,
+                "global_no": 57
+            },
+            "links": {
+                "concept_names": [
+                    "矩形",
+                    "矩形性质：四角为直角"
+                ]
+            }
+        },
+        {
+            "id": "math_8b_rjb_ch18_s2_t91",
+            "stem": "一个木匠要制作矩形的踏板。他在一个对边平行的长木板上分别沿与长边垂直的方向锯了两次，就能得到矩形踏板。为什么？",
+            "answer": "因为木板的两条长边互相平行；沿与长边垂直的方向锯两次，得到的两条锯缝都与长边垂直，所以这两条锯缝互相平行。这样切下来的踏板四边中：两条长边平行、两条短边也平行，且短边与长边垂直，四个角都是直角，所以得到的是矩形。",
+            "analysis": "设木板的两条长边为a、b，且a∥b。沿与长边垂直方向锯两次，得到两条截线c、d，且c⊥a、d⊥a，所以c∥d。切下的踏板以a、b为一组对边，以c、d为另一组对边，两组对边分别平行；又有c⊥a，因此该四边形有一个直角且对边平行，等价于矩形。",
+            "difficulty": 2,
+            "type": "简答题",
+            "meta": {
+                "book_prefix": "math_8b_rjb",
+                "source_md": "ch18_s2.md",
+                "question_no_in_source": 3,
+                "global_no": 58
+            },
+            "links": {
+                "concept_names": [
+                    "平行四边形",
+                    "矩形判定：三个角是直角的四边形是矩形"
+                ]
+            }
+        },
+        {
+            "id": "math_8b_rjb_ch18_s2_t92",
+            "stem": "在 Rt $\\triangle ABC$ 中， $\\angle C = 90^\\circ$ ， $AB = 2AC$ 。求 $\\angle A$ ， $\\angle B$ 的度数。",
+            "answer": "∠A=60°，∠B=30°",
+            "analysis": "在直角三角形ABC中，∠C=90°，所以AB为斜边。已知AB=2AC，即AC=AB/2。直角三角形中“直角边等于斜边一半”则该直角边所对的锐角为30°。AC所对的角为∠B，因此∠B=30°；又∠A+∠B=90°，所以∠A=60°。",
+            "difficulty": 2,
+            "type": "简答题",
+            "meta": {
+                "book_prefix": "math_8b_rjb",
+                "source_md": "ch18_s2.md",
+                "question_no_in_source": 4,
+                "global_no": 59
+            }
+        },
+        {
+            "id": "math_8b_rjb_ch18_s_18_t97",
+            "stem": "矩形对角线组成的对顶角中，有一组是两个 $50^{\\circ}$ 的角。对角线与各边组成的角是多少度？",
+            "answer": "25°和65°（对角线与一组对边夹角为25°，与另一组对边夹角为65°）",
+            "analysis": "设对角线与水平边的夹角为α(0°<α<90°)。两条对角线关于水平对称，所成的锐角为min(2α, 180°−2α)。题给有一组对顶角为50°，即两对角线夹锐角为50°，所以min(2α, 180°−2α)=50°。解得α=25°或α=65°，对应对角线与一组边夹角为25°，与另一组边夹角为90°−25°=65°（或反过来）。因此对角线与各边组成的角为25°和65°。",
+            "difficulty": 3,
+            "type": "简答题",
+            "meta": {
+                "book_prefix": "math_8b_rjb",
+                "source_md": "ch18_s复习题18.md",
+                "question_no_in_source": 3,
+                "global_no": 60
+            }
+        },
+        {
+            "id": "math_8b_rjb_ch19_s1_t101",
+            "stem": "下列问题中哪些量是自变量？哪些量是自变量的函数？试写出函数的解析式.\n\n（1）改变正方形的边长 $x$ ，正方形的面积 $S$ 随之改变.  \n（2）每分向一水池注水 $0.1\\mathrm{m}^3$ ，注水量 $y$ （单位： $\\mathrm{m}^3$ ）随注水时间 $x$ （单位：min）的变化而变化.  \n（3）秀水村的耕地面积是 $10^{6}\\mathrm{m}^{2}$ ，这个村人均占有耕地面积 $y$ （单位： $\\mathrm{m}^2$ ）随这个村人数 $n$ 的变化而变化.  \n（4）水池中有水 $10\\mathrm{L}$ ，此后每小时漏水 $0.05\\mathrm{L}$ ，水池中的水量 $V$ （单位：L）随时间 $t$ （单位：h）的变化而变化.",
+            "answer": "（1）自变量：边长x；函数：面积S；解析式：S=x^2。\n（2）自变量：时间x（min）；函数：注水量y（m^3）；解析式：y=0.1x。\n（3）自变量：人数n；函数：人均耕地面积y（m^2）；解析式：y=10^6/n。\n（4）自变量：时间t（h）；函数：水量V（L）；解析式：V=10-0.05t（t≥0，且V≥0时有效）。",
+            "analysis": "（1）正方形面积等于边长的平方，边长变化引起面积变化，故x为自变量，S为函数：S=x^2。\n（2）每分钟注入0.1m^3，注入x分钟总量为0.1×x，故x为自变量，y=0.1x。\n（3）总耕地面积固定为10^6m^2，人均面积=总面积÷人数，人数n变化导致y变化，故y=10^6/n。\n（4）初始水量10L，每小时漏0.05L，经过t小时减少0.05t，故V=10-0.05t（通常取t≥0且不漏成负数）。",
+            "difficulty": 2,
+            "type": "简答题",
+            "meta": {
+                "book_prefix": "math_8b_rjb",
+                "source_md": "ch19_s1.md",
+                "question_no_in_source": 1,
+                "global_no": 61
+            },
+            "links": {
+                "concept_names": [
+                    "自变量",
+                    "函数",
+                    "函数的解析式",
+                    "常量"
+                ]
+            }
+        },
+        {
+            "id": "math_8b_rjb_ch19_s1_t102",
+            "stem": "梯形的上底长 $2 \\mathrm{~cm}$ , 高 $3 \\mathrm{~cm}$ , 下底长 $x \\mathrm{~cm}$ 大于上底长但不超过 $5 \\mathrm{~cm}$ . 写出梯形面积 $S$ 关于 $x$ 的函数解析式及自变量 $x$ 的取值范围.",
+            "answer": "S(x)=\\frac{(2+x)\\times 3}{2}=\\frac{3x+6}{2}\\,(\\text{cm}^2),\\quad 2<x\\le 5",
+            "analysis": "梯形面积公式：S=\\frac{(上底+下底)\\times 高}{2}。代入上底2 cm、高3 cm、下底x cm，得S(x)=\\frac{(2+x)\\times 3}{2}=\\frac{3x+6}{2}。由题意“x大于上底长但不超过5 cm”，即x>2且x\\le 5，所以自变量范围为2<x\\le 5。",
+            "difficulty": 2,
+            "type": "应用题",
+            "meta": {
+                "book_prefix": "math_8b_rjb",
+                "source_md": "ch19_s1.md",
+                "question_no_in_source": 2,
+                "global_no": 62
+            },
+            "links": {
+                "concept_names": [
+                    "自变量",
+                    "函数",
+                    "函数的解析式"
+                ]
+            }
+        },
+        {
+            "id": "math_8b_rjb_ch19_s1_t106",
+            "stem": "用列表法与解析式法表示 $n$ 边形的内角和 $m$ (单位：度) 关于边数 $n$ 的函数.",
+            "answer": "列表法：n=3,4,5,6,7,…；m=180,360,540,720,900,…（单位：度）。解析式法：m=(n-2)×180（n≥3）。",
+            "analysis": "n边形可分成(n−2)个三角形，每个三角形内角和为180°，所以内角和m=180(n−2)。代入n=3,4,5,6,…可得对应的m值列表：180,360,540,720,…",
+            "difficulty": 2,
+            "type": "简答题",
+            "meta": {
+                "book_prefix": "math_8b_rjb",
+                "source_md": "ch19_s1.md",
+                "question_no_in_source": 1,
+                "global_no": 63
+            },
+            "links": {
+                "concept_names": [
+                    "函数",
+                    "自变量",
+                    "函数的解析式"
+                ]
+            }
+        },
+        {
+            "id": "math_8b_rjb_ch19_s1_t107",
+            "stem": "用解析式法表示等边三角形的周长 $l$ 关于边长 $a$ 的函数.",
+            "answer": "l(a)=3a",
+            "analysis": "等边三角形三条边都等于a，周长为三边之和：l=a+a+a=3a，因此周长l关于边长a的函数为l(a)=3a。",
+            "difficulty": 1,
+            "type": "简答题",
+            "meta": {
+                "book_prefix": "math_8b_rjb",
+                "source_md": "ch19_s1.md",
+                "question_no_in_source": 2,
+                "global_no": 64
+            },
+            "links": {
+                "concept_names": [
+                    "函数",
+                    "函数的解析式",
+                    "自变量"
+                ]
+            }
+        },
+        {
+            "id": "math_8b_rjb_ch19_s1_t109",
+            "stem": "购买一些铅笔，单价为0.2元/支，总价 $y$ 元随铅笔支数 $x$ 变化。指出其中的常量与变量，自变量与函数，并写出表示函数与自变量关系的式子。",
+            "answer": "常量：单价0.2元/支。变量：铅笔支数x、总价y。自变量：x。函数：y（随x变化）。函数关系式：y=0.2x。",
+            "analysis": "总价等于单价乘数量。单价0.2元/支固定不变，为常量；购买支数x可变，总价y随之改变，二者为变量。由“总价=单价×支数”得y=0.2x，其中x为自变量，y为x的函数。",
+            "difficulty": 1,
+            "type": "简答题",
+            "meta": {
+                "book_prefix": "math_8b_rjb",
+                "source_md": "ch19_s1.md",
+                "question_no_in_source": 1,
+                "global_no": 65
+            },
+            "links": {
+                "concept_names": [
+                    "变量",
+                    "常量",
+                    "自变量",
+                    "函数",
+                    "函数的解析式"
+                ]
+            }
+        },
+        {
+            "id": "math_8b_rjb_ch19_s1_t110",
+            "stem": "一个三角形的底边长为 5，高 $h$ 可以任意伸缩。写出面积 $S$ 随 $h$ 变化的解析式，并指出其中的常量与变量，自变量与函数，以及自变量的取值范围。",
+            "answer": "面积解析式：S(h)=\\frac{1}{2}\\cdot 5\\cdot h=\\frac{5}{2}h。\n常量：底边长5（以及系数\\frac{5}{2}）。变量：h与S。\n自变量：h；函数：S(h)。\n自变量取值范围：h>0。",
+            "analysis": "三角形面积公式S=\\frac{1}{2}bh，已知底边b=5，代入得S=\\frac{1}{2}\\cdot5\\cdot h=\\frac{5}{2}h。底边长度固定为常量，h可伸缩为自变量，面积S随h变化为函数值；高度为长度量，应取正数，故h>0。",
+            "difficulty": 2,
+            "type": "简答题",
+            "meta": {
+                "book_prefix": "math_8b_rjb",
+                "source_md": "ch19_s1.md",
+                "question_no_in_source": 2,
+                "global_no": 66
+            },
+            "links": {
+                "concept_names": [
+                    "变量",
+                    "常量",
+                    "自变量",
+                    "函数",
+                    "函数的解析式"
+                ]
+            }
+        },
+        {
+            "id": "math_8b_rjb_ch19_s1_t112",
+            "stem": "下列式子中的 $y$ 是 $x$ 的函数吗？为什么？\n\n(1) $y = 3x - 5$\n\n（2） $y = \\frac{x - 2}{x - 1}$\n\n(3) $y = \\sqrt{x - 1}$\n\n请再举出一些函数的例子",
+            "answer": "（1）是函数。对任意实数x，都有唯一的y=3x-5与之对应。\n（2）是函数（在x≠1的范围内）。当x=1时分母为0无意义；对每个x≠1，都有唯一的y=(x-2)/(x-1)。\n（3）是函数（在x≥1的范围内）。根号内需x-1≥0；对每个x≥1，都有唯一的非负y=√(x-1)。\n函数例子：y=2x+1；y=x^2；y=|x|；y=1/x（x≠0）；y=sin x。",
+            "analysis": "判断“y是否是x的函数”的标准：在给定的x取值范围内，每一个x只能对应唯一一个y。\n（1）一次式对任意x都能算出唯一y，因此是函数，定义域为全体实数。\n（2）分式的分母不能为0，故定义域为x≠1；在该定义域内每个x代入得到唯一y，因此是函数。\n（3）平方根要求被开方数≥0，即x-1≥0→x≥1；在该定义域内每个x对应唯一的（主值）平方根y，因此是函数。",
+            "difficulty": 2,
+            "type": "简答题",
+            "meta": {
+                "book_prefix": "math_8b_rjb",
+                "source_md": "ch19_s1.md",
+                "question_no_in_source": 4,
+                "global_no": 67
+            },
+            "links": {
+                "concept_names": [
+                    "函数",
+                    "自变量",
+                    "函数的解析式"
+                ]
+            }
+        },
+        {
+            "id": "math_8b_rjb_ch19_s1_t113",
+            "stem": "分别对第 4 题中的各函数解析式进行讨论：\n\n（1）自变量 $x$ 在什么范围内取值时函数解析式有意义？  \n（2）当 $x = 5$ 时对应的函数值是多少？",
+            "answer": "题干未给出“第4题”中的具体函数解析式，无法确定各函数的定义域，也无法计算当x=5时的函数值。",
+            "analysis": "本题要求分别讨论“第4题中的各函数解析式”的定义域(使解析式有意义的x取值范围)并求x=5时的函数值，但当前题干未提供第4题的函数表达式，因此无法进行相应讨论与计算。需补充第4题的具体函数解析式后才能解答。",
+            "difficulty": 1,
+            "type": "简答题",
+            "meta": {
+                "book_prefix": "math_8b_rjb",
+                "source_md": "ch19_s1.md",
+                "question_no_in_source": 5,
+                "global_no": 68
+            },
+            "links": {
+                "concept_names": [
+                    "自变量",
+                    "函数值",
+                    "函数的解析式"
+                ]
+            }
+        },
+        {
+            "id": "math_8b_rjb_ch19_s1_t115",
+            "stem": "下列各曲线中哪些表示 $y$ 是 $x$ 的函数？\n\n  \n(1)\n\n  \n(2）\n\n  \n(3）\n\n  \n(4）",
+            "answer": "无法确定（题干缺少(1)~(4)的具体曲线图像或方程，需提供图像后才能判断哪些满足竖直线检验从而表示y是x的函数）",
+            "analysis": "判断“y是否是x的函数”需对每条曲线做竖直线检验：若任意一条竖直线与曲线最多交于一点，则y是x的函数；若存在竖直线与曲线交于两点或以上，则不是。由于题干未给出(1)~(4)的曲线信息，无法逐一判定。",
+            "difficulty": 1,
+            "type": "选择题",
+            "meta": {
+                "book_prefix": "math_8b_rjb",
+                "source_md": "ch19_s1.md",
+                "question_no_in_source": 7,
+                "global_no": 69
+            },
+            "links": {
+                "concept_names": [
+                    "函数",
+                    "函数的图象"
+                ]
+            }
+        },
+        {
+            "id": "math_8b_rjb_ch19_s2_t116",
+            "stem": "下列式子中，哪些表示 $y$ 是 $x$ 的正比例函数？\n\n(1) $y = -0.1x$\n\n(2) $y = \\frac{x}{2}$\n\n(3) $y = 2x^{2}$\n\n（4） $y^{2} = 4x$",
+            "answer": "（1）（2）",
+            "analysis": "正比例函数的形式为 y=kx（k≠0）。(1) y=-0.1x，符合；(2) y=x/2=(1/2)x，符合；(3) y=2x^2，含x^2不符合；(4) y^2=4x，化为y=±2\\sqrt{x}，不符合y=kx形式。",
+            "difficulty": 2,
+            "type": "选择题",
+            "meta": {
+                "book_prefix": "math_8b_rjb",
+                "source_md": "ch19_s2.md",
+                "question_no_in_source": 1,
+                "global_no": 70
+            },
+            "links": {
+                "concept_names": [
+                    "正比例函数",
+                    "比例系数"
+                ]
+            }
+        },
+        {
+            "id": "math_8b_rjb_ch19_s2_t118",
+            "stem": "下列函数中哪些是一次函数，哪些又是正比例函数？\n\n(1) $y = -8x$\n\n（2） $y = \\frac{-8}{x}$\n\n(3) $y = 5x^{2} + 6$\n\n（4） $y = -0.5x - 1$",
+            "answer": "一次函数：(1) y=-8x；(4) y=-0.5x-1。正比例函数：(1) y=-8x。其余(2)、(3)都不是一次函数，也不是正比例函数。",
+            "analysis": "一次函数的一般形式为y=kx+b(k≠0)，正比例函数为y=kx(k≠0，且b=0)。\n(1) y=-8x，符合y=kx(且k=-8≠0)，所以既是一次函数又是正比例函数。\n(2) y=-8/x，含有1/x，不是y=kx+b形式，所以不是一次函数，也不是正比例函数。\n(3) y=5x^2+6，含x^2，是二次函数，不是一次函数，也不是正比例函数。\n(4) y=-0.5x-1，符合y=kx+b(k=-0.5≠0)，是一次函数；但b=-1≠0，所以不是正比例函数。",
+            "difficulty": 2,
+            "type": "简答题",
+            "meta": {
+                "book_prefix": "math_8b_rjb",
+                "source_md": "ch19_s2.md",
+                "question_no_in_source": 1,
+                "global_no": 71
+            },
+            "links": {
+                "concept_names": [
+                    "一次函数",
+                    "正比例函数"
+                ]
+            }
+        },
+        {
+            "id": "math_8b_rjb_ch19_s2_t119",
+            "stem": "一次函数 $y = kx + b$ ，当 $x = 1$ 时， $y = 5$ ；当 $x = -1$ 时， $y = 1$ 求 $k$ 和 $b$ 的值",
+            "answer": "k=2，b=3",
+            "analysis": "由题意得一次函数y=kx+b满足两点：(1,5)与(-1,1)。代入(1,5)：k+b=5；代入(-1,1)：-k+b=1。两式相加得2b=6，故b=3；再代入k+b=5得k=2。",
+            "difficulty": 2,
+            "type": "填空题",
+            "meta": {
+                "book_prefix": "math_8b_rjb",
+                "source_md": "ch19_s2.md",
+                "question_no_in_source": 2,
+                "global_no": 72
+            },
+            "links": {
+                "concept_names": [
+                    "一次函数",
+                    "比例系数"
+                ]
+            }
+        },
+        {
+            "id": "math_8b_rjb_ch19_s2_t121",
+            "stem": "直线 $y = 2x - 3$ 与 $x$ 轴交点坐标为____，与 $y$ 轴交点坐标为____，图象经过____象限， $y$ 随 $x$ 的增大而____.",
+            "answer": "（3/2，0），（0，-3），一、三、四，增大",
+            "analysis": "与x轴交点令y=0：0=2x-3，得x=3/2，交点为（3/2，0）。与y轴交点令x=0：y=-3，交点为（0，-3）。当x<0时y=2x-3<0在第三象限；当0<x<3/2时y<0在第四象限；当x>3/2时y>0在第一象限。斜率2>0，故y随x的增大而增大。",
+            "difficulty": 2,
+            "type": "填空题",
+            "meta": {
+                "book_prefix": "math_8b_rjb",
+                "source_md": "ch19_s2.md",
+                "question_no_in_source": 1,
+                "global_no": 73
+            },
+            "links": {
+                "concept_names": [
+                    "一次函数",
+                    "一次函数的图象",
+                    "一次函数的增减性"
+                ]
+            }
+        },
+        {
+            "id": "math_8b_rjb_ch19_s2_t124",
+            "stem": "已知一次函数的图象经过点（9，0）和点（24，20），写出函数解析式.",
+            "answer": "y=\\frac{4}{3}x-12",
+            "analysis": "设一次函数为y=kx+b，由两点(9,0)、(24,20)得斜率k=(20-0)/(24-9)=20/15=4/3。代入点(9,0)：0=(4/3)·9+b=12+b，得b=-12，所以函数解析式为y=(4/3)x-12。",
+            "difficulty": 2,
+            "type": "填空题",
+            "meta": {
+                "book_prefix": "math_8b_rjb",
+                "source_md": "ch19_s2.md",
+                "question_no_in_source": 1,
+                "global_no": 74
+            },
+            "links": {
+                "concept_names": [
+                    "一次函数",
+                    "一次函数的图象"
+                ],
+                "skill_names": [
+                    "两点法作一次函数图象"
+                ]
+            }
+        },
+        {
+            "id": "math_8b_rjb_ch19_s2_t127",
+            "stem": "函数 $y = -5x$ 的图象在第象限内，经过点（0，）与点（1，）， $y$ 随 $x$ 的增大而",
+            "answer": "第二、四象限；0；-5；减小",
+            "analysis": "由函数y=-5x可知斜率为-5<0，图象是过原点的直线，且x>0时y<0在第四象限，x<0时y>0在第二象限；当x=0时y=0，对应点(0,0)；当x=1时y=-5，对应点(1,-5)；斜率为负，所以y随x增大而减小。",
+            "difficulty": 2,
+            "type": "填空题",
+            "meta": {
+                "book_prefix": "math_8b_rjb",
+                "source_md": "ch19_s2.md",
+                "question_no_in_source": 2,
+                "global_no": 75
+            },
+            "links": {
+                "concept_names": [
+                    "正比例函数",
+                    "比例系数",
+                    "一次函数的增减性"
+                ]
+            }
+        },
+        {
+            "id": "math_8b_rjb_ch19_s2_t128",
+            "stem": "一个弹簧不挂重物时长 $12 \\mathrm{~cm}$ , 挂上重物后伸长的长度与所挂重物的质量成正比. 如果挂上 $1 \\mathrm{~kg}$ 的物体后, 弹簧伸长 $2 \\mathrm{~cm}$ . 求弹簧总长 $y$ (单位: $\\mathrm{cm}$ ) 关于所挂物体质量 $x$ (单位: $\\mathrm{kg}$ ) 的函数解析式.",
+            "answer": "y=12+2x",
+            "analysis": "弹簧原长为12 cm。设所挂质量为x kg时的伸长量为Δl，则Δl与x成正比，且x=1时Δl=2，所以Δl=2x（cm）。弹簧总长y=原长+伸长量=12+2x（cm）。",
+            "difficulty": 2,
+            "type": "应用题",
+            "meta": {
+                "book_prefix": "math_8b_rjb",
+                "source_md": "ch19_s2.md",
+                "question_no_in_source": 3,
+                "global_no": 76
+            },
+            "links": {
+                "concept_names": [
+                    "正比例函数",
+                    "比例系数",
+                    "一次函数"
+                ]
+            }
+        },
+        {
+            "id": "math_8b_rjb_ch19_s2_t131",
+            "stem": "已知一次函数 $y = kx + b$ ，当 $x = 2$ 时 $y$ 的值为 4，当 $x = -2$ 时 $y$ 的值为 -2，求 $k$ 与 $b$",
+            "answer": "k=3/2，b=1",
+            "analysis": "一次函数y=kx+b过两点(2,4)与(-2,-2)。斜率k=(4-(-2))/(2-(-2))=6/4=3/2。代入点(2,4)：4=(3/2)·2+b=3+b，得b=1。",
+            "difficulty": 2,
+            "type": "填空题",
+            "meta": {
+                "book_prefix": "math_8b_rjb",
+                "source_md": "ch19_s2.md",
+                "question_no_in_source": 6,
+                "global_no": 77
+            },
+            "links": {
+                "concept_names": [
+                    "一次函数",
+                    "函数与方程的关系"
+                ]
+            }
+        },
+        {
+            "id": "math_8b_rjb_ch19_s2_t132",
+            "stem": "已知一次函数的图象经过点 $(-4, 9)$ 和点 $(6, 3)$ ，求这个函数的解析式.",
+            "answer": "y=-\\frac{3}{5}x+\\frac{33}{5}",
+            "analysis": "设一次函数为y=kx+b。由两点(-4,9)、(6,3)得斜率k=(3-9)/(6-(-4))=-6/10=-3/5。代入点(-4,9)：9=(-3/5)(-4)+b=12/5+b，解得b=9-12/5=33/5。因此解析式为y=-3/5 x+33/5。",
+            "difficulty": 2,
+            "type": "简答题",
+            "meta": {
+                "book_prefix": "math_8b_rjb",
+                "source_md": "ch19_s2.md",
+                "question_no_in_source": 7,
+                "global_no": 78
+            },
+            "links": {
+                "concept_names": [
+                    "一次函数",
+                    "一次函数的图象"
+                ]
+            }
+        },
+        {
+            "id": "math_8b_rjb_ch19_s2_t133",
+            "stem": "当自变量 $x$ 取何值时，函数 $y = \\frac{5}{2} x + 1$ 与 $y = 5x + 17$ 的值相等？这个函数值是多少？",
+            "answer": "x=-32/5，函数值y=-15",
+            "analysis": "令两函数值相等：(5/2)x+1=5x+17。两边同乘2得5x+2=10x+34，移项得-5x=32，所以x=-32/5。代入任一函数：y=5(-32/5)+17=-32+17=-15。",
+            "difficulty": 2,
+            "type": "简答题",
+            "meta": {
+                "book_prefix": "math_8b_rjb",
+                "source_md": "ch19_s2.md",
+                "question_no_in_source": 8,
+                "global_no": 79
+            },
+            "links": {
+                "concept_names": [
+                    "函数与方程的关系",
+                    "二元一次方程组的图象意义"
+                ]
+            }
+        },
+        {
+            "id": "math_8b_rjb_ch19_s_19_t134",
+            "stem": "小亮现已存款100元. 为赞助“希望工程”，他计划今后三年每月存款10元. 存款总金额 $y$ （单位：元）将随时间 $x$ （单位：月）的变化而改变. 指出其中的常量与变量，自变量与函数，并写出函数解析式.",
+            "answer": "常量：100（原有存款）、10（每月存款额）（存款期限为3年即36个月也为已知常量）；变量：x（时间，月）、y（存款总金额，元）。自变量：x；函数：y（随x变化）。函数解析式：y=100+10x，定义域0≤x≤36（x为月数，通常取整数）。",
+            "analysis": "存款总额由“原有存款+之后每月存入金额”组成。原有存款为100元不变；从开始计时起经过x个月，每月存10元，共增加10x元，所以y=100+10x。计划三年，即x在0到36个月之间（按月计一般取整数）。",
+            "difficulty": 2,
+            "type": "简答题",
+            "meta": {
+                "book_prefix": "math_8b_rjb",
+                "source_md": "ch19_s复习题19.md",
+                "question_no_in_source": 1,
+                "global_no": 80
+            }
+        },
+        {
+            "id": "math_8b_rjb_ch19_s_19_t135",
+            "stem": "判断下列各点是否在直线 $y = 2x + 6$ 上这条直线与坐标轴交于何处？\n\n$(-5, -4)$ ， $(-7, 20)$ ，\n\n$$\n\\left(- \\frac {7}{2}, 1\\right), \\quad \\left(\\frac {2}{3}, 7 \\frac {1}{3}\\right).\n$$",
+            "answer": "(-5,-4)在直线y=2x+6上；(-7,20)不在；(-7/2,1)不在；(2/3,22/3)在。该直线与y轴交于(0,6)，与x轴交于(-3,0)。",
+            "analysis": "将各点的x代入y=2x+6计算对应y值并与点的y比较：x=-5得y=-4相同，故在；x=-7得y=-8≠20，故不在；x=-7/2得y=-1≠1，故不在；x=2/3得y=4/3+6=22/3，与7又1/3(=22/3)相同，故在。与坐标轴交点：与y轴交点令x=0得(0,6)；与x轴交点令y=0解2x+6=0得x=-3，交于(-3,0)。",
+            "difficulty": 2,
+            "type": "简答题",
+            "meta": {
+                "book_prefix": "math_8b_rjb",
+                "source_md": "ch19_s复习题19.md",
+                "question_no_in_source": 2,
+                "global_no": 81
+            }
+        },
+        {
+            "id": "math_8b_rjb_ch19_s_19_t136",
+            "stem": "填空：\n\n（1）直线 $y = \\frac{1}{2} -\\frac{2}{3} x$ 经过第\n\n象限， $y$ 随 $x$ 的增大而\n\n（2）直线 $y = 3x - 2$ 经过第 象限， $y$ 随 $x$ 的增大而",
+            "answer": "（1）第一、第二、第四象限；减小\n（2）第一、第三、第四象限；增大",
+            "analysis": "（1）y=1/2-(2/3)x 斜率为-2/3<0，故y随x增大而减小；截距为(0,1/2)，x截距为令y=0得x=3/4>0，因此直线经过Ⅱ象限（x<0,y>0）、Ⅰ象限（0<x<3/4,y>0）和Ⅳ象限（x>3/4,y<0）。\n（2）y=3x-2 斜率为3>0，故y随x增大而增大；截距为(0,-2)，x截距为令y=0得x=2/3>0，因此直线经过Ⅲ象限（x<0,y<0）、Ⅳ象限（0<x<2/3,y<0）和Ⅰ象限（x>2/3,y>0）。",
+            "difficulty": 2,
+            "type": "填空题",
+            "meta": {
+                "book_prefix": "math_8b_rjb",
+                "source_md": "ch19_s复习题19.md",
+                "question_no_in_source": 3,
+                "global_no": 82
+            }
+        },
+        {
+            "id": "math_8b_rjb_ch19_s_19_t137",
+            "stem": "根据下列条件分别确定函数 $y = kx + b$ 的解析式：\n\n（1） $y$ 与 $x$ 成正比例，当 $x = 5$ 时， $y = 6$   \n（2）直线 $y = kx + b$ 经过点（3，6）与点 $\\left(\\frac{1}{2}, - \\frac{1}{2}\\right)$",
+            "answer": "（1）y=\\frac{6}{5}x；（2）y=\\frac{13}{5}x-\\frac{9}{5}",
+            "analysis": "（1）y与x成正比例，故b=0，y=kx。代入x=5,y=6得k=6/5，所以y=6/5 x。\n（2）过两点(3,6)与(1/2,-1/2)，斜率k=\\frac{6-(-1/2)}{3-1/2}=\\frac{13/2}{5/2}=\\frac{13}{5}。代入点(3,6)：6=\\frac{13}{5}·3+b=\\frac{39}{5}+b，得b=6-\\frac{39}{5}=-\\frac{9}{5}，故y=\\frac{13}{5}x-\\frac{9}{5}。",
+            "difficulty": 2,
+            "type": "简答题",
+            "meta": {
+                "book_prefix": "math_8b_rjb",
+                "source_md": "ch19_s复习题19.md",
+                "question_no_in_source": 4,
+                "global_no": 83
+            }
+        },
+        {
+            "id": "math_8b_rjb_ch19_s_19_t138",
+            "stem": "试根据函数 $y = {3x} - {15}$ 的性质或图象,确定 $x$ 取何值时：\n\n（1） $y > 0$\n\n(2） $y <   0$",
+            "answer": "（1）x>5；（2）x<5",
+            "analysis": "函数y=3x-15为一次函数。求y>0：3x-15>0⇒3x>15⇒x>5；求y<0：3x-15<0⇒3x<15⇒x<5。",
+            "difficulty": 1,
+            "type": "简答题",
+            "meta": {
+                "book_prefix": "math_8b_rjb",
+                "source_md": "ch19_s复习题19.md",
+                "question_no_in_source": 5,
+                "global_no": 84
+            }
+        },
+        {
+            "id": "math_8b_rjb_ch20_s1_t140",
+            "stem": "晨光中学规定学生的学期体育成绩满分为 100 ,其中早锻炼及体育课外活动占 20%,期中考试成绩占 30%,期末考试成绩占 50%. 小桐的三项成绩(百分制)依次是 95,90,85. 小桐这学期的体育成绩是多少?",
+            "answer": "88.5分",
+            "analysis": "按权重计算学期体育成绩：95×20%+90×30%+85×50%=95×0.2+90×0.3+85×0.5=19+27+42.5=88.5（分）。",
+            "difficulty": 2,
+            "type": "应用题",
+            "meta": {
+                "book_prefix": "math_8b_rjb",
+                "source_md": "ch20_s1.md",
+                "question_no_in_source": 2,
+                "global_no": 85
+            },
+            "links": {
+                "concept_names": [
+                    "加权平均数",
+                    "权"
+                ]
+            }
+        },
+        {
+            "id": "math_8b_rjb_ch20_s1_t148",
+            "stem": "在一次青年歌手演唱比赛中, 评分办法采用 10 位评委现场打分, 每位选手的最后得分为去掉最低分、最高分后的平均数. 已知 10 位评委给某位歌手的打分是:\n\n5 9.5 9.3 9.8 9.4 8.8 9.6 9.5 9.2 9.6\n\n求这位歌手的最后得分.",
+            "answer": "9.3625分（约9.36分）",
+            "analysis": "10位评委总分为5+9.5+9.3+9.8+9.4+8.8+9.6+9.5+9.2+9.6=89.7。去掉最低分5和最高分9.8后，剩余总分=89.7-5-9.8=74.9。剩余8个分数的平均分=74.9÷8=9.3625（约9.36）。",
+            "difficulty": 2,
+            "type": "应用题",
+            "meta": {
+                "book_prefix": "math_8b_rjb",
+                "source_md": "ch20_s1.md",
+                "question_no_in_source": 4,
+                "global_no": 86
+            },
+            "links": {
+                "concept_names": [
+                    "平均数"
+                ]
+            }
+        },
+        {
+            "id": "math_8b_rjb_ch20_s_20_t154",
+            "stem": "某水库为了解某种鱼的生长情况, 从水库中捕捞了 20 条这种鱼, 称得它们的质量 (单位: $\\mathrm{{kg}}$ ) 如下:",
+            "answer": "题干信息不完整，无法确定参考答案（缺少20条鱼的具体质量数据及问题要求）",
+            "analysis": "题目仅给出“抽取20条鱼并称质量”的背景，但未提供20条鱼的质量数据，也未给出需要求解的具体问题（如平均数、中位数、众数、极差、方差/标准差、频数分布表或直方图等要求），因此无法进行计算并确定答案。",
+            "difficulty": 1,
+            "type": "应用题",
+            "meta": {
+                "book_prefix": "math_8b_rjb",
+                "source_md": "ch20_s复习题20.md",
+                "question_no_in_source": 1,
+                "global_no": 87
+            }
+        },
+        {
+            "id": "math_8b_rjb_ch20_s_20_t155",
+            "stem": "15 1.04 1.11 1.07 1.10 1.32 1.25 1.19 1.15 1.21",
+            "answer": "1.04＜1.07＜1.10＜1.11＜1.15＜1.19＜1.21＜1.25＜1.32",
+            "analysis": "比较小数大小时先看整数部分（都为1），再依次比较十分位、百分位、千分位等；按从小到大依次排列即可。",
+            "difficulty": 1,
+            "type": "填空题",
+            "meta": {
+                "book_prefix": "math_8b_rjb",
+                "source_md": "ch20_s复习题20.md",
+                "question_no_in_source": 1,
+                "global_no": 88
+            }
+        },
+        {
+            "id": "math_8b_rjb_ch20_s_20_t156",
+            "stem": "18 1.14 1.09 1.25 1.21 1.29 1.16 1.24 1.12 1.16\n\n计算样本平均数（结果保留小数点后两位），并根据计算结果估计水库中这种鱼的平均质量.",
+            "answer": "样本平均数为1.18（保留两位小数）；据此估计水库中这种鱼的平均质量约为1.18（同单位）。",
+            "analysis": "将样本数据相加：1.14+1.09+1.25+1.21+1.29+1.16+1.24+1.12+1.16=10.66；样本容量n=9，所以样本平均数x̄=10.66÷9≈1.1844，保留两位小数得1.18。用样本均值估计总体均值，故水库中这种鱼的平均质量约为1.18。",
+            "difficulty": 2,
+            "type": "填空题",
+            "meta": {
+                "book_prefix": "math_8b_rjb",
+                "source_md": "ch20_s复习题20.md",
+                "question_no_in_source": 1,
+                "global_no": 89
+            }
+        },
+        {
+            "id": "math_8b_rjb_ch20_s_20_t158",
+            "stem": "为了解某一路口的汽车流量，调查了10天中同一时段通过该路口的汽车数量（单位：辆），结果如下：\n\n183 209 195 178 204 215 191 208 167 197\n\n在该时段中，平均约有多少辆汽车通过这个路口？",
+            "answer": "约195辆",
+            "analysis": "先求10天汽车数总和：183+209+195+178+204+215+191+208+167+197=1947（辆）；再求平均数：1947÷10=194.7（辆），约为195辆。",
+            "difficulty": 1,
+            "type": "填空题",
+            "meta": {
+                "book_prefix": "math_8b_rjb",
+                "source_md": "ch20_s复习题20.md",
+                "question_no_in_source": 3,
+                "global_no": 90
+            }
+        },
+        {
+            "id": "math_8b_rjb_ch20_s_20_t159",
+            "stem": "一家公司14名员工的月薪（单位：元）是：\n\n8000 6000 2550 1700 2550 4599 4200\n\n2550 5100 2500 4400 25000 12400 2500\n\n（1）计算这组数据的平均数、中位数和众数；  \n（2）解释本题中平均数、中位数和众数的意义",
+            "answer": "（1）平均数=6003.5元；中位数=4300元；众数=2550元。\n（2）平均数表示14名员工工资总额平均分到每人后的水平，但会受25000元、12400元等高薪的影响而偏大；中位数4300元表示按从低到高排序后处在中间的工资水平，有一半员工不超过4300元、另一半不少于4300元，更能代表“典型”水平；众数2550元表示出现次数最多的工资水平，反映最常见的工资档位。",
+            "analysis": "将14个数据从小到大排序：1700，2500，2500，2550，2550，2550，4200，4400，4599，5100，6000，8000，12400，25000。\n平均数：先求和=84049，再除以14得6003.5。\n中位数：n=14为偶数，取第7、8个数的平均：(4200+4400)/2=4300。\n众数：2550出现3次最多，故众数为2550。",
+            "difficulty": 3,
+            "type": "应用题",
+            "meta": {
+                "book_prefix": "math_8b_rjb",
+                "source_md": "ch20_s复习题20.md",
+                "question_no_in_source": 4,
+                "global_no": 91
+            }
+        },
+        {
+            "id": "math_8b_rjb_ch16_s1_t161",
+            "stem": "已知一个大圆的面积是两个小圆的面积之和. 如果大圆的半径为 $r \\mathrm{~cm}$ , 两个小圆的半径分别为 $2 \\mathrm{~cm}$ 和 $3 \\mathrm{~cm}$ , 求 $r$ 的值.",
+            "answer": "r=\\sqrt{13}\\text{ cm}",
+            "analysis": "由面积关系：\\pi r^2=\\pi\\cdot2^2+\\pi\\cdot3^2=\\pi(4+9)=13\\pi，约去\\pi得r^2=13，因此r=\\sqrt{13}（半径取正）。",
+            "difficulty": 2,
+            "type": "填空题",
+            "meta": {
+                "book_prefix": "math_8b_rjb",
+                "source_md": "ch16_s1.md",
+                "question_no_in_source": 5,
+                "global_no": 92
+            },
+            "links": {
+                "concept_names": [
+                    "二次根式",
+                    "算术平方根"
+                ]
+            }
+        },
+        {
+            "id": "math_8b_rjb_ch16_s1_t162",
+            "stem": "$\\triangle ABC$ 的面积为12， $AB$ 边上的高是 $AB$ 边长的4倍.求 $AB$ 的长",
+            "answer": "√6",
+            "analysis": "设AB=x，则AB边上的高h=4x。由三角形面积公式：12=\\frac12·AB·h=\\frac12·x·4x=2x^2，得x^2=6，所以AB=x=√6（取正值）。",
+            "difficulty": 2,
+            "type": "简答题",
+            "meta": {
+                "book_prefix": "math_8b_rjb",
+                "source_md": "ch16_s1.md",
+                "question_no_in_source": 6,
+                "global_no": 93
+            },
+            "links": {
+                "concept_names": [
+                    "二次根式",
+                    "算术平方根"
+                ]
+            }
+        },
+        {
+            "id": "math_8b_rjb_ch16_s1_t163",
+            "stem": "当 $x$ 是怎样的实数时，下列各式在实数范围内有意义？\n\n(1) $\\sqrt{x^2 + 1}$\n\n(2) $\\sqrt{(x - 1)^2}$\n\n(3) $\\sqrt{\\frac{1}{x}}$\n\n(4) $\\frac{1}{\\sqrt{x + 1}}$ .",
+            "answer": "(1) 任意实数x；(2) 任意实数x；(3) x>0；(4) x>-1。",
+            "analysis": "(1) 被开方数x^2+1恒大于0，对一切实数x都有意义；(2) (x−1)^2≥0，对一切实数x都有意义；(3) 要求1/x≥0且x≠0，因此x>0；(4) 分母为√(x+1)，需x+1≥0且√(x+1)≠0，即x+1>0，故x>-1。",
+            "difficulty": 2,
+            "type": "简答题",
+            "meta": {
+                "book_prefix": "math_8b_rjb",
+                "source_md": "ch16_s1.md",
+                "question_no_in_source": 7,
+                "global_no": 94
+            },
+            "links": {
+                "concept_names": [
+                    "二次根式有意义的条件",
+                    "二次根式"
+                ],
+                "skill_names": [
+                    "检验二次根式的定义域"
+                ]
+            }
+        },
+        {
+            "id": "math_8b_rjb_ch16_s1_t164",
+            "stem": "小球从离地面为 $h$ （单位：m）的高处自由下落，落到地面所用的时间为 $t$ （单位：s）经过实验，发现 $h$ 与 $t^2$ 成正比例关系，而且当 $h = 20$ 时， $t = 2$ 试用 $h$ 表示 $t$ ，并分别求当 $h = 10$ 和 $h = 25$ 时，小球落地所用的时间.",
+            "answer": "因h与t^2成正比，设h=kt^2。由h=20,t=2得20=4k，k=5，所以t=\\sqrt{h/5}。当h=10时，t=\\sqrt{10/5}=\\sqrt2(s)；当h=25时，t=\\sqrt{25/5}=\\sqrt5(s)。",
+            "analysis": "由“h与t^2成正比例”得h=kt^2。代入已知点(20,2)：20=k·(2^2)=4k，解得k=5。于是h=5t^2，解出t=\\sqrt{h/5}(t>0)。再分别代入h=10、25计算得到\\sqrt2和\\sqrt5。",
+            "difficulty": 2,
+            "type": "应用题",
+            "meta": {
+                "book_prefix": "math_8b_rjb",
+                "source_md": "ch16_s1.md",
+                "question_no_in_source": 8,
+                "global_no": 95
+            },
+            "links": {
+                "concept_names": [
+                    "算术平方根",
+                    "代数式"
+                ]
+            }
+        },
+        {
+            "id": "math_8b_rjb_ch16_s1_t165",
+            "stem": "（1）已知 $\\sqrt{18 - n}$ 是整数，求自然数 $n$ 所有可能的值；\n（2）已知 $\\sqrt{24n}$ 是整数，求正整数 $n$ 的最小值",
+            "answer": "（1）n=2，9，14，17，18；（2）n的最小值为6",
+            "analysis": "（1）设18-n=k^2（k为非负整数），则k^2≤18，k^2可取0，1，4，9，16，对应n=18，17，14，9，2。故n∈{2，9，14，17，18}。\n（2）24n为完全平方数。分解24=2^3·3，要使指数全为偶数，需再补1个2和1个3，即n至少含2·3=6，此时24·6=144=12^2，满足条件。故n最小为6。",
+            "difficulty": 3,
+            "type": "简答题",
+            "meta": {
+                "book_prefix": "math_8b_rjb",
+                "source_md": "ch16_s1.md",
+                "question_no_in_source": 9,
+                "global_no": 96
+            },
+            "links": {
+                "concept_names": [
+                    "二次根式",
+                    "算术平方根",
+                    "二次根式有意义的条件"
+                ],
+                "skill_names": [
+                    "检验二次根式的定义域"
+                ]
+            }
+        },
+        {
+            "id": "math_8b_rjb_ch16_s1_t166",
+            "stem": "一个圆柱体的高为 10，体积为 $V$ 。求它的底面半径 $r$ （用含 $V$ 的代数式表示），并分别求当 $V = 5\\pi$ ， $10\\pi$ 和 $20\\pi$ 时，底面半径 $r$ 的大小。",
+            "answer": "r=\\sqrt{\\dfrac{V}{10\\pi}}；当V=5\\pi时，r=\\sqrt{\\dfrac{1}{2}}=\\dfrac{\\sqrt2}{2}；当V=10\\pi时，r=1；当V=20\\pi时，r=\\sqrt2。",
+            "analysis": "圆柱体体积公式V=\\pi r^2 h。已知h=10，则V=\\pi r^2\\cdot10=10\\pi r^2，所以r^2=\\dfrac{V}{10\\pi}，r=\\sqrt{\\dfrac{V}{10\\pi}}（半径取正）。代入：V=5\\pi得r=\\sqrt{\\dfrac{5\\pi}{10\\pi}}=\\sqrt{\\dfrac12}=\\dfrac{\\sqrt2}{2}；V=10\\pi得r=\\sqrt{\\dfrac{10\\pi}{10\\pi}}=1；V=20\\pi得r=\\sqrt{\\dfrac{20\\pi}{10\\pi}}=\\sqrt2。",
+            "difficulty": 2,
+            "type": "应用题",
+            "meta": {
+                "book_prefix": "math_8b_rjb",
+                "source_md": "ch16_s1.md",
+                "question_no_in_source": 10,
+                "global_no": 97
+            },
+            "links": {
+                "concept_names": [
+                    "二次根式",
+                    "算术平方根",
+                    "代数式"
+                ]
+            }
+        },
+        {
+            "id": "math_8b_rjb_ch16_s2_t167",
+            "stem": "设长方形的面积为 $S$ ，相邻两边分别为 $a$ ， $b$ 。\n\n（1）已知 $a = \\sqrt{8}$ ， $b = \\sqrt{12}$ ，求 $S$   \n（2）已知 $a = 2\\sqrt{50}$ ， $b = 3\\sqrt{32}$ ，求S.",
+            "answer": "（1）S=4\\sqrt{6}；（2）S=240",
+            "analysis": "长方形面积S=ab。\n（1）S=\\sqrt{8}\\cdot\\sqrt{12}=\\sqrt{96}=\\sqrt{16\\cdot6}=4\\sqrt{6}。\n（2）a=2\\sqrt{50}=2\\cdot5\\sqrt{2}=10\\sqrt{2}，b=3\\sqrt{32}=3\\cdot4\\sqrt{2}=12\\sqrt{2}，S=ab=(10\\sqrt{2})(12\\sqrt{2})=120\\cdot2=240。",
+            "difficulty": 2,
+            "type": "填空题",
+            "meta": {
+                "book_prefix": "math_8b_rjb",
+                "source_md": "ch16_s2.md",
+                "question_no_in_source": 6,
+                "global_no": 98
+            },
+            "links": {
+                "concept_names": [
+                    "二次根式的乘法法则",
+                    "最简二次根式"
+                ],
+                "skill_names": [
+                    "二次根式化简"
+                ]
+            }
+        },
+        {
+            "id": "math_8b_rjb_ch16_s2_t168",
+            "stem": "设正方形的面积为 $S$ ，边长为 $a$\n\n（1）已知 $S = 50$ ，求 $a$   \n（2）已知 $S = 242$ ，求 $a$",
+            "answer": "（1）a=5\\sqrt{2}；（2）a=11\\sqrt{2}",
+            "analysis": "正方形面积公式S=a^2，因此a=\\sqrt{S}（取正值）。\n（1）a=\\sqrt{50}=\\sqrt{25\\times2}=5\\sqrt{2}。\n（2）a=\\sqrt{242}=\\sqrt{121\\times2}=11\\sqrt{2}。",
+            "difficulty": 1,
+            "type": "填空题",
+            "meta": {
+                "book_prefix": "math_8b_rjb",
+                "source_md": "ch16_s2.md",
+                "question_no_in_source": 7,
+                "global_no": 99
+            },
+            "links": {
+                "concept_names": [
+                    "二次根式的乘法法则",
+                    "最简二次根式"
+                ],
+                "skill_names": [
+                    "二次根式化简"
+                ]
+            }
+        },
+        {
+            "id": "math_8b_rjb_ch16_s2_t169",
+            "stem": "计算：\n\n(1) $\\sqrt{0.4} \\times \\sqrt{3.6}$ ;   \n(2) $\\sqrt{\\frac{2}{3}} \\times \\sqrt{\\frac{27}{8}}$ ;   \n(3) $\\frac{\\sqrt{8}}{3\\sqrt{40}} \\times \\sqrt{5}$ ;   \n（4） $\\sqrt{27} \\times \\sqrt{50} \\div \\sqrt{6}$",
+            "answer": "（1）1.2；（2）3/2；（3）1/3；（4）15",
+            "analysis": "（1）\\sqrt{0.4}\\times\\sqrt{3.6}=\\sqrt{0.4\\cdot3.6}=\\sqrt{1.44}=1.2。\n（2）\\sqrt{\\frac23}\\times\\sqrt{\\frac{27}{8}}=\\sqrt{\\frac23\\cdot\\frac{27}{8}}=\\sqrt{\\frac{9}{4}}=\\frac32。\n（3）\\frac{\\sqrt8}{3\\sqrt{40}}\\times\\sqrt5=\\frac{\\sqrt{8\\cdot5}}{3\\sqrt{40}}=\\frac{\\sqrt{40}}{3\\sqrt{40}}=\\frac13。\n（4）\\sqrt{27}\\times\\sqrt{50}\\div\\sqrt6=\\frac{\\sqrt{27\\cdot50}}{\\sqrt6}=\\sqrt{\\frac{1350}{6}}=\\sqrt{225}=15。",
+            "difficulty": 2,
+            "type": "填空题",
+            "meta": {
+                "book_prefix": "math_8b_rjb",
+                "source_md": "ch16_s2.md",
+                "question_no_in_source": 8,
+                "global_no": 100
+            },
+            "links": {
+                "concept_names": [
+                    "二次根式的乘法法则",
+                    "二次根式的除法法则",
+                    "最简二次根式"
+                ],
+                "skill_names": [
+                    "二次根式化简"
+                ]
+            }
+        },
+        {
+            "id": "math_8b_rjb_ch16_s2_t170",
+            "stem": "已知 $\\sqrt{2} \\approx 1.414$ ，求 $\\sqrt{\\frac{1}{2}}$ 与 $\\sqrt{8}$ 的近似值.",
+            "answer": "√(1/2)≈0.707，√8≈2.828",
+            "analysis": "利用已知√2≈1.414。\n(1) √(1/2)=√1/√2=1/√2≈1/1.414≈0.707。\n(2) √8=√(4×2)=2√2≈2×1.414=2.828。",
+            "difficulty": 1,
+            "type": "填空题",
+            "meta": {
+                "book_prefix": "math_8b_rjb",
+                "source_md": "ch16_s2.md",
+                "question_no_in_source": 9,
+                "global_no": 101
+            },
+            "links": {
+                "concept_names": [
+                    "二次根式的乘法法则",
+                    "二次根式的除法法则"
+                ],
+                "skill_names": [
+                    "二次根式化简"
+                ]
+            }
+        },
+        {
+            "id": "math_8b_rjb_ch16_s2_t171",
+            "stem": "设长方形的面积为 $S$ ，相邻两边长分别为 $a$ ， $b$ 。已知 $S = 4\\sqrt{3}$ ， $a = \\sqrt{15}$ ，求 $b$ 。",
+            "answer": "b=\\frac{4\\sqrt5}{5}",
+            "analysis": "长方形面积S=ab，故b=\\frac{S}{a}=\\frac{4\\sqrt3}{\\sqrt{15}}=4\\sqrt{\\frac{3}{15}}=4\\sqrt{\\frac{1}{5}}=\\frac{4}{\\sqrt5}=\\frac{4\\sqrt5}{5}。",
+            "difficulty": 2,
+            "type": "填空题",
+            "meta": {
+                "book_prefix": "math_8b_rjb",
+                "source_md": "ch16_s2.md",
+                "question_no_in_source": 10,
+                "global_no": 102
+            },
+            "links": {
+                "concept_names": [
+                    "二次根式的除法法则",
+                    "最简二次根式"
+                ],
+                "skill_names": [
+                    "二次根式化简"
+                ]
+            }
+        },
+        {
+            "id": "math_8b_rjb_ch16_s2_t172",
+            "stem": "已知长方体的体积 $V = 4\\sqrt{3}$ ，高 $h = 3\\sqrt{2}$ ，求它的底面积 $S$ .",
+            "answer": "S=\\frac{2\\sqrt{6}}{3}",
+            "analysis": "长方体体积公式：V=S\\cdot h。已知V=4\\sqrt{3}, h=3\\sqrt{2}，则S=\\frac{V}{h}=\\frac{4\\sqrt{3}}{3\\sqrt{2}}=\\frac{4}{3}\\sqrt{\\frac{3}{2}}=\\frac{4}{3}\\cdot\\frac{\\sqrt{6}}{2}=\\frac{2\\sqrt{6}}{3}。",
+            "difficulty": 2,
+            "type": "填空题",
+            "meta": {
+                "book_prefix": "math_8b_rjb",
+                "source_md": "ch16_s2.md",
+                "question_no_in_source": 11,
+                "global_no": 103
+            },
+            "links": {
+                "concept_names": [
+                    "二次根式的除法法则",
+                    "最简二次根式"
+                ],
+                "skill_names": [
+                    "二次根式化简"
+                ]
+            }
+        },
+        {
+            "id": "math_8b_rjb_ch16_s3_t175",
+            "stem": "已知 $\\sqrt{5} \\approx 2.236$ ，求 $5\\sqrt{\\frac{1}{5}} - \\frac{5}{4}\\sqrt{\\frac{4}{5}} + \\sqrt{45}$ 的近似值（结果保留小数点后两位）.",
+            "answer": "7.83",
+            "analysis": "原式=5\\sqrt{\\frac15}-\\frac54\\sqrt{\\frac45}+\\sqrt{45}。\\n\\sqrt{\\frac15}=\\frac1{\\sqrt5}，所以5\\sqrt{\\frac15}=\\frac5{\\sqrt5}=\\sqrt5。\\n\\sqrt{\\frac45}=\\frac2{\\sqrt5}，所以\\frac54\\sqrt{\\frac45}=\\frac54\\cdot\\frac2{\\sqrt5}=\\frac5{2\\sqrt5}=\\frac{\\sqrt5}{2}。\\n\\sqrt{45}=\\sqrt{9\\cdot5}=3\\sqrt5。\\n因此原式=\\sqrt5-\\frac{\\sqrt5}{2}+3\\sqrt5=\\frac{7}{2}\\sqrt5=3.5\\sqrt5。代入\\sqrt5\\approx2.236，得3.5\\times2.236=7.826，保留两位小数为7.83。",
+            "difficulty": 2,
+            "type": "填空题",
+            "meta": {
+                "book_prefix": "math_8b_rjb",
+                "source_md": "ch16_s3.md",
+                "question_no_in_source": 5,
+                "global_no": 104
+            },
+            "links": {
+                "concept_names": [
+                    "二次根式",
+                    "最简二次根式",
+                    "二次根式的加减法"
+                ],
+                "skill_names": [
+                    "化成最简二次根式"
+                ]
+            }
+        },
+        {
+            "id": "math_8b_rjb_ch16_s3_t176",
+            "stem": "已知 $x = \\sqrt{3} + 1, y = \\sqrt{3} - 1$ ，求下列各式的值：\n\n(1) $x^{2} + 2xy + y^{2}$\n\n(2) $x^{2} - y^{2}$",
+            "answer": "(1) 12；(2) 4√3",
+            "analysis": "由x=√3+1，y=√3−1得：x+y=2√3，x−y=2。\n(1) x^2+2xy+y^2=(x+y)^2=(2√3)^2=12。\n(2) x^2−y^2=(x−y)(x+y)=2·2√3=4√3。",
+            "difficulty": 2,
+            "type": "填空题",
+            "meta": {
+                "book_prefix": "math_8b_rjb",
+                "source_md": "ch16_s3.md",
+                "question_no_in_source": 6,
+                "global_no": 105
+            },
+            "links": {
+                "concept_names": [
+                    "二次根式"
+                ],
+                "skill_names": [
+                    "化成最简二次根式"
+                ]
+            }
+        },
+        {
+            "id": "math_8b_rjb_ch16_s3_t178",
+            "stem": "已知 $a + \\frac{1}{a} = \\sqrt{10}$ ，求 $a - \\frac{1}{a}$ 的值.（提示：利用 $\\left(a - \\frac{1}{a}\\right)^2$ 与 $\\left(a + \\frac{1}{a}\\right)^2$ 之间的关系.）",
+            "answer": "±\\sqrt{6}",
+            "analysis": "由\\((a+\\frac{1}{a})^2=a^2+2+\\frac{1}{a^2}\\)，\\((a-\\frac{1}{a})^2=a^2-2+\\frac{1}{a^2}\\)，两式相减得\\((a+\\frac{1}{a})^2-(a-\\frac{1}{a})^2=4\\)，所以\\((a-\\frac{1}{a})^2=(a+\\frac{1}{a})^2-4=(\\sqrt{10})^2-4=6\\，故\\(a-\\frac{1}{a}=\\pm\\sqrt{6}\\)。",
+            "difficulty": 2,
+            "type": "填空题",
+            "meta": {
+                "book_prefix": "math_8b_rjb",
+                "source_md": "ch16_s3.md",
+                "question_no_in_source": 8,
+                "global_no": 106
+            },
+            "links": {
+                "concept_names": [
+                    "二次根式"
+                ],
+                "skill_names": [
+                    "化成最简二次根式"
+                ]
+            }
+        },
+        {
+            "id": "math_8b_rjb_ch16_s3_t179",
+            "stem": "在下列各方程后面的括号内分别给出了一组数，从中找出方程的解：\n\n(1) $2x^{2} - 6 = 0, (\\sqrt{3}, \\sqrt{6}, -\\sqrt{3}, -\\sqrt{6})$ ;   \n(2) $2(x + 5)^2 = 24$ ， $(5 + 2\\sqrt{3}, 5 - 2\\sqrt{3}, -5 + 2\\sqrt{3}, -5 - 2\\sqrt{3})$",
+            "answer": "(1) √3，-√3；(2) -5+2√3，-5-2√3",
+            "analysis": "(1) 2x^2-6=0⇒x^2=3⇒x=±√3，在给定数中选√3和-√3。 (2) 2(x+5)^2=24⇒(x+5)^2=12⇒x+5=±2√3⇒x=-5±2√3，在给定数中选-5+2√3和-5-2√3。",
+            "difficulty": 2,
+            "type": "选择题",
+            "meta": {
+                "book_prefix": "math_8b_rjb",
+                "source_md": "ch16_s3.md",
+                "question_no_in_source": 9,
+                "global_no": 107
+            },
+            "links": {
+                "concept_names": [
+                    "二次根式",
+                    "最简二次根式"
+                ],
+                "skill_names": [
+                    "化成最简二次根式"
+                ]
+            }
+        },
+        {
+            "id": "math_8b_rjb_ch16_s_16_t180",
+            "stem": "已知 $x = \\sqrt{5} - 1$ ，求代数式 $x^2 + 5x - 6$ 的值",
+            "answer": "3\\sqrt{5}-5",
+            "analysis": "已知x=\\sqrt{5}-1，先求x^2=(\\sqrt{5}-1)^2=5-2\\sqrt{5}+1=6-2\\sqrt{5}，再求5x=5(\\sqrt{5}-1)=5\\sqrt{5}-5。代入原式：x^2+5x-6=(6-2\\sqrt{5})+(5\\sqrt{5}-5)-6=3\\sqrt{5}-5。",
+            "difficulty": 2,
+            "type": "填空题",
+            "meta": {
+                "book_prefix": "math_8b_rjb",
+                "source_md": "ch16_s复习题16.md",
+                "question_no_in_source": 5,
+                "global_no": 108
+            }
+        },
+        {
+            "id": "math_8b_rjb_ch16_s_16_t181",
+            "stem": "已知 $x = 2 - \\sqrt{3}$ ，求代数式 $(7 + 4\\sqrt{3})x^{2} + (2 + \\sqrt{3})x + \\sqrt{3}$ 的值",
+            "answer": "2+\\sqrt{3}",
+            "analysis": "设r=\\sqrt{3}，x=2-r。则x^2=(2-r)^2=4-4r+r^2=7-4r。\\n(7+4r)x^2=(7+4r)(7-4r)=49-(4r)^2=49-16\\cdot3=1。\\n(2+r)x=(2+r)(2-r)=4-r^2=4-3=1。\\n原式=1+1+r=2+\\sqrt{3}。",
+            "difficulty": 2,
+            "type": "填空题",
+            "meta": {
+                "book_prefix": "math_8b_rjb",
+                "source_md": "ch16_s复习题16.md",
+                "question_no_in_source": 6,
+                "global_no": 109
+            }
+        },
+        {
+            "id": "math_8b_rjb_ch16_s_16_t182",
+            "stem": "电流通过导线时会产生热量，电流 $I$ （单位：A）、导线电阻 $R$ （单位：Ω）、通电时间 $t$ （单位：s）与产生的热量 $Q$ （单位：J）满足 $Q = I^2 Rt$ 。已知导线的电阻为 $5\\Omega$ ，1s 时间导线产生30J的热量，求电流 $I$ 的值（结果保留小数点后两位）。",
+            "answer": "2.45A",
+            "analysis": "由焦耳定律 Q=I^2Rt，代入R=5Ω、t=1s、Q=30J：30=I^2×5×1，得I^2=30/5=6，因此I=√6≈2.449，保留两位小数为2.45A。",
+            "difficulty": 2,
+            "type": "填空题",
+            "meta": {
+                "book_prefix": "math_8b_rjb",
+                "source_md": "ch16_s复习题16.md",
+                "question_no_in_source": 7,
+                "global_no": 110
+            }
+        },
+        {
+            "id": "math_8b_rjb_ch16_s_16_t183",
+            "stem": "已知 $n$ 是正整数， $\\sqrt{189n}$ 是整数，求 $n$ 的最小值",
+            "answer": "21",
+            "analysis": "分解质因数：189=3^3×7。要使√(189n)为整数，则189n必须是完全平方数，即质因数分解中各质因数指数为偶数。当前3的指数为3(奇数)，补1个3使其变为4；7的指数为1(奇数)，补1个7使其变为2。因此最小n=3×7=21，此时189n=3^4×7^2=(3^2×7)^2为完全平方数。",
+            "difficulty": 2,
+            "type": "填空题",
+            "meta": {
+                "book_prefix": "math_8b_rjb",
+                "source_md": "ch16_s复习题16.md",
+                "question_no_in_source": 8,
+                "global_no": 111
+            }
+        },
+        {
+            "id": "math_8b_rjb_ch16_s_16_t185",
+            "stem": "判断下列各式是否成立：\n\n$$\n\\sqrt {2 \\frac {2}{3}} = 2 \\sqrt {\\frac {2}{3}}; \\quad \\sqrt {3 \\frac {3}{8}} = 3 \\sqrt {\\frac {3}{8}}; \\quad \\sqrt {4 \\frac {4}{1 5}} = 4 \\sqrt {\\frac {4}{1 5}}.\n$$\n\n类比上述式子，再写出几个同类型的式子。你能看出其中的规律吗？用字母表示这一规律，并给出证明。",
+            "answer": "三个等式都成立。可类比写出：\\(\\sqrt{5\\frac{5}{24}}=5\\sqrt{\\frac{5}{24}}\\)，\\(\\sqrt{6\\frac{6}{35}}=6\\sqrt{\\frac{6}{35}}\\)，\\(\\sqrt{7\\frac{7}{48}}=7\\sqrt{\\frac{7}{48}}\\) 等。规律：对任意整数 \\(n\\ge2\\)，都有 \\(\\sqrt{n\\frac{n}{n^2-1}}=n\\sqrt{\\frac{n}{n^2-1}}\\)。",
+            "analysis": "先判断原式：\n1) \\(2\\frac{2}{3}=\\frac{8}{3}\\)，右边 \\(2\\sqrt{\\frac23}=\\sqrt{4\\cdot\\frac23}=\\sqrt{\\frac83}\\)，两边相等。\n2) \\(3\\frac{3}{8}=\\frac{27}{8}\\)，右边 \\(3\\sqrt{\\frac38}=\\sqrt{9\\cdot\\frac38}=\\sqrt{\\frac{27}{8}}\\)，两边相等。\n3) \\(4\\frac{4}{15}=\\frac{64}{15}\\)，右边 \\(4\\sqrt{\\frac4{15}}=\\sqrt{16\\cdot\\frac4{15}}=\\sqrt{\\frac{64}{15}}\\)，两边相等。\n\n观察分母：\\(3=2^2-1,\\ 8=3^2-1,\\ 15=4^2-1\\)。因此同类型式子为 \\(\\sqrt{n\\frac{n}{n^2-1}}=n\\sqrt{\\frac{n}{n^2-1}}\\)。\n证明：左边\n\\[\n\\sqrt{n\\frac{n}{n^2-1}}=\\sqrt{n+\\frac{n}{n^2-1}}=\\sqrt{\\frac{n(n^2-1)+n}{n^2-1}}=\\sqrt{\\frac{n^3}{n^2-1}}.\n\\]\n右边\n\\[\n n\\sqrt{\\frac{n}{n^2-1}}=\\sqrt{n^2\\cdot\\frac{n}{n^2-1}}=\\sqrt{\\frac{n^3}{n^2-1}}.\n\\]\n两边同为 \\(\\sqrt{\\frac{n^3}{n^2-1}}\\)，故恒成立(\\(n\\ge2\\) 时分母不为0)。",
+            "difficulty": 4,
+            "type": "证明题",
+            "meta": {
+                "book_prefix": "math_8b_rjb",
+                "source_md": "ch16_s复习题16.md",
+                "question_no_in_source": 10,
+                "global_no": 112
+            }
+        },
+        {
+            "id": "math_8b_rjb_ch17_s1_t186",
+            "stem": "在 $\\triangle ABC$ 中， $\\angle C = 90^\\circ$ ， $AB = c$\n\n（1）如果 $\\angle A = 30^{\\circ}$ ，求 $BC$ ， $AC$   \n（2）如果 $\\angle A = 45^{\\circ}$ ，求 $BC$ ， $AC$",
+            "answer": "（1）BC=\\frac{c}{2}，AC=\\frac{\\sqrt{3}}{2}c；（2）BC=\\frac{\\sqrt{2}}{2}c，AC=\\frac{\\sqrt{2}}{2}c",
+            "analysis": "∠C=90°，AB=c为斜边。由直角三角形三角函数：BC=AB\\sin A=c\\sin A，AC=AB\\cos A=c\\cos A。\n（1）A=30°：BC=c\\sin30°=c\\cdot\\frac12=\\frac{c}{2}；AC=c\\cos30°=c\\cdot\\frac{\\sqrt3}{2}=\\frac{\\sqrt3}{2}c。\n（2）A=45°：BC=c\\sin45°=c\\cdot\\frac{\\sqrt2}{2}=\\frac{\\sqrt2}{2}c；AC=c\\cos45°=c\\cdot\\frac{\\sqrt2}{2}=\\frac{\\sqrt2}{2}c。",
+            "difficulty": 2,
+            "type": "简答题",
+            "meta": {
+                "book_prefix": "math_8b_rjb",
+                "source_md": "ch17_s1.md",
+                "question_no_in_source": 7,
+                "global_no": 113
+            },
+            "links": {
+                "concept_names": [
+                    "直角三角形",
+                    "等腰直角三角形",
+                    "勾股定理"
+                ],
+                "skill_names": [
+                    "利用勾股定理计算线段长度"
+                ]
+            }
+        },
+        {
+            "id": "math_8b_rjb_ch17_s1_t187",
+            "stem": "在 $\\triangle ABC$ 中， $\\angle C = 90^\\circ$ ， $AC = 2.1$ ， $BC = 2.8$ 。求：\n\n（1） $\\triangle ABC$ 的面积；\n\n(2)斜边 ${AB}$ ；\n\n（3）高 $CD$",
+            "answer": "（1）2.94；（2）3.5；（3）1.68",
+            "analysis": "∠C=90°，AC、BC为直角边。\n（1）面积S=1/2·AC·BC=1/2·2.1·2.8=2.94。\n（2）斜边AB=√(AC^2+BC^2)=√(2.1^2+2.8^2)=√(4.41+7.84)=√12.25=3.5。\n（3）直角三角形中，从直角顶点到斜边的高CD满足S=1/2·AB·CD，因此CD=2S/AB=(AC·BC)/AB=(2.1·2.8)/3.5=1.68。",
+            "difficulty": 2,
+            "type": "应用题",
+            "meta": {
+                "book_prefix": "math_8b_rjb",
+                "source_md": "ch17_s1.md",
+                "question_no_in_source": 8,
+                "global_no": 114
+            },
+            "links": {
+                "concept_names": [
+                    "直角三角形",
+                    "勾股定理"
+                ],
+                "skill_names": [
+                    "利用勾股定理计算线段长度"
+                ]
+            }
+        },
+        {
+            "id": "math_8b_rjb_ch17_s1_t189",
+            "stem": "有一个水池，水面是一个边长为10尺的正方形，在水池正中央有一根芦苇，它高出水面1尺。如果把这根芦苇拉向水池一边的中点，它的顶端恰好到达池边的水面。水的深度与这根芦苇的长度分别是多少？\n\n这是我国古代数学著作《九章算术》中的一个问题.原文是：今有池方一丈，葭生其中央，出水一尺.引葭赴岸，适与岸齐.问水深、葭长各几何.（丈、尺是长度单位，1丈 $= 10$ 尺， $1$ 尺 $= \\frac{1}{3}$ m.)",
+            "answer": "水深12尺，芦苇长13尺。",
+            "analysis": "设水深为x尺，则芦苇总长为x+1尺（水面上1尺）。水池边长10尺，芦苇在中央，拉到一边中点，水平距离为10/2=5尺。此时芦苇、池底到水面的竖直高度x、水平距离5构成直角三角形，故有(x+1)^2=x^2+5^2。展开得x^2+2x+1=x^2+25，化简2x=24，得x=12。芦苇长x+1=13尺。",
+            "difficulty": 3,
+            "type": "应用题",
+            "meta": {
+                "book_prefix": "math_8b_rjb",
+                "source_md": "ch17_s1.md",
+                "question_no_in_source": 10,
+                "global_no": 115
+            },
+            "links": {
+                "concept_names": [
+                    "勾股定理",
+                    "直角三角形"
+                ],
+                "skill_names": [
+                    "利用勾股定理计算线段长度"
+                ]
+            }
+        },
+        {
+            "id": "math_8b_rjb_ch17_s2_t194",
+            "stem": "在 $\\triangle ABC$ 中， $AB = 13$ ， $BC = 10$ ， $BC$ 边上的中线 $AD = 12$ 求 $AC$",
+            "answer": "13",
+            "analysis": "设AC=x。由中线定理（阿波罗尼斯定理）：2(AB^2+AC^2)=BC^2+4AD^2。代入AB=13，BC=10，AD=12：2(13^2+x^2)=10^2+4·12^2，即2(169+x^2)=100+576=676。得338+2x^2=676，2x^2=338，x^2=169，所以x=13（取正）。",
+            "difficulty": 3,
+            "type": "填空题",
+            "meta": {
+                "book_prefix": "math_8b_rjb",
+                "source_md": "ch17_s2.md",
+                "question_no_in_source": 4,
+                "global_no": 116
+            },
+            "links": {
+                "concept_names": [
+                    "勾股定理的逆定理"
+                ],
+                "skill_names": [
+                    "利用平方关系判定直角三角形"
+                ]
+            }
+        },
+        {
+            "id": "math_8b_rjb_ch17_s2_t197",
+            "stem": "我们知道3，4，5是一组勾股数，那么 $3k, 4k, 5k$ （ $k$ 是正整数）也是一组勾股数吗？一般地，如果 $a, b, c$ 是一组勾股数，那么 $ak, bk, ck$ （ $k$ 是正整数）也是一组勾股数吗？",
+            "answer": "是。因为3^2+4^2=5^2，两边同乘k^2得(3k)^2+(4k)^2=(5k)^2；一般地，若a^2+b^2=c^2，则(ak)^2+(bk)^2=(ck)^2，所以ak,bk,ck也是一组勾股数（k为正整数）。",
+            "analysis": "勾股数定义：正整数a,b,c满足a^2+b^2=c^2。已知3^2+4^2=5^2。对任意正整数k，计算(3k)^2+(4k)^2=9k^2+16k^2=25k^2=(5k)^2，因此3k,4k,5k仍满足勾股关系。一般地，若a^2+b^2=c^2，则两边同乘k^2：k^2(a^2+b^2)=k^2c^2，即(ak)^2+(bk)^2=(ck)^2，且ak,bk,ck仍为正整数，所以仍是一组勾股数。",
+            "difficulty": 2,
+            "type": "简答题",
+            "meta": {
+                "book_prefix": "math_8b_rjb",
+                "source_md": "ch17_s2.md",
+                "question_no_in_source": 7,
+                "global_no": 117
+            },
+            "links": {
+                "concept_names": [
+                    "勾股数"
+                ],
+                "skill_names": [
+                    "利用平方关系判定直角三角形"
+                ]
+            }
+        },
+        {
+            "id": "math_8b_rjb_ch17_s_17_t200",
+            "stem": "一根竹子高 1 丈，折断后竹子顶端落在离竹子底端 3 尺处。折断处离地面的高度是多少？（这是我国古代数学著作《九章算术》中的一个问题。其中的丈、尺是长度单位，1 丈 = 10 尺。）",
+            "answer": "折断处离地面高度为91/20尺（即4又11/20尺）",
+            "analysis": "设折断处离地面高度为x尺，则竹子上段长度为(10−x)尺（因1丈=10尺）。折断后上段竹子顶端落地，且落点距竹子底端3尺，形成直角三角形：直角边为x和3，斜边为(10−x)。由勾股定理：(10−x)^2=x^2+3^2。展开得100−20x+x^2=x^2+9，化简得100−20x=9，故20x=91，x=91/20尺。",
+            "difficulty": 3,
+            "type": "应用题",
+            "meta": {
+                "book_prefix": "math_8b_rjb",
+                "source_md": "ch17_s复习题17.md",
+                "question_no_in_source": 10,
+                "global_no": 118
+            }
+        },
+        {
+            "id": "math_8b_rjb_ch17_s_17_t201",
+            "stem": "古希腊的哲学家柏拉图曾指出，如果 $m$ 表示大于1的整数， $a = 2m$ ， $b = m^2 - 1$ ， $c = m^2 + 1$ ，那么 $a$ ， $b$ ， $c$ 为勾股数。你认为对吗？如果对，你能利用这个结论得出一些勾股数吗？",
+            "answer": "对。因为当m>1为整数，令a=2m，b=m^2-1，c=m^2+1，则a^2+b^2=c^2，所以(a,b,c)是勾股数。例：m=2得(4,3,5)；m=3得(6,8,10)；m=4得(8,15,17)；m=5得(10,24,26)。",
+            "analysis": "验证是否为勾股数只需检验a^2+b^2是否等于c^2：a^2+b^2=(2m)^2+(m^2-1)^2=4m^2+(m^4-2m^2+1)=m^4+2m^2+1=(m^2+1)^2=c^2，因此结论成立。再代入不同的整数m即可生成勾股数组。",
+            "difficulty": 2,
+            "type": "简答题",
+            "meta": {
+                "book_prefix": "math_8b_rjb",
+                "source_md": "ch17_s复习题17.md",
+                "question_no_in_source": 11,
+                "global_no": 119
+            }
+        },
+        {
+            "id": "math_8b_rjb_ch17_s_17_t203",
+            "stem": "一根 $70 \\mathrm{~cm}$ 的木棒，要放在长、宽、高分别是 $50 \\mathrm{~cm}, 40 \\mathrm{~cm}, 30 \\mathrm{~cm}$ 的长方体木箱中，能放进去吗？（提示：长方体的高垂直于底面的任何一条直线。）",
+            "answer": "能放进去。",
+            "analysis": "木棒能否放入长方体木箱，关键看木箱内最长的直线段（空间对角线）是否不小于木棒长度。先求底面对角线：d_底=√(50^2+40^2)=√4100。再由提示“高垂直于底面任何直线”，空间对角线 d=√(d_底^2+30^2)=√(4100+900)=√5000≈70.71(cm)。因为70<70.71，所以70 cm木棒能放进箱中。",
+            "difficulty": 3,
+            "type": "应用题",
+            "meta": {
+                "book_prefix": "math_8b_rjb",
+                "source_md": "ch17_s复习题17.md",
+                "question_no_in_source": 13,
+                "global_no": 120
+            }
+        },
+        {
+            "id": "math_8b_rjb_ch17_s_17_t204",
+            "stem": "设直角三角形的两条直角边长及斜边上的高分别为 $a, b$ 及 $h$ 。求证： $\\frac{1}{a^2} + \\frac{1}{b^2} = \\frac{1}{h^2}$ 。",
+            "answer": "成立，\\(\\dfrac{1}{a^2}+\\dfrac{1}{b^2}=\\dfrac{1}{h^2}\\)。",
+            "analysis": "设斜边长为\\(c\\)。直角三角形面积一方面为\\(\\frac12 ab\\)，另一方面以斜边为底、高为\\(h\\)得\\(\\frac12 ch\\)，故\\(ab=ch\\)，即\\(h=\\frac{ab}{c}\\)。\n因此\\(\\frac{1}{h^2}=\\frac{c^2}{a^2b^2}\\)。又由勾股定理\\(c^2=a^2+b^2\\)，代入得\n\\[\n\\frac{1}{h^2}=\\frac{a^2+b^2}{a^2b^2}=\\frac{1}{a^2}+\\frac{1}{b^2},\n\\]\n命题得证。",
+            "difficulty": 3,
+            "type": "证明题",
+            "meta": {
+                "book_prefix": "math_8b_rjb",
+                "source_md": "ch17_s复习题17.md",
+                "question_no_in_source": 14,
+                "global_no": 121
+            }
+        },
+        {
+            "id": "math_8b_rjb_ch18_s_18_t218",
+            "stem": "我们把顺次连接任意一个四边形各边中点所得的四边形叫做中点四边形.\n\n（1）任意四边形的中点四边形是什么形状？为什么？  \n（2）任意平行四边形的中点四边形是什么形状？为什么？  \n（3）任意矩形、菱形和正方形的中点四边形分别是什么形状？为什么？",
+            "answer": "（1）任意四边形的中点四边形是平行四边形。理由：设四边形ABCD各边中点依次为E、F、G、H，在△ABC中，EF∥AC；在△CDA中，GH∥AC，故EF∥GH。同理，在△BCD中FG∥BD，在△DAB中EH∥BD，故FG∥EH。两组对边分别平行，所以EFGH为平行四边形（Varignon定理）。\n（2）任意平行四边形的中点四边形仍是平行四边形。理由同（1）；且其各边分别平行于原平行四边形的两条对角线，边长分别等于相应对角线的一半。\n（3）矩形的中点四边形是菱形；菱形的中点四边形是矩形；正方形的中点四边形是正方形。理由：中点四边形的相邻两边分别平行于原图形的两条对角线，且边长分别为两条对角线的一半；矩形对角线相等⇒中点四边形相邻边相等⇒为菱形；菱形对角线互相垂直⇒中点四边形相邻边互相垂直⇒为矩形；正方形对角线既相等又互相垂直⇒中点四边形既是菱形又是矩形⇒为正方形。",
+            "analysis": "核心结论：连结四边形各边中点所得四边形为平行四边形（Varignon定理）。证明用三角形中位线：在△ABC中EF∥AC，在△CDA中GH∥AC，从而EF∥GH；同理FG∥EH，因此中点四边形为平行四边形。进一步：其边分别平行于原四边形两条对角线，且边长等于对应对角线的一半。于是根据原图形对角线性质分类：矩形对角线相等⇒中点四边形四边相等为菱形；菱形对角线垂直⇒中点四边形有直角为矩形；正方形对角线相等且垂直⇒中点四边形同时具菱形与矩形性质为正方形。",
+            "difficulty": 4,
+            "type": "证明题",
+            "meta": {
+                "book_prefix": "math_8b_rjb",
+                "source_md": "ch18_s复习题18.md",
+                "question_no_in_source": 9,
+                "global_no": 122
+            }
+        },
+        {
+            "id": "math_8b_rjb_ch18_s_18_t219",
+            "stem": "如果一个四边形是轴对称图形，并且有两条互相垂直的对称轴，它一定是菱形吗？一定是正方形吗？",
+            "answer": "不一定是菱形；也不一定是正方形。",
+            "analysis": "举反例即可：非正方形的长方形（如2×1的矩形）是轴对称图形，且有两条互相垂直的对称轴（分别经过对边中点），但它的四边不相等，所以不是菱形，也不是正方形。因此“有两条互相垂直的对称轴”不能推出一定是菱形，更不能推出一定是正方形。",
+            "difficulty": 2,
+            "type": "简答题",
+            "meta": {
+                "book_prefix": "math_8b_rjb",
+                "source_md": "ch18_s复习题18.md",
+                "question_no_in_source": 10,
+                "global_no": 123
+            }
+        },
+        {
+            "id": "math_8b_rjb_ch18_s_18_t220",
+            "stem": "用纸板剪成的两个全等三角形能够拼成什么四边形？要想拼成一个矩形，需要两个什么样的全等三角形？要想拼成菱形或正方形呢？动手剪拼一下，并说明理由.",
+            "answer": "两个全等三角形可以拼成平行四边形（把两三角形的一条对应边重合拼接即可）。要拼成矩形，需要两个全等的直角三角形（沿斜边拼合，斜边作矩形的对角线）。要拼成菱形，需要两个全等的等腰三角形（沿底边拼合，底边作菱形的一条对角线）。要拼成正方形，需要两个全等的等腰直角三角形（既满足矩形又满足菱形的条件）。",
+            "analysis": "利用“一个四边形沿对角线可分成两个全等三角形”的逆向思考：平行四边形沿一条对角线分成两全等三角形，所以两全等三角形可沿对应边拼成平行四边形；矩形沿对角线得到两全等直角三角形，因此要拼矩形需两全等直角三角形并沿斜边拼；菱形沿对角线分成两全等三角形且两腰为菱形的相邻边(相等)，所以每个三角形为等腰三角形，沿底边拼可成菱形；正方形同时是矩形和菱形，对角线分得两全等等腰直角三角形，因此用两全等等腰直角三角形可拼成正方形。",
+            "difficulty": 3,
+            "type": "简答题",
+            "meta": {
+                "book_prefix": "math_8b_rjb",
+                "source_md": "ch18_s复习题18.md",
+                "question_no_in_source": 11,
+                "global_no": 124
+            }
+        },
+        {
+            "id": "math_8b_rjb_ch18_s_18_t224",
+            "stem": "求证：平行四边形两条对角线的平方和等于四条边的平方和.",
+            "answer": "设平行四边形ABCD中，AB=a，BC=b，两对角线为AC、BD，则有：AC^2+BD^2=2(a^2+b^2)=AB^2+BC^2+CD^2+DA^2。",
+            "analysis": "设∠ABC=θ。由余弦定理，在△ABC中：AC^2=a^2+b^2-2abcosθ；在△ABD中，∠BAD=180°-θ，且AD=BC=b，有BD^2=a^2+b^2-2abcos(180°-θ)=a^2+b^2+2abcosθ。两式相加得AC^2+BD^2=2(a^2+b^2)。又平行四边形对边相等：AB=CD=a，BC=AD=b，所以AB^2+BC^2+CD^2+DA^2=a^2+b^2+a^2+b^2=2(a^2+b^2)。因此AC^2+BD^2=AB^2+BC^2+CD^2+DA^2。",
+            "difficulty": 3,
+            "type": "证明题",
+            "meta": {
+                "book_prefix": "math_8b_rjb",
+                "source_md": "ch18_s复习题18.md",
+                "question_no_in_source": 15,
+                "global_no": 125
+            }
+        },
+        {
+            "id": "math_8b_rjb_ch19_s1_t226",
+            "stem": "某种活期储蓄的月利率是 $0.06\\%$ ，存入100元本金。求本息和 $y$ （本金与利息的和，单位：元）随所存月数 $x$ 变化的函数解析式，并计算存期为4个月时的本息和。",
+            "answer": "y=100(1+0.0006)^x；x=4时，y=100(1.0006)^4≈100.240216…≈100.24（元）",
+            "analysis": "月利率0.06%=0.0006。按月复利计息，本息和随月数x变化满足：y=100(1+0.0006)^x。代入x=4：y=100(1.0006)^4≈100×1.002402160864≈100.24元。",
+            "difficulty": 2,
+            "type": "应用题",
+            "meta": {
+                "book_prefix": "math_8b_rjb",
+                "source_md": "ch19_s1.md",
+                "question_no_in_source": 10,
+                "global_no": 126
+            },
+            "links": {
+                "concept_names": [
+                    "函数",
+                    "自变量",
+                    "函数的解析式",
+                    "函数值"
+                ]
+            }
+        },
+        {
+            "id": "math_8b_rjb_ch19_s1_t228",
+            "stem": "甲、乙两车沿直路同向行驶，车速分别为 $20 \\mathrm{~m} / \\mathrm{s}$ 和 $25 \\mathrm{~m} / \\mathrm{s}$ 。现甲车在乙车前 $500 \\mathrm{~m}$ 处，设 $x \\mathrm{~s} (0 \\leqslant x \\leqslant 100)$ 后两车相距 $y \\mathrm{~m}$ 。用解析式表示 $y$ 与 $x$ 的对应关系。",
+            "answer": "y=500-5x（0≤x≤100）",
+            "analysis": "同向行驶且乙车更快，追及速度为25-20=5(m/s)。初始间距为500m，经过x秒后两车间距y=500-5x。由于0≤x≤100时y≥0，因此对应关系为y=500-5x。",
+            "difficulty": 2,
+            "type": "填空题",
+            "meta": {
+                "book_prefix": "math_8b_rjb",
+                "source_md": "ch19_s1.md",
+                "question_no_in_source": 12,
+                "global_no": 127
+            },
+            "links": {
+                "concept_names": [
+                    "自变量",
+                    "函数",
+                    "函数的解析式"
+                ]
+            }
+        },
+        {
+            "id": "math_8b_rjb_ch19_s1_t231",
+            "stem": "四边形有两条对角线，五边形、六边形分别有多少条对角线？ $n$ 边形呢？多边形对角线的条数是边数的函数吗？",
+            "answer": "五边形有5条对角线；六边形有9条对角线；n边形有n(n-3)/2条对角线。多边形对角线条数是边数n的函数，f(n)=n(n-3)/2（n≥3）。",
+            "analysis": "从n边形的每个顶点可连到除自身及相邻两个顶点外的(n-3)个顶点形成对角线，因此按“从每个顶点出发”共得到n(n-3)条连接。但每条对角线被两个端点各数一次，需除以2，得对角线总数f(n)=n(n-3)/2。代入n=5得5条；n=6得9条。",
+            "difficulty": 3,
+            "type": "简答题",
+            "meta": {
+                "book_prefix": "math_8b_rjb",
+                "source_md": "ch19_s1.md",
+                "question_no_in_source": 15,
+                "global_no": 128
+            },
+            "links": {
+                "concept_names": [
+                    "函数",
+                    "自变量",
+                    "函数的解析式"
+                ]
+            }
+        },
+        {
+            "id": "math_8b_rjb_ch19_s2_t234",
+            "stem": "从A地向B地打长途电话，通话时间不超过 $3\\mathrm{min}$ 收费2.4元，超过 $3\\mathrm{min}$ 后每分加收1元。写出通话费用 $y$ （单位：元）关于通话时间 $x$ （单位：min）的函数解析式。有10元钱时，打一次电话最多可以通话多长时间？（本题中 $x$ 取整数，不足 $1\\mathrm{min}$ 的通话时间按 $1\\mathrm{min}$ 计费。）",
+            "answer": "y=\\begin{cases}2.4, & 1\\le x\\le 3\\\\2.4+(x-3)=x-0.6, & x>3\\end{cases}\\ (x\\in\\mathbb{Z}).\\n有10元钱时最多通话10min。",
+            "analysis": "通话时间不超过3min费用恒为2.4元；当x>3时，超出部分为(x-3)min，每分钟加收1元，所以y=2.4+(x-3)。\\n有10元时需y\\le 10。对x>3：2.4+(x-3)\\le 10\\Rightarrow x\\le 10.6，又x取整数，故最大x=10(min)。",
+            "difficulty": 2,
+            "type": "应用题",
+            "meta": {
+                "book_prefix": "math_8b_rjb",
+                "source_md": "ch19_s2.md",
+                "question_no_in_source": 11,
+                "global_no": 129
+            },
+            "links": {
+                "concept_names": [
+                    "一次函数",
+                    "函数与不等式的关系"
+                ]
+            }
+        },
+        {
+            "id": "math_8b_rjb_ch19_s2_t235",
+            "stem": "（1）当 $b > 0$ 时，函数 $y = x + b$ 的图象经过哪几个象限？\n\n（2）当 $b < 0$ 时，函数 $y = -x + b$ 的图象经过哪几个象限？  \n（3）当 $k > 0$ 时，函数 $y = kx + 1$ 的图象经过哪几个象限？  \n（4）当 $k < 0$ 时，函数 $y = kx + 1$ 的图象经过哪几个象限？",
+            "answer": "（1）第一、第二、第三象限。\n（2）第二、第三、第四象限。\n（3）第一、第二、第三象限。\n（4）第一、第二、第四象限。",
+            "analysis": "判断直线经过象限可用截距与斜率：看与坐标轴交点位置并结合斜率方向。\n（1）y=x+b(b>0)：y截距(0,b)在y轴正半轴，x截距(-b,0)在x轴负半轴，斜率>0，故经过Ⅰ、Ⅱ、Ⅲ。\n（2）y=-x+b(b<0)：y截距在负半轴，x截距(b,0)也在负半轴，斜率<0，x很负时y为正(Ⅱ)，介于(b,0)与原点间y为负(Ⅲ)，x>0时y为负(Ⅳ)。\n（3）y=kx+1(k>0)：y截距为1>0，x截距(-1/k,0)在负半轴，斜率>0，故经过Ⅰ、Ⅱ、Ⅲ。\n（4）y=kx+1(k<0)：y截距为1>0，x截距(-1/k,0)在正半轴，斜率<0，x<0时y>0(Ⅱ)，0<x<-1/k时y>0(Ⅰ)，x>-1/k时y<0(Ⅳ)。",
+            "difficulty": 2,
+            "type": "简答题",
+            "meta": {
+                "book_prefix": "math_8b_rjb",
+                "source_md": "ch19_s2.md",
+                "question_no_in_source": 12,
+                "global_no": 130
+            },
+            "links": {
+                "concept_names": [
+                    "一次函数",
+                    "一次函数的图象",
+                    "直线平移与一次函数关系",
+                    "一次函数的增减性"
+                ],
+                "skill_names": [
+                    "数形结合思想"
+                ]
+            }
+        },
+        {
+            "id": "math_8b_rjb_ch19_s_19_t239",
+            "stem": "在某火车站托运物品时，不超过 $1 \\mathrm{~kg}$ 的物品需付2元，以后每增加 $1 \\mathrm{~kg}$ （不足\n\n$1\\mathrm{kg}$ 按 $1\\mathrm{kg}$ 计）需增加托运费0.5元.设托运 $p\\mathrm{kg}$ （ $p$ 为整数）物品的费用为 $c$ 元.试写出 $c$ 的计算公式.",
+            "answer": "当p=1时，c=2；当p≥2时，c=2+0.5(p-1)=0.5p+1.5。",
+            "analysis": "不超过1kg收费2元；超过1kg后，每增加1kg（p为整数，不涉及不足1kg的取整）在2元基础上加0.5元。若p≥2，则比1kg多(p-1)个“1kg”，费用c=2+0.5(p-1)=0.5p+1.5；p=1时c=2。",
+            "difficulty": 2,
+            "type": "应用题",
+            "meta": {
+                "book_prefix": "math_8b_rjb",
+                "source_md": "ch19_s复习题19.md",
+                "question_no_in_source": 6,
+                "global_no": 131
+            }
+        },
+        {
+            "id": "math_8b_rjb_ch19_s_19_t240",
+            "stem": "某水果批发市场规定，批发苹果不少于 $100 \\mathrm{~kg}$ 时，批发价为 2.5 元 $/ \\mathrm{kg}$ 。小王携带现金 3000 元到这市场采购苹果，并以批发价买进。设购买的苹果为 $x \\mathrm{~kg}$ ，小王付款后还剩余现金 $y$ 元。试写出 $y$ 关于 $x$ 的函数\n\n解析式，并指出自变量 $x$ 的取值范围",
+            "answer": "y=3000-2.5x，自变量x的取值范围为100≤x≤1200",
+            "analysis": "批发价为2.5元/kg(且需批发不少于100kg)。买x kg需付款2.5x元，付款后剩余现金y=3000-2.5x。又因批发需x≥100，且现金不够则不能购买，需2.5x≤3000，即x≤1200，因此100≤x≤1200。",
+            "difficulty": 2,
+            "type": "应用题",
+            "meta": {
+                "book_prefix": "math_8b_rjb",
+                "source_md": "ch19_s复习题19.md",
+                "question_no_in_source": 7,
+                "global_no": 132
+            }
+        },
+        {
+            "id": "math_8b_rjb_ch19_s_19_t245",
+            "stem": "A，B两地相距 $25\\mathrm{km}$ 甲8：00由A地出发骑自行车去B地，速度为 $10\\mathrm{km / h}$ 乙9：30由A地出发乘汽车也去B地，速度为 $40\\mathrm{km / h}$\n\n（1）分别写出两个人的行程关于时刻的函数解析式；  \n(2) 乙能否在途中超过甲? 如果能超过, 何时超过?",
+            "answer": "设t为从8:00起经过的时间(单位：h)。\n(1) 甲：s甲(t)=10t，0≤t≤2.5(到达B地时t=2.5，即10:30)。\n乙：s乙(t)=0，0≤t<1.5；s乙(t)=40(t-1.5)，1.5≤t≤2.125(到达B地时t=2.125，即10:07:30)。\n(2) 能。途中追及满足40(t-1.5)=10t，解得t=2，即10:00超过甲。",
+            "analysis": "把时刻统一成从8:00起的时间t(h)。甲从t=0开始匀速10 km/h，路程为10t；乙从9:30出发即t=1.5前路程为0，之后匀速40 km/h，路程为40(t-1.5)。追及条件为两人路程相等且t≥1.5：40(t-1.5)=10t，解得t=2(10:00)，此时路程20 km<25 km，说明在途中追上。并可求乙到达B地时间：40(t-1.5)=25得t=2.125(10:07:30)。",
+            "difficulty": 2,
+            "type": "应用题",
+            "meta": {
+                "book_prefix": "math_8b_rjb",
+                "source_md": "ch19_s复习题19.md",
+                "question_no_in_source": 12,
+                "global_no": 133
+            }
+        },
+        {
+            "id": "math_8b_rjb_ch19_s_19_t247",
+            "stem": "一次越野赛跑中，当小明跑了 $1600\\mathrm{m}$ 时，小刚跑了 $1450\\mathrm{m}$ 此后两人分别以 $a\\mathrm{m / s}$ 和 $b\\mathrm{m / s}$ 匀速跑. 又过 $100 \\mathrm{~s}$ 时小刚追上小明, $200 \\mathrm{~s}$ 时小刚到达终点, $300 \\mathrm{~s}$ 时小明到达终点. 这次越野赛跑的全程为多少米?",
+            "answer": "2050米",
+            "analysis": "设从题目所给时刻起计时为t=0，全程为L米。此时小明1600米，小刚1450米，差150米。100s后小刚追上小明，有(b-a)×100=150，得b-a=1.5。又200s后小刚到终点：1450+200b=L，故b=(L-1450)/200；300s后小明到终点：1600+300a=L，故a=(L-1600)/300。代入b-a=1.5： (L-1450)/200-(L-1600)/300=1.5。通分得3(L-1450)-2(L-1600)=900，化简得L=2050。",
+            "difficulty": 3,
+            "type": "应用题",
+            "meta": {
+                "book_prefix": "math_8b_rjb",
+                "source_md": "ch19_s复习题19.md",
+                "question_no_in_source": 14,
+                "global_no": 134
+            }
+        },
+        {
+            "id": "math_8b_rjb_ch19_s_19_t248",
+            "stem": "A城有肥料200t，B城有肥料300t.现要把这些肥料全部运往C，D两乡.从A城往C，D两乡运肥料的费用分别为20元/t和25元/t；从B城往C，D两乡运肥料的费用分别为15元/t和24元/t.现C乡需要肥料240t，D乡需要肥料260t，怎样调运可使总运费最少？",
+            "answer": "最优调运方案：A城→D乡200t，A城→C乡0t；B城→C乡240t，B城→D乡60t。最小总运费为10040元。",
+            "analysis": "设A城运往C乡为x(t)，则A→D为200−x。由C乡需求240t得B→C=240−x；B城总量300t，则B→D=300−(240−x)=60+x。总费用：Z=20x+25(200−x)+15(240−x)+24(60+x)=4x+10040。约束：0≤x≤200（由A→D≥0且B→C≥0等）。因Z随x增大而增大，取x最小即x=0，得到上述调运方案，总费用10040元。",
+            "difficulty": 3,
+            "type": "应用题",
+            "meta": {
+                "book_prefix": "math_8b_rjb",
+                "source_md": "ch19_s复习题19.md",
+                "question_no_in_source": 15,
+                "global_no": 135
+            }
+        },
+        {
+            "id": "math_8b_rjb_ch20_s2_t256",
+            "stem": "在体操比赛中，往往在所有裁判给出的分数中，去掉一个最高分和一个最低分，然后计算余下分数的平均分。6个B组裁判员对某一运动员的打分数据（动作完成分）为：9.4，8.9，8.8，8.9，8.6，8.7。\n\n(1) 如果不去掉最高分和最低分, 这组数据的平均数和方差分别是多少 (结果保留小数点后两位)?  \n(2) 如果去掉一个最高分和一个最低分, 平均数和方差又分别是多少 (结果保留小数点后两位)?  \n（3）你认为哪种统计平均分的方法更合理？",
+            "answer": "（1）平均数8.88，方差0.06。（2）平均数8.83，方差0.01。（3）去掉一个最高分和一个最低分再求平均更合理，可减小极端分数对结果的影响，使评价更客观稳定。",
+            "analysis": "（1）原数据：9.4，8.9，8.8，8.9，8.6，8.7。和为53.3，平均数m=53.3/6=8.8833…≈8.88。方差（按总体方差）s²=（∑(xi−m)²）/6；∑(xi−m)²=0.388333…，故s²=0.388333…/6=0.064722…≈0.06。\n（2）去掉最高9.4和最低8.6，余下：8.9，8.8，8.9，8.7。和为35.3，平均数m=35.3/4=8.825≈8.83。∑(xi−m)²=0.0275，方差s²=0.0275/4=0.006875≈0.01。\n（3）去掉最高分和最低分可削弱偶然偏高/偏低评分对平均分的干扰，通常更能反映运动员真实水平。",
+            "difficulty": 3,
+            "type": "应用题",
+            "meta": {
+                "book_prefix": "math_8b_rjb",
+                "source_md": "ch20_s2.md",
+                "question_no_in_source": 4,
+                "global_no": 136
+            },
+            "links": {
+                "concept_names": [
+                    "数据的波动程度",
+                    "方差"
+                ],
+                "skill_names": [
+                    "使用统计量刻画数据波动"
+                ]
+            }
+        },
+        {
+            "id": "math_8b_rjb_ch20_s2_t257",
+            "stem": "全班同学分成几个小组完成下面的活动：\n\n（1）收集全班同学每个家庭在某个月的用水量；  \n(2) 将本组同学每个家庭在这个月的用水量作为样本数据, 计算样本数据的平均数和方差, 并根据样本数据的结论估计全班同学家庭用水量的情况;  \n（3）与其他小组进行交流，谈谈你对平均数、方差以及用样本估计总体的认识",
+            "answer": "（2）以本组收集到的各家庭月用水量x1,x2,…,xn为样本，计算：样本平均数x̄=(x1+…+xn)/n；样本方差s^2=[(x1−x̄)^2+…+(xn−x̄)^2]/n（或按教材要求用n−1作分母）。用x̄估计全班家庭月用水量的总体平均水平，用s^2（或s）描述全班家庭用水量的波动程度；样本越大、抽样越随机，估计越可靠。（3）交流要点：平均数反映数据的“集中趋势/典型水平”，方差反映数据的“离散程度/波动大小”；用样本估计总体是用部分数据推断整体，但结果存在误差，需注意样本代表性、随机性以及样本量对可靠性的影响。",
+            "analysis": "题目属于统计实践与理解：先收集数据形成样本；再按公式计算样本平均数与方差，用平均数描述典型水平、用方差描述波动；最后说明“样本估计总体”的依据与局限（样本代表性、随机抽样、样本量越大越稳定）。",
+            "difficulty": 3,
+            "type": "应用题",
+            "meta": {
+                "book_prefix": "math_8b_rjb",
+                "source_md": "ch20_s2.md",
+                "question_no_in_source": 5,
+                "global_no": 137
+            },
+            "links": {
+                "concept_names": [
+                    "数据的波动程度",
+                    "方差"
+                ],
+                "skill_names": [
+                    "使用统计量刻画数据波动"
+                ]
+            }
+        },
+        {
+            "id": "math_8b_rjb_ch20_s_20_t260",
+            "stem": "为了促进学生参加体育锻炼，学校决定购买一批运动鞋供学生选购。请设计一个样本容量为30的调查方案进行调查，并计算样本的平均数、众数、中位数，为学校购买运动鞋提出建议。",
+            "answer": "【调查方案（样本容量30）】\n1）调查对象：全校学生。\n2）抽样方法：分层随机抽样。按“年级（如七/八/九年级）×性别（男/女）”分层，每层随机抽取5人，共3×2×5=30人。\n3）调查内容（问卷/访谈）：记录每位学生可接受的运动鞋价格（元）（也可同时记录尺码、款式偏好等）。\n4）数据整理：将30人的“可接受价格”汇总并排序，计算平均数、众数、中位数。\n\n【样本数据示例（30人可接受价格，单位：元）】\n180，200，200，220，220，220，230，240，240，240，250，250，250，260，260，260，260，270，270，280，280，280，290，300，300，300，320，330，350，360。\n\n【统计量】\n平均数：7910÷30≈263.7（元）\n众数：260（元）（出现4次）\n中位数：第15、16个数据均为260，所以中位数=260（元）\n\n【购买建议】\n建议学校以260元左右的中端价位作为主采购区间（例如240～300元为主），适当少量配置更低价位与更高价位款式以覆盖不同需求。",
+            "analysis": "分层随机抽样保证各年级、性别都有代表；将样本数据排序后：平均数=总和/30；众数为出现次数最多的数据；中位数因n=30为偶数，取第15与第16个数据的平均。本样本第15、16个均为260，因此中位数为260，且众数也为260，说明主流接受价位集中在260元附近，据此提出采购区间建议。",
+            "difficulty": 4,
+            "type": "应用题",
+            "meta": {
+                "book_prefix": "math_8b_rjb",
+                "source_md": "ch20_s复习题20.md",
+                "question_no_in_source": 8,
+                "global_no": 138
+            }
+        },
+        {
+            "id": "math_8b_rjb_ch20_s_20_t261",
+            "stem": "统计全班同学上学所用时间，对所得数据进行整理、描述和分析，看看你能得出哪些结论.",
+            "answer": "参考结论（示例）：\n1）将全班上学用时数据按区间分组（如0–10、10–20、20–30、30–40、40以上），制作频数（频率）表并画条形图/直方图。\n2）计算并描述集中趋势：平均数、中央値、众数（用时最集中的区间）。\n3）计算并描述离散程度：极差（最大值−最小值），必要时可比较各区间人数占比。\n4）结论示例：大多数同学上学用时集中在某一时间段（如10–20分钟），平均/中位用时约为某值；少数同学用时明显较长（可能为离群值），需要关注其路程远、交通方式或出行时间等原因。\n5）建议示例：对用时较长同学可考虑调整出发时间、优化路线或交通方式，学校可结合数据优化校车/到校管理。",
+            "analysis": "解题思路：这是统计实践题，无唯一数值答案。按“收集数据→整理（分组、表格）→描述（图表、平均数/中位数/众数）→分析（集中区间、离群点、原因与建议）”的流程完成。结论需与实际统计结果对应，用数据或图表支持。",
+            "difficulty": 3,
+            "type": "应用题",
+            "meta": {
+                "book_prefix": "math_8b_rjb",
+                "source_md": "ch20_s复习题20.md",
+                "question_no_in_source": 9,
+                "global_no": 139
+            }
+        }
+    ]
+}

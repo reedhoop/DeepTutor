@@ -1,0 +1,1198 @@
+{
+    "book_prefix": "chemistry_highschool_rjb_xzxbx1",
+    "subject": "化学",
+    "stage": "高中",
+    "grade": "选择性必修一",
+    "publisher": "人教版-人民教育出版社",
+    "source_md": "chemistry_highschool_rjb_xzxbx1.md",
+    "questions": [
+        {
+            "id": "chemistry_highschool_rjb_xzxbx1_ch1_s_t1",
+            "stem": "在相同条件下, 质量相等的两份 $\\mathrm{H}_{2}$ 与足量的 $\\mathrm{O}_{2}$ 充分反应, 分别生成液态水 (反应①) 和水蒸气 (反应②)。下列说法正确的是 ( )。\n\nA. 反应①放出的热量多  \nB. 反应②放出的热量多  \nC. 反应①、②放出的热量一样多  \nD. 无法比较反应①、②放出的热量",
+            "answer": "A",
+            "analysis": "两份H2质量相等，物质的量相同，且O2足量，生成水的物质的量相同。反应①生成液态水，反应②生成水蒸气。生成液态水时，除生成化学键能变化外，还包含水由气态变为液态（冷凝）的放热，液态水的生成焓（ΔHf）更负，因此放热更多。故反应①放出的热量多，选A。",
+            "difficulty": 2,
+            "type": "选择题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_xzxbx1",
+                "source_md": "ch1_s整理与提升.md",
+                "question_no_in_source": 1,
+                "global_no": 1
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_xzxbx1_ch1_s_t2",
+            "stem": "已知: $\\mathrm{N}_{2}(\\mathrm{~g}) + 3 \\mathrm{H}_{2}(\\mathrm{~g}) = 2 \\mathrm{NH}_{3}(\\mathrm{~g}) \\Delta H = -92.4 \\mathrm{~kJ} / \\mathrm{mol}$ 。若断裂 $1 \\mathrm{~mol} \\mathrm{H}-\\mathrm{H} 、 1 \\mathrm{~mol} \\mathrm{N}-\\mathrm{H}$ 需要吸收的能量分别为 $436 \\mathrm{~kJ} 、 391 \\mathrm{~kJ}$ , 则断裂 $1 \\mathrm{~mol} \\mathrm{~N} \\equiv \\mathrm{N}$ 需要吸收的能量为 ( )。\n\nA. $431\\mathrm{kJ}$\n\nB. $945.6\\mathrm{kJ}$\n\nC. $649 \\mathrm{~kJ}$\n\nD. $869 \\mathrm{~kJ}$",
+            "answer": "B",
+            "analysis": "由反应焓变近似等于断键吸能之和减去成键放能之和：\\(\\Delta H=\\sum E(断键)-\\sum E(成键)\\)。\n反应：\\(\\mathrm{N_2}+3\\mathrm{H_2}\\to 2\\mathrm{NH_3}\\)。断键：1 mol \\(\\mathrm{N\\equiv N}\\) 和 3 mol \\(\\mathrm{H-H}\\)，吸能为 \\(E(N\\equiv N)+3\\times 436\\)。成键：生成 2 mol \\(\\mathrm{NH_3}\\) 共 6 mol \\(\\mathrm{N-H}\\)，放能为 \\(6\\times 391\\)。\n代入：\\(-92.4=[E(N\\equiv N)+3\\times 436]-6\\times 391\\)。\n计算：\\(3\\times 436=1308\\)，\\(6\\times 391=2346\\)，所以 \\(-92.4=E(N\\equiv N)+1308-2346=E(N\\equiv N)-1038\\)。\n得 \\(E(N\\equiv N)=1038-92.4=945.6\\,\\mathrm{kJ/mol}\\)，选 B。",
+            "difficulty": 3,
+            "type": "选择题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_xzxbx1",
+                "source_md": "ch1_s整理与提升.md",
+                "question_no_in_source": 2,
+                "global_no": 2
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_xzxbx1_ch1_s_t3",
+            "stem": "在 $25^{\\circ} \\mathrm{C}$ 和 $101 \\mathrm{kPa}$ 下, $1 \\mathrm{~g} \\mathrm{H}_{2}$ 燃烧生成液态水放出 $142.9 \\mathrm{~kJ}$ 的热量, 则下列热化学方程式中书写正确的是 ( )。\n\nA. $2\\mathrm{H}_{2}(\\mathrm{g}) + \\mathrm{O}_{2}(\\mathrm{g}) = 2\\mathrm{H}_{2}\\mathrm{O}(\\mathrm{l})$\n\n$\\Delta H = -142.9\\mathrm{kJ / mol}$\n\nB. $\\mathrm{H}_{2}(\\mathrm{~g}) + \\frac{1}{2} \\mathrm{O}_{2}(\\mathrm{~g}) = \\mathrm{H}_{2} \\mathrm{O}(\\mathrm{l})$\n\n$\\Delta H = -285.8\\mathrm{kJ / mol}$\n\nC. $2 \\mathrm{H}_{2}(\\mathrm{~g}) + \\mathrm{O}_{2}(\\mathrm{~g}) = 2 \\mathrm{H}_{2} \\mathrm{O}(\\mathrm{~g})$\n\n$\\Delta H = -571.6\\mathrm{kJ / mol}$\n\nD. $\\mathrm{H}_{2}(\\mathrm{~g}) + \\frac{1}{2} \\mathrm{O}_{2}(\\mathrm{~g}) = \\mathrm{H}_{2} \\mathrm{O}(\\mathrm{~g})$\n\n$\\Delta H = +285.8\\mathrm{kJ / mol}$",
+            "answer": "B",
+            "analysis": "已知1 g H2燃烧生成液态水放热142.9 kJ。H2的摩尔质量为2 g/mol，因此1 g H2为0.5 mol，对应放热142.9 kJ；则1 mol H2放热为142.9÷0.5=285.8 kJ，放热反应ΔH为负。热化学方程式应为H2(g)+1/2 O2(g)=H2O(l)，ΔH=-285.8 kJ/mol，对应选项B。A中ΔH数值对应0.5 mol H2却写成每mol；C、D产物状态或符号不符（题给生成液态水且放热）。",
+            "difficulty": 2,
+            "type": "选择题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_xzxbx1",
+                "source_md": "ch1_s整理与提升.md",
+                "question_no_in_source": 3,
+                "global_no": 3
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_xzxbx1_ch1_s_t4",
+            "stem": "已知: $\\mathrm{H}_{2}(\\mathrm{~g}) + \\mathrm{Cl}_{2}(\\mathrm{~g}) = 2 \\mathrm{HCl}(\\mathrm{~g}) \\Delta H = -184.6 \\mathrm{~kJ} / \\mathrm{mol}$ 。则 $\\mathrm{HCl}(\\mathrm{~g}) = \\frac{1}{2} \\mathrm{H}_{2}(\\mathrm{~g}) + \\frac{1}{2} \\mathrm{Cl}_{2}(\\mathrm{~g})$ 的 $\\Delta H =$",
+            "answer": "-92.3 kJ/mol",
+            "analysis": "已知反应H2(g)+Cl2(g)→2HCl(g)的ΔH=-184.6 kJ/mol。将化学方程式两边系数都除以2，得到1/2H2(g)+1/2Cl2(g)→HCl(g)。根据盖斯定律，反应式整体乘以1/2时，ΔH也乘以1/2，因此ΔH=(-184.6)×1/2=-92.3 kJ/mol。",
+            "difficulty": 2,
+            "type": "填空题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_xzxbx1",
+                "source_md": "ch1_s整理与提升.md",
+                "question_no_in_source": 4,
+                "global_no": 4
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_xzxbx1_ch1_s_t5",
+            "stem": "在标准状况下, $1.68 \\mathrm{~L}$ 仅由 $\\mathrm{C} 、 \\mathrm{H}$ 两种元素组成的某气体质量为 $1.2 \\mathrm{~g}$ , 在 $25 \\mathrm{C}$ 和 $101 \\mathrm{kPa}$ 下完全燃烧生成 $\\mathrm{CO}_{2}(\\mathrm{~g})$ 和 $\\mathrm{H}_{2} \\mathrm{O}(\\mathrm{l})$ 时, 放出 $66.77 \\mathrm{~kJ}$ 的热量。\n\n（1）该气体的分子式为  \n(2) 表示该气体燃烧热的热化学方程式为",
+            "answer": "(1) C3H4\n(2) C3H4(g)+4O2(g)→3CO2(g)+2H2O(l)  ΔH=-795 kJ·mol⁻¹",
+            "analysis": "标准状况下气体物质的量n=1.68/22.4=0.075 mol，摩尔质量M=1.2/0.075=16 g·mol⁻¹。只含C、H：设为CxHy，则12x+y=16，且x、y为整数，得x=1,y=4，即CH4，但题给燃烧放热：0.075 mol放出66.77 kJ，则1 mol放热=66.77/0.075≈890 kJ·mol⁻¹，与CH4燃烧热(约890 kJ·mol⁻¹)吻合；然而题目条件为在25℃、101 kPa燃烧生成CO2(g)和H2O(l)，对应CH4的ΔH≈-890 kJ·mol⁻¹。若按计算得到66.77 kJ对应0.084 mol则不符，因此以n=1.68/22.4=0.075为准，确定为CH4，并写热化学方程式：CH4(g)+2O2(g)→CO2(g)+2H2O(l)，ΔH=-890 kJ·mol⁻¹。",
+            "difficulty": 4,
+            "type": "填空题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_xzxbx1",
+                "source_md": "ch1_s整理与提升.md",
+                "question_no_in_source": 5,
+                "global_no": 5
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_xzxbx1_ch1_s_t6",
+            "stem": "已知：\n\n① $\\mathrm{H}_2\\mathrm{O}(\\mathrm{g}) = \\mathrm{H}_2(\\mathrm{g}) + \\frac{1}{2}\\mathrm{O}_2(\\mathrm{g})$\n\n$\\Delta H = +241.8\\mathrm{kJ / mol}$\n\n$②$ $\\mathrm{C(s) + \\frac{1}{2}O_2(g) = CO(g)}$\n\n$\\Delta H = -110.5\\mathrm{kJ / mol}$\n\n③ $\\mathrm{C(s) + O_2(g) = CO_2(g)}$\n\n$\\Delta H = -393.5\\mathrm{kJ / mol}$\n\n请填写下列空白。\n\n（1）上述反应中属于吸热反应的是 （填序号）。  \n（2）表示C的燃烧热的热化学方程式为 （填序号）。  \n(3) $10 \\mathrm{~g} \\mathrm{H}_{2}$ 完全燃烧生成水蒸气, 放出的热量为  \n（4）写出CO燃烧的热化学方程式：",
+            "answer": "（1）①\n（2）③\n（3）1209 kJ\n（4）CO(g)+1/2O2(g)=CO2(g)  ΔH=-283.0 kJ/mol",
+            "analysis": "（1）ΔH>0为吸热反应，只有①的ΔH=+241.8 kJ/mol。\n（2）燃烧热指1 mol物质完全燃烧生成最稳定氧化物的反应热；C完全燃烧生成CO2，对应③。\n（3）H2燃烧：H2(g)+1/2O2(g)=H2O(g)，为①的逆反应，ΔH=-241.8 kJ/mol。n(H2)=10/2=5 mol，放热Q=5×241.8=1209 kJ。\n（4）由②与③用盖斯定律：②：C+1/2O2→CO(ΔH=-110.5)，③：C+O2→CO2(ΔH=-393.5)。③-②得：CO+1/2O2→CO2，ΔH=-393.5-(-110.5)=-283.0 kJ/mol。",
+            "difficulty": 2,
+            "type": "填空题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_xzxbx1",
+                "source_md": "ch1_s整理与提升.md",
+                "question_no_in_source": 6,
+                "global_no": 6
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_xzxbx1_ch1_s_t7",
+            "stem": "写出下列反应的热化学方程式。\n\n（1） $1\\mathrm{mol}\\mathrm{C}_2\\mathrm{H}_2(\\mathrm{g})$ 在 $\\mathrm{O}_2$ 中完全燃烧生成 $\\mathrm{CO}_2$ 和液态水，放出 $1299.6\\mathrm{kJ}$ 的热量。  \n(2) $23 \\mathrm{~g} \\mathrm{C}_{2} \\mathrm{H}_{5} \\mathrm{OH}(\\mathrm{l})$ 在 $\\mathrm{O}_{2}$ 中完全燃烧生成 $\\mathrm{CO}_{2}$ 和液态水, 放出 $683.4 \\mathrm{~kJ}$ 的热量。",
+            "answer": "(1) C2H2(g) + 5/2 O2(g) → 2 CO2(g) + H2O(l)  ΔH = −1299.6 kJ\n(2) C2H5OH(l) + 3 O2(g) → 2 CO2(g) + 3 H2O(l)  ΔH = −1366.8 kJ",
+            "analysis": "热化学方程式需配平化学计量数，并在方程式后标注ΔH（放热取负）。\n(1) 乙炔完全燃烧：C2H2→2CO2且H→H2O，配平得C2H2(g)+5/2O2(g)→2CO2(g)+H2O(l)。题给1 mol放热1299.6 kJ，故ΔH=−1299.6 kJ。\n(2) 23 g C2H5OH的物质的量为23/46=0.5 mol。题给0.5 mol放热683.4 kJ，则1 mol放热为2×683.4=1366.8 kJ。乙醇完全燃烧配平：C2H5OH(l)+3O2(g)→2CO2(g)+3H2O(l)，因此ΔH=−1366.8 kJ。",
+            "difficulty": 2,
+            "type": "简答题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_xzxbx1",
+                "source_md": "ch1_s整理与提升.md",
+                "question_no_in_source": 7,
+                "global_no": 7
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_xzxbx1_ch1_s_t8",
+            "stem": "已知：\n\n① $\\mathrm{C(s) + O_2(g) = CO_2(g)}$ $\\Delta H_{1} = -393.5\\mathrm{kJ / mol}$   \n$2\\mathrm{Mg(s) + O_2(g) = 2MgO(s)}$ $\\Delta H_{2} = -1203.4\\mathrm{kJ / mol}$\n\n写出 $\\mathrm{Mg}$ 与 $\\mathrm{CO}_{2}$ 反应的热化学方程式。",
+            "answer": "2Mg(s)+CO2(g)=2MgO(s)+C(s)  ΔH=-809.9 kJ/mol",
+            "analysis": "由赫斯定律：将②除以2得 Mg(s)+1/2O2(g)=MgO(s) ΔH=-601.7 kJ/mol，乘2得 2Mg(s)+O2(g)=2MgO(s) ΔH=-1203.4 kJ/mol。将①逆写得 CO2(g)=C(s)+O2(g) ΔH=+393.5 kJ/mol。两式相加：2Mg+O2+CO2→2MgO+C+O2，约去O2得 2Mg(s)+CO2(g)=2MgO(s)+C(s)。ΔH=-1203.4+393.5=-809.9 kJ/mol。",
+            "difficulty": 3,
+            "type": "填空题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_xzxbx1",
+                "source_md": "ch1_s整理与提升.md",
+                "question_no_in_source": 8,
+                "global_no": 8
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_xzxbx1_ch1_s_t9",
+            "stem": "2008年北京奥运会“祥云”火炬的燃料是丙烷（ $\\mathrm{C}_{3} \\mathrm{H}_{8}$ ），1996年亚特兰大奥运会火炬的燃料是丙烯（ $\\mathrm{C}_{3} \\mathrm{H}_{6}$ ）。丙烷脱氢可得到丙烯。\n\n已知：\n\n① $\\mathrm{C}_{3} \\mathrm{H}_{8}(\\mathrm{~g})=\\mathrm{CH}_{4}(\\mathrm{~g})+\\mathrm{C}_{2} \\mathrm{H}_{2}(\\mathrm{~g})+\\mathrm{H}_{2}(\\mathrm{~g}) \\quad \\Delta H_{1} = +255.7 \\mathrm{~kJ} / \\mathrm{mol}$   \n② $\\mathrm{C}_{3} \\mathrm{H}_{6}(\\mathrm{~g})=\\mathrm{CH}_{4}(\\mathrm{~g})+\\mathrm{C}_{2} \\mathrm{H}_{2}(\\mathrm{~g}) \\quad \\Delta H_{2} = +131.5 \\mathrm{~kJ} / \\mathrm{mol}$\n\n计算 $\\mathrm{C}_3\\mathrm{H}_8(\\mathrm{g}) = \\mathrm{C}_3\\mathrm{H}_6(\\mathrm{g}) + \\mathrm{H}_2(\\mathrm{g})$ 的 $\\Delta H$ 。",
+            "answer": "ΔH = +124.2 kJ/mol",
+            "analysis": "由亥斯定律：① C3H8→CH4+C2H2+H2，ΔH1=+255.7；② C3H6→CH4+C2H2，ΔH2=+131.5。将②逆向得 CH4+C2H2→C3H6，ΔH=−131.5。①与②逆向相加：C3H8→C3H6+H2，ΔH=255.7−131.5=+124.2 kJ/mol。",
+            "difficulty": 3,
+            "type": "填空题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_xzxbx1",
+                "source_md": "ch1_s整理与提升.md",
+                "question_no_in_source": 9,
+                "global_no": 9
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_xzxbx1_ch1_s_t10",
+            "stem": "已知：\n\n① $\\mathrm{H}_{2}(\\mathrm{~g}) + \\frac{1}{2} \\mathrm{O}_{2}(\\mathrm{~g}) = \\mathrm{H}_{2} \\mathrm{O}(\\mathrm{l})$ $\\Delta H_{1} = -285.8 \\mathrm{~kJ} / \\mathrm{mol}$   \n② $\\mathrm{C}_{3} \\mathrm{H}_{8}(\\mathrm{~g}) + 5 \\mathrm{O}_{2}(\\mathrm{~g}) = 3 \\mathrm{CO}_{2}(\\mathrm{~g}) + 4 \\mathrm{H}_{2} \\mathrm{O}(\\mathrm{l}) \\Delta H_{2} = -2219.9 \\mathrm{~kJ} / \\mathrm{mol}$\n\n(1) 在 $25^{\\circ} \\mathrm{C}$ 和 $101 \\mathrm{kPa}$ 下, $\\mathrm{H}_{2}$ 和 $\\mathrm{C}_{3} \\mathrm{H}_{8}$ 的混合气体 $5 \\mathrm{~mol}$ 完全燃烧生成 $\\mathrm{CO}_{2}$ 和液态水, 放出 $6264.2 \\mathrm{~kJ}$ 的热量。计算该混合气体中 $\\mathrm{H}_{2}$ 和 $\\mathrm{C}_{3} \\mathrm{H}_{8}$ 的体积比。  \n(2) 已知: $\\mathrm{H}_{2} \\mathrm{O}(\\mathrm{l})=\\mathrm{H}_{2} \\mathrm{O}(\\mathrm{g}) \\Delta H_{3} = +44.0 \\mathrm{~kJ} / \\mathrm{mol}$ 。写出 $\\mathrm{C}_{3} \\mathrm{H}_{8}$ 燃烧生成 $\\mathrm{CO}_{2}$ 和水蒸气的热化学方程式。",
+            "answer": "（1）H2∶C3H8＝4∶1（体积比）\n（2）C3H8(g)+5O2(g)=3CO2(g)+4H2O(g)  ΔH=−2043.9 kJ·mol⁻¹",
+            "analysis": "（1）设混合气体中n(H2)=x mol，n(C3H8)=y mol，则x+y=5。完全燃烧放热：285.8x+2219.9y=6264.2（取放热量的数值计算）。联立解得y=1，x=4。相同T、p下体积比等于物质的量比，故H2∶C3H8=4∶1。\n（2）已知生成液态水的燃烧焓ΔH2=−2219.9 kJ·mol⁻¹；4 mol液态水变为气态需吸热4×44.0=176.0 kJ。则生成水蒸气时的反应焓ΔH=−2219.9+176.0=−2043.9 kJ·mol⁻¹，热化学方程式：C3H8(g)+5O2(g)=3CO2(g)+4H2O(g)，ΔH=−2043.9 kJ·mol⁻¹。",
+            "difficulty": 4,
+            "type": "应用题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_xzxbx1",
+                "source_md": "ch1_s整理与提升.md",
+                "question_no_in_source": 10,
+                "global_no": 10
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_xzxbx1_ch2_s1_t11",
+            "stem": "下列过程中，化学反应速率的增大对人类有益的是（ ）。\n\nA. 金属的腐蚀\n\nB. 食物的腐败\n\nC. 塑料的老化\n\nD. 氨的合成",
+            "answer": "D",
+            "analysis": "金属腐蚀、食物腐败、塑料老化都会带来材料损坏或食物变质，反应速率增大会加剧不利影响；氨的合成是重要的工业反应（制肥料等），提高反应速率有利于提高生产效率与产量，因此选D。",
+            "difficulty": 1,
+            "type": "选择题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_xzxbx1",
+                "source_md": "ch2_s1.md",
+                "question_no_in_source": 1,
+                "global_no": 11
+            },
+            "links": {
+                "concept_names": [
+                    "化学反应速率"
+                ],
+                "skill_names": [
+                    "定性比较化学反应速率的大小"
+                ]
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_xzxbx1_ch2_s1_t12",
+            "stem": "下列对化学反应速率增大原因的分析错误的是（ ）。\n\nA. 对有气体参加的化学反应, 增大压强使容器容积减小, 单位体积内活化分子数增多  \nB. 向反应体系中加入相同浓度的反应物, 使活化分子百分数增大  \nC. 升高温度, 使反应物分子中活化分子百分数增大  \nD. 加入适宜的催化剂, 使反应物分子中活化分子百分数增大",
+            "answer": "B",
+            "analysis": "影响反应速率的因素：浓度、压强（气体反应）、温度、催化剂等。\nA：气体反应增大压强→单位体积内分子数增多→有效碰撞次数增多，速率增大，分析正确。\nB：加入相同浓度的反应物只会使反应物的浓度（或物质的量）增大，从而使单位体积内分子数增多、碰撞次数增多；但“活化分子百分数”主要由温度决定，不会因单纯增加浓度而增大，因此该项分析错误。\nC：升高温度→分子平均动能增大→超过活化能的分子比例（活化分子百分数）增大，正确。\nD：催化剂降低活化能→在同温度下活化分子百分数增大，正确。",
+            "difficulty": 2,
+            "type": "选择题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_xzxbx1",
+                "source_md": "ch2_s1.md",
+                "question_no_in_source": 2,
+                "global_no": 12
+            },
+            "links": {
+                "concept_names": [
+                    "影响化学反应速率的因素",
+                    "反应物浓度对反应速率的影响",
+                    "温度对反应速率的影响",
+                    "催化剂对反应速率的影响",
+                    "压强对气体反应速率的影响",
+                    "活化分子"
+                ],
+                "skill_names": [
+                    "定性比较化学反应速率的大小"
+                ]
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_xzxbx1_ch2_s1_t13",
+            "stem": "已知: $4 \\mathrm{NH}_{3} + 5 \\mathrm{O}_{2} = 4 \\mathrm{NO} + 6 \\mathrm{H}_{2} \\mathrm{O}$ 。若反应速率分别用 $v(\\mathrm{NH}_{3})$ 、 $v(\\mathrm{O}_{2})$ 、 $v(\\mathrm{NO})$ 、 $v(\\mathrm{H}_{2} \\mathrm{O})$ 表示, 则下列关系正确的是 ( )。\n\nA. $\\frac{4}{5} v(\\mathrm{NH}_{3}) = v(\\mathrm{O}_{2})$\n\nB. $\\frac{5}{6} v\\left(\\mathrm{O}_{2}\\right) = v\\left(\\mathrm{H}_{2} \\mathrm{O}\\right)$\n\nC. $\\frac{2}{3} v\\left(\\mathrm{NH}_{3}\\right) = v\\left(\\mathrm{H}_{2} \\mathrm{O}\\right)$\n\nD. $\\frac{4}{5} v\\left(\\mathrm{O}_{2}\\right) = v(\\mathrm{NO})$",
+            "answer": "D",
+            "analysis": "对反应 4NH3+5O2→4NO+6H2O，有\nv(NH3)/4 = v(O2)/5 = v(NO)/4 = v(H2O)/6（生成物速率取正，反应物速率取其消耗速率的正值）。\n由此得：v(NH3)=v(NO)；v(O2)=(5/4)v(NO)，所以(4/5)v(O2)=v(NO)，D正确。\n检验其余：A应为(5/4)v(NH3)=v(O2)；B应为(6/5)v(O2)=v(H2O)；C应为(3/2)v(NH3)=v(H2O)。均不符。",
+            "difficulty": 2,
+            "type": "选择题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_xzxbx1",
+                "source_md": "ch2_s1.md",
+                "question_no_in_source": 3,
+                "global_no": 13
+            },
+            "links": {
+                "concept_names": [
+                    "化学反应速率与化学计量数的关系"
+                ]
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_xzxbx1_ch2_s1_t14",
+            "stem": "在容积不变的密闭容器中，A与B反应生成C，其化学反应速率分别用 $v(\\mathrm{A})$ 、 $v(\\mathrm{B})$ 、 $v(\\mathrm{C})$ 表示。已知： $2v(\\mathrm{B}) = 3v(\\mathrm{A})$ ， $3v(\\mathrm{C}) = 2v(\\mathrm{B})$ ，则此反应可表示为（ ）。\n\nA. $2\\mathrm{A} + 3\\mathrm{\\;B} = 2\\mathrm{C}$\n\nB. $\\mathrm{A} + 3\\mathrm{\\;B} = 2\\mathrm{C}$\n\nC. $3 \\mathrm{~A} + \\mathrm{B} = 2 \\mathrm{C}$\n\nD. $\\mathrm{A} + \\mathrm{B} = \\mathrm{C}$",
+            "answer": "C",
+            "analysis": "由速率关系：2v(B)=3v(A)得v(A):v(B)=2:3；又3v(C)=2v(B)得v(B):v(C)=3:2。联立得v(A):v(B):v(C)=2:3:2。对反应aA+bB→cC，有v(A):v(B):v(C)=a:b:c（按化学计量数成正比），故a:b:c=3:1:2，对应反应为3A+B=2C，选C。",
+            "difficulty": 2,
+            "type": "选择题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_xzxbx1",
+                "source_md": "ch2_s1.md",
+                "question_no_in_source": 4,
+                "global_no": 14
+            },
+            "links": {
+                "concept_names": [
+                    "化学反应速率与化学计量数的关系"
+                ]
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_xzxbx1_ch2_s1_t16",
+            "stem": "以废旧铅酸蓄电池中的含铅废料和 $\\mathrm{H}_{2} \\mathrm{SO}_{4}$ 为原料, 可以制备高纯 $\\mathrm{PbO}$ , 从而实现铅的再生利用。在此过程中涉及如下两个反应:\n\n$① 2 \\mathrm { F e } ^ { 2 + } + \\mathrm { P b O } _ { 2 } + 4 \\mathrm { H } ^ { + } + \\mathrm { S O } _ { 4 } ^ { 2 - } = 2 \\mathrm { F e } ^ { 3 + } + \\mathrm { P b S O } _ { 4 } + 2 \\mathrm { H } _ { 2 } \\mathrm { O }$   \n② $2\\mathrm{Fe}^{3+} + \\mathrm{Pb} + \\mathrm{SO}_4^{2-} = 2\\mathrm{Fe}^{2+} + \\mathrm{PbSO}_4$\n\n（1）写出 $\\mathrm{Pb}$ 与 $\\mathrm{PbO}_2$ 反应生成 $\\mathrm{PbSO}_4$ 的化学方程式。  \n（2）在上述过程中， $\\mathrm{Fe}^{2+}$ 的作用是什么？  \n（3）请设计实验方案证明 $\\mathrm{Fe}^{2+}$ 的作用。",
+            "answer": "（1）Pb + PbO2 + 2H2SO4 = 2PbSO4 + 2H2O\n（2）Fe2+作还原剂（电子传递媒介/循环载体），将PbO2还原为PbSO4，本身被氧化为Fe3+；生成的Fe3+再氧化Pb生成PbSO4并再生Fe2+。\n（3）实验方案：取含PbO2、H2SO4、SO42−的体系，分成两组。A组加入一定量Fe2+（如FeSO4溶液），B组不加Fe2+（或先用氧化剂将Fe2+全部氧化为Fe3+作对照）。观察并检验：A组PbO2颜色逐渐消失并生成白色PbSO4沉淀；同时用KSCN检验溶液中Fe3+先出现（显红色），随后在加入Pb后红色减弱/消失并可用K3[Fe(CN)6]检验Fe2+再生（生成蓝色沉淀/显色）。B组反应明显缓慢或基本不发生。由“加入Fe2+反应显著进行且Fe2+被氧化为Fe3+、又可被Pb还原再生”证明Fe2+起还原剂并在过程中循环作用。",
+            "analysis": "（1）将题给①②相加，2Fe2+与2Fe3+相互抵消，得到总反应：PbO2 + Pb + 4H+ + 2SO42− → 2PbSO4 + 2H2O；用H2SO4表示即Pb + PbO2 + 2H2SO4 = 2PbSO4 + 2H2O。\n（2）由①知Fe2+→Fe3+，说明Fe2+提供电子还原Pb(IV)；由②知Fe3+被Pb还原回Fe2+，故Fe2+/Fe3+构成循环的电子传递体系。\n（3）对照实验并用特征反应检验Fe2+/Fe3+的相互转化：Fe3+与SCN−显血红色，Fe2+可用K3[Fe(CN)6]显色/生成沉淀；结合PbO2褪色、PbSO4白色沉淀生成来证明Fe2+的作用。",
+            "difficulty": 4,
+            "type": "综合题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_xzxbx1",
+                "source_md": "ch2_s1.md",
+                "question_no_in_source": 6,
+                "global_no": 15
+            },
+            "links": {
+                "concept_names": [
+                    "催化剂对反应速率的影响"
+                ],
+                "skill_names": [
+                    "控制变量法研究影响反应速率的因素"
+                ]
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_xzxbx1_ch2_s2_t18",
+            "stem": "在一定温度下, 反应 $\\mathrm{A}(\\mathrm{g}) + 3 \\mathrm{~B}(\\mathrm{g}) \\rightleftharpoons 2 \\mathrm{C}(\\mathrm{g})$ 达到平衡, 该反应的平衡常数表达式为 $K=$ 。若平衡时各物质的浓度分别为: $c(\\mathrm{A}) = 2.0 \\mathrm{~mol} / \\mathrm{L} 、 c(\\mathrm{B}) = 2.0 \\mathrm{~mol} / \\mathrm{L} 、 c(\\mathrm{C}) = 1.0 \\mathrm{~mol} / \\mathrm{L}$ , 则 $K=$",
+            "answer": "K=\\dfrac{c(C)^2}{c(A)\\,c(B)^3}；代入得K=\\dfrac{1.0^2}{2.0\\times 2.0^3}=\\dfrac{1}{16}=0.0625",
+            "analysis": "根据化学平衡常数表达式：对反应 aA+bB⇌cC，有K=\\dfrac{[C]^c}{[A]^a[B]^b}。本题A+3B⇌2C，故K=\\dfrac{c(C)^2}{c(A)c(B)^3}。将平衡浓度代入：K=\\dfrac{(1.0)^2}{(2.0)(2.0)^3}=\\dfrac{1}{2\\times 8}=\\dfrac{1}{16}=0.0625。",
+            "difficulty": 2,
+            "type": "填空题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_xzxbx1",
+                "source_md": "ch2_s2.md",
+                "question_no_in_source": 1,
+                "global_no": 16
+            },
+            "links": {
+                "concept_names": [
+                    "化学平衡常数",
+                    "浓度"
+                ]
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_xzxbx1_ch2_s2_t19",
+            "stem": "在一定条件下的密闭容器中发生反应: $\\mathrm{C}_{2} \\mathrm{H}_{6}(\\mathrm{~g}) \\rightleftharpoons \\mathrm{C}_{2} \\mathrm{H}_{4}(\\mathrm{~g}) + \\mathrm{H}_{2}(\\mathrm{~g}) \\quad \\Delta H > 0$ 。当达到平衡时, 下列各项措施中, 不能提高乙烷转化率的是 ( )。\n\nA. 增大容器的容积\n\nB. 升高反应的温度\n\nC. 分离出部分氢气\n\nD.等容下通入稀有气体",
+            "answer": "D",
+            "analysis": "反应：C2H6(g) ⇌ C2H4(g)+H2(g)，正反应为吸热(ΔH>0)，且气体物质的量由1变2，Δn=+1。提高乙烷转化率即使平衡向右移动。\nA 增大容积→压强减小→平衡向气体物质的量增大一侧(右)移动，转化率提高。\nB 升温→吸热反应平衡向右移动，转化率提高。\nC 分离出部分H2(产物)→降低产物分压→平衡向右移动，转化率提高。\nD 等容通入稀有气体：体积不变时，各反应气体的分压pi=niRT/V不变，仅总压增大，不改变平衡常数条件下的平衡组成，故不能提高乙烷转化率。",
+            "difficulty": 3,
+            "type": "选择题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_xzxbx1",
+                "source_md": "ch2_s2.md",
+                "question_no_in_source": 2,
+                "global_no": 17
+            },
+            "links": {
+                "concept_names": [
+                    "转化率",
+                    "压强",
+                    "温度",
+                    "吸热反应",
+                    "勒夏特列原理",
+                    "化学平衡移动"
+                ],
+                "skill_names": [
+                    "用勒夏特列原理预测平衡移动方向"
+                ]
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_xzxbx1_ch2_s2_t20",
+            "stem": "在一定温度下的容积不变的密闭容器中发生反应: $\\mathrm{X(g) + 2Y(g) \\rightleftharpoons 3Z(g)}$ 。下列叙述中, 能说明反应达到化学平衡状态的是 ( )。\n\nA. Z 的生成速率与 Z 的分解速率相等\n\nB. 单位时间内消耗 $a \\mathrm{~mol} \\mathrm{X}$ , 同时生成 $3 a \\mathrm{~mol} \\mathrm{Z}$\n\nC. 容器内的压强不再变化\n\nD. 混合气体总的物质的量不再变化",
+            "answer": "A",
+            "analysis": "反应：X(g)+2Y(g)⇌3Z(g)，容积和温度恒定。达到化学平衡的本质特征是正、逆反应速率相等。\nA：Z的生成速率与Z的分解速率相等，等价于正逆反应速率相等，能判断为平衡。\nB：按计量数关系生成/消耗的物质的量之比在任意时刻都可能满足（只反映反应进行的计量关系），不能据此判断平衡。\nC：该反应气体物质的量变化Δn=3-(1+2)=0，总物质的量恒定时压强在整个反应过程中都不变，因此压强不变不能说明已达平衡。\nD：同理，Δn=0使混合气体总物质的量在反应过程中始终不变，不能说明平衡。",
+            "difficulty": 3,
+            "type": "选择题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_xzxbx1",
+                "source_md": "ch2_s2.md",
+                "question_no_in_source": 3,
+                "global_no": 18
+            },
+            "links": {
+                "concept_names": [
+                    "化学平衡状态",
+                    "正反应速率",
+                    "逆反应速率",
+                    "压强"
+                ]
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_xzxbx1_ch2_s2_t21",
+            "stem": "在一定温度下的密闭容器中发生反应: $x \\mathrm{~A}(\\mathrm{~g}) + y \\mathrm{~B}(\\mathrm{~g}) \\rightleftharpoons z \\mathrm{C}(\\mathrm{~g})$ , 平衡时测得 $\\mathrm{A}$ 的浓度为 $0.50 \\mathrm{~mol} / \\mathrm{L}$ 。保持温度不变, 将容器的容积扩大到原来的两倍, 再达平衡时, 测得 $\\mathrm{A}$ 的浓度为 $0.30 \\mathrm{~mol} / \\mathrm{L}$ 。下列有关判断正确的是 ( )。\n\nA. $x + y <   z$\n\nB. 平衡向正反应方向移动\n\nC. B 的转化率降低\n\nD. C 的体积分数减小",
+            "answer": "B",
+            "analysis": "设第一次平衡时A的物质的量为n1，体积为V，则n1/V=0.50。将体积变为2V后，若平衡不移动，A的浓度应变为0.25 mol/L；实际新平衡时[A]=0.30>0.25，说明扩容后体系为恢复平衡而生成了A，即平衡向逆反应方向移动，因此B错误、B应为“平衡向逆反应方向移动”。根据勒夏特列原理，扩容(压强减小)平衡应向气体物质的量增多的一侧移动；既然向逆反应移动，说明逆反应方向气体物质的量更多，即x+y>z，故A错误。平衡向逆反应移动，生成物C减少、反应物B增多，因此B的转化率降低，C正确；同时C的体积分数减小，D也正确。综合判断，正确选项为C、D。",
+            "difficulty": 4,
+            "type": "选择题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_xzxbx1",
+                "source_md": "ch2_s2.md",
+                "question_no_in_source": 4,
+                "global_no": 19
+            },
+            "links": {
+                "concept_names": [
+                    "浓度",
+                    "化学平衡常数",
+                    "压强",
+                    "勒夏特列原理",
+                    "化学平衡移动",
+                    "转化率"
+                ],
+                "skill_names": [
+                    "用勒夏特列原理预测平衡移动方向",
+                    "建立并应用平衡浓度表"
+                ]
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_xzxbx1_ch2_s2_t24",
+            "stem": "已知一氧化碳与水蒸气的反应为: $\\mathrm{CO(g) + H_2O(g)} \\rightleftharpoons \\mathrm{CO_2(g) + H_2(g)}$ 。在 $830^{\\circ}\\mathrm{C}$ 时该反应的平衡常数是 1.0 。如果反应开始时, 一氧化碳和水蒸气的浓度都是 $0.1 \\mathrm{~mol} / \\mathrm{L}$ , 计算一氧化碳在此反应条件下的转化率。",
+            "answer": "50%",
+            "analysis": "设平衡时CO的反应量为x（mol/L）。初始：[CO]=0.1，[H2O]=0.1，[CO2]=0，[H2]=0；平衡：[CO]=0.1−x，[H2O]=0.1−x，[CO2]=x，[H2]=x。平衡常数Kc=([CO2][H2])/([CO][H2O])=x^2/(0.1−x)^2=1.0，得x=0.1−x，故x=0.05 mol/L。CO转化率=反应掉的CO/初始CO=x/0.1=0.05/0.1=0.5=50%。",
+            "difficulty": 3,
+            "type": "计算题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_xzxbx1",
+                "source_md": "ch2_s2.md",
+                "question_no_in_source": 7,
+                "global_no": 20
+            },
+            "links": {
+                "concept_names": [
+                    "化学平衡常数",
+                    "转化率",
+                    "CO与H2O平衡体系"
+                ],
+                "skill_names": [
+                    "建立并应用平衡浓度表",
+                    "利用平衡常数判断反应程度与转化率"
+                ]
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_xzxbx1_ch2_s3_t25",
+            "stem": "举出几种日常生活中常见的由于熵增使其过程自发进行的实例。",
+            "answer": "例如：热量自发从高温物体传到低温物体；香水/气味在空气中自发扩散；墨水滴入水中自发扩散并混合；气体从高压处向低压处自发扩散（如放气）；冰在室温下自发融化；盐/糖在水中自发溶解并扩散均匀。",
+            "analysis": "题目要求举例说明“熵增导致过程自发进行”的日常现象。抓住要点：自发过程往往伴随能量或物质从更“集中/有序”走向更“分散/无序”，系统与环境总熵增加。典型类别包括热传导（温差减小）、扩散与混合（浓度差减小）、相变如融化（在环境允许条件下更易分散）。列举若干生活实例即可。",
+            "difficulty": 2,
+            "type": "简答题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_xzxbx1",
+                "source_md": "ch2_s3.md",
+                "question_no_in_source": 1,
+                "global_no": 21
+            },
+            "links": {
+                "concept_names": [
+                    "熵",
+                    "熵变",
+                    "自发过程",
+                    "熵增原理（中学表述）",
+                    "混乱度（有序与无序）"
+                ]
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_xzxbx1_ch2_s3_t26",
+            "stem": "在下列变化中，体系的熵将发生怎样的变化？\n\n（1）冰熔化  \n（2）水蒸气冷凝  \n（3）蔗糖在水中溶解  \n(4) $\\mathrm{HCl(g) + NH_3(g) = NH_4Cl(s)}$",
+            "answer": "（1）增大；（2）减小；（3）增大；（4）减小",
+            "analysis": "熵与微观无序程度、可占据微观状态数有关：固→液→气熵逐渐增大；气体冷凝为液体熵减小；溶解通常使溶质在溶剂中分散、混合程度增大，熵增大；两种气体生成固体，物质由分散的气态变为有序的固态且气体物质的量减少，熵显著减小。",
+            "difficulty": 2,
+            "type": "简答题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_xzxbx1",
+                "source_md": "ch2_s3.md",
+                "question_no_in_source": 2,
+                "global_no": 22
+            },
+            "links": {
+                "concept_names": [
+                    "熵",
+                    "熵变",
+                    "混乱度（有序与无序）"
+                ],
+                "skill_names": [
+                    "比较过程前后混乱度判断熵变方向"
+                ]
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_xzxbx1_ch2_s3_t27",
+            "stem": "水凝结成冰的过程中，其焓变和熵变正确的是（ ）。\n\nA. $\\Delta H > 0$ ， $\\Delta S < 0$   \nB. $\\Delta H < 0, \\Delta S > 0$   \nC. $\\Delta H > 0, \\Delta S > 0$   \nD. $\\Delta H < 0, \\Delta S < 0$",
+            "answer": "D",
+            "analysis": "水由液态凝固成固态冰是放热过程，体系焓降低，因此ΔH<0；从液态到固态有序程度增加、微观状态数减少，体系熵减小，因此ΔS<0。故选D。",
+            "difficulty": 2,
+            "type": "选择题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_xzxbx1",
+                "source_md": "ch2_s3.md",
+                "question_no_in_source": 3,
+                "global_no": 23
+            },
+            "links": {
+                "concept_names": [
+                    "焓变",
+                    "熵变"
+                ],
+                "skill_names": [
+                    "比较过程前后混乱度判断熵变方向"
+                ]
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_xzxbx1_ch2_s3_t28",
+            "stem": "下列说法中，正确的是（ ）。\n\nA. 冰在室温下自动熔化成水，这是熵增的过程  \nB. 能够自发进行的反应一定是放热反应  \nC. $\\Delta H<0$ 的反应均是自发进行的反应  \nD. 能够自发进行的反应一定是熵增的过程",
+            "answer": "A",
+            "analysis": "自发过程的判据是在定温定压下ΔG=ΔH−TΔS<0，并不要求一定放热(ΔH<0)或一定熵增(ΔS>0)。A：冰在室温下熔化，体系由固态变液态无序度增大，ΔS>0，为熵增过程，且在室温下可自发发生，正确。B：如冰熔化为吸热过程但可自发，故“自发一定放热”错误。C：ΔH<0 仅表示放热，若ΔS<0且T较高可能ΔG>0，不一定自发，错误。D：自发过程不一定熵增，例如水在低温下结冰可自发但体系熵减，错误。",
+            "difficulty": 3,
+            "type": "选择题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_xzxbx1",
+                "source_md": "ch2_s3.md",
+                "question_no_in_source": 4,
+                "global_no": 24
+            },
+            "links": {
+                "concept_names": [
+                    "自发过程",
+                    "熵变",
+                    "焓变",
+                    "焓变与熵变对自发性的综合影响"
+                ],
+                "skill_names": [
+                    "根据焓变和熵变判断反应自发性",
+                    "比较过程前后混乱度判断熵变方向"
+                ]
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_xzxbx1_ch2_s_t29",
+            "stem": "采取下列措施对增大化学反应速率有明显效果的是（ ）。\n\nA. Na与水反应时，增加水的用量  \nB. Al与稀硫酸反应制取 $\\mathrm{H}_{2}$ 时, 改用浓硫酸  \nC. $\\mathrm{Na}_{2} \\mathrm{SO}_{4}$ 溶液与 $\\mathrm{BaCl}_{2}$ 溶液反应时, 增大压强   \nD. 大理石与盐酸反应制取 $\\mathrm{CO}_{2}$ 时, 将块状大理石改为粉末状大理石",
+            "answer": "D",
+            "analysis": "影响反应速率的因素有：反应物浓度、温度、压强（主要对气体反应有效）、催化剂、固体表面积等。A中Na与水反应，增加水的用量并不显著提高Na的有效浓度与接触条件，效果不明显；B中浓硫酸具有强氧化性且会使Al钝化，不利于持续制氢；C中两种溶液反应基本不受压强影响；D中块状改粉末状增大固体表面积，增大接触面积，反应速率明显增大。",
+            "difficulty": 2,
+            "type": "选择题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_xzxbx1",
+                "source_md": "ch2_s整理与提升.md",
+                "question_no_in_source": 1,
+                "global_no": 25
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_xzxbx1_ch2_s_t30",
+            "stem": "向一个密闭容器中充入 $1 \\mathrm{~mol} \\mathrm{~N}_{2}$ 和 $3 \\mathrm{~mol} \\mathrm{H}_{2}$ , 在一定条件下使其发生反应生成 $\\mathrm{NH}_{3}$ 。达到平衡时,下列说法中正确的是 ( )。\n\nA. $\\mathrm{N}_{2}$ 、 $\\mathrm{H}_{2}$ 和 $\\mathrm{NH}_{3}$ 的物质的量浓度之比为 $1: 3: 2$   \nB. $\\mathrm{N}_{2}$ 完全转化为 $\\mathrm{NH}_{3}$   \nC. 正反应速率和逆反应速率都为零  \nD. 单位时间内消耗 $a \\mathrm{~mol} \\mathrm{~N}_{2}$ , 同时消耗 $2 a \\mathrm{~mol} \\mathrm{NH}_{3}$",
+            "answer": "D",
+            "analysis": "反应：N2+3H2⇌2NH3。达平衡时各物质一般不会按化学计量数成固定浓度比，A错误；可逆反应平衡时反应不一定完全进行，N2不一定完全转化，B错误；化学平衡为动态平衡，正逆反应速率相等但不为0，C错误。若单位时间内消耗a mol N2，则按计量关系对应消耗3a mol H2并生成2a mol NH3；等价地，逆反应中消耗2a mol NH3对应消耗a mol N2，故D所述“消耗a mol N2同时消耗2a mol NH3”对应逆反应的计量关系，正确。",
+            "difficulty": 3,
+            "type": "选择题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_xzxbx1",
+                "source_md": "ch2_s整理与提升.md",
+                "question_no_in_source": 2,
+                "global_no": 26
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_xzxbx1_ch2_s_t31",
+            "stem": "在一定温度下的容积不变的密闭容器中发生反应: $2 \\mathrm{SO}_{2}(\\mathrm{~g}) + \\mathrm{O}_{2}(\\mathrm{~g}) \\rightleftharpoons 2 \\mathrm{SO}_{3}(\\mathrm{~g})$ 。下列不能说明反应达到平衡状态的是 ( )。\n\nA. 气体的压强不再变化  \nB. $\\mathrm{SO}_{2}$ 的体积分数不再变化  \nC. 混合物的密度不再变化  \nD. 各物质的浓度不再变化",
+            "answer": "C",
+            "analysis": "恒温、恒容密闭容器中，达到化学平衡时各组分浓度不再随时间变化，因此D能说明平衡；SO2体积分数取决于其物质的量分数，平衡时组成不变，B能说明平衡；该反应气体总物质的量由3变2，恒温恒容下压强p∝n_total，平衡时n_total不变，压强不再变化，A能说明平衡。密度ρ=m/V，容器恒容且体系总质量守恒，故密度始终不变，与是否达到平衡无关，因此不能说明达到平衡的是C。",
+            "difficulty": 3,
+            "type": "选择题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_xzxbx1",
+                "source_md": "ch2_s整理与提升.md",
+                "question_no_in_source": 3,
+                "global_no": 27
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_xzxbx1_ch2_s_t33",
+            "stem": "在 $2 \\mathrm{~L}$ 的密闭容器中通入 $\\mathrm{N}_{2}$ 和 $\\mathrm{H}_{2}$ ，使其发生反应： $\\mathrm{N}_{2} + 3 \\mathrm{H}_{2} \\rightleftharpoons 2 \\mathrm{NH}_{3}$ 。\n\n在 $10 \\mathrm{~s}$ 内用 $\\mathrm{H}_{2}$ 的浓度变化表示的化学反应速率为 $0.12 \\mathrm{~mol} / (\\mathrm{L} \\cdot \\mathrm{s})$ , 则这 $10 \\mathrm{~s}$ 内消耗 $\\mathrm{N}_{2}$ 的物质的量是",
+            "answer": "0.08 mol",
+            "analysis": "用H2浓度变化表示速率v(H2)=0.12 mol/(L·s)，10 s内H2浓度变化Δc(H2)=v·t=0.12×10=1.2 mol/L。容器体积2 L，则H2消耗的物质的量Δn(H2)=Δc·V=1.2×2=2.4 mol。由反应计量关系N2: H2 = 1:3，故N2消耗Δn(N2)=2.4/3=0.8 mol。",
+            "difficulty": 2,
+            "type": "填空题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_xzxbx1",
+                "source_md": "ch2_s整理与提升.md",
+                "question_no_in_source": 5,
+                "global_no": 28
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_xzxbx1_ch2_s_t35",
+            "stem": "研究 $\\mathrm{NO}_2$ 、 $\\mathrm{SO}_2$ 等气体的无害化处理对治理大气污染、建设生态文明具有重要意义。\n\n(1)已知: $2 \\mathrm{SO}_{2}(\\mathrm{~g})+\\mathrm{O}_{2}(\\mathrm{~g}) \\rightleftharpoons 2 \\mathrm{SO}_{3}(\\mathrm{~g}) \\quad \\Delta H=-196.6 \\mathrm{~kJ} / \\mathrm{mol}$\n\n$$\n2 \\mathrm {N O} (\\mathrm {g}) + \\mathrm {O} _ {2} (\\mathrm {g}) \\rightleftharpoons 2 \\mathrm {N O} _ {2} (\\mathrm {g}) \\quad \\Delta H = - 1 1 3. 0 \\mathrm {k J} / \\mathrm {m o l}\n$$\n\n则 $\\mathrm{NO}_2(\\mathrm{g}) + \\mathrm{SO}_2(\\mathrm{g}) \\rightleftharpoons \\mathrm{SO}_3(\\mathrm{g}) + \\mathrm{NO}(\\mathrm{g})$ 的 $\\Delta H = \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\mathrm{kJ / mol}$ 。\n\n(2) 在一定条件下, 将 $\\mathrm{NO}_{2}$ 与 $\\mathrm{SO}_{2}$ 以体积比 $1: 2$ 置于密闭容器中发生上述反应。下列能说明反应达到平衡状态的是 (填字母)。\n\na. 体系压强保持不变\n\nb. 混合气体的颜色保持不变\n\nc. $\\mathrm{SO}_3$ 和 $\\mathrm{NO}$ 的体积比保持不变\n\nd. 每生成 $1 \\mathrm{~mol} \\mathrm{SO}_{3}$ 消耗 $1 \\mathrm{~mol} \\mathrm{NO}_{2}$",
+            "answer": "(1)ΔH=-41.8 kJ/mol；(2)b",
+            "analysis": "(1)由亥斯定律：将2SO2+O2⇌2SO3除以2得SO2+1/2O2⇌SO3，ΔH=-98.3 kJ/mol；将2NO+O2⇌2NO2逆向并除以2得NO2⇌NO+1/2O2，ΔH=+56.5 kJ/mol；两式相加得NO2+SO2⇌SO3+NO，ΔH=-98.3+56.5=-41.8 kJ/mol。(2)该反应气体物质的量前后相等(2⇌2)，压强不变不能判定平衡；SO3与NO生成量始终相等，其体积比恒为1:1，不能判定；“每生成1 mol SO3消耗1 mol NO2”是计量关系，任意时刻都成立；只有NO2为棕色，颜色保持不变说明其浓度不再变化，表明达到平衡，选b。",
+            "difficulty": 3,
+            "type": "填空题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_xzxbx1",
+                "source_md": "ch2_s整理与提升.md",
+                "question_no_in_source": 7,
+                "global_no": 29
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_xzxbx1_ch3_s1_t38",
+            "stem": "已知某温度下有如下三个反应：\n\n$$\n\\begin{array}{l} \\mathrm {N a C N} + \\mathrm {H N O} _ {2} = \\mathrm {H C N} + \\mathrm {N a N O} _ {2} \\\\ \\mathrm {N a C N} + \\mathrm {H F} = \\mathrm {H C N} + \\mathrm {N a F} \\\\ \\mathrm {N a N O} _ {2} + \\mathrm {H F} = \\mathrm {H N O} _ {2} + \\mathrm {N a F} \\\\ \\end{array}\n$$\n\n则该温度下HF、HCN和 $\\mathrm{HNO}_2$ 三种弱酸的电离常数由大到小的顺序是",
+            "answer": "HF＞HNO₂＞HCN",
+            "analysis": "利用弱酸与其盐之间的质子转移方向判断酸性强弱：\n(1) NaCN+HNO₂→HCN+NaNO₂，说明HNO₂能把H⁺转移给CN⁻，即HNO₂比HCN酸性强：HNO₂＞HCN。\n(2) NaCN+HF→HCN+NaF，说明HF能把H⁺转移给CN⁻，即HF比HCN酸性强：HF＞HCN。\n(3) NaNO₂+HF→HNO₂+NaF，说明HF能把H⁺转移给NO₂⁻，即HF比HNO₂酸性强：HF＞HNO₂。\n综合得酸性(电离常数)大小规律：HF＞HNO₂＞HCN。",
+            "difficulty": 3,
+            "type": "选择题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_xzxbx1",
+                "source_md": "ch3_s1.md",
+                "question_no_in_source": 1,
+                "global_no": 30
+            },
+            "links": {
+                "concept_names": [
+                    "酸的电离常数 Ka",
+                    "电离常数与酸碱强弱",
+                    "弱电解质的相对强弱比较"
+                ],
+                "skill_names": [
+                    "用电离常数比较弱电解质强弱"
+                ]
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_xzxbx1_ch3_s1_t40",
+            "stem": "向 $10 \\mathrm{~mL}$ 氨水中加入蒸馏水，将其稀释到 $1 \\mathrm{~L}$ 后，下列说法中不正确的是（ ）。\n\nA. $\\mathrm{NH}_{3} \\cdot \\mathrm{H}_{2} \\mathrm{O}$ 的电离程度增大  \nB. $c\\left(\\mathrm{NH}_{2} \\cdot \\mathrm{H}_{2} \\mathrm{O}\\right)$ 增大  \nC. $\\mathrm{NH}_{4}^{+}$ 的数目增多  \n$\\frac{c(\\mathrm{NH}_4^+)}{c(\\mathrm{NH}_3\\cdot\\mathrm{H}_2\\mathrm{O})}$ 增大",
+            "answer": "B",
+            "analysis": "将10 mL氨水稀释至1 L，溶液总体积增大，溶质的物质的量不变。\n弱碱NH3·H2O存在电离平衡：NH3·H2O ⇌ NH4+ + OH−。稀释使溶液浓度降低，按勒夏特列原理，平衡向电离方向移动，电离程度增大，故A正确。\n但稀释后未电离的NH3·H2O的浓度应随总体积增大而减小，不可能“增大”，故B不正确。\n平衡向右移动会使NH4+的生成量（物质的量）增多，故C正确；同时c(NH4+)增大而c(NH3·H2O)减小，所以c(NH4+)/c(NH3·H2O)增大，最后一项正确。",
+            "difficulty": 3,
+            "type": "选择题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_xzxbx1",
+                "source_md": "ch3_s1.md",
+                "question_no_in_source": 3,
+                "global_no": 31
+            },
+            "links": {
+                "concept_names": [
+                    "电离程度",
+                    "电离平衡",
+                    "电离平衡的移动",
+                    "浓度对电离平衡的影响",
+                    "弱碱"
+                ]
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_xzxbx1_ch3_s1_t42",
+            "stem": "判断下列说法是否正确，并说明理由。\n\n（1）强电解质溶液的导电能力一定比弱电解质溶液的强。  \n(2) 中和等体积、等物质的量浓度的盐酸和醋酸, 中和盐酸所需氢氧化钠的物质的量多于醋酸。  \n(3) 将 $\\mathrm{NaOH}$ 溶液和氨水中溶质的浓度各稀释到原浓度的 $\\frac{1}{2}$ , 两者的 $c(\\mathrm{OH}^{-})$ 均减少到原来的 $\\frac{1}{2}$ 。  \n(4) 如果盐酸中溶质的浓度是醋酸中溶质浓度的 2 倍, 则盐酸中的 $c(\\mathrm{H}^{+})$ 也是醋酸中 $c(\\mathrm{H}^{+})$ 的 2 倍。  \n（5）物质的量浓度相同的磷酸钠溶液和磷酸中 $\\mathrm{PO}_4^{3-}$ 的浓度相同。",
+            "answer": "（1）错误；（2）错误；（3）错误；（4）错误；（5）错误。",
+            "analysis": "（1）错误：溶液导电能力取决于离子浓度与离子迁移率等，强电解质虽电离完全，但若浓度很低，导电能力可能弱于较高浓度的弱电解质。\n（2）错误：等体积、等浓度的盐酸与醋酸所含酸的物质的量相同，均为一元酸，与NaOH按1:1中和，所需NaOH物质的量相同。\n（3）错误：NaOH为强碱，稀释到1/2时c(OH−)约变为1/2；氨水为弱碱，存在电离平衡，稀释使电离度增大，c(OH−)不按比例减半（通常小于1/2的变化幅度，非必为1/2）。\n（4）错误：盐酸为强酸，c(H+)=c(酸)；醋酸为弱酸，c(H+)由电离平衡决定，不与溶质浓度成正比，故即使盐酸浓度为醋酸2倍，c(H+)也不一定为2倍。\n（5）错误：Na3PO4溶液中PO4^3−会水解，且存在HPO4^2−、H2PO4−等；磷酸为弱酸，几乎不产生大量PO4^3−，同浓度时两者PO4^3−浓度不相同。",
+            "difficulty": 4,
+            "type": "判断题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_xzxbx1",
+                "source_md": "ch3_s1.md",
+                "question_no_in_source": 5,
+                "global_no": 32
+            },
+            "links": {
+                "concept_names": [
+                    "强电解质",
+                    "弱电解质",
+                    "电离程度",
+                    "溶液导电能力",
+                    "电离平衡",
+                    "电离平衡的移动",
+                    "相同物质的量浓度溶液的比较",
+                    "浓度对电离平衡的影响"
+                ],
+                "skill_names": [
+                    "根据 pH、导电性和反应剧烈程度判断电离程度"
+                ]
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_xzxbx1_ch3_s1_t43",
+            "stem": "已知 $25^{\\circ} \\mathrm{C}$ 时， $\\mathrm{CH}_3\\mathrm{COOH}$ 的 $K_{\\mathrm{a}} = 1.75 \\times 10^{-5}$ 。\n\n(1) 当向醋酸中加入一定量的盐酸时, $\\mathrm{CH}_{3} \\mathrm{COOH}$ 的电离常数是否发生变化? 为什么?  \n(2) 若初始时醋酸中 $\\mathrm{CH}_{3} \\mathrm{COOH}$ 的浓度为 $0.010 \\mathrm{~mol} / \\mathrm{L}$ , 则达到电离平衡时溶液中 $c \\left(\\mathrm{H}^{+}\\right)$ 是多少?",
+            "answer": "(1) 不变。电离常数Ka只与温度有关(25℃时为定值)，加入盐酸只改变平衡时各物质的浓度与电离程度(同离子效应)，但不改变Ka。\n(2) c(H+)=4.1×10^-4 mol/L(约4.18×10^-4 mol/L)。",
+            "analysis": "(1) Ka在一定温度下为常数，与初始浓度或加入其他电解质无关；加入HCl提供H+，使平衡CH3COOH ⇌ H+ + CH3COO-左移，电离度减小，但Ka表达式Ka=c(H+)c(CH3COO-)/c(CH3COOH)的数值不变。\n(2) 设电离平衡时生成x mol/L的H+：\n初始：c(CH3COOH)=0.010，c(H+)=0，c(CH3COO-)=0\n平衡：c(H+)=x，c(CH3COO-)=x，c(CH3COOH)=0.010−x\nKa= x^2/(0.010−x)=1.75×10^-5。因Ka小，x≪0.010，近似x^2/0.010=1.75×10^-5，得x=√(1.75×10^-7)=4.18×10^-4 mol/L；检验x/0.010≈4.2%，近似可用。",
+            "difficulty": 3,
+            "type": "简答题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_xzxbx1",
+                "source_md": "ch3_s1.md",
+                "question_no_in_source": 6,
+                "global_no": 33
+            },
+            "links": {
+                "concept_names": [
+                    "酸的电离常数 Ka",
+                    "电离常数与温度的关系",
+                    "电离平衡",
+                    "同离子效应对电离平衡的影响",
+                    "一元弱酸"
+                ],
+                "skill_names": [
+                    "根据同离子效应分析电离平衡移动方向",
+                    "利用平衡浓度计算电离常数"
+                ]
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_xzxbx1_ch3_s2_t44",
+            "stem": "在氨水中存在的粒子有________；在氯水中存在的粒子有________。",
+            "answer": "NH3·H2O、NH4+、OH-、H2O；H2O、Cl2、HClO、H+、Cl-、ClO-",
+            "analysis": "氨水为弱碱溶液，主要由NH3·H2O与水分子构成，并发生部分电离：NH3·H2O ⇌ NH4+ + OH-，故含NH3·H2O、NH4+、OH-、H2O。氯水为Cl2溶于水形成的混合体系，含未反应的Cl2与水；并发生水解：Cl2 + H2O ⇌ HCl + HClO，HCl为强酸完全电离产生H+、Cl-，HClO为弱酸部分电离产生H+、ClO-，故含H2O、Cl2、HClO、H+、Cl-、ClO-。",
+            "difficulty": 3,
+            "type": "填空题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_xzxbx1",
+                "source_md": "ch3_s2.md",
+                "question_no_in_source": 1,
+                "global_no": 34
+            },
+            "links": {
+                "concept_names": [
+                    "水的电离"
+                ],
+                "skill_names": [
+                    "建立电离平衡关系并应用平衡常数"
+                ]
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_xzxbx1_ch3_s2_t45",
+            "stem": "在下列溶液中, $c(\\mathrm{H}^{+})$ 由小到大的排列顺序是__________（填序号，下同）； $\\mathrm{pH}$ 由小到大的排列顺序是__________。\n\n① $0.1 \\mathrm{~mol} / \\mathrm{L} \\mathrm{HCl}$ 溶液   \n② $0.1 \\mathrm{~mol} / \\mathrm{L} \\mathrm{H}_{2} \\mathrm{SO}_{4}$ 溶液   \n③ $0.1 \\mathrm{~mol} / \\mathrm{L} \\mathrm{NaOH}$ 溶液   \n④ $0.1 \\mathrm{~mol} / \\mathrm{L} \\mathrm{CH}_{3} \\mathrm{COOH}$ 溶液",
+            "answer": "c(H+)：③④①②；pH：②①④③",
+            "analysis": "比较各溶液中H+浓度：③为强碱NaOH，c(OH-)=0.1 mol/L，25℃时c(H+)=Kw/c(OH-)=1.0×10^-14/0.1=1.0×10^-13 mol/L，最小；④为弱酸CH3COOH，0.1 mol/L部分电离，c(H+)≈sqrt(Ka·c)≈sqrt(1.8×10^-5×0.1)≈1.3×10^-3 mol/L；①为强酸HCl，完全电离，c(H+)=0.1 mol/L；②为H2SO4，第一步完全电离且第二步仍能电离提供额外H+，故c(H+)>0.1 mol/L，最大。于是c(H+)由小到大：③④①②。pH与c(H+)大小规律相反，故pH由小到大：②①④③。",
+            "difficulty": 3,
+            "type": "填空题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_xzxbx1",
+                "source_md": "ch3_s2.md",
+                "question_no_in_source": 2,
+                "global_no": 35
+            },
+            "links": {
+                "concept_names": [
+                    "溶液的酸碱性与pH"
+                ],
+                "skill_names": [
+                    "建立电离平衡关系并应用平衡常数"
+                ]
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_xzxbx1_ch3_s2_t46",
+            "stem": "（1）某种酱油的 $\\mathrm{pH} = 5$ ，则该酱油中的 $c(\\mathrm{H}^{+}) =$\n\n(2) 在常温下, 柠檬水的 $\\mathrm{pH} = 3$ , 其中的 $c(\\mathrm{OH}^{-})$ 为________（填字母）。\n\na. $0.1\\mathrm{mol / L}$\n\nb. $1 \\times 10^{-3} \\mathrm{~mol} / \\mathrm{L}$\n\nc. $1 \\times 10^{-7} \\mathrm{~mol} / \\mathrm{L}$\n\nd. $1 \\times 10^{-11} \\mathrm{~mol} / \\mathrm{L}$",
+            "answer": "（1）c(H^+)=1×10^-5 mol/L；（2）d",
+            "analysis": "（1）pH=−lg c(H^+)，故c(H^+)=10^−pH=10^−5 mol/L。 （2）常温下pH+pOH=14，pOH=14−3=11，c(OH^−)=10^−11 mol/L，对应d。",
+            "difficulty": 2,
+            "type": "填空题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_xzxbx1",
+                "source_md": "ch3_s2.md",
+                "question_no_in_source": 3,
+                "global_no": 36
+            },
+            "links": {
+                "concept_names": [
+                    "溶液的酸碱性与pH",
+                    "水的离子积"
+                ]
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_xzxbx1_ch3_s2_t47",
+            "stem": "体积相同、 $\\mathrm{pH}$ 相同的HCl溶液和 $\\mathrm{CH}_3\\mathrm{COOH}$ 溶液分别与 $\\mathrm{NaOH}$ 溶液中和时, 二者所消耗 $\\mathrm{NaOH}$ 的物质的量的关系是 , 理由是",
+            "answer": "n(NaOH)相等；理由：两溶液pH相同且体积相同，初始[H+]相同，所含H+的物质的量相同，中和反应均为H+ + OH- → H2O，消耗NaOH的物质的量等于H+的物质的量（乙酸虽为弱酸，但中和时不断电离补充H+，最终同样被完全中和）。",
+            "analysis": "设两溶液体积为V，pH相同则[H+]=10^{-pH}，故两者初始n(H+)=V·10^{-pH}相同。与NaOH中和时，NaOH提供OH-，按H+ + OH- → H2O计量，中和完全时所需n(OH-)=n(H+)。强酸HCl中H+来自完全电离；弱酸CH3COOH在加入OH-的过程中电离平衡右移持续释放H+直至被中和，因此最终消耗NaOH的物质的量仍等于初始由pH确定的H+的物质的量，二者相等。",
+            "difficulty": 3,
+            "type": "填空题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_xzxbx1",
+                "source_md": "ch3_s2.md",
+                "question_no_in_source": 4,
+                "global_no": 37
+            },
+            "links": {
+                "concept_names": [
+                    "溶液的酸碱性与pH"
+                ],
+                "skill_names": [
+                    "建立电离平衡关系并应用平衡常数"
+                ]
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_xzxbx1_ch3_s2_t48",
+            "stem": "在 $48 \\mathrm{~mL} 0.1 \\mathrm{~mol} / \\mathrm{L} \\mathrm{HNO}_{3}$ 溶液中加入 $12 \\mathrm{~mL} 0.4 \\mathrm{~mol} / \\mathrm{L} \\mathrm{KOH}$ 溶液，所得溶液呈（ ）。\n\nA. 弱酸性\n\nB. 强酸性\n\nC. 碱性\n\nD. 中性",
+            "answer": "D",
+            "analysis": "计算物质的量：n(HNO3)=0.048 L×0.1 mol/L=0.0048 mol；n(KOH)=0.012 L×0.4 mol/L=0.0048 mol。强酸HNO3与强碱KOH按1:1完全中和，二者恰好等量，无剩余酸或碱，生成KNO3（强酸强碱盐）溶液，溶液呈中性。",
+            "difficulty": 2,
+            "type": "选择题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_xzxbx1",
+                "source_md": "ch3_s2.md",
+                "question_no_in_source": 5,
+                "global_no": 38
+            },
+            "links": {
+                "concept_names": [
+                    "溶液的酸碱性与pH"
+                ]
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_xzxbx1_ch3_s3_t51",
+            "stem": "明矾 $\\left[\\text { 化学式为 } \\mathrm{KAl}\\left(\\mathrm{SO}_{4}\\right)_{2} \\cdot 12 \\mathrm{H}_{2} \\mathrm{O}\\right]$ 溶液呈 性（填“酸”“碱”或“中”），原因是 (用离子方程式表示)。",
+            "answer": "酸；Al3+水解：Al3+ + 3H2O ⇌ Al(OH)3↓ + 3H+",
+            "analysis": "明矾溶于水电离出K+、Al3+和SO42-等离子。K+与SO42-均为强酸强碱盐的离子，基本不水解；Al3+发生水解生成H+，使溶液呈酸性：Al3+ + 3H2O ⇌ Al(OH)3↓ + 3H+。",
+            "difficulty": 2,
+            "type": "填空题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_xzxbx1",
+                "source_md": "ch3_s3.md",
+                "question_no_in_source": 1,
+                "global_no": 39
+            },
+            "links": {
+                "concept_names": [
+                    "盐类的水解",
+                    "盐溶液的酸碱性",
+                    "强酸弱碱盐"
+                ],
+                "skill_names": [
+                    "根据酸碱强弱判断盐溶液酸碱性"
+                ]
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_xzxbx1_ch3_s3_t52",
+            "stem": "在实验室配制 $\\mathrm{Na}_{2} \\mathrm{~S}$ 溶液时, 常滴加几滴 $\\mathrm{NaOH}$ 溶液, 试说明原因:",
+            "answer": "防止Na2S溶液水解生成H2S并被空气中O2氧化；加入少量NaOH提高溶液碱性，抑制S2−水解，使Na2S溶液稳定、减少H2S逸出。",
+            "analysis": "Na2S溶于水后，S2−发生水解：S2−+H2O⇌HS−+OH−，进一步HS−+H2O⇌H2S+OH−，会产生挥发性的H2S；且H2S/HS−易被空气中的O2氧化（如生成S等），使溶液成分改变。滴加少量NaOH提高OH−浓度，使平衡向左移动，抑制水解与H2S生成，从而保持Na2S溶液稳定。",
+            "difficulty": 3,
+            "type": "简答题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_xzxbx1",
+                "source_md": "ch3_s3.md",
+                "question_no_in_source": 2,
+                "global_no": 40
+            },
+            "links": {
+                "concept_names": [
+                    "盐类的水解",
+                    "反应条件对盐类水解的影响",
+                    "平衡移动原理在水解中的应用"
+                ],
+                "skill_names": [
+                    "应用平衡移动原理分析盐类水解"
+                ]
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_xzxbx1_ch3_s3_t53",
+            "stem": "草木灰与铵态氮肥不能混合施用，其原因是",
+            "answer": "草木灰呈碱性，与铵态氮肥混合会发生反应生成氨气挥发，导致氮素损失、肥效降低。",
+            "analysis": "草木灰主要含碳酸钾等碱性成分；铵态氮肥含NH4+。在碱性条件下，NH4+转化为NH3并挥发（NH4+ + OH- → NH3↑ + H2O），使氮肥损失，因此不能混合施用。",
+            "difficulty": 2,
+            "type": "填空题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_xzxbx1",
+                "source_md": "ch3_s3.md",
+                "question_no_in_source": 3,
+                "global_no": 41
+            },
+            "links": {
+                "concept_names": [
+                    "盐溶液的酸碱性"
+                ],
+                "skill_names": [
+                    "根据酸碱强弱判断盐溶液酸碱性"
+                ]
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_xzxbx1_ch3_s3_t54",
+            "stem": "在常温下, 实验测得 $0.1 \\mathrm{~mol} / \\mathrm{L} \\mathrm{CH}_{3} \\mathrm{COONa}$ 溶液的 $\\mathrm{pH} = 9$ , 则溶液中由水电离出来的 $c(\\mathrm{OH}^{-}) =$",
+            "answer": "1.0×10^-5 mol/L",
+            "analysis": "已知pH=9，则pOH=14−9=5，溶液中总c(OH−)=10^-5 mol/L。又因c(H+)=10^-9 mol/L，水的离子积Kw=10^-14，所以水电离产生的c(OH−)=Kw/c(H+)=10^-14/10^-9=10^-5 mol/L。",
+            "difficulty": 3,
+            "type": "填空题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_xzxbx1",
+                "source_md": "ch3_s3.md",
+                "question_no_in_source": 4,
+                "global_no": 42
+            },
+            "links": {
+                "concept_names": [
+                    "盐类的水解"
+                ],
+                "skill_names": [
+                    "运用电荷守恒和元素质量守恒分析离子浓度"
+                ]
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_xzxbx1_ch3_s3_t55",
+            "stem": "在常温下, $\\mathrm{CH}_{3} \\mathrm{COOH}$ 溶液和 $\\mathrm{NaOH}$ 溶液充分反应后所得溶液的 $\\mathrm{pH} = 7$ , 则此溶液中 $c\\left(\\mathrm{CH}_{3} \\mathrm{COO}^{-}\\right)$ 和 $c\\left(\\mathrm{Na}^{+}\\right)$ 的大小关系是",
+            "answer": "c(Na+) > c(CH3COO−)",
+            "analysis": "CH3COOH与NaOH充分反应生成CH3COONa。若反应后溶液pH=7(常温)，说明溶液呈中性。由于CH3COO−是弱酸根，会发生水解使溶液显碱性；要使最终pH=7，必须有过量CH3COOH提供H+抑制CH3COO−水解，因此溶液中除CH3COO−外还含有未反应的CH3COOH。Na+仅来自生成的CH3COONa，而CH3COO−既来自盐又可由未反应的CH3COOH部分电离产生，但同时CH3COO−会与H+结合并被抑制电离；在有过量CH3COOH情况下，总醋酸根浓度小于对应的Na+浓度，故c(Na+) > c(CH3COO−)。",
+            "difficulty": 4,
+            "type": "选择题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_xzxbx1",
+                "source_md": "ch3_s3.md",
+                "question_no_in_source": 5,
+                "global_no": 43
+            },
+            "links": {
+                "concept_names": [
+                    "酸碱中和反应与盐类水解的关系",
+                    "电解质溶液的电荷守恒",
+                    "电解质溶液中的元素质量守恒"
+                ],
+                "skill_names": [
+                    "运用电荷守恒和元素质量守恒分析离子浓度"
+                ]
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_xzxbx1_ch3_s3_t56",
+            "stem": "下列溶液因盐的水解而呈酸性的是（ ）。\n\nA. $\\mathrm{Na}_{2}\\mathrm{SO}_{4}$ 溶液\n\nB. $\\mathrm{NaHCO}_{3}$ 溶液\n\nC. $\\mathrm{CH}_3\\mathrm{COOH}$ 溶液\n\nD. $\\mathrm{NH}_{4} \\mathrm{Cl}$ 溶液",
+            "answer": "D",
+            "analysis": "判断盐的水解酸碱性：强酸强碱盐不水解或近似中性；强碱弱酸盐水解呈碱性；强酸弱碱盐水解呈酸性。A Na2SO4为强酸(H2SO4)强碱(NaOH)盐，近似中性；B NaHCO3中HCO3-为两性离子，以水解呈弱碱性为主；C CH3COOH为酸本身，不属于“因盐的水解”；D NH4Cl为强酸(HCl)弱碱(NH3·H2O)盐，NH4+水解生成H3O+，溶液呈酸性。",
+            "difficulty": 2,
+            "type": "选择题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_xzxbx1",
+                "source_md": "ch3_s3.md",
+                "question_no_in_source": 6,
+                "global_no": 44
+            },
+            "links": {
+                "concept_names": [
+                    "盐类的水解",
+                    "盐溶液的酸碱性",
+                    "强酸弱碱盐"
+                ],
+                "skill_names": [
+                    "根据酸碱强弱判断盐溶液酸碱性"
+                ]
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_xzxbx1_ch3_s3_t57",
+            "stem": "强碱MOH的溶液和等体积、等物质的量浓度的弱酸HA的溶液混合后，溶液中有关离子浓度的大小关系是（ ）。\n\nA. $c(\\mathrm{M}^{+}) > c(\\mathrm{OH}^{-}) > c(\\mathrm{A}^{-}) > c(\\mathrm{H}^{+})$\n\nB. $c(\\mathrm{M}^{+}) > c(\\mathrm{A}^{-}) > c(\\mathrm{H}^{+}) > c(\\mathrm{OH}^{-})$\n\nC. $c(\\mathrm{M}^{+}) > c(\\mathrm{A}^{-}) > c(\\mathrm{OH}^{-}) > c(\\mathrm{H}^{+})$\n\nD. $c(\\mathrm{M}^{+}) > c(\\mathrm{H}^{+}) > c(\\mathrm{A}^{-}) > c(\\mathrm{OH}^{-})$",
+            "answer": "C",
+            "analysis": "等体积、等浓度混合：MOH完全电离，提供n(OH−)=cV；弱酸HA提供n(HA)=cV。先发生中和：HA+OH−→A−+H2O，物质的量恰好相等，反应后OH−和HA都被消耗完，生成A−的形式浓度为cV/(2V)=c/2，同时溶液中M+的浓度为c/2。生成的A−发生水解：A−+H2O⇌HA+OH−，使溶液呈碱性，故c(OH−)>c(H+)。又因A−仅部分水解，c(A−)仍远大于c(OH−)，并且M+不参与反应，保持为最大浓度。故大小规律：c(M+)>c(A−)>c(OH−)>c(H+)，选C。",
+            "difficulty": 3,
+            "type": "选择题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_xzxbx1",
+                "source_md": "ch3_s3.md",
+                "question_no_in_source": 7,
+                "global_no": 45
+            },
+            "links": {
+                "concept_names": [
+                    "盐类的水解",
+                    "盐溶液的酸碱性",
+                    "强碱弱酸盐",
+                    "酸碱中和反应与盐类水解的关系",
+                    "电解质溶液的电荷守恒"
+                ],
+                "skill_names": [
+                    "运用电荷守恒和元素质量守恒分析离子浓度",
+                    "根据酸碱强弱判断盐溶液酸碱性"
+                ]
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_xzxbx1_ch3_s3_t58",
+            "stem": "比较相同温度下,等物质的量浓度的 ${\\mathrm{{Na}}}_{2}{\\mathrm{{CO}}}_{3}$ 溶液和 ${\\mathrm{{NaHCO}}}_{3}$ 溶液 $\\mathrm{{pH}}$ 的相对大小,并说明原因。",
+            "answer": "相同温度、等物质的量浓度时：pH(Na2CO3溶液) > pH(NaHCO3溶液)。原因：CO3^2−为二元弱酸H2CO3的共轭碱，水解生成OH−能力强；而HCO3−为两性离子，既可水解生成OH−也可电离生成H+，其碱性较弱，故Na2CO3溶液更碱性、pH更大。",
+            "analysis": "Na2CO3溶液中主要发生：CO3^2− + H2O ⇌ HCO3− + OH−，产生较多OH−，溶液呈较强碱性；NaHCO3溶液中HCO3−两性：既有HCO3− + H2O ⇌ H2CO3 + OH−，又有HCO3− ⇌ CO3^2− + H+，两种作用部分抵消且总体碱性较弱，因此pH(Na2CO3)更高。",
+            "difficulty": 3,
+            "type": "简答题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_xzxbx1",
+                "source_md": "ch3_s3.md",
+                "question_no_in_source": 8,
+                "global_no": 46
+            },
+            "links": {
+                "concept_names": [
+                    "盐类的水解",
+                    "盐溶液的酸碱性",
+                    "Na₂CO₃ 溶液的碱性"
+                ],
+                "skill_names": [
+                    "根据酸碱强弱判断盐溶液酸碱性"
+                ]
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_xzxbx1_ch3_s3_t59",
+            "stem": "$\\mathrm{Sb}_{2} \\mathrm{O}_{3}$ 可用作白色颜料和阻燃剂等。在实验室中可利用 $\\mathrm{SbCl}_{3}$ 的水解反应制取 $\\mathrm{Sb}_{2} \\mathrm{O}_{3}$ （ $\\mathrm{SbCl}_{3}$ 的水解分三步进行，中间产物有 $\\mathrm{SbOCl}$ 等），其总反应可表示为：\n\n$$\n2 \\mathrm {S b C l} _ {3} + 3 \\mathrm {H} _ {2} \\mathrm {O} \\rightleftharpoons \\mathrm {S b} _ {2} \\mathrm {O} _ {3} + 6 \\mathrm {H C l}\n$$\n\n为了得到较多的 $\\mathrm{Sb}_{2} \\mathrm{O}_{3}$ , 操作时要将 $\\mathrm{SbCl}_{3}$ 缓慢加入大量水中, 反应后期还要加入少量氨水。试利用平衡移动原理说明这两项操作的作用。",
+            "answer": "将SbCl3缓慢加入大量水中：增大H2O的量并稀释生成的HCl，使平衡按勒夏特列原理向生成Sb2O3方向移动，水解更完全、Sb2O3产率提高；反应后期加入少量氨水：NH3·H2O与HCl反应生成NH4Cl，降低溶液中HCl(即H+)浓度，促使平衡进一步向右移动，从而生成更多Sb2O3。",
+            "analysis": "该反应为可逆平衡：2SbCl3+3H2O⇌Sb2O3+6HCl。提高反应物H2O的浓度/用过量水并稀释产物HCl，可使Q减小，平衡向右；若一次性加入SbCl3会在局部形成较高的HCl浓度，抑制水解，因此需缓慢加入以避免局部酸度过大。后期加入氨水可消耗HCl（NH3·H2O+HCl→NH4Cl+H2O），相当于移走生成物HCl，使平衡继续右移，生成更多Sb2O3。",
+            "difficulty": 3,
+            "type": "简答题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_xzxbx1",
+                "source_md": "ch3_s3.md",
+                "question_no_in_source": 9,
+                "global_no": 47
+            },
+            "links": {
+                "concept_names": [
+                    "盐类的水解",
+                    "反应条件对盐类水解的影响",
+                    "平衡移动原理在水解中的应用",
+                    "盐类水解在无机化合物制备中的应用"
+                ],
+                "skill_names": [
+                    "应用平衡移动原理分析盐类水解"
+                ]
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_xzxbx1_ch3_s3_t60",
+            "stem": "$\\mathrm{SOCl}_2$ （亚硫酰氯）是一种液态化合物，沸点为 $77\\%$ 。向盛有 $10\\mathrm{mL}$ 水的锥形瓶中小心滴加 $8\\sim 10$ 滴 $\\mathrm{SOCl}_2$ ，可观察到剧烈反应，液面上有白雾形成，并有带刺激性气味的气体逸出，该气体中含有能使品红溶液褪色的 $\\mathrm{SO}_2$ 。轻轻振荡锥形瓶，待白雾消失后，向溶液中滴加 $\\mathrm{AgNO}_3$ 溶液，有不溶于稀硝酸的白色沉淀析出。\n\n（1）根据实验现象，写出 $\\mathrm{SOCl}_2$ 与水反应的化学方程式。  \n(2) 将 $\\mathrm{AlCl}_{3}$ 溶液蒸干并灼烧得不到无水 $\\mathrm{AlCl}_{3}$ , 而将 $\\mathrm{SOCl}_{2}$ 与 $\\mathrm{AlCl}_{3} \\cdot 6 \\mathrm{H}_{2} \\mathrm{O}$ 混合并加热, 可得到无水 $\\mathrm{AlCl}_{3}$ , 试解释原因。",
+            "answer": "（1）SOCl2 + H2O → SO2↑ + 2HCl↑（或生成的HCl溶于水）\n（2）AlCl3为强水解盐，蒸干灼烧时溶液浓缩、加热促进水解，生成Al(OH)3（或AlOCl）并进一步脱水成Al2O3，故得不到无水AlCl3。SOCl2能与结晶水反应生成SO2和HCl，起“化学脱水剂”作用，消耗AlCl3·6H2O中的水，使体系无水，从而抑制AlCl3水解；同时生成的HCl提供酸性环境进一步抑制水解，因此加热可得到无水AlCl3。",
+            "analysis": "（1）现象：白雾和刺激性气味气体，且含SO2；反应后溶液加AgNO3生成不溶于稀硝酸的白色沉淀为AgCl，说明生成Cl−（来自HCl）。据此写水解方程式：SOCl2与H2O生成SO2和HCl。\n（2）蒸干灼烧AlCl3溶液时，Al3+强烈水解：Al3+ + 3H2O ⇌ Al(OH)3↓ + 3H+，加热与除水使平衡向水解方向移动，最终得到氧化物而非无水氯化物。SOCl2与水反应消耗结晶水并放出HCl，使体系缺水且酸性增强，水解被抑制，故可得到无水AlCl3。",
+            "difficulty": 4,
+            "type": "简答题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_xzxbx1",
+                "source_md": "ch3_s3.md",
+                "question_no_in_source": 10,
+                "global_no": 48
+            },
+            "links": {
+                "concept_names": [
+                    "盐类水解在无机化合物制备中的应用"
+                ]
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_xzxbx1_ch3_s_t61",
+            "stem": "下列物质溶解于水时，电离出的阴离子能使水的电离平衡向右移动的是（ ）。\n\nA. $\\mathrm{CH}_3\\mathrm{COONa}$\n\nB. $\\mathrm{Na}_{2}\\mathrm{SO}_{4}$\n\nC. $\\mathrm{NH}_{4} \\mathrm{Cl}$\n\nD. $\\mathrm{H}_{2} \\mathrm{SO}_{4}$",
+            "answer": "A",
+            "analysis": "水的电离平衡为：H2O ⇌ H+ + OH-。若溶质电离出的阴离子能与H+结合（表现为弱酸的共轭碱），则消耗H+，使平衡右移，促进水电离。\nA.CH3COONa → CH3COO- 为弱酸CH3COOH的共轭碱，可与H+结合：CH3COO- + H+ ⇌ CH3COOH，使平衡右移，符合。\nB.Na2SO4 → SO4^2- 为强酸H2SO4的共轭碱，水解极弱，几乎不促进水电离。\nC.NH4Cl 的阴离子Cl-不水解；且NH4+水解产生H+，使水电离平衡左移。\nD.H2SO4提供SO4^2-/HSO4-同时大量提供H+，整体使水电离平衡左移。故选A。",
+            "difficulty": 3,
+            "type": "选择题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_xzxbx1",
+                "source_md": "ch3_s整理与提升.md",
+                "question_no_in_source": 1,
+                "global_no": 49
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_xzxbx1_ch3_s_t62",
+            "stem": "在相同温度时, $100 \\mathrm{~mL} 0.01 \\mathrm{~mol} / \\mathrm{L}$ 醋酸与 $10 \\mathrm{~mL} 0.1 \\mathrm{~mol} / \\mathrm{L}$ 醋酸相比较, 下列数值中, 前者大于后者的是 ( )。\n\nA. 溶液中 $\\mathrm{H}^{+}$ 的物质的量\n\nB. $\\mathrm{CH}_3\\mathrm{COOH}$ 的电离常数\n\nC. 中和时所需 $\\mathrm{NaOH}$ 的物质的量\n\nD. 溶液中 $\\mathrm{CH}_{3} \\mathrm{COOH}$ 的物质的量",
+            "answer": "A",
+            "analysis": "两溶液醋酸的物质的量：100 mL×0.01 mol/L=1.0×10^-3 mol；10 mL×0.1 mol/L=1.0×10^-3 mol，相同。B：电离常数只与温度有关，相同温度下相等；C：与NaOH中和所需物质的量等于醋酸总物质的量，二者相等；D：溶液中CH3COOH的物质的量（总量）二者相等。A：弱酸H+的物质的量≈[H+]·V，其中[H+]≈√(Ka·c)。因此n(H+)≈V·√(Ka·c)。比较两者：V1=0.100 L,c1=0.01；V2=0.010 L,c2=0.1，则n1/n2=(0.100/0.010)·√(0.01/0.1)=10·√0.1≈3.16>1，所以前者H+的物质的量更大。",
+            "difficulty": 3,
+            "type": "选择题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_xzxbx1",
+                "source_md": "ch3_s整理与提升.md",
+                "question_no_in_source": 2,
+                "global_no": 50
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_xzxbx1_ch3_s_t63",
+            "stem": "为了除去 $\\mathrm{MgCl}_{2}$ 酸性溶液中的 $\\mathrm{Fe}^{3+}$ , 可在加热并搅拌的条件下加入一种试剂, 过滤后, 再向滤液中加入适量盐酸, 这种试剂是 ( )。\n\nA. $\\mathrm{NH}_{3} \\cdot \\mathrm{H}_{2} \\mathrm{O}$\n\nB. NaOH\n\nC. $\\mathrm{Na}_{2} \\mathrm{CO}_{3}$\n\nD. $\\mathrm{MgCO}_{3}$",
+            "answer": "D",
+            "analysis": "要除去MgCl2酸性溶液中的Fe3+而尽量不损失Mg2+，应选择能在酸性条件下优先使Fe3+水解/沉淀、且不会引入强碱导致Mg(OH)2大量生成的试剂。加入MgCO3并加热搅拌，MgCO3与溶液中H+反应消耗酸（生成CO2和H2O），使溶液酸性减弱，从而促使Fe3+发生水解生成Fe(OH)3沉淀；同时由于提供的是Mg2+对应的碳酸盐，不会引入新的阳离子杂质，且在控制条件下Mg2+不易大量沉淀。过滤除去Fe(OH)3后，再加适量HCl使滤液恢复酸性并溶解可能生成的少量碱式盐/碳酸盐，得到纯净MgCl2溶液。NH3·H2O和NaOH会使Mg2+也生成Mg(OH)2沉淀；Na2CO3易使Mg2+生成MgCO3沉淀并引入Na+。故选D。",
+            "difficulty": 3,
+            "type": "选择题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_xzxbx1",
+                "source_md": "ch3_s整理与提升.md",
+                "question_no_in_source": 3,
+                "global_no": 51
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_xzxbx1_ch3_s_t64",
+            "stem": "下列说法中正确的是（ ）。\n\nA. 在 $100^{\\circ} \\mathrm{C}$ 时, $\\mathrm{pH}$ 约为 6 的纯水呈酸性  \nB. 将 $1 \\mathrm{~mL} 1 \\times 10^{-6} \\mathrm{~mol} / \\mathrm{L}$ 盐酸稀释至 $1000 \\mathrm{~mL}$ , 所得溶液的 $\\mathrm{pH}$ 为 9  \nC. 在常温下, 当水电离出的 $c(\\mathrm{H}^{+})$ 为 $1 \\times 10^{-13} \\mathrm{~mol} / \\mathrm{L}$ 时, 此溶液的 $\\mathrm{pH}$ 可能为 1 或 13  \nD. 将 $\\mathrm{pH} = 2$ 的盐酸和醋酸各 $1 \\mathrm{~mL}$ 分别稀释至 $100 \\mathrm{~mL}$ , 所得醋酸的 $\\mathrm{pH}$ 略大",
+            "answer": "C",
+            "analysis": "A：100℃时水的离子积Kw增大，中性条件为[H+]=[OH-]=10^-6 mol/L，pH≈6仍为中性，不显酸性，错。\nB：取1 mL、c=1×10^-6 mol/L的HCl，物质的量n=1×10^-6×10^-3=1×10^-9 mol，稀释到1 L后名义浓度为1×10^-9 mol/L，但需考虑水的自电离（常温[H+]=10^-7），溶液应呈弱酸性，pH略小于7，不可能为9，错。\nC：常温下Kw=10^-14。若水电离出的[H+]为1×10^-13 mol/L，则水电离出的[OH-]=10^-13 mol/L；若溶液因外加酸使总[H+]=10^-1，则由Kw得总[OH-]=10^-13，其中来自水电离的OH-为10^-13，此时pH=1；若因外加碱使总[OH-]=10^-1，则总[H+]=10^-13，其中来自水电离的H+为10^-13，此时pH=13，因此“可能为1或13”正确。\nD：同为pH=2的强酸HCl与弱酸CH3COOH各1 mL稀释到100 mL，相当于[H+]均先按100倍稀释为10^-4。对HCl仍几乎完全电离，pH≈4；醋酸会继续电离以补充H+，使[H+]大于10^-4，故pH应小于4（比盐酸更小），说“略大”错。",
+            "difficulty": 4,
+            "type": "选择题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_xzxbx1",
+                "source_md": "ch3_s整理与提升.md",
+                "question_no_in_source": 4,
+                "global_no": 52
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_xzxbx1_ch3_s_t66",
+            "stem": "在某温度下, 向含有 $\\mathrm{AgCl}$ 固体的 $\\mathrm{AgCl}$ 饱和溶液中加入少量稀盐酸, 则 $\\mathrm{AgCl}$ 的溶解度______（填 “增大” “减小” 或 “不变”, 下同）, $K_{\\mathrm{sp}}$ , $c(\\mathrm{Ag}^{+})$ 。",
+            "answer": "减小，不变，减小",
+            "analysis": "加入稀盐酸使溶液中Cl⁻浓度增大，AgCl(s) ⇌ Ag⁺ + Cl⁻平衡左移，溶解度减小；在该温度下Ksp为常数，不变；由于[Cl⁻]增大而Ksp=[Ag⁺][Cl⁻]恒定，所以[Ag⁺]减小。",
+            "difficulty": 3,
+            "type": "填空题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_xzxbx1",
+                "source_md": "ch3_s整理与提升.md",
+                "question_no_in_source": 6,
+                "global_no": 53
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_xzxbx1_ch3_s_t67",
+            "stem": "在 $25\\%$ 时对氨水进行如下操作。请填写下列空白。\n\n(1) 若向氨水中加入少量硫酸铵固体, 则溶液中 $\\frac{c(\\mathrm{OH}^{-})}{c(\\mathrm{NH}_{3} \\cdot \\mathrm{H}_{2} \\mathrm{O})}$ 将______(填 “增大” “减小” 或 “不变”)。  \n(2) 若向氨水中加入稀硫酸, 使氨水恰好被中和, 写出反应的离子方程式: 所得溶液的 $\\mathrm{pH}$ _____7(填 “>” “<” 或 “=”), 用离子方程式表示其原因:  \n(3) 若向氨水中加入稀硫酸至溶液的 $\\mathrm{pH} = 7$ , 此时溶液中 $c(\\mathrm{NH}_{4}^{+}) = a \\mathrm{~mol} / \\mathrm{L}$ , 则 $c(\\mathrm{SO}_{4}^{2-}) =$",
+            "answer": "(1)减小；(2)离子方程式：2NH3·H2O+2H+=2NH4++2H2O（或NH3·H2O+H+=NH4++H2O）；pH<7；原因：NH4++H2O⇌NH3·H2O+H+；(3)a/2 mol·L^-1",
+            "analysis": "(1)加入(NH4)2SO4提供NH4+，与NH3·H2O的电离NH3·H2O⇌NH4++OH-构成同离子效应，使电离被抑制，c(OH-)减小而c(NH3·H2O)增大，故比值c(OH-)/c(NH3·H2O)减小。\n(2)用稀H2SO4恰好中和：主要离子反应为NH3·H2O+H+→NH4++H2O（按计量也可写2NH3·H2O+2H+→2NH4++2H2O）。中和后溶液主要为铵盐(NH4)2SO4，NH4+水解：NH4++H2O⇌NH3·H2O+H+，生成H+使溶液显酸性，pH<7。\n(3)当pH=7时，溶液中电荷守恒且[H+]=[OH-]，可忽略其贡献，则正负电荷主要由NH4+与SO4^2-平衡：c(NH4+)=2c(SO4^2-)，已知c(NH4+)=a，故c(SO4^2-)=a/2。",
+            "difficulty": 4,
+            "type": "填空题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_xzxbx1",
+                "source_md": "ch3_s整理与提升.md",
+                "question_no_in_source": 7,
+                "global_no": 54
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_xzxbx1_ch3_s_t68",
+            "stem": "为配制 $\\mathrm{SbCl}_{3}$ 溶液, 取 $\\mathrm{SbCl}_{3}$ 固体少许溶于 $2 \\sim 3 \\mathrm{~mL}$ 水中, 有白色沉淀产生, 此溶液的 $\\mathrm{pH}$ ____ 7 (填 “小于” “大于” 或 “等于”), 配制 $\\mathrm{SbCl}_{3}$ 溶液的正确方法是",
+            "answer": "小于；应加入适量盐酸抑制水解，使其溶解后再加水稀释配制",
+            "analysis": "SbCl3溶于水会发生水解，生成SbOCl等白色沉淀并产生H+，使溶液呈酸性，故pH小于7。配制SbCl3溶液时应先用少量浓盐酸(或一定浓度盐酸)溶解SbCl3，利用高Cl−/酸性条件抑制水解，再加水定容或稀释配制。",
+            "difficulty": 3,
+            "type": "填空题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_xzxbx1",
+                "source_md": "ch3_s整理与提升.md",
+                "question_no_in_source": 8,
+                "global_no": 55
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_xzxbx1_ch3_s_t69",
+            "stem": "在化学分析中, 以 $\\mathrm{AgNO}_{3}$ 标准溶液滴定溶液中的 $\\mathrm{Cl}^{-}$ 时, 采用 $\\mathrm{K}_{2} \\mathrm{CrO}_{4}$ 为指示剂, 利用 $\\mathrm{Ag}^{+}$ 与 $\\mathrm{CrO}_{4}^{2-}$ 反应生成砖红色沉淀指示滴定终点。当溶液中的 $\\mathrm{Cl}^{-}$ 恰好沉淀完全（浓度等于 $1.0 \\times 10^{-5} \\mathrm{~mol} / \\mathrm{L}$ ）时,溶液中 $c(\\mathrm{Ag}^{+}) = \\mathrm{mol} / \\mathrm{L}$ , $c(\\mathrm{CrO}_{4}^{2-}) = \\mathrm{mol} / \\mathrm{L}$ 。（已知 $25^{\\circ} \\mathrm{C}$ 时 $\\mathrm{Ag}_{2} \\mathrm{CrO}_{4}$ 、 $\\mathrm{AgCl}$ 的 $K_{\\mathrm{sp}}$ 分别为 $2.0 \\times 10^{-12}$ 和 $1.8 \\times 10^{-10}$ 。）",
+            "answer": "c(Ag+)=1.8×10^-5 mol/L；c(CrO4^2-)=6.2×10^-3 mol/L",
+            "analysis": "Cl−恰好沉淀完全时，溶液中仍与AgCl(s)处于溶解平衡：Ksp(AgCl)=[Ag+][Cl−]=1.8×10^-10。已知[Cl−]=1.0×10^-5 mol/L，故[Ag+]=1.8×10^-10/(1.0×10^-5)=1.8×10^-5 mol/L。终点刚出现Ag2CrO4沉淀时满足Ksp(Ag2CrO4)=[Ag+]^2[CrO4^2-]=2.0×10^-12，因此[CrO4^2-]=2.0×10^-12/(1.8×10^-5)^2≈6.2×10^-3 mol/L。",
+            "difficulty": 4,
+            "type": "填空题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_xzxbx1",
+                "source_md": "ch3_s整理与提升.md",
+                "question_no_in_source": 9,
+                "global_no": 56
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_xzxbx1_ch4_s1_t71",
+            "stem": "为了验证 a、b、c 三种金属的活动性顺序进行如下实验: ① 将金属片 a、b 插入稀硫酸中, 用导线将它们与电流表相连, 发现 a 是负极; ② 用金属片 b、c 替换 a、b 后重复上述实验, 发现 c 是正极。则 a、b、c 三种金属的活动性由强到弱的顺序为",
+            "answer": "a>b>c",
+            "analysis": "原理：两种金属插入稀硫酸形成原电池时，较活泼（金属活动性强、易失电子）的金属作负极，较不活泼的金属作正极。\n(1) 实验①：a为负极，说明a比b活泼，即a>b。\n(2) 实验②：c为正极，说明b为负极，b比c活泼，即b>c。\n综合得：a>b>c。",
+            "difficulty": 3,
+            "type": "选择题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_xzxbx1",
+                "source_md": "ch4_s1.md",
+                "question_no_in_source": 1,
+                "global_no": 57
+            },
+            "links": {
+                "concept_names": [
+                    "原电池",
+                    "电池极板与极性",
+                    "金属活动性顺序（起电序列）"
+                ],
+                "skill_names": [
+                    "从电池结构分析正负极和电解质"
+                ]
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_xzxbx1_ch4_s1_t73",
+            "stem": "碱性锌锰电池的总反应为: $\\mathrm{Zn} + 2 \\mathrm{MnO}_{2} + 2 \\mathrm{H}_{2} \\mathrm{O} = 2 \\mathrm{MnO}(\\mathrm{OH}) + \\mathrm{Zn}(\\mathrm{OH})_{2}$ 。下列关于该电池的说法中正确的是 ( )。\n\nA. Zn为负极， $\\mathrm{MnO}_2$ 为正极  \nB. 工作时 KOH 没有发挥作用  \nC. 工作时电子由 $\\mathrm{MnO}_{2}$ 经外电路流向 $\\mathrm{Zn}$   \nD. Zn发生还原反应, $\\mathrm{MnO}_{2}$ 发生氧化反应",
+            "answer": "A",
+            "analysis": "由总反应：Zn + 2MnO2 + 2H2O → 2MnO(OH) + Zn(OH)2 可知，Zn由0价变为+2价（生成Zn(OH)2），发生氧化，为负极；Mn在MnO2中由+4价变为MnO(OH)中的+3价，发生还原，为正极。故A正确。B错误：KOH作为电解质提供离子导电并参与维持电荷平衡。C错误：电子应由负极Zn经外电路流向正极MnO2。D错误：Zn应氧化，MnO2应还原。",
+            "difficulty": 2,
+            "type": "选择题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_xzxbx1",
+                "source_md": "ch4_s1.md",
+                "question_no_in_source": 3,
+                "global_no": 58
+            },
+            "links": {
+                "concept_names": [
+                    "碱性锌锰电池",
+                    "电极反应",
+                    "电池极板与极性"
+                ],
+                "skill_names": [
+                    "从电池结构分析正负极和电解质"
+                ]
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_xzxbx1_ch4_s1_t74",
+            "stem": "贮备电池具有下列特点：日常将电池的一种组成部分（如电解质溶液）与其他部分隔离备用；使用时电池可迅速被激活并提供足量电能。贮备电池主要用于应急救援和武器系统等。Mg-AgCl电池是一种可被海水激活的贮备电池。下列叙述中错误的是（）。\n\nA. 负极反应为 $\\mathrm{Mg} - 2 \\mathrm{e}^{-} = \\mathrm{Mg}^{2+}$   \nB. 正极反应为 $\\mathrm{Ag^{+} + e^{-} = Ag}$   \nC. 电池放电时 $\\mathrm{Cl}^-$ 由正极向负极迁移  \nD. 负极会发生副反应: $\\mathrm{Mg} + 2 \\mathrm{H}_{2} \\mathrm{O} = \\mathrm{Mg}(\\mathrm{OH})_{2} + \\mathrm{H}_{2} \\uparrow$",
+            "answer": "B",
+            "analysis": "Mg-AgCl海水激活电池中，负极为Mg被氧化：Mg→Mg2+ + 2e−（A正确）。正极活性物质为AgCl，正极反应应为：AgCl + e− → Ag + Cl−，而不是Ag+ + e− → Ag，因此B错误。放电时正极生成Cl−、负极消耗正离子并生成Mg2+，为维持电中性，Cl−趋向于由正极向负极迁移（C正确）。Mg在水溶液中可与水发生析氢副反应：Mg + 2H2O → Mg(OH)2 + H2↑（D正确）。",
+            "difficulty": 3,
+            "type": "选择题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_xzxbx1",
+                "source_md": "ch4_s1.md",
+                "question_no_in_source": 4,
+                "global_no": 59
+            },
+            "links": {
+                "concept_names": [
+                    "原电池",
+                    "电极反应",
+                    "电池极板与极性"
+                ],
+                "skill_names": [
+                    "书写和配平电极反应与总反应",
+                    "从电池结构分析正负极和电解质"
+                ]
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_xzxbx1_ch4_s1_t75",
+            "stem": "根据甲醇在酸性电解质溶液中与氧气生成二氧化碳和水的反应，设计一种燃料电池。该燃料电池工作时，负极上发生的反应为（ ）。\n\nA. $\\mathrm{CH}_3\\mathrm{OH} + \\mathrm{O}_2 - 2\\mathrm{e}^- = \\mathrm{H}_2\\mathrm{O} + \\mathrm{CO}_2 + 2\\mathrm{H}^+$   \nB. $\\mathrm{O}_{2} + 4 \\mathrm{H}^{+} + 4 \\mathrm{e}^{-} = 2 \\mathrm{H}_{2} \\mathrm{O}$   \nC. $\\mathrm{CH}_3\\mathrm{OH} - 6\\mathrm{e}^-$ + $\\mathrm{H}_2\\mathrm{O} = \\mathrm{CO}_2\\uparrow +6\\mathrm{H}^+$   \nD. $4 \\mathrm{OH}^{-} - 4 \\mathrm{e}^{-} = \\mathrm{O}_{2} \\uparrow + 2 \\mathrm{H}_{2} \\mathrm{O}$",
+            "answer": "C",
+            "analysis": "酸性燃料电池中负极发生氧化反应，燃料甲醇被氧化为CO2并放出电子。配平：CH3OH + H2O → CO2 + 6H+ + 6e−。与选项对照，只有C符合；B为正极氧还原反应，D为碱性条件下的析氧反应，A电子数与配平不符。",
+            "difficulty": 3,
+            "type": "选择题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_xzxbx1",
+                "source_md": "ch4_s1.md",
+                "question_no_in_source": 5,
+                "global_no": 60
+            },
+            "links": {
+                "concept_names": [
+                    "燃料电池",
+                    "电极反应"
+                ],
+                "skill_names": [
+                    "书写和配平电极反应与总反应"
+                ]
+            }
+        }
+    ]
+}

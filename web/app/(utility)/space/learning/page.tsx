@@ -774,13 +774,15 @@ function ErrorBook({
                             </span>
                           )}
                           <span className="rounded bg-[var(--background)] px-1.5 py-0.5">
-                            {v.source === "direct"
-                              ? tr("直连", "direct")
-                              : v.source === "section"
-                                ? tr("同节", "section")
-                                : v.source === "neighbor"
-                                  ? tr("邻节", "neighbor")
-                                  : tr("同章", "chapter")}
+                            {v.source === "afterclass"
+                              ? tr("课后", "afterclass")
+                              : v.source === "direct"
+                                ? tr("直连", "direct")
+                                : v.source === "section"
+                                  ? tr("同节", "section")
+                                  : v.source === "neighbor"
+                                    ? tr("邻节", "neighbor")
+                                    : tr("同章", "chapter")}
                           </span>
                         </div>
                         <div className="mt-1 text-[var(--foreground)] leading-relaxed">

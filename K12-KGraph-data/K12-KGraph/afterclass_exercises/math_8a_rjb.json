@@ -1,0 +1,3121 @@
+{
+    "book_prefix": "math_8a_rjb",
+    "subject": "数学",
+    "stage": "初中",
+    "grade": "八年级上册",
+    "publisher": "人教版-人民教育出版社",
+    "source_md": "math_8a_rjb.md",
+    "questions": [
+        {
+            "id": "math_8a_rjb_ch11_s1_t2",
+            "stem": "下列长度的三条线段能否组成三角形？为什么？\n\n（1）3，4，8；（2）5，6，11；（3）5，6，10.",
+            "answer": "（1）不能，因为3+4=7＜8，不满足两边之和大于第三边；（2）不能，因为5+6=11=第三边，不满足两边之和大于第三边（只能组成一条线段）；（3）能，因为5+6=11＞10，且5+10＞6，6+10＞5，满足三角形两边之和大于第三边。",
+            "analysis": "判断三条线段能否组成三角形，用三角形成立条件：任意两边之和必须大于第三边（严格大于）。分别检验：\n（1）3+4=7＜8，失败，不能；\n（2）5+6=11=第三边，不是严格大于，失败，不能；\n（3）5+6=11＞10，同时5+10=15＞6，6+10=16＞5，全部满足，因此能组成三角形。",
+            "difficulty": 2,
+            "type": "简答题",
+            "meta": {
+                "book_prefix": "math_8a_rjb",
+                "source_md": "ch11_s1.md",
+                "question_no_in_source": 2,
+                "global_no": 1
+            },
+            "links": {
+                "concept_names": [
+                    "三角形不等式"
+                ]
+            }
+        },
+        {
+            "id": "math_8a_rjb_ch11_s1_t6",
+            "stem": "长为 10, 7, 5, 3 的四根木条, 选其中三根组成三角形, 有几种选法? 为什么?",
+            "answer": "2种。分别选(10,7,5)和(7,5,3)。",
+            "analysis": "从4根木条中选3根共有C(4,3)=4种：{10,7,5}、{10,7,3}、{10,5,3}、{7,5,3}。能组成三角形需满足任意两边之和大于第三边（只需检验最短两边之和是否大于最长边）。\n(10,7,5)：7+5=12>10，能；\n(10,7,3)：7+3=10≯10，不能；\n(10,5,3)：5+3=8<10，不能；\n(7,5,3)：5+3=8>7，能。\n因此共有2种选法。",
+            "difficulty": 2,
+            "type": "应用题",
+            "meta": {
+                "book_prefix": "math_8a_rjb",
+                "source_md": "ch11_s1.md",
+                "question_no_in_source": 2,
+                "global_no": 2
+            },
+            "links": {
+                "concept_names": [
+                    "三角形不等式"
+                ]
+            }
+        },
+        {
+            "id": "math_8a_rjb_ch11_s1_t9",
+            "stem": "选择题.\n\n下列图形中有稳定性的是（ ）.\n\n（A）正方形\n\n（B）长方形\n\n（C）直角三角形\n\n(D) 平行四边形",
+            "answer": "C",
+            "analysis": "具有稳定性的基本平面图形是三角形，因为三角形的形状由三边确定，不易在外力作用下发生变形；正方形、长方形和平行四边形在受力时容易变为平行四边形或其他形状，稳定性较差。因此选直角三角形。",
+            "difficulty": 2,
+            "type": "选择题",
+            "meta": {
+                "book_prefix": "math_8a_rjb",
+                "source_md": "ch11_s1.md",
+                "question_no_in_source": 5,
+                "global_no": 3
+            },
+            "links": {
+                "concept_names": [
+                    "三角形的稳定性"
+                ]
+            }
+        },
+        {
+            "id": "math_8a_rjb_ch11_s2_t15",
+            "stem": "（1）一个三角形最多有几个直角？为什么？\n(2) 一个三角形最多有几个钝角？为什么？  \n（3）直角三角形的外角可以是锐角吗？为什么？",
+            "answer": "（1）最多1个直角。因为三角形内角和为180°，若有两个直角则和为180°，第三个角为0°，不成三角形。\n（2）最多1个钝角。因为钝角大于90°，若有两个钝角则内角和大于180°，与三角形内角和180°矛盾。\n（3）不可以。直角三角形有一个直角，另两个内角为锐角；直角对应的外角等于180°−90°=90°（直角），另外两个外角分别等于180°−锐角，为钝角，因此外角不可能是锐角。",
+            "analysis": "利用三角形内角和180°：\n(1) 两个直角会使内角和≥180°且第三角为0°，不成立，故最多1个直角。\n(2) 两个钝角都>90°，相加>180°，与内角和矛盾，故最多1个钝角。\n(3) 外角与相邻内角互补：外角=180°−内角。直角三角形的三个内角为90°、锐角、锐角，因此外角分别为90°、钝角、钝角，没有锐角外角。",
+            "difficulty": 3,
+            "type": "简答题",
+            "meta": {
+                "book_prefix": "math_8a_rjb",
+                "source_md": "ch11_s2.md",
+                "question_no_in_source": 2,
+                "global_no": 4
+            },
+            "links": {
+                "concept_names": [
+                    "三角形的内角和定理",
+                    "三角形的外角",
+                    "三角形外角性质"
+                ]
+            }
+        },
+        {
+            "id": "math_8a_rjb_ch11_s2_t16",
+            "stem": "$\\triangle ABC$ 中， $\\angle B = \\angle A + 10^{\\circ}$ ， $\\angle C = \\angle B + 10^{\\circ}$ 求 $\\triangle ABC$ 的各内角的度数.",
+            "answer": "∠A=50°，∠B=60°，∠C=70°",
+            "analysis": "设∠A=x，则∠B=x+10°，∠C=x+20°。由三角形内角和得x+(x+10°)+(x+20°)=180°，即3x+30°=180°，解得x=50°。所以∠A=50°，∠B=60°，∠C=70°。",
+            "difficulty": 1,
+            "type": "简答题",
+            "meta": {
+                "book_prefix": "math_8a_rjb",
+                "source_md": "ch11_s2.md",
+                "question_no_in_source": 3,
+                "global_no": 5
+            },
+            "links": {
+                "concept_names": [
+                    "三角形的内角和定理"
+                ]
+            }
+        },
+        {
+            "id": "math_8a_rjb_ch11_s3_t24",
+            "stem": "计算正五边形和正十边形的每个内角的度数.",
+            "answer": "正五边形每个内角108°；正十边形每个内角144°。",
+            "analysis": "正n边形每个内角度数为：(n−2)×180°÷n。\n1) n=5： (5−2)×180°÷5=540°÷5=108°。\n2) n=10： (10−2)×180°÷10=1440°÷10=144°。",
+            "difficulty": 2,
+            "type": "简答题",
+            "meta": {
+                "book_prefix": "math_8a_rjb",
+                "source_md": "ch11_s3.md",
+                "question_no_in_source": 4,
+                "global_no": 6
+            },
+            "links": {
+                "concept_names": [
+                    "正多边形",
+                    "多边形的内角",
+                    "多边形内角和公式"
+                ],
+                "skill_names": [
+                    "将多边形分割成三角形的方法"
+                ]
+            }
+        },
+        {
+            "id": "math_8a_rjb_ch11_s3_t25",
+            "stem": "一个多边形的内角和等于 $1260^{\\circ}$ ，它是几边形？",
+            "answer": "9边形",
+            "analysis": "多边形内角和公式：(n-2)×180°=1260°。解得n-2=1260÷180=7，所以n=9。",
+            "difficulty": 2,
+            "type": "填空题",
+            "meta": {
+                "book_prefix": "math_8a_rjb",
+                "source_md": "ch11_s3.md",
+                "question_no_in_source": 5,
+                "global_no": 7
+            },
+            "links": {
+                "concept_names": [
+                    "n 边形",
+                    "多边形内角和公式"
+                ]
+            }
+        },
+        {
+            "id": "math_8a_rjb_ch11_s3_t26",
+            "stem": "（1）一个多边形的内角和是外角和的一半，它是几边形？\n（2）一个多边形的内角和是外角和的2倍，它是几边形？",
+            "answer": "（1）三边形；（2）六边形。",
+            "analysis": "多边形外角和恒为360°，n边形内角和为(n−2)×180°。\n（1）(n−2)×180°=1/2×360°=180°，得n−2=1，n=3。\n（2）(n−2)×180°=2×360°=720°，得n−2=4，n=6。",
+            "difficulty": 2,
+            "type": "填空题",
+            "meta": {
+                "book_prefix": "math_8a_rjb",
+                "source_md": "ch11_s3.md",
+                "question_no_in_source": 6,
+                "global_no": 8
+            },
+            "links": {
+                "concept_names": [
+                    "多边形内角和公式",
+                    "多边形外角和"
+                ]
+            }
+        },
+        {
+            "id": "math_8a_rjb_ch11_s_11_t30",
+            "stem": "从八边形的一个顶点出发，可以作几条对角线？它们将八边形分成几个三角形？这些三角形的内角和与八边形的内角和有什么关系？",
+            "answer": "从八边形的一个顶点出发可以作5条对角线；它们将八边形分成6个三角形；这6个三角形的内角和等于八边形的内角和（都为6×180°=1080°）。",
+            "analysis": "设八边形边数n=8。从一个顶点向其他顶点连线，除去相邻两点和自身，能连到的顶点数为n-3=5条对角线。用这些对角线可把多边形分割成n-2=6个三角形。三角形内角和为6×180°=1080°；而八边形内角和公式为(n-2)×180°=6×180°=1080°，因此两者相等。",
+            "difficulty": 2,
+            "type": "简答题",
+            "meta": {
+                "book_prefix": "math_8a_rjb",
+                "source_md": "ch11_s复习题11.md",
+                "question_no_in_source": 4,
+                "global_no": 9
+            }
+        },
+        {
+            "id": "math_8a_rjb_ch11_s_11_t31",
+            "stem": "一个多边形的内角和比四边形的内角和多 $540^{\\circ}$ ，并且这个多边形的各内角都相等。这个多边形的每个内角等于多少度？",
+            "answer": "每个内角等于\\(\\frac{900}{7}^\\circ\\)（约\\(128.57^\\circ\\)）",
+            "analysis": "四边形内角和为\\(360^\\circ\\)。题设多边形内角和比它多\\(540^\\circ\\)，所以该多边形内角和为\\(360^\\circ+540^\\circ=900^\\circ\\)。设该多边形为\\(n\\)边形，则内角和\\((n-2)\\times180^\\circ=900^\\circ\\)，得\\(n-2=5\\)，所以\\(n=7\\)。又因各内角都相等，每个内角为\\(\\frac{900^\\circ}{7}=\\frac{900}{7}^\\circ\\)。",
+            "difficulty": 3,
+            "type": "简答题",
+            "meta": {
+                "book_prefix": "math_8a_rjb",
+                "source_md": "ch11_s复习题11.md",
+                "question_no_in_source": 5,
+                "global_no": 10
+            }
+        },
+        {
+            "id": "math_8a_rjb_ch13_s2_t78",
+            "stem": "分别写出下列各点关于 $x$ 轴和 $y$ 轴对称的点的坐标：\n\n$(-2, 6)$ , $(1, -2)$ , $(-1, 3)$ , $(-4, -2)$ , $(1, 0)$ .",
+            "answer": "关于x轴对称：(-2,-6)，(1,2)，(-1,-3)，(-4,2)，(1,0)；关于y轴对称：(2,6)，(-1,-2)，(1,3)，(4,-2)，(-1,0)。",
+            "analysis": "点(a,b)关于x轴对称变为(a,-b)（横坐标不变、纵坐标变号）；关于y轴对称变为(-a,b)（纵坐标不变、横坐标变号）。对题中各点分别套用即可；若b=0则关于x轴对称点不变。",
+            "difficulty": 2,
+            "type": "填空题",
+            "meta": {
+                "book_prefix": "math_8a_rjb",
+                "source_md": "ch13_s2.md",
+                "question_no_in_source": 1,
+                "global_no": 11
+            },
+            "links": {
+                "concept_names": [
+                    "点关于x轴的对称坐标",
+                    "点关于y轴的对称坐标"
+                ]
+            }
+        },
+        {
+            "id": "math_8a_rjb_ch13_s2_t82",
+            "stem": "分别写出下列各点关于 $x$ 轴和 $y$ 轴对称的点的坐标：\n\n(3，6)，(-7，9)，(6，-1)，(-3，-5)，(0，10).",
+            "answer": "关于x轴对称： (3，-6)，(-7，-9)，(6，1)，(-3，5)，(0，-10)；关于y轴对称： (-3，6)，(7，9)，(-6，-1)，(3，-5)，(0，10)。",
+            "analysis": "点(x，y)关于x轴对称得到(x，-y)；关于y轴对称得到(-x，y)。逐点代入即可（注意0的相反数仍为0）。",
+            "difficulty": 2,
+            "type": "填空题",
+            "meta": {
+                "book_prefix": "math_8a_rjb",
+                "source_md": "ch13_s2.md",
+                "question_no_in_source": 2,
+                "global_no": 12
+            },
+            "links": {
+                "concept_names": [
+                    "点关于x轴的对称坐标",
+                    "点关于y轴的对称坐标"
+                ]
+            }
+        },
+        {
+            "id": "math_8a_rjb_ch13_s3_t90",
+            "stem": "求证：如果三角形一条边上的中线等于这条边的一半，那么这个三角形是直角三角形.",
+            "answer": "该三角形为直角三角形，且中线所在边为斜边（该边所对角为直角）。",
+            "analysis": "设△ABC中，a=BC，b=CA，c=AB，A为a的对角，AM为BC边上的中线，则由阿波罗尼斯定理：AM^2=(2b^2+2c^2-a^2)/4。已知AM=a/2，代入得a^2/4=(2b^2+2c^2-a^2)/4，化简得a^2=b^2+c^2。由勾股定理逆定理可知∠A=90°，故△ABC为直角三角形，且BC为斜边。",
+            "difficulty": 4,
+            "type": "证明题",
+            "meta": {
+                "book_prefix": "math_8a_rjb",
+                "source_md": "ch13_s3.md",
+                "question_no_in_source": 3,
+                "global_no": 13
+            },
+            "links": {
+                "skill_names": [
+                    "利用全等三角形进行证明"
+                ]
+            }
+        },
+        {
+            "id": "math_8a_rjb_ch13_s3_t94",
+            "stem": "（1）等腰三角形的一个角是 $110^{\\circ}$ ，它的另外两个角是多少度？\n（2）等腰三角形的一个角是 $80^{\\circ}$ ，它的另外两个角是多少度？",
+            "answer": "（1）35°，35°。（2）50°，50°或80°，20°。",
+            "analysis": "等腰三角形有两角相等，且三角形内角和为180°。\n（1）若110°为底角，则两底角和为220°不可能；故110°为顶角，另外两角相等： (180°−110°)÷2=35°，所以为35°、35°。\n（2）80°可能为顶角或底角：\n- 若80°为顶角，则另外两角相等：(180°−80°)÷2=50°，为50°、50°；\n- 若80°为底角，则另一底角也为80°，顶角=180°−80°−80°=20°，为80°、20°。",
+            "difficulty": 2,
+            "type": "填空题",
+            "meta": {
+                "book_prefix": "math_8a_rjb",
+                "source_md": "ch13_s3.md",
+                "question_no_in_source": 1,
+                "global_no": 14
+            },
+            "links": {
+                "concept_names": [
+                    "等腰三角形",
+                    "等腰三角形的性质1（等边对等角）"
+                ]
+            }
+        },
+        {
+            "id": "math_8a_rjb_ch14_s1_t108",
+            "stem": "计算：\n\n(1) $3x^{2} \\cdot 5x^{3}$ ;\n\n(2) $4y \\cdot (-2xy^2)$ ;\n\n(3) $(-3x)^{2} \\cdot 4x^{2}$ ;\n\n(4) $(-2a)^{3}(-3a)^{2}$",
+            "answer": "(1) 15x^5；(2) -8xy^3；(3) 36x^4；(4) -72a^5",
+            "analysis": "利用单项式乘法法则：系数相乘，字母相同的幂相加。\n(1) 3x^2·5x^3= (3·5)x^(2+3)=15x^5。\n(2) 4y·(-2xy^2)= (4·-2)x·y^(1+2)= -8xy^3。\n(3) (-3x)^2·4x^2= (9x^2)·4x^2= (9·4)x^(2+2)=36x^4。\n(4) (-2a)^3(-3a)^2= [(-2)^3a^3][(-3)^2a^2]=(-8a^3)(9a^2)= -72a^5。",
+            "difficulty": 2,
+            "type": "填空题",
+            "meta": {
+                "book_prefix": "math_8a_rjb",
+                "source_md": "ch14_s1.md",
+                "question_no_in_source": 1,
+                "global_no": 15
+            },
+            "links": {
+                "concept_names": [
+                    "同底数幂的乘法",
+                    "积的乘方",
+                    "单项式乘法"
+                ],
+                "skill_names": [
+                    "利用乘法交换律和结合律进行整式化简"
+                ]
+            }
+        },
+        {
+            "id": "math_8a_rjb_ch14_s1_t110",
+            "stem": "计算：\n\n(1) $3a(5a - 2b)$\n\n(2) $(x - 3y)(-6x)$",
+            "answer": "(1) 15a^2-6ab；(2) -6x^2+18xy",
+            "analysis": "(1) 利用乘法分配律：3a(5a-2b)=3a·5a+3a·(-2b)=15a^2-6ab。 (2) 利用乘法分配律： (x-3y)(-6x)=x·(-6x)+(-3y)·(-6x)=-6x^2+18xy。",
+            "difficulty": 1,
+            "type": "简答题",
+            "meta": {
+                "book_prefix": "math_8a_rjb",
+                "source_md": "ch14_s1.md",
+                "question_no_in_source": 1,
+                "global_no": 16
+            },
+            "links": {
+                "concept_names": [
+                    "单项式乘法"
+                ],
+                "skill_names": [
+                    "利用乘法交换律和结合律进行整式化简"
+                ]
+            }
+        },
+        {
+            "id": "math_8a_rjb_ch14_s1_t112",
+            "stem": "计算：\n\n(1) $(2x + 1)(x + 3)$   \n(2) $(m + 2n)(3n - m)$   \n(3) $(a - 1)^2$   \n(4) $(a + 3b)(a - 3b)$   \n(5) $(2x^{2} - 1)(x - 4)$   \n(6) $(x^{2} + 2x + 3)(2x - 5)$",
+            "answer": "(1) 2x^2+7x+3；(2) -m^2+mn+6n^2；(3) a^2-2a+1；(4) a^2-9b^2；(5) 2x^3-8x^2-x+4；(6) 2x^3-x^2-4x-15",
+            "analysis": "(1)(2x+1)(x+3)=2x·x+2x·3+1·x+1·3=2x^2+7x+3。 (2)(m+2n)(3n-m)=m·3n+m·(-m)+2n·3n+2n·(-m)=-m^2+mn+6n^2。 (3)(a-1)^2=a^2-2a+1。 (4)(a+3b)(a-3b)=a^2-(3b)^2=a^2-9b^2。 (5)(2x^2-1)(x-4)=2x^2·x+2x^2·(-4)+(-1)·x+(-1)·(-4)=2x^3-8x^2-x+4。 (6)(x^2+2x+3)(2x-5)=x^2·2x+x^2·(-5)+2x·2x+2x·(-5)+3·2x+3·(-5)=2x^3-x^2-4x-15。",
+            "difficulty": 2,
+            "type": "填空题",
+            "meta": {
+                "book_prefix": "math_8a_rjb",
+                "source_md": "ch14_s1.md",
+                "question_no_in_source": 1,
+                "global_no": 17
+            },
+            "links": {
+                "skill_names": [
+                    "利用乘法交换律和结合律进行整式化简"
+                ]
+            }
+        },
+        {
+            "id": "math_8a_rjb_ch14_s1_t114",
+            "stem": "计算：\n\n(1) $x^{7} \\div x^{5}$ ;   \n(2） $m^8\\div m^8$   \n(3) $(-a)^{10} \\div (-a)^{7}$ ;   \n(4) $(xy)^{5} \\div (xy)^{3}$ .",
+            "answer": "(1) x^2；(2) 1；(3) -a^3；(4) x^2y^2",
+            "analysis": "同底数幂相除，指数相减：a^m÷a^n=a^(m-n)（a≠0）。(1) x^(7-5)=x^2；(2) m^(8-8)=m^0=1（m≠0）；(3) (-a)^(10-7)=(-a)^3=-a^3；(4) (xy)^(5-3)=(xy)^2=x^2y^2。",
+            "difficulty": 2,
+            "type": "填空题",
+            "meta": {
+                "book_prefix": "math_8a_rjb",
+                "source_md": "ch14_s1.md",
+                "question_no_in_source": 1,
+                "global_no": 18
+            },
+            "links": {
+                "concept_names": [
+                    "同底数幂的乘法"
+                ]
+            }
+        },
+        {
+            "id": "math_8a_rjb_ch14_s1_t115",
+            "stem": "计算：\n\n（1） $10ab^{3}\\div (-5ab)$   \n(2) $-8a^{2}b^{3} \\div 6ab^{2}$ ;   \n(3) $-21x^{2}y^{4} \\div (-3x^{2}y^{3})$ ;   \n(4) $(6 \\times 10^{8}) \\div (3 \\times 10^{5})$ .",
+            "answer": "（1）-2b^2；（2）-(4/3)ab；（3）7y；（4）2×10^3",
+            "analysis": "（1）系数10÷(-5)=-2，字母a约去，b^3÷b=b^2，得-2b^2。 （2）系数-8÷6=-4/3，a^2÷a=a，b^3÷b^2=b，得-(4/3)ab。 （3）系数-21÷(-3)=7，x^2约去，y^4÷y^3=y，得7y。 （4）6÷3=2，10^8÷10^5=10^(8-5)=10^3，得2×10^3。",
+            "difficulty": 2,
+            "type": "填空题",
+            "meta": {
+                "book_prefix": "math_8a_rjb",
+                "source_md": "ch14_s1.md",
+                "question_no_in_source": 2,
+                "global_no": 19
+            },
+            "links": {
+                "concept_names": [
+                    "同底数幂的乘法"
+                ],
+                "skill_names": [
+                    "利用乘法交换律和结合律进行整式化简"
+                ]
+            }
+        },
+        {
+            "id": "math_8a_rjb_ch14_s1_t116",
+            "stem": "计算：\n\n(1) $(6ab + 5a) \\div a$ ;\n\n(2) $(15x^{2}y - 10xy^{2})\\div 5xy.$",
+            "answer": "(1) 6b+5；(2) 3x-2y",
+            "analysis": "(1) (6ab+5a)÷a=(6ab)÷a+(5a)÷a=6b+5（a≠0）。\n(2) (15x^2y-10xy^2)÷5xy=(15x^2y)÷5xy-(10xy^2)÷5xy=3x-2y（x≠0，y≠0）。",
+            "difficulty": 2,
+            "type": "简答题",
+            "meta": {
+                "book_prefix": "math_8a_rjb",
+                "source_md": "ch14_s1.md",
+                "question_no_in_source": 3,
+                "global_no": 20
+            },
+            "links": {
+                "skill_names": [
+                    "利用乘法交换律和结合律进行整式化简"
+                ]
+            }
+        },
+        {
+            "id": "math_8a_rjb_ch14_s1_t117",
+            "stem": "下面的计算对不对？如果不对，应当怎样改正？\n\n(1) $b^{3} \\cdot b^{3} = 2b^{3}$\n\n(2) $x^4 \\cdot x^4 = x^{16}$ ;\n\n(3) $(a^5)^2 = a^7$\n\n(4) $(a^3)^2 \\cdot a^4 = a^9$ ;\n\n(5) $(ab^{2})^{3} = ab^{6}$\n\n(6) $(-2a)^{2} = -4a^{2}$",
+            "answer": "(1) 不对，应改为 b^3·b^3=b^6。\n(2) 不对，应改为 x^4·x^4=x^8。\n(3) 不对，应改为 (a^5)^2=a^10。\n(4) 对，(a^3)^2·a^4=a^6·a^4=a^10（所以原式a^9不对，应改为a^10）。\n(5) 不对，应改为 (ab^2)^3=a^3b^6。\n(6) 不对，应改为 (-2a)^2=4a^2。",
+            "analysis": "用幂的运算性质：同底数幂相乘，指数相加 a^m·a^n=a^{m+n}；幂的乘方，指数相乘 (a^m)^n=a^{mn}；积的乘方 (ab)^n=a^n b^n；偶次方结果为非负数。逐式按上述性质化简即可判断正误并改正。",
+            "difficulty": 2,
+            "type": "判断题",
+            "meta": {
+                "book_prefix": "math_8a_rjb",
+                "source_md": "ch14_s1.md",
+                "question_no_in_source": 1,
+                "global_no": 21
+            },
+            "links": {
+                "concept_names": [
+                    "同底数幂的乘法",
+                    "幂的乘方",
+                    "积的乘方",
+                    "单项式乘法"
+                ],
+                "skill_names": [
+                    "利用乘法交换律和结合律进行整式化简"
+                ]
+            }
+        },
+        {
+            "id": "math_8a_rjb_ch14_s1_t118",
+            "stem": "计算：\n\n(1) $x \\cdot x^3 + x^2 \\cdot x^2$ ;\n\n(2) $(-pq)^3$\n\n(3) $-(-2a^{2}b)^{4}$\n\n(4) $a^3 \\cdot a^4 \\cdot a + (a^2)^4 + (-2a^4)^2$ .",
+            "answer": "(1) 2x^4；(2) -p^3q^3；(3) -16a^8b^4；(4) 6a^8",
+            "analysis": "(1) x·x^3=x^(1+3)=x^4，x^2·x^2=x^(2+2)=x^4，和为2x^4；(2) (-pq)^3=(-1)^3·p^3·q^3=-p^3q^3；(3) (-2a^2b)^4=(-2)^4·(a^2)^4·b^4=16a^8b^4，前面有负号得-16a^8b^4；(4) a^3·a^4·a=a^(3+4+1)=a^8，(a^2)^4=a^8，(-2a^4)^2=4a^8，和为6a^8。",
+            "difficulty": 2,
+            "type": "填空题",
+            "meta": {
+                "book_prefix": "math_8a_rjb",
+                "source_md": "ch14_s1.md",
+                "question_no_in_source": 2,
+                "global_no": 22
+            },
+            "links": {
+                "concept_names": [
+                    "同底数幂的乘法",
+                    "幂的乘方",
+                    "积的乘方",
+                    "单项式乘法"
+                ],
+                "skill_names": [
+                    "利用乘法交换律和结合律进行整式化简"
+                ]
+            }
+        },
+        {
+            "id": "math_8a_rjb_ch14_s1_t119",
+            "stem": "计算：\n\n(1) $6x^{2} \\cdot 3xy$ ;\n\n(2) $2ab^{2} \\cdot (-3ab)$ ;\n\n(3) $4x^{2}y\\cdot (-xy^{2})^{3}$\n\n(4) $(1.3 \\times 10^{5})(3.8 \\times 10^{3})$ .",
+            "answer": "(1) 18x^3y；(2) -6a^2b^3；(3) -4x^5y^7；(4) 4.94×10^8",
+            "analysis": "(1) 系数相乘6×3=18，同底幂相乘指数相加：x^2·x=x^3，得18x^3y。 (2) 系数相乘2×(-3)=-6，a·a=a^2，b^2·b=b^3，得-6a^2b^3。 (3) 先算幂：(-xy^2)^3=(-1)^3·x^3·y^6=-x^3y^6，再与4x^2y相乘：4·(-1)=-4，x^(2+3)=x^5，y^(1+6)=y^7，得-4x^5y^7。 (4) (1.3×10^5)(3.8×10^3)=(1.3×3.8)×10^(5+3)=4.94×10^8。",
+            "difficulty": 2,
+            "type": "填空题",
+            "meta": {
+                "book_prefix": "math_8a_rjb",
+                "source_md": "ch14_s1.md",
+                "question_no_in_source": 3,
+                "global_no": 23
+            },
+            "links": {
+                "concept_names": [
+                    "单项式乘法",
+                    "积的乘方",
+                    "幂的乘方",
+                    "同底数幂的乘法"
+                ],
+                "skill_names": [
+                    "利用乘法交换律和结合律进行整式化简"
+                ]
+            }
+        },
+        {
+            "id": "math_8a_rjb_ch14_s1_t120",
+            "stem": "计算：\n\n(1) $(4a - b^{2})(-2b)$\n\n(2) $2x^{2}\\left(x - \\frac{1}{2}\\right)$\n\n(3) $5ab(2a - b + 0.2)$\n\n(4) $\\left(2a^{2} - \\frac{2}{3} a - \\frac{4}{9}\\right)(-9a)$ .",
+            "answer": "(1) -8ab+2b^3；(2) 2x^3-x^2；(3) 10a^2b-5ab^2+ab；(4) -18a^3+6a^2+4a",
+            "analysis": "分别用乘法分配律展开：\n(1) (4a-b^2)(-2b)=4a·(-2b)+(-b^2)·(-2b)=-8ab+2b^3。\n(2) 2x^2(x-1/2)=2x^2·x+2x^2·(-1/2)=2x^3-x^2。\n(3) 5ab(2a-b+0.2)=5ab·2a+5ab·(-b)+5ab·0.2=10a^2b-5ab^2+ab。\n(4) (2a^2-2/3 a-4/9)(-9a)=2a^2·(-9a)+(-2/3 a)·(-9a)+(-4/9)·(-9a)=-18a^3+6a^2+4a。",
+            "difficulty": 2,
+            "type": "简答题",
+            "meta": {
+                "book_prefix": "math_8a_rjb",
+                "source_md": "ch14_s1.md",
+                "question_no_in_source": 4,
+                "global_no": 24
+            },
+            "links": {
+                "concept_names": [
+                    "单项式乘法"
+                ],
+                "skill_names": [
+                    "利用乘法交换律和结合律进行整式化简"
+                ]
+            }
+        },
+        {
+            "id": "math_8a_rjb_ch14_s1_t121",
+            "stem": "计算：\n\n(1) $(x - 6)(x - 3)$\n\n(2) $\\left(x + \\frac{1}{2}\\right)\\left(x - \\frac{1}{3}\\right)$\n\n(3) $(3x + 2)(x + 2)$\n\n(4) $(4y - 1)(5 - y)$\n\n(5) $(x - 2)(x^2 + 4)$ ;\n\n(6) $(x - y)(x^{2} + xy + y^{2})$",
+            "answer": "(1) x^2-9x+18；(2) x^2+\\frac{1}{6}x-\\frac{1}{6}；(3) 3x^2+8x+4；(4) -4y^2+21y-5；(5) x^3-2x^2+4x-8；(6) x^3-y^3",
+            "analysis": "分别用多项式乘法展开并合并同类项：(1) x^2-3x-6x+18=x^2-9x+18；(2) x^2-\\frac{1}{3}x+\\frac{1}{2}x-\\frac{1}{6}=x^2+\\frac{1}{6}x-\\frac{1}{6}；(3) 3x^2+6x+2x+4=3x^2+8x+4；(4) 20y-5-4y^2+y=-4y^2+21y-5；(5) x^3+4x-2x^2-8=x^3-2x^2+4x-8；(6) 展开后中间项相消，得x^3-y^3（立方差公式）。",
+            "difficulty": 2,
+            "type": "简答题",
+            "meta": {
+                "book_prefix": "math_8a_rjb",
+                "source_md": "ch14_s1.md",
+                "question_no_in_source": 5,
+                "global_no": 25
+            },
+            "links": {
+                "skill_names": [
+                    "利用乘法交换律和结合律进行整式化简"
+                ]
+            }
+        },
+        {
+            "id": "math_8a_rjb_ch14_s1_t122",
+            "stem": "计算：\n\n(1) $(a^3)^2 \\div (a^2)^3$ ;\n\n(2) $(ab^{2})^{3} \\div (-ab)^{2}$ ;\n\n(3) $24x^{2}y \\div (-6xy)$\n\n(4) $7m(4m^2 p)^2 \\div 7m^2$ ;\n\n(5) $(6x^{4} - 8x^{3}) \\div (-2x^{2})$ ;\n\n(6) $\\left(0.25a^{2}b - \\frac{1}{2} a^{3}b^{2} - \\frac{1}{6} a^{4}b^{3}\\right) \\div (-0.5a^{2}b)$ .",
+            "answer": "(1) 1；(2) ab^4；(3) -4x；(4) 16m^3p^2；(5) -3x^2+4x；(6) ab+\\frac{1}{3}a^2b^2-\\frac{1}{2}",
+            "analysis": "(1) 幂的乘方：a^6÷a^6=1；(2) (ab^2)^3=a^3b^6，(-ab)^2=a^2b^2，相除指数相减得ab^4；(3) 系数相除24÷(-6)=-4，字母指数相减得x；(4) (4m^2p)^2=16m^4p^2，乘7m后再除以7m^2得16m^3p^2；(5) 各项分别除以-2x^2：6x^4→-3x^2，-8x^3→+4x；(6) 分别用每一项除以(-0.5a^2b)=(-\\frac12 a^2b)：得到-\\frac12、+ab、+\\frac13 a^2b^2，合并为ab+\\frac13 a^2b^2-\\frac12。",
+            "difficulty": 2,
+            "type": "简答题",
+            "meta": {
+                "book_prefix": "math_8a_rjb",
+                "source_md": "ch14_s1.md",
+                "question_no_in_source": 6,
+                "global_no": 26
+            },
+            "links": {
+                "concept_names": [
+                    "幂的乘方",
+                    "积的乘方"
+                ],
+                "skill_names": [
+                    "利用乘法交换律和结合律进行整式化简"
+                ]
+            }
+        },
+        {
+            "id": "math_8a_rjb_ch14_s2_t123",
+            "stem": "下面各式的计算对不对？如果不对，应当怎样改正？\n\n(1) $(x + 2)(x - 2) = x^2 - 2$ ;\n\n(2) $(-3a - 2)(3a - 2) = 9a^2 - 4.$",
+            "answer": "（1）不对，应为：(x+2)(x-2)=x^2-4。\n（2）不对，应为：(-3a-2)(3a-2)=-9a^2+4。",
+            "analysis": "（1）用平方差公式(a+b)(a-b)=a^2-b^2，取a=x，b=2，得x^2-4。\n（2）可先提出负号：(-3a-2)=-(3a+2)，则(-3a-2)(3a-2)=-(3a+2)(3a-2)=-(9a^2-4)=-9a^2+4（中间项互相抵消）。",
+            "difficulty": 2,
+            "type": "简答题",
+            "meta": {
+                "book_prefix": "math_8a_rjb",
+                "source_md": "ch14_s2.md",
+                "question_no_in_source": 1,
+                "global_no": 27
+            },
+            "links": {
+                "concept_names": [
+                    "平方差公式"
+                ],
+                "skill_names": [
+                    "识别特殊形式的多项式乘法"
+                ]
+            }
+        },
+        {
+            "id": "math_8a_rjb_ch14_s2_t124",
+            "stem": "运用平方差公式计算：\n\n(1) $(a + 3b)(a - 3b)$\n\n(2) $(3 + 2a)(-3 + 2a)$\n\n（3） $51\\times 49$\n\n(4) $(3x + 4)(3x - 4) - (2x + 3)(3x - 2)$",
+            "answer": "（1）a^2-9b^2；（2）4a^2-9；（3）2499；（4）3x^2-5x-10",
+            "analysis": "利用平方差公式(a+b)(a-b)=a^2-b^2。\n(1) (a+3b)(a-3b)=a^2-(3b)^2=a^2-9b^2。\n(2) (3+2a)(-3+2a)=(2a+3)(2a-3)=(2a)^2-3^2=4a^2-9。\n(3) 51×49=(50+1)(50-1)=50^2-1=2500-1=2499。\n(4) (3x+4)(3x-4)=9x^2-16；(2x+3)(3x-2)=6x^2+5x-6；相减得3x^2-5x-10。",
+            "difficulty": 2,
+            "type": "简答题",
+            "meta": {
+                "book_prefix": "math_8a_rjb",
+                "source_md": "ch14_s2.md",
+                "question_no_in_source": 2,
+                "global_no": 28
+            },
+            "links": {
+                "concept_names": [
+                    "平方差公式"
+                ],
+                "skill_names": [
+                    "识别特殊形式的多项式乘法"
+                ]
+            }
+        },
+        {
+            "id": "math_8a_rjb_ch14_s2_t125",
+            "stem": "运用完全平方公式计算：\n\n(1) $(x + 6)^2$   \n(2) $(y - 5)^2$   \n(3) $(-2x + 5)^2$   \n(4) $\\left(\\frac{3}{4} x - \\frac{2}{3} y\\right)^2$ .",
+            "answer": "(1) x^2+12x+36\n(2) y^2-10y+25\n(3) 4x^2-20x+25\n(4) \\frac{9}{16}x^2-xy+\\frac{4}{9}y^2",
+            "analysis": "利用完全平方公式 (a+b)^2=a^2+2ab+b^2，(a-b)^2=a^2-2ab+b^2。\n(1) a=x,b=6：x^2+2·x·6+6^2=x^2+12x+36。\n(2) a=y,b=5：y^2-2·y·5+5^2=y^2-10y+25。\n(3) a=-2x,b=5：(−2x)^2+2(−2x)·5+5^2=4x^2−20x+25。\n(4) a=\\frac{3}{4}x,b=\\frac{2}{3}y：a^2−2ab+b^2=\\frac{9}{16}x^2−2·\\frac{3}{4}x·\\frac{2}{3}y+\\frac{4}{9}y^2=\\frac{9}{16}x^2−xy+\\frac{4}{9}y^2。",
+            "difficulty": 2,
+            "type": "简答题",
+            "meta": {
+                "book_prefix": "math_8a_rjb",
+                "source_md": "ch14_s2.md",
+                "question_no_in_source": 1,
+                "global_no": 29
+            },
+            "links": {
+                "concept_names": [
+                    "完全平方公式"
+                ],
+                "skill_names": [
+                    "识别特殊形式的多项式乘法"
+                ]
+            }
+        },
+        {
+            "id": "math_8a_rjb_ch14_s2_t126",
+            "stem": "下面各式的计算错在哪里？应当怎样改正？\n\n(1) $(a + b)^2 = a^2 + b^2$ ;\n\n(2) $(a - b)^2 = a^2 - ab + b^2$ .\n\n运用乘法公式计算，有时要在式子中添括号。在第二章中，我们学过去括号法则，即\n\n$$\na + (b + c) = a + b + c;\n$$\n\n$$\na - (b + c) = a - b - c.\n$$\n\n反过来，就得到添括号法则：\n\n$$\na + b + c = a + (b + c);\n$$\n\n$$\na - b - c = a - (b + c).\n$$\n\n也就是说，添括号时，如果括号前面是正号，括到括号里的各项都不变符号；如果括号前面是负号，括到括号里的各项都改变符号。\n\n例 5 运用乘法公式计算:\n\n(1) $(x + 2y - 3)(x - 2y + 3)$ ; (2) $(a + b + c)^2$ .\n\n解：(1) $(x + 2y - 3)(x - 2y + 3)$\n\n$$\n\\begin{array}{l} = [ x + (2 y - 3) ] [ x - (2 y - 3) ] \\\\ = x ^ {2} - (2 y - 3) ^ {2} \\\\ = x ^ {2} - (4 y ^ {2} - 1 2 y + 9) \\\\ = x ^ {2} - 4 y ^ {2} + 1 2 y - 9; \\\\ \\end{array}\n$$\n\n(2) $(a + b + c)^2$\n\n$$\n\\begin{array}{l} = [ (a + b) + c ] ^ {2} \\\\ = (a + b) ^ {2} + 2 (a + b) c + c ^ {2} \\\\ = a ^ {2} + 2 a b + b ^ {2} + 2 a c + 2 b c + c ^ {2} \\\\ = a ^ {2} + b ^ {2} + c ^ {2} + 2 a b + 2 a c + 2 b c. \\\\ \\end{array}\n$$\n\n有些整式相乘需要先作适当变形，然后再用公式.",
+            "answer": "(1) 错在把平方公式漏掉了乘积项2ab，应改为：(a+b)^2=a^2+2ab+b^2。\n(2) 错在中间项系数写错（应为2）且应为-2ab，应改为：(a-b)^2=a^2-2ab+b^2。",
+            "analysis": "利用平方公式：(a+b)^2=a^2+2ab+b^2，(a-b)^2=a^2-2ab+b^2。题(1)漏写了2ab；题(2)把中间项写成-ab，系数少了2，应为-2ab。",
+            "difficulty": 2,
+            "type": "简答题",
+            "meta": {
+                "book_prefix": "math_8a_rjb",
+                "source_md": "ch14_s2.md",
+                "question_no_in_source": 2,
+                "global_no": 30
+            },
+            "links": {
+                "concept_names": [
+                    "完全平方公式"
+                ],
+                "skill_names": [
+                    "识别特殊形式的多项式乘法"
+                ]
+            }
+        },
+        {
+            "id": "math_8a_rjb_ch14_s2_t127",
+            "stem": "在等号右边的括号内填上适当的项，并用去括号法则检验.\n\n(1) $a + b - c = a + (\\quad)$\n\n(2) $a - b + c = a - (\\quad)$\n\n(3) $a + b - c = a - (\\quad)$\n\n(4) $a + b + c = a - (\\quad)$",
+            "answer": "(1) b - c；(2) b - c；(3) c - b；(4) -b - c",
+            "analysis": "根据去括号法则：括号前是“+”不变号，括号前是“-”括号内各项都变号。\n(1) a+(b−c)=a+b−c；\n(2) a−(b−c)=a−b+c；\n(3) a−(c−b)=a−c+b=a+b−c；\n(4) a−(−b−c)=a+b+c。",
+            "difficulty": 2,
+            "type": "填空题",
+            "meta": {
+                "book_prefix": "math_8a_rjb",
+                "source_md": "ch14_s2.md",
+                "question_no_in_source": 1,
+                "global_no": 31
+            }
+        },
+        {
+            "id": "math_8a_rjb_ch14_s2_t128",
+            "stem": "运用乘法公式计算：\n\n(1) $(a + 2b - 1)^2$\n\n(2) $(2x + y + z)(2x - y - z)$",
+            "answer": "（1）a^2+4ab+4b^2-2a-4b+1；（2）4x^2-y^2-2yz-z^2",
+            "analysis": "（1）用完全平方公式：(a+2b-1)^2=[(a+2b)-1]^2=(a+2b)^2-2(a+2b)+1=a^2+4ab+4b^2-2a-4b+1。 （2）用平方差公式：(2x+y+z)(2x-y-z)=(2x)^2-(y+z)^2=4x^2-(y^2+2yz+z^2)=4x^2-y^2-2yz-z^2。",
+            "difficulty": 2,
+            "type": "简答题",
+            "meta": {
+                "book_prefix": "math_8a_rjb",
+                "source_md": "ch14_s2.md",
+                "question_no_in_source": 2,
+                "global_no": 32
+            },
+            "links": {
+                "concept_names": [
+                    "完全平方公式",
+                    "平方差公式"
+                ],
+                "skill_names": [
+                    "识别特殊形式的多项式乘法"
+                ]
+            }
+        },
+        {
+            "id": "math_8a_rjb_ch14_s2_t129",
+            "stem": "运用平方差公式计算：\n\n(1) $\\left(\\frac{2}{3} x - y\\right)\\left(\\frac{2}{3} x + y\\right)$\n\n(2) $(xy + 1)(xy - 1)$\n\n(3) $(2a - 3b)(3b + 2a)$\n\n(4) $(-2b - 5)(2b - 5)$ ;\n\n（5） $2001\\times 1999$\n\n(6) $998 \\times 1002$ .",
+            "answer": "(1) \\(\\frac{4}{9}x^2-y^2\\)；(2) \\(x^2y^2-1\\)；(3) \\(4a^2-9b^2\\)；(4) \\(25-4b^2\\)；(5) \\(3999999\\)；(6) \\(999996\\)",
+            "analysis": "利用平方差公式\\((A-B)(A+B)=A^2-B^2\\)。\n(1) 取\\(A=\\frac{2}{3}x,\\ B=y\\)，得\\((\\frac{2}{3}x)^2-y^2=\\frac{4}{9}x^2-y^2\\)。\n(2) 取\\(A=xy,\\ B=1\\)，得\\((xy)^2-1=x^2y^2-1\\)。\n(3) 交换顺序得\\((2a-3b)(2a+3b)\\)，取\\(A=2a,\\ B=3b\\)，得\\(4a^2-9b^2\\)。\n(4) \\((-2b-5)(2b-5)=-(2b+5)(2b-5)=-(4b^2-25)=25-4b^2\\)。\n(5) \\(2001\\times1999=(2000+1)(2000-1)=2000^2-1=3999999\\)。\n(6) \\(998\\times1002=(1000-2)(1000+2)=1000^2-4=999996\\)。",
+            "difficulty": 2,
+            "type": "填空题",
+            "meta": {
+                "book_prefix": "math_8a_rjb",
+                "source_md": "ch14_s2.md",
+                "question_no_in_source": 1,
+                "global_no": 33
+            },
+            "links": {
+                "concept_names": [
+                    "平方差公式"
+                ],
+                "skill_names": [
+                    "识别特殊形式的多项式乘法"
+                ]
+            }
+        },
+        {
+            "id": "math_8a_rjb_ch14_s2_t130",
+            "stem": "运用完全平方公式计算：\n\n(1) $(2a + 5b)^2$\n\n(2) $(4x - 3y)^2$\n\n(3) $(-2m - 1)^2$\n\n(4) $\\left(1.5a - \\frac{2}{3} b\\right)^2$ ;\n\n(5) $63^{2}$\n\n(6) $98^{2}$",
+            "answer": "(1) (2a+5b)^2=4a^2+20ab+25b^2；(2) (4x-3y)^2=16x^2-24xy+9y^2；(3) (-2m-1)^2=4m^2+4m+1；(4) (1.5a-\\frac{2}{3}b)^2=2.25a^2-2ab+\\frac{4}{9}b^2；(5) 63^2=3969；(6) 98^2=9604",
+            "analysis": "用完全平方公式：(p+q)^2=p^2+2pq+q^2，(p-q)^2=p^2-2pq+q^2；(5)(6)可化为(60+3)^2与(100-2)^2计算。",
+            "difficulty": 2,
+            "type": "填空题",
+            "meta": {
+                "book_prefix": "math_8a_rjb",
+                "source_md": "ch14_s2.md",
+                "question_no_in_source": 2,
+                "global_no": 34
+            },
+            "links": {
+                "concept_names": [
+                    "完全平方公式"
+                ],
+                "skill_names": [
+                    "识别特殊形式的多项式乘法"
+                ]
+            }
+        },
+        {
+            "id": "math_8a_rjb_ch14_s3_t131",
+            "stem": "把下列各式分解因式：\n\n(1) $ax + ay$   \n(2) $3mx - 6my$   \n(3) $8m^{2}n + 2mn$   \n(4) $12xyz - 9x^{2}y^{2}$   \n(5) $2a(y - z) - 3b(z - y)$   \n(6) $p(a^2 + b^2) - q(a^2 + b^2)$ .",
+            "answer": "(1) a(x+y)\n(2) 3m(x-2y)\n(3) 2mn(4m+1)\n(4) 3xy(4z-3xy)\n(5) (2a+3b)(y-z)\n(6) (p-q)(a^2+b^2)",
+            "analysis": "分别提取公因式或利用符号变形：\n(1) 提公因式a。\n(2) 提公因式3m。\n(3) 提公因式2mn。\n(4) 提公因式3xy。\n(5) 因z−y=−(y−z)，原式=2a(y−z)+3b(y−z)=(2a+3b)(y−z)。\n(6) 提公因式(a^2+b^2)，得(p−q)(a^2+b^2)。",
+            "difficulty": 2,
+            "type": "填空题",
+            "meta": {
+                "book_prefix": "math_8a_rjb",
+                "source_md": "ch14_s3.md",
+                "question_no_in_source": 1,
+                "global_no": 35
+            },
+            "links": {
+                "concept_names": [
+                    "因式分解",
+                    "公因式",
+                    "提公因式法"
+                ],
+                "skill_names": [
+                    "识别多项式结构进行因式分解"
+                ]
+            }
+        },
+        {
+            "id": "math_8a_rjb_ch14_s3_t132",
+            "stem": "先分解因式，再求值：\n\n$4a^{2}(x + 7) - 3(x + 7)$ ，其中 $a = -5$ ， $x = 3$",
+            "answer": "970",
+            "analysis": "原式：4a^2(x+7)-3(x+7)=(x+7)(4a^2-3)。代入a=-5得a^2=25，4a^2-3=4×25-3=97；代入x=3得x+7=10。故原式值为10×97=970。",
+            "difficulty": 2,
+            "type": "填空题",
+            "meta": {
+                "book_prefix": "math_8a_rjb",
+                "source_md": "ch14_s3.md",
+                "question_no_in_source": 2,
+                "global_no": 36
+            },
+            "links": {
+                "concept_names": [
+                    "因式分解",
+                    "公因式",
+                    "提公因式法"
+                ],
+                "skill_names": [
+                    "识别多项式结构进行因式分解"
+                ]
+            }
+        },
+        {
+            "id": "math_8a_rjb_ch14_s3_t133",
+            "stem": "计算 $5 \\times 3^{4} + 4 \\times 3^{4} + 9 \\times 3^{2}$ .",
+            "answer": "810",
+            "analysis": "原式=5×3^4+4×3^4+9×3^2=(5+4)×3^4+9×3^2=9×3^4+9×3^2=9×3^2(3^2+1)=9×9×(9+1)=81×10=810。",
+            "difficulty": 2,
+            "type": "填空题",
+            "meta": {
+                "book_prefix": "math_8a_rjb",
+                "source_md": "ch14_s3.md",
+                "question_no_in_source": 3,
+                "global_no": 37
+            },
+            "links": {
+                "concept_names": [
+                    "因式分解",
+                    "公因式",
+                    "提公因式法"
+                ],
+                "skill_names": [
+                    "识别多项式结构进行因式分解"
+                ]
+            }
+        },
+        {
+            "id": "math_8a_rjb_ch14_s3_t134",
+            "stem": "下列多项式能否用平方差公式分解因式？为什么？\n\n(1) $x^{2} + y^{2}$\n\n(2) $x^{2} - y^{2}$\n\n(3) $-x^{2} + y^{2}$\n\n(4) $-x^{2} - y^{2}$",
+            "answer": "(1)不能，平方差公式适用于a^2-b^2形式，x^2+y^2不是差。\n(2)能，x^2-y^2=(x+y)(x-y)。\n(3)能，-x^2+y^2=y^2-x^2=(y+x)(y-x)。\n(4)不能，-x^2-y^2=-(x^2+y^2)仍是和的形式，不是平方差。",
+            "analysis": "平方差公式为a^2-b^2=(a+b)(a-b)，关键是“两个平方的差”。\n(1)x^2+y^2是两平方的和，不符合。\n(2)直接是两平方的差，可分解为(x+y)(x-y)。\n(3)-x^2+y^2可交换顺序写成y^2-x^2，属于两平方的差，分解为(y+x)(y-x)。\n(4)-x^2-y^2=-(x^2+y^2)，括号内仍为平方和，不符合平方差结构，因此不能用平方差公式分解。",
+            "difficulty": 2,
+            "type": "简答题",
+            "meta": {
+                "book_prefix": "math_8a_rjb",
+                "source_md": "ch14_s3.md",
+                "question_no_in_source": 1,
+                "global_no": 38
+            },
+            "links": {
+                "concept_names": [
+                    "因式分解",
+                    "平方差公式"
+                ],
+                "skill_names": [
+                    "识别多项式结构进行因式分解"
+                ]
+            }
+        },
+        {
+            "id": "math_8a_rjb_ch14_s3_t135",
+            "stem": "分解因式：\n\n(1) $a^2 - \\frac{1}{25} b^2$ ;\n\n(2) $9a^{2} - 4b^{2}$\n\n(3) $x^{2}y - 4y$\n\n(4) $-a^4 + 16$ .",
+            "answer": "(1) \\((a-\\tfrac{b}{5})(a+\\tfrac{b}{5})\\)；(2) \\((3a-2b)(3a+2b)\\)；(3) \\(y(x-2)(x+2)\\)；(4) \\((4-a^2)(4+a^2)\\)（或 \\((2-a)(2+a)(a^2+4)\\)）",
+            "analysis": "(1)(2)为平方差公式：\\(u^2-v^2=(u-v)(u+v)\\)。 (3)先提公因式\\(y\\)，得\\(y(x^2-4)\\)，再用平方差分解。 (4)\\(16-a^4=(4)^2-(a^2)^2\\)，用平方差得\\((4-a^2)(4+a^2)\\)，其中\\(4-a^2\\)可继续分解为\\((2-a)(2+a)\\)。",
+            "difficulty": 2,
+            "type": "简答题",
+            "meta": {
+                "book_prefix": "math_8a_rjb",
+                "source_md": "ch14_s3.md",
+                "question_no_in_source": 2,
+                "global_no": 39
+            },
+            "links": {
+                "concept_names": [
+                    "因式分解",
+                    "公因式",
+                    "提公因式法",
+                    "平方差公式"
+                ],
+                "skill_names": [
+                    "识别多项式结构进行因式分解"
+                ]
+            }
+        },
+        {
+            "id": "math_8a_rjb_ch14_s3_t136",
+            "stem": "下列多项式是不是完全平方式？为什么？\n\n(1) $a^2 - 4a + 4$ ;\n\n(2) $1 + 4a^{2}$\n\n(3) $4b^{2} + 4b - 1$\n\n(4) $a^2 + ab + b^2$ .",
+            "answer": "(1) 是，a^2-4a+4=(a-2)^2；\n(2) 不是，缺少中间项，不能写成(x±y)^2=x^2±2xy+y^2的形式；\n(3) 不是，若设为(2b+c)^2=4b^2+4cb+c^2，则4c=4得c=1，但此时常数项应为1≠-1；\n(4) 不是，若设为(a+kb)^2=a^2+2kab+k^2b^2，与a^2+ab+b^2比较得2k=1→k=1/2，但k^2=1/4≠1。",
+            "analysis": "完全平方式需能写成(x±y)^2=x^2±2xy+y^2。逐项检验：\n(1) a^2-4a+4中首项为a^2、末项为2^2，且中间项-4a=-2·a·2，故为(a-2)^2。\n(2) 1+4a^2只有平方项与常数项，没有±2xy形式的中间项，不能构成完全平方。\n(3) 设4b^2+4b-1=(2b+c)^2=4b^2+4cb+c^2，比对得c=1，但常数项应为1，与-1矛盾。\n(4) 设a^2+ab+b^2=(a+kb)^2=a^2+2kab+k^2b^2，比对得k=1/2，但k^2=1/4与b^2系数1不符，故不是完全平方式。",
+            "difficulty": 2,
+            "type": "简答题",
+            "meta": {
+                "book_prefix": "math_8a_rjb",
+                "source_md": "ch14_s3.md",
+                "question_no_in_source": 1,
+                "global_no": 40
+            },
+            "links": {
+                "concept_names": [
+                    "完全平方公式"
+                ],
+                "skill_names": [
+                    "识别多项式结构进行因式分解"
+                ]
+            }
+        },
+        {
+            "id": "math_8a_rjb_ch14_s3_t137",
+            "stem": "分解因式：\n\n(1) $x^{2} + 12x + 36$\n\n(2) $-2xy - x^2 - y^2$ ;\n\n(3) $a^2 + 2a + 1$ ;\n\n（4） $4x^{2} - 4x + 1$\n\n(5) $ax^2 + 2a^2x + a^3$ ;\n\n(6) $-3x^{2} + 6xy - 3y^{2}$",
+            "answer": "(1) x^2+12x+36=(x+6)^2；(2) -2xy-x^2-y^2=-(x^2+2xy+y^2)=-(x+y)^2；(3) a^2+2a+1=(a+1)^2；(4) 4x^2-4x+1=(2x-1)^2；(5) ax^2+2a^2x+a^3=a(x^2+2ax+a^2)=a(x+a)^2；(6) -3x^2+6xy-3y^2=-3(x^2-2xy+y^2)=-3(x-y)^2",
+            "analysis": "识别完全平方公式：u^2±2uv+v^2=(u±v)^2；若整体系数为负或有公因式，先提取公因式再配成完全平方。",
+            "difficulty": 2,
+            "type": "填空题",
+            "meta": {
+                "book_prefix": "math_8a_rjb",
+                "source_md": "ch14_s3.md",
+                "question_no_in_source": 2,
+                "global_no": 41
+            },
+            "links": {
+                "concept_names": [
+                    "因式分解",
+                    "公因式",
+                    "提公因式法",
+                    "完全平方公式"
+                ],
+                "skill_names": [
+                    "识别多项式结构进行因式分解"
+                ]
+            }
+        },
+        {
+            "id": "math_8a_rjb_ch14_s3_t138",
+            "stem": "分解因式：(1) $15a^{3} + 10a^{2}$\n\n(2) $12abc - 3bc^{2}$\n\n(3) $6p(p + q) - 4q(p + q)$\n\n(4) $m(a - 3) + 2(3 - a)$",
+            "answer": "(1) 5a^2(3a+2)\n(2) 3bc(4a-c)\n(3) 2(p+q)(3p-2q)\n(4) (a-3)(m-2)",
+            "analysis": "(1) 提取公因式5a^2：15a^3+10a^2=5a^2(3a+2)。\n(2) 提取公因式3bc：12abc-3bc^2=3bc(4a-c)。\n(3) 先提取公因式(p+q)：6p(p+q)-4q(p+q)=(p+q)(6p-4q)=2(p+q)(3p-2q)。\n(4) 将2(3-a)化为-2(a-3)：m(a-3)+2(3-a)=m(a-3)-2(a-3)=(a-3)(m-2)。",
+            "difficulty": 2,
+            "type": "填空题",
+            "meta": {
+                "book_prefix": "math_8a_rjb",
+                "source_md": "ch14_s3.md",
+                "question_no_in_source": 1,
+                "global_no": 42
+            },
+            "links": {
+                "concept_names": [
+                    "因式分解",
+                    "公因式",
+                    "提公因式法"
+                ],
+                "skill_names": [
+                    "识别多项式结构进行因式分解"
+                ]
+            }
+        },
+        {
+            "id": "math_8a_rjb_ch14_s3_t139",
+            "stem": "(1) $1 - 36b^{2}$\n\n(2) $12x^{2} - 3y^{2}$\n\n(3) $0.49p^{2} - 144$\n\n(4) $(2x + y)^2 - (x + 2y)^2$ .",
+            "answer": "(1)(1-6b)(1+6b)\n(2)3(2x-y)(2x+y)\n(3)(0.7p-12)(0.7p+12)\n(4)3(x-y)(x+y)",
+            "analysis": "均用平方差公式a^2-b^2=(a-b)(a+b)。\n(1)1^2-(6b)^2=(1-6b)(1+6b)。\n(2)12x^2-3y^2=3(4x^2-y^2)=3[(2x)^2-y^2]=3(2x-y)(2x+y)。\n(3)0.49p^2-144=(0.7p)^2-12^2=(0.7p-12)(0.7p+12)。\n(4)(2x+y)^2-(x+2y)^2=[(2x+y)-(x+2y)][(2x+y)+(x+2y)]=(x-y)·3(x+y)=3(x-y)(x+y)。",
+            "difficulty": 2,
+            "type": "填空题",
+            "meta": {
+                "book_prefix": "math_8a_rjb",
+                "source_md": "ch14_s3.md",
+                "question_no_in_source": 2,
+                "global_no": 43
+            },
+            "links": {
+                "concept_names": [
+                    "因式分解",
+                    "公因式",
+                    "提公因式法",
+                    "平方差公式"
+                ],
+                "skill_names": [
+                    "识别多项式结构进行因式分解"
+                ]
+            }
+        },
+        {
+            "id": "math_8a_rjb_ch14_s3_t140",
+            "stem": "(1) $1 + 10t + 25t^2$ ;\n\n(2) $m^2 - 14m + 49$ ;\n\n(3) $y^{2} + y + \\frac{1}{4}$\n\n(4) $(m + n)^2 - 4m(m + n) + 4m^2$ ;\n\n（5） $25a^{2} - 80a + 64$\n\n(6) $a^2 + 2a(b + c) + (b + c)^2$ .",
+            "answer": "(1) (1+5t)^2；(2) (m-7)^2；(3) (y+1/2)^2；(4) (n-m)^2；(5) (5a-8)^2；(6) (a+b+c)^2",
+            "analysis": "观察各式是否符合完全平方公式：A^2±2AB+B^2=(A±B)^2。\n(1) 1+10t+25t^2=1^2+2·1·(5t)+(5t)^2=(1+5t)^2。\n(2) m^2-14m+49=m^2-2·m·7+7^2=(m-7)^2。\n(3) y^2+y+1/4=y^2+2·y·(1/2)+(1/2)^2=(y+1/2)^2。\n(4) 设x=m+n，则x^2-4mx+4m^2=(x-2m)^2=(m+n-2m)^2=(n-m)^2。\n(5) 25a^2-80a+64=(5a)^2-2·(5a)·8+8^2=(5a-8)^2。\n(6) a^2+2a(b+c)+(b+c)^2=(a+(b+c))^2=(a+b+c)^2。",
+            "difficulty": 2,
+            "type": "填空题",
+            "meta": {
+                "book_prefix": "math_8a_rjb",
+                "source_md": "ch14_s3.md",
+                "question_no_in_source": 3,
+                "global_no": 44
+            },
+            "links": {
+                "concept_names": [
+                    "完全平方公式"
+                ],
+                "skill_names": [
+                    "识别多项式结构进行因式分解"
+                ]
+            }
+        },
+        {
+            "id": "math_8a_rjb_ch14_s_14_t141",
+            "stem": "计算：\n\n(1) $(-2x^{2}y^{3})^{2} \\cdot (xy)^{3}$ ;\n\n(2) $(2a + 3b)(2a - b)$\n\n(3) $5x^{2}(x + 1)(x - 1)$\n\n(4) $(2x + y - 1)^2$\n\n（5） $59.8\\times 60.2$\n\n(6) $198^{2}$",
+            "answer": "(1) 4x^7y^9；(2) 4a^2+4ab-3b^2；(3) 5x^4-5x^2；(4) 4x^2+4xy-4x+y^2-2y+1；(5) 3599.96；(6) 39204",
+            "analysis": "(1) 用幂的乘方与积的乘方：(-2x^2y^3)^2=4x^4y^6，再乘(xy)^3=x^3y^3，得4x^7y^9。 (2) 用乘法分配律展开合并同类项：4a^2-2ab+6ab-3b^2=4a^2+4ab-3b^2。 (3) 用平方差：(x+1)(x-1)=x^2-1，乘5x^2得5x^4-5x^2。 (4) 用(a+b+c)^2公式或逐项展开：(2x+y-1)^2=4x^2+y^2+1+4xy-4x-2y。 (5) 用平方差：(60-0.2)(60+0.2)=60^2-0.2^2=3600-0.04=3599.96。 (6) 用完全平方：(200-2)^2=200^2-2·200·2+2^2=40000-800+4=39204。",
+            "difficulty": 3,
+            "type": "计算题",
+            "meta": {
+                "book_prefix": "math_8a_rjb",
+                "source_md": "ch14_s复习题14.md",
+                "question_no_in_source": 1,
+                "global_no": 45
+            }
+        },
+        {
+            "id": "math_8a_rjb_ch14_s_14_t142",
+            "stem": "计算：\n\n(1) $(2a)^{3} \\cdot b^{4} \\div 12a^{3}b^{2}$ ;\n\n(2) $\\left(-\\frac{2}{3} a^7 b^5\\right) \\div \\frac{3}{2} a^2 b^5$ ;\n\n(3) $\\left(\\frac{6}{5} a^3 x^4 - 0.9ax^3\\right) \\div \\frac{3}{5} ax^3$ ;\n\n(4) $(7x^{2}y^{3} - 8x^{3}y^{2}z)\\div 8x^{2}y^{2}.$",
+            "answer": "(1) \\(\\frac{2}{3}b^2\\)；(2) \\(-\\frac{4}{9}a^5\\)；(3) \\(2a^2x-\\frac{3}{2}\\)；(4) \\(\\frac{7}{8}y-xz\\)。",
+            "analysis": "(1) \\((2a)^3\\cdot b^4\\div 12a^3b^2=8a^3b^4\\div 12a^3b^2=\\frac{8}{12}\\cdot b^{4-2}=\\frac{2}{3}b^2\\)。\n(2) \\(\\left(-\\frac{2}{3}a^7b^5\\right)\\div\\left(\\frac{3}{2}a^2b^5\\right)=\\left(-\\frac{2}{3}\\right)\\cdot\\left(\\frac{2}{3}\\right)\\cdot a^{7-2}\\cdot b^{5-5}=-\\frac{4}{9}a^5\\)。\n(3) 原式=\\(\\left(\\frac{6}{5}a^3x^4-0.9ax^3\\right)\\div\\left(\\frac{3}{5}ax^3\\right)\\)。分子提取公因式\\(ax^3\\)：\\(ax^3\\left(\\frac{6}{5}a^2x-0.9\\right)\\div\\left(\\frac{3}{5}ax^3\\right)=\\left(\\frac{6}{5}a^2x-0.9\\right)\\div\\left(\\frac{3}{5}\\right)\\)。再乘以倒数\\(\\frac{5}{3}\\)：\\(\\frac{5}{3}\\cdot\\frac{6}{5}a^2x-\\frac{5}{3}\\cdot 0.9=2a^2x-\\frac{3}{2}\\)。\n(4) \\((7x^2y^3-8x^3y^2z)\\div 8x^2y^2=\\frac{7x^2y^3}{8x^2y^2}-\\frac{8x^3y^2z}{8x^2y^2}=\\frac{7}{8}y-xz\\)。",
+            "difficulty": 2,
+            "type": "简答题",
+            "meta": {
+                "book_prefix": "math_8a_rjb",
+                "source_md": "ch14_s复习题14.md",
+                "question_no_in_source": 2,
+                "global_no": 46
+            }
+        },
+        {
+            "id": "math_8a_rjb_ch14_s_14_t143",
+            "stem": "分解因式：\n\n(1) $25x^{2} - 16y^{2}$\n\n(2) $(a - b)(x - y) - (b - a)(x + y)$\n\n(3) $a^2 - 4ab + 4b^2$ ;\n\n(4) $4 + 12(x - y) + 9(x - y)^2.$",
+            "answer": "(1) (5x-4y)(5x+4y)\n(2) 2x(a-b)\n(3) (a-2b)^2\n(4) (3(x-y)+2)^2",
+            "analysis": "(1) 25x^2-16y^2=(5x)^2-(4y)^2=(5x-4y)(5x+4y)。\n(2) (b-a)=-(a-b)，原式=(a-b)(x-y)+(a-b)(x+y)=(a-b)(2x)=2x(a-b)。\n(3) a^2-4ab+4b^2=a^2-2·a·(2b)+(2b)^2=(a-2b)^2。\n(4) 令t=x-y，则4+12t+9t^2=9t^2+12t+4=(3t+2)^2=(3(x-y)+2)^2。",
+            "difficulty": 2,
+            "type": "填空题",
+            "meta": {
+                "book_prefix": "math_8a_rjb",
+                "source_md": "ch14_s复习题14.md",
+                "question_no_in_source": 3,
+                "global_no": 47
+            }
+        },
+        {
+            "id": "math_8a_rjb_ch14_s_14_t144",
+            "stem": "我国陆地面积约是 $9.6 \\times 10^{6} \\mathrm{~km}^{2}$ . 平均每平方千米的陆地上, 一年从太阳得到的能量相当于燃烧 $1.3 \\times 10^{5} \\mathrm{t}$ 煤所产生的能量. 求在我国陆地上, 一年内从太阳得到的能量约相当于燃烧多少吨煤所产生的能量.",
+            "answer": "约为1.248×10^12吨（约1.2×10^12吨）",
+            "analysis": "我国陆地面积9.6×10^6 km^2，每平方千米一年得到的能量相当于燃烧1.3×10^5 t煤。则总相当煤量=9.6×10^6×1.3×10^5=(9.6×1.3)×10^(6+5)=12.48×10^11=1.248×10^12(t)，约为1.2×10^12吨。",
+            "difficulty": 2,
+            "type": "应用题",
+            "meta": {
+                "book_prefix": "math_8a_rjb",
+                "source_md": "ch14_s复习题14.md",
+                "question_no_in_source": 4,
+                "global_no": 48
+            }
+        },
+        {
+            "id": "math_8a_rjb_ch14_s_14_t145",
+            "stem": "在半径 $R$ 为 $0.5 \\mathrm{~m}$ 的地球仪的表面之外，距赤道 $1 \\mathrm{~m}$ 拉一条绳子绕地球仪一周，这条绳长比地球仪的赤道的周长多几米？如果在地球赤道表面也同样做，情况又怎样（已知地球半径为 $6370 \\mathrm{~km}, \\pi$ 取 3.14）？",
+            "answer": "多6.28米；在地球赤道上同样把绳子抬高1米绕一周，也同样多6.28米。",
+            "analysis": "绳子绕一周的长度等于所在圆的周长。地球仪赤道半径为R=0.5m，绳子在赤道外侧上方1m处，相当于半径变为R+1。周长差=2π(R+1)−2πR=2π×1=2π≈2×3.14=6.28(m)，与R无关。因此地球仪多6.28m；地球半径6370km时同理，抬高1m周长差仍为2π×1=6.28m。",
+            "difficulty": 2,
+            "type": "应用题",
+            "meta": {
+                "book_prefix": "math_8a_rjb",
+                "source_md": "ch14_s复习题14.md",
+                "question_no_in_source": 5,
+                "global_no": 49
+            }
+        },
+        {
+            "id": "math_8a_rjb_ch15_s1_t146",
+            "stem": "列式表示下列各量：\n\n（1）某村有 $n$ 个人，耕地 $40\\mathrm{hm}^2$ ，则人均耕地面积为 $\\mathrm{hm}^2$\n\n(2） $\\triangle ABC$ 的面积为 $S$ ， $BC$ 边的长为 $a$ ，则高 $AD$ 为  \n(3) 一辆汽车 $b \\mathrm{~h}$ 行驶了 $a \\mathrm{~km}$ , 则它的平均速度为 $\\mathrm{km} / \\mathrm{h}$ ; 一列火车行驶 $a \\mathrm{~km}$ 比这辆汽车少用 $1 \\mathrm{~h}$ , 则它的平均速度为 $\\mathrm{km} / \\mathrm{h}$ .",
+            "answer": "（1）40/n；（2）2S/a；（3）汽车：a/b，火车：a/(b-1)",
+            "analysis": "（1）人均耕地=总耕地÷人数=40÷n=40/n（hm^2）。\n（2）三角形面积公式S=1/2·BC·AD=1/2·a·AD，解得AD=2S/a。\n（3）平均速度=路程÷时间。汽车v=a÷b=a/b（km/h）；火车用时比汽车少1h，为b-1（h），故v=a/(b-1)（km/h）。",
+            "difficulty": 2,
+            "type": "填空题",
+            "meta": {
+                "book_prefix": "math_8a_rjb",
+                "source_md": "ch15_s1.md",
+                "question_no_in_source": 1,
+                "global_no": 50
+            },
+            "links": {
+                "concept_names": [
+                    "分式"
+                ]
+            }
+        },
+        {
+            "id": "math_8a_rjb_ch15_s1_t147",
+            "stem": "下列式子中，哪些是分式？哪些是整式？两类式子的区别是什么？\n\n$$\n\\frac {1}{x}, \\frac {x}{3}, \\frac {4}{3 b ^ {3} + 5}, \\frac {2 a - 5}{3}, \\frac {x}{x ^ {2} - y ^ {2}}, \\frac {m - n}{m + n}, \\frac {x ^ {2} + 2 x + 1}{x ^ {2} - 2 x + 1}, \\frac {c}{3 (a - b)}.\n$$",
+            "answer": "分式：\\(\\frac{1}{x},\\ \\frac{4}{3b^{3}+5},\\ \\frac{x}{x^{2}-y^{2}},\\ \\frac{m-n}{m+n},\\ \\frac{x^{2}+2x+1}{x^{2}-2x+1},\\ \\frac{c}{3(a-b)}\\)。\n整式：\\(\\frac{x}{3},\\ \\frac{2a-5}{3}\\)（都可写成\\(\\frac13x\\)、\\(\\frac13(2a-5)\\)，分母为常数）。\n区别：整式的分母中不含字母（可看作分母为1或其他常数），是多项式；分式是两个整式相除且分母含字母（分母不是常数），并且分母不能为0。",
+            "analysis": "判断标准：把式子看成\\(\\frac{A}{B}\\)（A、B为整式）。若分母B是常数（不含字母），则该式等价于整式；若分母B含有字母（不是常数），则是分式。逐个检查：\\(\\frac{1}{x}\\)分母含x→分式；\\(\\frac{x}{3}\\)分母为3→整式；\\(\\frac{4}{3b^{3}+5}\\)分母含b→分式；\\(\\frac{2a-5}{3}\\)分母为3→整式；\\(\\frac{x}{x^{2}-y^{2}}\\)分母含x、y→分式；\\(\\frac{m-n}{m+n}\\)分母含m、n→分式；\\(\\frac{x^{2}+2x+1}{x^{2}-2x+1}\\)分母含x→分式；\\(\\frac{c}{3(a-b)}\\)分母含a、b→分式。",
+            "difficulty": 3,
+            "type": "简答题",
+            "meta": {
+                "book_prefix": "math_8a_rjb",
+                "source_md": "ch15_s1.md",
+                "question_no_in_source": 2,
+                "global_no": 51
+            },
+            "links": {
+                "concept_names": [
+                    "分式",
+                    "分式的意义条件（分母不为0）"
+                ]
+            }
+        },
+        {
+            "id": "math_8a_rjb_ch15_s1_t148",
+            "stem": "下列分式中的字母满足什么条件时分式有意义？\n\n(1) $\\frac{2}{a}$ ;\n\n(2) $\\frac{x + 1}{x - 1}$\n\n(3) $\\frac{2m}{3m + 2}$\n\n(4) $\\frac{1}{x - y}$\n\n(5) $\\frac{2a + b}{3a - b}$\n\n(6) $\\frac{2}{x^2 - 1}$ .",
+            "answer": "(1) a≠0；(2) x≠1；(3) 3m+2≠0，即m≠-2/3；(4) x-y≠0，即x≠y；(5) 3a-b≠0，即b≠3a；(6) x^2-1≠0，即x≠1且x≠-1。",
+            "analysis": "分式有意义的条件是分母不为0。分别令各分式的分母≠0：①a≠0；②x-1≠0→x≠1；③3m+2≠0→m≠-2/3；④x-y≠0→x≠y；⑤3a-b≠0→b≠3a；⑥x^2-1≠0，因x^2-1=(x-1)(x+1)，所以x≠1且x≠-1。",
+            "difficulty": 2,
+            "type": "简答题",
+            "meta": {
+                "book_prefix": "math_8a_rjb",
+                "source_md": "ch15_s1.md",
+                "question_no_in_source": 3,
+                "global_no": 52
+            },
+            "links": {
+                "concept_names": [
+                    "分式的意义条件（分母不为0）"
+                ],
+                "skill_names": [
+                    "整式分解因式"
+                ]
+            }
+        },
+        {
+            "id": "math_8a_rjb_ch15_s1_t149",
+            "stem": "约分：\n\n(1) $\\frac{2bc}{ac}$ ;   \n(2) $\\frac{(x + y)y}{xy^2}$   \n(3) $\\frac{x^2 + xy}{(x + y)^2}$ ;   \n(4) $\\frac{x^2 - y^2}{(x - y)^2}$ .",
+            "answer": "(1) \\(\\frac{2b}{a}\\)；(2) \\(\\frac{x+y}{xy}\\)；(3) \\(\\frac{x}{x+y}\\)；(4) \\(\\frac{x+y}{x-y}\\)",
+            "analysis": "(1) \\(\\frac{2bc}{ac}=\\frac{2b\\cancel{c}}{a\\cancel{c}}=\\frac{2b}{a}\\)。\n(2) \\(\\frac{(x+y)y}{xy^2}=\\frac{(x+y)\\cancel{y}}{x\\,y\\cancel{y}}=\\frac{x+y}{xy}\\)。\n(3) \\(\\frac{x^2+xy}{(x+y)^2}=\\frac{x(x+y)}{(x+y)(x+y)}=\\frac{x}{x+y}\\)。\n(4) \\(\\frac{x^2-y^2}{(x-y)^2}=\\frac{(x-y)(x+y)}{(x-y)(x-y)}=\\frac{x+y}{x-y}\\)。",
+            "difficulty": 2,
+            "type": "填空题",
+            "meta": {
+                "book_prefix": "math_8a_rjb",
+                "source_md": "ch15_s1.md",
+                "question_no_in_source": 1,
+                "global_no": 53
+            },
+            "links": {
+                "concept_names": [
+                    "分式的基本性质",
+                    "分式的约分",
+                    "最简分式"
+                ],
+                "skill_names": [
+                    "整式分解因式"
+                ]
+            }
+        },
+        {
+            "id": "math_8a_rjb_ch15_s1_t150",
+            "stem": "通分：\n\n(1) $\\frac{x}{ab}$ 与 $\\frac{y}{bc}$   \n(2) $\\frac{2c}{bd}$ 与 $\\frac{3ac}{4b^2}$   \n(3) $\\frac{x}{a(x + 2)}$ 与 $\\frac{y}{b(x + 2)}$ ;   \n(4) $\\frac{2xy}{(x + y)^2}$ 与 $\\frac{x}{x^2 - y^2}$ .",
+            "answer": "(1) 公分母abc：\\(\\frac{x}{ab}=\\frac{xc}{abc},\\ \\frac{y}{bc}=\\frac{ay}{abc}\\)。\n(2) 公分母\\(4b^2d\\)：\\(\\frac{2c}{bd}=\\frac{8bc}{4b^2d},\\ \\frac{3ac}{4b^2}=\\frac{3acd}{4b^2d}\\)。\n(3) 公分母\\(ab(x+2)\\)：\\(\\frac{x}{a(x+2)}=\\frac{bx}{ab(x+2)},\\ \\frac{y}{b(x+2)}=\\frac{ay}{ab(x+2)}\\)。\n(4) 因\\(x^2-y^2=(x-y)(x+y)\\)，公分母\\((x+y)^2(x-y)\\)：\\(\\frac{2xy}{(x+y)^2}=\\frac{2xy(x-y)}{(x+y)^2(x-y)},\\ \\frac{x}{x^2-y^2}=\\frac{x(x+y)}{(x-y)(x+y)^2}\\)。",
+            "analysis": "分别找出两分式分母的最小公分母（必要时先因式分解，如\\(x^2-y^2=(x-y)(x+y)\\)），再把每个分式的分子分母同乘以“缺少的因式”，使两者分母都变为公分母。",
+            "difficulty": 3,
+            "type": "简答题",
+            "meta": {
+                "book_prefix": "math_8a_rjb",
+                "source_md": "ch15_s1.md",
+                "question_no_in_source": 2,
+                "global_no": 54
+            },
+            "links": {
+                "concept_names": [
+                    "分式的通分",
+                    "分式的基本性质"
+                ],
+                "skill_names": [
+                    "整式分解因式"
+                ]
+            }
+        },
+        {
+            "id": "math_8a_rjb_ch15_s1_t151",
+            "stem": "填空并判断所填式子是否为分式：\n\n(1) 一位作家先用 $m$ 天写完了一部小说的上集, 又用 $n$ 天写完下集, 这部小说 (上、下集) 共 120 万字, 这位作家平均每天的写作量为  \n(2) 走一段长 $10 \\mathrm{~km}$ 的路, 步行用 $2 x \\mathrm{~h}$ , 骑自行车所用时间比步行所用时间的一半少 $0.2 \\mathrm{~h}$ , 骑自行车的平均速度为  \n(3) 甲完成一项工作需 $t \\mathrm{~h}$ , 乙完成同样工作比甲少用 $1 \\mathrm{~h}$ , 设工作总量为 1 , 则乙的工作效率为",
+            "answer": "(1) 平均每天写作量为 \\(\\dfrac{120}{m+n}\\) 万字/天，是分式（且需 \\(m+n\\neq 0\\)）。\n(2) 骑车时间为 \\(x-0.2\\) h，平均速度为 \\(\\dfrac{10}{x-0.2}\\) km/h，是分式（且需 \\(x\\neq 0.2\\)）。\n(3) 乙用时 \\(t-1\\) h，工作效率为 \\(\\dfrac{1}{t-1}\\)，是分式（且需 \\(t\\neq 1\\)）。",
+            "analysis": "(1) 总字数120万字，总用时\\(m+n\\)天，平均=总量÷总时间。\\n(2) 步行用时\\(2x\\)h，其一半为\\(x\\)h，骑车比其少0.2h得\\(x-0.2\\)h；速度=路程÷时间。\\n(3) 工作总量设为1，乙用时\\(t-1\\)h，效率=1÷(用时)。分式判断看是否形如\\(\\frac{A}{B}\\)且\\(A,B\\)为整式、\\(B\\neq 0\\)。",
+            "difficulty": 2,
+            "type": "填空题",
+            "meta": {
+                "book_prefix": "math_8a_rjb",
+                "source_md": "ch15_s1.md",
+                "question_no_in_source": 1,
+                "global_no": 55
+            },
+            "links": {
+                "concept_names": [
+                    "分式",
+                    "分式的意义条件（分母不为0）"
+                ]
+            }
+        },
+        {
+            "id": "math_8a_rjb_ch15_s1_t152",
+            "stem": "下列各式中，哪些是整式？哪些是分式？\n\n$$\n\\frac {1}{a}, x - 1, \\frac {3}{m}, \\frac {b}{3}, \\frac {c}{a - b}, \\frac {a + 6}{2 b}, \\frac {3}{4} (x + y), \\frac {x ^ {2} + 2 x + 1}{5}, \\frac {m + n}{m - n}.\n$$",
+            "answer": "整式：x-1，\\frac{b}{3}，\\frac{3}{4}(x+y)，\\frac{x^2+2x+1}{5}；分式：\\frac{1}{a}，\\frac{3}{m}，\\frac{c}{a-b}，\\frac{a+6}{2b}，\\frac{m+n}{m-n}。",
+            "analysis": "判断标准：分母中含有字母(或含有字母的式子)的是分式；分母为非零常数的可看作整式(常数因子)。据此：\\frac{1}{a},\\frac{3}{m},\\frac{c}{a-b},\\frac{a+6}{2b},\\frac{m+n}{m-n}分母含字母(或含字母的式子)，为分式；x-1为整式；\\frac{b}{3}=\\frac{1}{3}b、\\frac{3}{4}(x+y)为整式；\\frac{x^2+2x+1}{5}=\\frac{1}{5}(x^2+2x+1)分母为常数，为整式。",
+            "difficulty": 2,
+            "type": "简答题",
+            "meta": {
+                "book_prefix": "math_8a_rjb",
+                "source_md": "ch15_s1.md",
+                "question_no_in_source": 2,
+                "global_no": 56
+            },
+            "links": {
+                "concept_names": [
+                    "分式"
+                ]
+            }
+        },
+        {
+            "id": "math_8a_rjb_ch15_s1_t153",
+            "stem": "$x$ 满足什么条件时下列分式有意义？\n\n(1) $\\frac{1}{3x}$ ;\n\n(2) $\\frac{1}{3 - x}$ ;\n\n(3) $\\frac{x - 5}{3x + 5}$\n\n(4) $\\frac{1}{x^2 - 16}$ .",
+            "answer": "(1) x≠0；(2) x≠3；(3) x≠-5/3；(4) x≠4且x≠-4。",
+            "analysis": "分式有意义的条件是分母不为0。\n(1) 3x≠0⇒x≠0；\n(2) 3-x≠0⇒x≠3；\n(3) 3x+5≠0⇒x≠-5/3；\n(4) x^2-16≠0⇒(x-4)(x+4)≠0⇒x≠4且x≠-4。",
+            "difficulty": 2,
+            "type": "填空题",
+            "meta": {
+                "book_prefix": "math_8a_rjb",
+                "source_md": "ch15_s1.md",
+                "question_no_in_source": 3,
+                "global_no": 57
+            },
+            "links": {
+                "concept_names": [
+                    "分式的意义条件（分母不为0）"
+                ],
+                "skill_names": [
+                    "整式分解因式"
+                ]
+            }
+        },
+        {
+            "id": "math_8a_rjb_ch15_s1_t154",
+            "stem": "下列各组中的两个分式是否相等？为什么？\n\n(1) $\\frac{2x}{y}$ 与 $\\frac{4xy}{2y^2}$\n\n(2) $\\frac{6ac}{9a^2b}$ 与 $\\frac{2c}{3ab}$ .",
+            "answer": "(1) 相等（在 y≠0 的条件下）。因为 4xy/(2y^2)=2xy/y^2=2x/y。\n(2) 相等（在 a≠0、b≠0 的条件下）。因为 6ac/(9a^2b)=(6/9)·(ac)/(a^2b)=(2/3)·c/(ab)=2c/(3ab)。",
+            "analysis": "(1) 将分式 4xy/(2y^2) 约分：分子分母同除以 2y（要求 y≠0），得 2x/y，与 2x/y 相同，所以两分式相等。\n(2) 将 6ac/(9a^2b) 约分：6/9=2/3，且 ac/a^2b=c/ab（要求 a≠0、b≠0），得 2c/(3ab)，与另一分式相同，所以两分式相等。",
+            "difficulty": 2,
+            "type": "简答题",
+            "meta": {
+                "book_prefix": "math_8a_rjb",
+                "source_md": "ch15_s1.md",
+                "question_no_in_source": 4,
+                "global_no": 58
+            },
+            "links": {
+                "concept_names": [
+                    "分式",
+                    "分式的意义条件（分母不为0）",
+                    "分式的基本性质",
+                    "分式的约分"
+                ]
+            }
+        },
+        {
+            "id": "math_8a_rjb_ch15_s1_t155",
+            "stem": "不改变分式的值，使下列分式的分子和分母都不含“一”号：\n\n(1) $\\frac{-5y}{-x^2}$ ;\n\n(2) $\\frac{-a}{2b}$ ;\n\n(3) $\\frac{4m}{-3n}$ ;\n\n（4） $-\\frac{-x}{2y}$",
+            "answer": "(1) \\(\\frac{5y}{x^2}\\)；(2) \\(-\\frac{a}{2b}\\)（或 \\(-\\left(\\frac{a}{2b}\\right)\\)）；(3) \\(-\\frac{4m}{3n}\\)；(4) \\(\\frac{x}{2y}\\)",
+            "analysis": "分式的值不变时，可把分子分母的负号同时约去（\\(\\frac{-A}{-B}=\\frac{A}{B}\\)），或把分子/分母中的负号移到分式前面（\\(\\frac{-A}{B}=-\\frac{A}{B}\\)，\\(\\frac{A}{-B}=-\\frac{A}{B}\\)）。(1) 分子分母同为负，化为正：\\(\\frac{-5y}{-x^2}=\\frac{5y}{x^2}\\)。(2) 分子为负，负号提出：\\(\\frac{-a}{2b}=-\\frac{a}{2b}\\)。(3) 分母为负，负号提出：\\(\\frac{4m}{-3n}=-\\frac{4m}{3n}\\)。(4) 分式前还有一个负号，\\(-\\frac{-x}{2y}=\\frac{x}{2y}\\)。",
+            "difficulty": 2,
+            "type": "简答题",
+            "meta": {
+                "book_prefix": "math_8a_rjb",
+                "source_md": "ch15_s1.md",
+                "question_no_in_source": 5,
+                "global_no": 59
+            },
+            "links": {
+                "concept_names": [
+                    "分式的基本性质"
+                ]
+            }
+        },
+        {
+            "id": "math_8a_rjb_ch15_s1_t156",
+            "stem": "约分：\n\n(1) $\\frac{5x}{25x^2}$\n\n(2) $\\frac{9ab^2 + 6abc}{3a^2b}$\n\n(3) $\\frac{9a^2 + 6ab + b^2}{3a + b}$ ;\n\n(4) $\\frac{x^2 - 36}{2x + 12}$ .",
+            "answer": "(1) \\(\\frac{1}{5x}\\)；(2) \\(\\frac{3b+2c}{a}\\)；(3) \\(3a+b\\)；(4) \\(\\frac{x-6}{2}\\)",
+            "analysis": "(1) \\(\\frac{5x}{25x^2}=\\frac{5}{25}\\cdot\\frac{x}{x^2}=\\frac{1}{5x}\\)。\n(2) \\(\\frac{9ab^2+6abc}{3a^2b}=\\frac{3ab(3b+2c)}{3a^2b}=\\frac{3b+2c}{a}\\)。\n(3) \\(\\frac{9a^2+6ab+b^2}{3a+b}=\\frac{(3a+b)^2}{3a+b}=3a+b\\)。\n(4) \\(\\frac{x^2-36}{2x+12}=\\frac{(x-6)(x+6)}{2(x+6)}=\\frac{x-6}{2}\\)。",
+            "difficulty": 2,
+            "type": "填空题",
+            "meta": {
+                "book_prefix": "math_8a_rjb",
+                "source_md": "ch15_s1.md",
+                "question_no_in_source": 6,
+                "global_no": 60
+            },
+            "links": {
+                "concept_names": [
+                    "分式的基本性质",
+                    "分式的约分",
+                    "最简分式"
+                ],
+                "skill_names": [
+                    "整式分解因式"
+                ]
+            }
+        },
+        {
+            "id": "math_8a_rjb_ch15_s1_t157",
+            "stem": "通分：\n\n(1) $\\frac{x}{3y}$ 与 $\\frac{3x}{2y^2}$\n\n(2) $\\frac{6c}{a^2b}$ 与 $\\frac{c}{3ab^2}$\n\n(3) $\\frac{x - y}{2x + 2y}$ 与 $\\frac{xy}{(x + y)^2}$\n\n(4) $\\frac{2mn}{4m^2 - 9}$ 与 $\\frac{2m - 3}{2m + 3}$ .",
+            "answer": "(1) 公分母6y^2：\\n\\t\\frac{x}{3y}=\\frac{2xy}{6y^2},\\quad \\frac{3x}{2y^2}=\\frac{9x}{6y^2}.\\n(2) 公分母3a^2b^2：\\n\\t\\frac{6c}{a^2b}=\\frac{18bc}{3a^2b^2},\\quad \\frac{c}{3ab^2}=\\frac{ac}{3a^2b^2}.\\n(3) 公分母2(x+y)^2：\\n\\t\\frac{x-y}{2x+2y}=\\frac{(x-y)(x+y)}{2(x+y)^2},\\quad \\frac{xy}{(x+y)^2}=\\frac{2xy}{2(x+y)^2}.\\n(4) 公分母(2m-3)(2m+3)：\\n\\t\\frac{2mn}{4m^2-9}=\\frac{2mn}{(2m-3)(2m+3)},\\quad \\frac{2m-3}{2m+3}=\\frac{(2m-3)^2}{(2m-3)(2m+3)}.",
+            "analysis": "通分步骤：先分解各分母（如2x+2y=2(x+y)，4m^2-9=(2m-3)(2m+3)），取各分母的最小公分母；再将每个分式的分子分母同乘以“公分母/原分母”的因式，得到同分母形式。",
+            "difficulty": 3,
+            "type": "简答题",
+            "meta": {
+                "book_prefix": "math_8a_rjb",
+                "source_md": "ch15_s1.md",
+                "question_no_in_source": 7,
+                "global_no": 61
+            },
+            "links": {
+                "concept_names": [
+                    "分式的通分",
+                    "分式的基本性质"
+                ],
+                "skill_names": [
+                    "整式分解因式"
+                ]
+            }
+        },
+        {
+            "id": "math_8a_rjb_ch15_s2_t158",
+            "stem": "写出第15.2.1节中问题1和问题2的计算结果.",
+            "answer": "无法确定（题干未提供“第15.2.1节”中问题1和问题2的具体内容，无法计算结果）。",
+            "analysis": "题目要求写出“第15.2.1节”中问题1、问题2的计算结果，但当前题干未给出这两个问题的题目或数据，因此无法进行计算并得到确定答案。需补充问题1和问题2的具体内容后才能计算。",
+            "difficulty": 1,
+            "type": "填空题",
+            "meta": {
+                "book_prefix": "math_8a_rjb",
+                "source_md": "ch15_s2.md",
+                "question_no_in_source": 1,
+                "global_no": 62
+            },
+            "links": {
+                "concept_names": [
+                    "分式的乘法法则",
+                    "分式的除法法则"
+                ],
+                "skill_names": [
+                    "因式分解与约分"
+                ]
+            }
+        },
+        {
+            "id": "math_8a_rjb_ch15_s2_t159",
+            "stem": "计算：\n\n(1) $\\frac{3a}{4b} \\cdot \\frac{16b}{9a^2}$ ;   \n(2) $\\frac{12xy}{5a} \\div 8x^2y$ ;   \n(3) $(-3xy) \\div \\frac{2y^2}{3x}$ ;   \n(4) $\\frac{x + y}{x - y} \\cdot \\frac{y - x}{x + y}$ .",
+            "answer": "(1) \\(\\frac{4}{3a}\\)；(2) \\(\\frac{3}{10ax}\\)；(3) \\(-\\frac{9x^2}{2y}\\)；(4) \\(-1\\)。",
+            "analysis": "(1) 分子分母约分：\\(\\frac{3a}{4b}\\cdot\\frac{16b}{9a^2}=\\frac{48a}{36a^2}=\\frac{4}{3a}\\)。\n(2) 除以一个代数式等于乘以它的倒数：\\(\\frac{12xy}{5a}\\div 8x^2y=\\frac{12xy}{5a}\\cdot\\frac{1}{8x^2y}=\\frac{12}{40}\\cdot\\frac{1}{ax}=\\frac{3}{10ax}\\)。\n(3) 乘倒数并约分：\\((-3xy)\\div\\frac{2y^2}{3x}=(-3xy)\\cdot\\frac{3x}{2y^2}=-\\frac{9x^2}{2y}\\)。\n(4) 约分并利用\\(y-x=-(x-y)\\)：\\(\\frac{x+y}{x-y}\\cdot\\frac{y-x}{x+y}=\\frac{y-x}{x-y}=-1\\)。",
+            "difficulty": 2,
+            "type": "填空题",
+            "meta": {
+                "book_prefix": "math_8a_rjb",
+                "source_md": "ch15_s2.md",
+                "question_no_in_source": 2,
+                "global_no": 63
+            },
+            "links": {
+                "concept_names": [
+                    "分式的乘法法则",
+                    "分式的除法法则",
+                    "整数指数幂及其运算性质"
+                ],
+                "skill_names": [
+                    "因式分解与约分"
+                ]
+            }
+        },
+        {
+            "id": "math_8a_rjb_ch15_s2_t160",
+            "stem": "计算：\n\n(1) $\\frac{3a - 3b}{10ab} \\cdot \\frac{25a^2b^3}{a^2 - b^2}$ ;\n\n(2) $\\frac{4y^2 - x^2}{x^2 + 2xy + y^2} \\div \\frac{x - 2y}{2x^2 + 2xy}.$\n\n例4 计算 $\\frac{2x}{5x - 3} \\div \\frac{3}{25x^2 - 9} \\cdot \\frac{x}{5x + 3}.$\n\n解: $\\frac{2x}{5x - 3} \\div \\frac{3}{25x^2 - 9} \\cdot \\frac{x}{5x + 3}$\n\n$$\n\\begin{array}{l} = \\frac {2 x}{5 x - 3} \\cdot \\frac {2 5 x ^ {2} - 9}{3} \\cdot \\frac {x}{5 x + 3} \\\\ = \\frac {2 x ^ {2}}{3}. \\\\ \\end{array}\n$$\n\n乘除混合运算可以统一为乘法运算.",
+            "answer": "(1) \\(\\frac{15ab^2}{2(a+b)}\\)；(2) \\(-\\frac{2x(x+2y)}{x+y}\\)；例4：\\(\\frac{2x^2}{3}\\)。",
+            "analysis": "(1) \\(\\frac{3a-3b}{10ab}\\cdot\\frac{25a^2b^3}{a^2-b^2}=\\frac{3(a-b)}{10ab}\\cdot\\frac{25a^2b^3}{(a-b)(a+b)}\\)，约去\\((a-b)\\)，得\\(\\frac{75a b^2}{10(a+b)}=\\frac{15ab^2}{2(a+b)}\\)。\n(2) \\(\\frac{4y^2-x^2}{x^2+2xy+y^2}\\div\\frac{x-2y}{2x^2+2xy}=\\frac{(2y-x)(2y+x)}{(x+y)^2}\\cdot\\frac{2x(x+y)}{x-2y}\\)。因\\((2y-x)=-(x-2y)\\)，约去\\((x-2y)\\)与一个\\((x+y)\\)，得\\(-\\frac{2x(x+2y)}{x+y}\\)。\n例4：\\(\\frac{2x}{5x-3}\\div\\frac{3}{25x^2-9}\\cdot\\frac{x}{5x+3}=\\frac{2x}{5x-3}\\cdot\\frac{25x^2-9}{3}\\cdot\\frac{x}{5x+3}\\)，且\\(25x^2-9=(5x-3)(5x+3)\\)，约分得\\(\\frac{2x^2}{3}\\)。",
+            "difficulty": 3,
+            "type": "简答题",
+            "meta": {
+                "book_prefix": "math_8a_rjb",
+                "source_md": "ch15_s2.md",
+                "question_no_in_source": 3,
+                "global_no": 64
+            },
+            "links": {
+                "concept_names": [
+                    "分式的乘法法则",
+                    "分式的除法法则"
+                ],
+                "skill_names": [
+                    "因式分解与约分"
+                ]
+            }
+        },
+        {
+            "id": "math_8a_rjb_ch15_s2_t161",
+            "stem": "计算：\n\n(1) $\\frac{2m^2n}{3pq^2} \\cdot \\frac{5p^2q}{4mn^2} \\div \\frac{5mnp}{3q}$ ;\n\n(2) $\\frac{16 - a^2}{a^2 + 8a + 16} \\div \\frac{a - 4}{2a + 8} \\cdot \\frac{a - 2}{a + 2}$ .",
+            "answer": "(1) \\(\\frac{1}{2n^2}\\)；(2) \\(-\\frac{2(a-2)}{a+2}\\)。",
+            "analysis": "(1) 先乘再除：\\(\\frac{2m^2n}{3pq^2}\\cdot\\frac{5p^2q}{4mn^2}=\\frac{10m^2np^2q}{12m n^2 p q^2}=\\frac{5mp}{6nq}\\)，再除以\\(\\frac{5mnp}{3q}\\)等于乘其倒数：\\(\\frac{5mp}{6nq}\\cdot\\frac{3q}{5mnp}=\\frac{1}{2n^2}\\)。\n(2) 因式分解：\\(16-a^2=(4-a)(4+a)=-(a-4)(a+4)\\)，\\(a^2+8a+16=(a+4)^2\\)，故\\(\\frac{16-a^2}{a^2+8a+16}=-\\frac{a-4}{a+4}\\)。又\\(\\frac{a-4}{2a+8}=\\frac{a-4}{2(a+4)}\\)，所以\\(-\\frac{a-4}{a+4}\\div\\frac{a-4}{2(a+4)}=-\\frac{a-4}{a+4}\\cdot\\frac{2(a+4)}{a-4}=-2\\)，再乘\\(\\frac{a-2}{a+2}\\)得\\(-\\frac{2(a-2)}{a+2}\\)。",
+            "difficulty": 3,
+            "type": "简答题",
+            "meta": {
+                "book_prefix": "math_8a_rjb",
+                "source_md": "ch15_s2.md",
+                "question_no_in_source": 1,
+                "global_no": 65
+            },
+            "links": {
+                "concept_names": [
+                    "分式的乘法法则",
+                    "分式的除法法则"
+                ],
+                "skill_names": [
+                    "因式分解与约分"
+                ]
+            }
+        },
+        {
+            "id": "math_8a_rjb_ch15_s2_t162",
+            "stem": "计算：\n\n(1) $\\left(\\frac{-2x^4y^2}{3z}\\right)^3$ ;\n\n(2) $\\left(\\frac{2ab^3}{-c^2d}\\right)^2 \\div \\frac{6a^4}{b^3} \\cdot \\left(\\frac{-3c}{b^2}\\right)^3$ .",
+            "answer": "(1) \\(-\\dfrac{8x^{12}y^6}{27z^3}\\)；(2) \\(-\\dfrac{18b^3}{a^2cd^2}\\)。",
+            "analysis": "(1) 乘方分配到分子分母：\\(\\left(\\frac{-2x^4y^2}{3z}\\right)^3=\\frac{(-2)^3x^{12}y^6}{3^3z^3}=-\\frac{8x^{12}y^6}{27z^3}\\)。\n(2) 先算乘方：\\(\\left(\\frac{2ab^3}{-c^2d}\\right)^2=\\frac{4a^2b^6}{c^4d^2}\\)，\\(\\left(\\frac{-3c}{b^2}\\right)^3=\\frac{-27c^3}{b^6}\\)。再把“除以”改为乘倒数：\n\\(\\frac{4a^2b^6}{c^4d^2}\\div\\frac{6a^4}{b^3}=\\frac{4a^2b^6}{c^4d^2}\\cdot\\frac{b^3}{6a^4}=\\frac{2b^9}{3a^2c^4d^2}\\)。\n最后相乘：\\(\\frac{2b^9}{3a^2c^4d^2}\\cdot\\frac{-27c^3}{b^6}=-\\frac{18b^3}{a^2cd^2}\\)。",
+            "difficulty": 3,
+            "type": "简答题",
+            "meta": {
+                "book_prefix": "math_8a_rjb",
+                "source_md": "ch15_s2.md",
+                "question_no_in_source": 2,
+                "global_no": 66
+            },
+            "links": {
+                "concept_names": [
+                    "分式的乘法法则",
+                    "分式的除法法则",
+                    "分式的乘方法则",
+                    "整数指数幂及其运算性质"
+                ],
+                "skill_names": [
+                    "因式分解与约分"
+                ]
+            }
+        },
+        {
+            "id": "math_8a_rjb_ch15_s2_t163",
+            "stem": "计算：\n\n(1) $\\frac{x + 1}{x} - \\frac{1}{x}$ ;\n\n(2) $\\frac{a}{b + 1} + \\frac{2a}{b + 1} - \\frac{3a}{b + 1}$ .",
+            "answer": "(1) 1；(2) 0",
+            "analysis": "(1) 通分同分母为x：\\(\\frac{x+1}{x}-\\frac{1}{x}=\\frac{x+1-1}{x}=\\frac{x}{x}=1\\)（x≠0）。\n(2) 同分母为b+1：\\(\\frac{a}{b+1}+\\frac{2a}{b+1}-\\frac{3a}{b+1}=\\frac{a+2a-3a}{b+1}=\\frac{0}{b+1}=0\\)（b≠-1）。",
+            "difficulty": 1,
+            "type": "填空题",
+            "meta": {
+                "book_prefix": "math_8a_rjb",
+                "source_md": "ch15_s2.md",
+                "question_no_in_source": 1,
+                "global_no": 67
+            },
+            "links": {
+                "concept_names": [
+                    "分式的加减法法则"
+                ]
+            }
+        },
+        {
+            "id": "math_8a_rjb_ch15_s2_t164",
+            "stem": "计算：\n\n(1) $\\frac{1}{2c^2d} + \\frac{1}{3cd^2}$ ;\n\n(2) $\\frac{3}{2m - n} - \\frac{2m - n}{(2m - n)^2}$ ;\n\n(3) $\\frac{a}{a^2 - b^2} - \\frac{1}{a + b}$ ;\n\n(4) $\\frac{a^2}{a - 1} - a - 1$ .\n\n例7 计算 $\\left(\\frac{2a}{b}\\right)^2 \\cdot \\frac{1}{a - b} - \\frac{a}{b} \\div \\frac{b}{4}$ .\n\n解： $\\left(\\frac{2a}{b}\\right)^2\\cdot \\frac{1}{a - b} -\\frac{a}{b}\\div \\frac{b}{4}$\n\n$$\n\\begin{array}{l} = \\frac {4 a ^ {2}}{b ^ {2}} \\cdot \\frac {1}{a - b} - \\frac {a}{b} \\cdot \\frac {4}{b} \\\\ = \\frac {4 a ^ {2}}{b ^ {2} (a - b)} - \\frac {4 a}{b ^ {2}} = \\frac {4 a ^ {2}}{b ^ {2} (a - b)} - \\frac {4 a (a - b)}{b ^ {2} (a - b)} \\\\ = \\frac {4 a ^ {2} - 4 a ^ {2} + 4 a b}{b ^ {2} (a - b)} = \\frac {4 a b}{b ^ {2} (a - b)} \\\\ = \\frac {4 a}{a b - b ^ {2}}. \\\\ \\end{array}\n$$\n\n式与数有相同的混合运算顺序：先乘方，再乘除，然后加减.\n\n例8 计算：\n\n(1) $\\left(m + 2 + \\frac{5}{2 - m}\\right) \\cdot \\frac{2m - 4}{3 - m}$ ;\n\n(2) $\\left(\\frac{x + 2}{x^2 - 2x} - \\frac{x - 1}{x^2 - 4x + 4}\\right) \\div \\frac{x - 4}{x}$ .\n\n解：(1) $\\left(m + 2 + \\frac{5}{2 - m}\\right) \\cdot \\frac{2m - 4}{3 - m}$\n\n$$\n\\begin{array}{l} = \\frac {(m + 2) (2 - m) + 5}{2 - m} \\cdot \\frac {2 m - 4}{3 - m} \\\\ = \\frac {9 - m ^ {2}}{2 - m} \\cdot \\frac {2 (m - 2)}{3 - m} \\\\ = \\frac {(3 - m) (3 + m)}{2 - m} \\cdot \\frac {- 2 (2 - m)}{3 - m} \\\\ = - 2 (m + 3) = - 2 m - 6; \\\\ \\end{array}\n$$\n\n(2) $\\left(\\frac{x + 2}{x^2 - 2x} - \\frac{x - 1}{x^2 - 4x + 4}\\right) \\div \\frac{x - 4}{x}$\n\n$$\n\\begin{array}{l} = \\left[ \\frac {x + 2}{x (x - 2)} - \\frac {x - 1}{(x - 2) ^ {2}} \\right] \\cdot \\frac {x}{x - 4} \\\\ = \\frac {(x + 2) (x - 2) - (x - 1) x}{x (x - 2) ^ {2}} \\cdot \\frac {x}{x - 4} \\\\ = \\frac {x ^ {2} - 4 - x ^ {2} + x}{(x - 2) ^ {2} (x - 4)} \\\\ = \\frac {1}{(x - 2) ^ {2}}. \\\\ \\end{array}\n$$",
+            "answer": "(1) \\(\\dfrac{2c+3d}{6c^2d^2}\\)；(2) \\(\\dfrac{2}{2m-n}\\)；(3) \\(\\dfrac{b}{a^2-b^2}\\)；(4) \\(\\dfrac{1}{a-1}\\)。",
+            "analysis": "(1) 通分到\\(6c^2d^2\\)：\\(\\frac{1}{2c^2d}=\\frac{3d}{6c^2d^2}\\)，\\(\\frac{1}{3cd^2}=\\frac{2c}{6c^2d^2}\\)，相加得\\(\\frac{2c+3d}{6c^2d^2}\\)。\n(2) \\(\\frac{2m-n}{(2m-n)^2}=\\frac{1}{2m-n}\\)，所以\\(\\frac{3}{2m-n}-\\frac{1}{2m-n}=\\frac{2}{2m-n}\\)。\n(3) \\(a^2-b^2=(a-b)(a+b)\\)，\\(\\frac{1}{a+b}=\\frac{a-b}{(a-b)(a+b)}\\)，故差为\\(\\frac{a-(a-b)}{(a-b)(a+b)}=\\frac{b}{a^2-b^2}\\)。\n(4) 提取公分母\\((a-1)\\)：\\(\\frac{a^2}{a-1}-a-1=\\frac{a^2-(a+1)(a-1)}{a-1}=\\frac{a^2-(a^2-1)}{a-1}=\\frac{1}{a-1}\\)。",
+            "difficulty": 2,
+            "type": "简答题",
+            "meta": {
+                "book_prefix": "math_8a_rjb",
+                "source_md": "ch15_s2.md",
+                "question_no_in_source": 2,
+                "global_no": 68
+            },
+            "links": {
+                "concept_names": [
+                    "分式的乘法法则",
+                    "分式的除法法则",
+                    "分式的加减法法则",
+                    "分式的乘方法则"
+                ],
+                "skill_names": [
+                    "因式分解与约分"
+                ]
+            }
+        },
+        {
+            "id": "math_8a_rjb_ch15_s2_t165",
+            "stem": "写出第 15.2.2 节中问题 3 和问题 4 的计算结果.",
+            "answer": "无法确定（题干未提供第15.2.2节问题3和问题4的具体内容，无法计算结果）。",
+            "analysis": "需要先给出或引用“第15.2.2节”中“问题3、问题4”的题目表达式/数据，才能进行计算并写出结果；仅凭当前题干无法确定计算对象。",
+            "difficulty": 1,
+            "type": "简答题",
+            "meta": {
+                "book_prefix": "math_8a_rjb",
+                "source_md": "ch15_s2.md",
+                "question_no_in_source": 1,
+                "global_no": 69
+            },
+            "links": {
+                "concept_names": [
+                    "分式的除法法则"
+                ],
+                "skill_names": [
+                    "因式分解与约分"
+                ]
+            }
+        },
+        {
+            "id": "math_8a_rjb_ch15_s2_t166",
+            "stem": "计算：\n\n(1) $\\left(\\frac{x}{2y}\\right)^2 \\cdot \\frac{y}{2x} - \\frac{x}{y^2} \\div \\frac{2y^2}{x}$ ;\n\n(2) $\\frac{x + 1}{x} \\cdot \\left(\\frac{2x}{x + 1}\\right)^2 - \\left(\\frac{1}{x - 1} - \\frac{1}{x + 1}\\right)$ .",
+            "answer": "(1) \\(\\dfrac{x}{8y}-\\dfrac{x^2}{2y^4}=\\dfrac{x(y^3-4x)}{8y^4}\\)；(2) \\(\\dfrac{4x}{x+1}-\\dfrac{2}{x^2-1}=\\dfrac{4x^2-4x-2}{x^2-1}\\)。",
+            "analysis": "(1) 先算\\((\\frac{x}{2y})^2=\\frac{x^2}{4y^2}\\)，再乘\\(\\frac{y}{2x}\\)得\\(\\frac{x}{8y}\\)；再算\\(\\frac{x}{y^2}\\div\\frac{2y^2}{x}=\\frac{x}{y^2}\\cdot\\frac{x}{2y^2}=\\frac{x^2}{2y^4}\\)，两部分相减得结果。\\n(2) \\((\\frac{2x}{x+1})^2=\\frac{4x^2}{(x+1)^2}\\)，乘\\(\\frac{x+1}{x}\\)得\\(\\frac{4x}{x+1}\\)；括号内\\(\\frac{1}{x-1}-\\frac{1}{x+1}=\\frac{2}{x^2-1}\\)，所以原式为\\(\\frac{4x}{x+1}-\\frac{2}{x^2-1}\\)，通分化简得\\(\\frac{4x^2-4x-2}{x^2-1}\\)。",
+            "difficulty": 2,
+            "type": "计算题",
+            "meta": {
+                "book_prefix": "math_8a_rjb",
+                "source_md": "ch15_s2.md",
+                "question_no_in_source": 2,
+                "global_no": 70
+            },
+            "links": {
+                "concept_names": [
+                    "分式的乘法法则",
+                    "分式的除法法则",
+                    "分式的加减法法则",
+                    "分式的乘方法则"
+                ],
+                "skill_names": [
+                    "因式分解与约分"
+                ]
+            }
+        },
+        {
+            "id": "math_8a_rjb_ch15_s2_t167",
+            "stem": "填空：\n\n（1） \\(3^{0} = \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_\n(2) \\(3^{1} = \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_\n(3) \\(3^{2} = \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\)\n(4) \\(3^{3} = \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_\\)\n(5) \\(3^{4} = \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\_ \\)_   \n(2） $(-3)^{0} =$ ， $(-3)^{-2} =$   \n(3) $b^{0} =$ ______, $b^{-2} =$ ______ ( $b \\neq 0$ ).",
+            "answer": "（1）1；（2）3；（3）9；（4）27；（5）81；(-3)^0=1，(-3)^(-2)=1/9；b^0=1，b^(-2)=1/b^2",
+            "analysis": "利用指数运算性质：a^0=1（a≠0）；a^n为n个a相乘；a^(-n)=1/a^n（a≠0）。所以3^0=1，3^1=3，3^2=9，3^3=27，3^4=81；(-3)^0=1，(-3)^(-2)=1/(-3)^2=1/9；b^0=1，b^(-2)=1/b^2（b≠0）。",
+            "difficulty": 2,
+            "type": "填空题",
+            "meta": {
+                "book_prefix": "math_8a_rjb",
+                "source_md": "ch15_s2.md",
+                "question_no_in_source": 1,
+                "global_no": 71
+            },
+            "links": {
+                "concept_names": [
+                    "整数指数幂及其运算性质",
+                    "负整数指数幂"
+                ]
+            }
+        },
+        {
+            "id": "math_8a_rjb_ch15_s2_t168",
+            "stem": "计算：\n\n(1) $x^{2}y^{-3}(x^{-1}y)^{3}$\n\n(2) $(2ab^{2}c^{-3})^{-2} \\div (a^{-2}b)^{3}$ .\n\n我们已经知道，一些较大的数适合用科学记数法表示。例如，光速约为 $3 \\times 10^{8} \\mathrm{~m} / \\mathrm{s}$ ，太阳半径约为 $6.96 \\times 10^{5} \\mathrm{~km}$ ，2010年世界人口数约为 $6.9 \\times 10^{9}$ 等。\n\n有了负整数指数幂后，小于1的正数也可以用科学记数法表示。例如， $0.00001 = 10^{-5}$ ， $0.0000257 = 2.57 \\times 10^{-5}$ ， $0.0000000257 = 2.57 \\times 10^{-8}$ 等，即小于1的正数可以用科学记数法表示为 $a \\times 10^{-n}$ 的形式，其中 $1 \\leqslant a < 10$ ， $n$ 是正整数。这种形式更便于比较数的大小，例如 $2.57 \\times 10^{-5}$ 显然大于 $2.57 \\times 10^{-8}$ ，前者是后者的 $10^{3}$ 倍。",
+            "answer": "(1) x^{-1}=\\frac{1}{x}\\n(2) \\frac{a^{4}c^{6}}{4b^{7}}",
+            "analysis": "(1) (x^{-1}y)^3=x^{-3}y^3，与x^2y^{-3}相乘得x^{2-3}y^{-3+3}=x^{-1}.\\n(2) (2ab^2c^{-3})^{-2}=2^{-2}a^{-2}b^{-4}(c^{-3})^{-2}=\\frac{1}{4}a^{-2}b^{-4}c^6；(a^{-2}b)^3=a^{-6}b^3。相除得\\frac{1}{4}a^{-2}b^{-4}c^6\\div a^{-6}b^3=\\frac{1}{4}a^{4}b^{-7}c^6=\\frac{a^{4}c^{6}}{4b^{7}}。",
+            "difficulty": 2,
+            "type": "简答题",
+            "meta": {
+                "book_prefix": "math_8a_rjb",
+                "source_md": "ch15_s2.md",
+                "question_no_in_source": 2,
+                "global_no": 72
+            },
+            "links": {
+                "concept_names": [
+                    "整数指数幂及其运算性质",
+                    "负整数指数幂"
+                ],
+                "skill_names": [
+                    "因式分解与约分"
+                ]
+            }
+        },
+        {
+            "id": "math_8a_rjb_ch15_s2_t169",
+            "stem": "用科学记数法表示下列数：000000001, 0012, 000000345, 0000000108.",
+            "answer": "000000001=1×10^0；0012=1.2×10^1；000000345=3.45×10^2；0000000108=1.08×10^2",
+            "analysis": "先去掉前导0得到实际数值：1、12、345、108；再把数写成a×10^n（1≤a<10）：1=1×10^0，12=1.2×10^1，345=3.45×10^2，108=1.08×10^2。",
+            "difficulty": 2,
+            "type": "填空题",
+            "meta": {
+                "book_prefix": "math_8a_rjb",
+                "source_md": "ch15_s2.md",
+                "question_no_in_source": 1,
+                "global_no": 73
+            },
+            "links": {
+                "concept_names": [
+                    "整数指数幂及其运算性质",
+                    "负整数指数幂"
+                ]
+            }
+        },
+        {
+            "id": "math_8a_rjb_ch15_s2_t174",
+            "stem": "计算：\n\n(1) $(2 \\times 10^{-6}) \\times (3.2 \\times 10^{3})$\n\n(2) $(2 \\times 10^{-6})^{2} \\div (10^{-4})^{3}$ .",
+            "answer": "(1) 6.4×10^{-3}\n(2) 4",
+            "analysis": "(1) 系数相乘：2×3.2=6.4；同底数幂相乘指数相加：10^{-6}×10^{3}=10^{-3}，得6.4×10^{-3}。\n(2) (2×10^{-6})^{2}=2^{2}×(10^{-6})^{2}=4×10^{-12}；(10^{-4})^{3}=10^{-12}；相除得(4×10^{-12})÷(10^{-12})=4。",
+            "difficulty": 2,
+            "type": "填空题",
+            "meta": {
+                "book_prefix": "math_8a_rjb",
+                "source_md": "ch15_s2.md",
+                "question_no_in_source": 2,
+                "global_no": 74
+            },
+            "links": {
+                "concept_names": [
+                    "整数指数幂及其运算性质",
+                    "负整数指数幂"
+                ]
+            }
+        },
+        {
+            "id": "math_8a_rjb_ch15_s2_t175",
+            "stem": "计算：\n\n(1) $\\frac{6ab}{5c^2} \\cdot \\frac{10c}{3b}$ ;\n\n(2) $\\frac{-7x}{3yz} \\cdot \\left(-\\frac{9y^2}{x^2}\\right)$ ;\n\n(3) $\\frac{2m}{5n} \\div \\frac{4m^2}{10n^3}$ ;\n\n(4) $\\frac{x}{5y} \\div \\left(-\\frac{4x^2}{5y^2}\\right)$ .",
+            "answer": "(1) \\(\\frac{4a}{c}\\)；(2) \\(\\frac{21y}{xz}\\)；(3) \\(\\frac{n^2}{m}\\)；(4) \\(-\\frac{y}{4x}\\)",
+            "analysis": "(1) 分子分母约分：\\(\\frac{6ab}{5c^2}\\cdot\\frac{10c}{3b}=\\frac{60ac}{15c^2}=\\frac{4a}{c}\\)。\n(2) 两负得正并约分：\\(\\frac{-7x}{3yz}\\cdot\\left(-\\frac{9y^2}{x^2}\\right)=\\frac{63xy^2}{3yzx^2}=\\frac{21y}{xz}\\)。\n(3) 除以分式等于乘以其倒数：\\(\\frac{2m}{5n}\\div\\frac{4m^2}{10n^3}=\\frac{2m}{5n}\\cdot\\frac{10n^3}{4m^2}=\\frac{n^2}{m}\\)。\n(4) 乘倒数并约分：\\(\\frac{x}{5y}\\div\\left(-\\frac{4x^2}{5y^2}\\right)=\\frac{x}{5y}\\cdot\\frac{5y^2}{-4x^2}=-\\frac{y}{4x}\\)。",
+            "difficulty": 2,
+            "type": "简答题",
+            "meta": {
+                "book_prefix": "math_8a_rjb",
+                "source_md": "ch15_s2.md",
+                "question_no_in_source": 1,
+                "global_no": 75
+            },
+            "links": {
+                "concept_names": [
+                    "分式的乘法法则",
+                    "分式的除法法则"
+                ],
+                "skill_names": [
+                    "因式分解与约分"
+                ]
+            }
+        },
+        {
+            "id": "math_8a_rjb_ch15_s2_t176",
+            "stem": "计算：\n\n(1) $\\frac{4a + 4b}{5ab} \\cdot \\frac{15a^2b}{a^2 - b^2}$ ;\n\n(2) $\\frac{x^2 - 4y^2}{x^2 + 4x + 4} \\cdot \\frac{x + 2}{3x^2 + 6xy}$ ;\n\n(3) $\\frac{x^2 + 1}{x - 6} \\cdot \\frac{x^2 - 36}{x^3 + x}$ ;\n\n(4) $\\frac{y^2 - x^2}{5x^2 - 4xy} \\div \\frac{x + y}{5x - 4y}$ .",
+            "answer": "(1) \\(\\frac{12a}{a-b}\\)；(2) \\(\\frac{x-2y}{3x(x+2)}\\)；(3) \\(\\frac{x+6}{x}\\)；(4) \\(\\frac{y-x}{x}\\)。",
+            "analysis": "(1) 提取公因式并因式分解：\\(4a+4b=4(a+b)\\)，\\(a^2-b^2=(a-b)(a+b)\\)，约分得\\(\\frac{12a}{a-b}\\)。\n(2) 因式分解：\\(x^2-4y^2=(x-2y)(x+2y)\\)，\\(x^2+4x+4=(x+2)^2\\)，\\(3x^2+6xy=3x(x+2y)\\)，约分得\\(\\frac{x-2y}{3x(x+2)}\\)。\n(3) 因式分解：\\(x^2-36=(x-6)(x+6)\\)，\\(x^3+x=x(x^2+1)\\)，约分得\\(\\frac{x+6}{x}\\)。\n(4) 除以分式化为乘以倒数：\\(\\frac{y^2-x^2}{5x^2-4xy}\\cdot\\frac{5x-4y}{x+y}\\)，其中\\(y^2-x^2=(y-x)(x+y)\\)，\\(5x^2-4xy=x(5x-4y)\\)，约分得\\(\\frac{y-x}{x}\\)。",
+            "difficulty": 3,
+            "type": "简答题",
+            "meta": {
+                "book_prefix": "math_8a_rjb",
+                "source_md": "ch15_s2.md",
+                "question_no_in_source": 2,
+                "global_no": 76
+            },
+            "links": {
+                "concept_names": [
+                    "分式的乘法法则",
+                    "分式的除法法则"
+                ],
+                "skill_names": [
+                    "因式分解与约分"
+                ]
+            }
+        },
+        {
+            "id": "math_8a_rjb_ch15_s2_t177",
+            "stem": "计算：\n\n(1) $\\frac{4a^2b}{3cd^2} \\cdot \\frac{5c^2d}{4ab^2} \\div \\frac{2abc}{3d}$ ;\n\n(2) $\\frac{81 - a^2}{a^2 + 6a + 9} \\div \\frac{a - 9}{2a + 6} \\cdot \\frac{a + 3}{a + 9}$ ;\n\n(3) $\\left(\\frac{-3x^3y}{3z^2}\\right)^2$ ;\n\n(4) $\\left(\\frac{-a}{b}\\right)^2 \\div \\left(\\frac{2a^2}{5b}\\right)^2 \\cdot \\frac{a}{5b}$ .",
+            "answer": "(1) \\(\\frac{5}{2b^2}\\)；(2) \\(-2\\)；(3) \\(\\frac{x^6y^2}{z^4}\\)；(4) \\(\\frac{5}{4ab}\\)",
+            "analysis": "(1) 先乘再除：\\(\\frac{4a^2b}{3cd^2}\\cdot\\frac{5c^2d}{4ab^2}=\\frac{5ac}{3bd}\\)，再乘倒数 \\(\\frac{3d}{2abc}\\)，约分得 \\(\\frac{5}{2b^2}\\)。\n(2) 因式分解：\\(81-a^2=-(a-9)(a+9)\\)，\\(a^2+6a+9=(a+3)^2\\)，\\(2a+6=2(a+3)\\)。把除法变乘倒数并约分，最后剩 \\(-2\\)。\n(3) 先化简括号内：\\(\\frac{-3x^3y}{3z^2}=-\\frac{x^3y}{z^2}\\)，平方得 \\(\\frac{x^6y^2}{z^4}\\)。\n(4) 平方：\\(\\left(\\frac{-a}{b}\\right)^2=\\frac{a^2}{b^2}\\)，\\(\\left(\\frac{2a^2}{5b}\\right)^2=\\frac{4a^4}{25b^2}\\)。除法变乘倒数：\\(\\frac{a^2}{b^2}\\cdot\\frac{25b^2}{4a^4}=\\frac{25}{4a^2}\\)，再乘 \\(\\frac{a}{5b}\\) 得 \\(\\frac{5}{4ab}\\)。",
+            "difficulty": 3,
+            "type": "填空题",
+            "meta": {
+                "book_prefix": "math_8a_rjb",
+                "source_md": "ch15_s2.md",
+                "question_no_in_source": 3,
+                "global_no": 77
+            },
+            "links": {
+                "concept_names": [
+                    "分式的乘法法则",
+                    "分式的除法法则",
+                    "分式的乘方法则",
+                    "整数指数幂及其运算性质"
+                ],
+                "skill_names": [
+                    "因式分解与约分"
+                ]
+            }
+        },
+        {
+            "id": "math_8a_rjb_ch15_s2_t178",
+            "stem": "计算：\n\n(1) $\\frac{a}{a + 1} + \\frac{1}{a + 1}$ ;\n\n(2) $\\frac{3}{x + 1} - \\frac{3x}{x + 1}$ ;\n\n(3) $\\frac{a}{(a + 1)^2} + \\frac{1}{(a + 1)^2}$ ;\n\n(4) $\\frac{3}{(x - 1)^2} - \\frac{3x}{(x - 1)^2}$ .",
+            "answer": "(1) 1；(2) \\(\\frac{3(1-x)}{x+1}=-\\frac{3(x-1)}{x+1}\\)；(3) \\(\\frac{1}{a+1}\\)；(4) \\(\\frac{3(1-x)}{(x-1)^2}=-\\frac{3}{x-1}\\)",
+            "analysis": "(1) 同分母\\(a+1\\)，分子相加得\\(a+1\\)，约分得1（\\(a\\neq-1\\)）。\n(2) 同分母\\(x+1\\)，合并分子：\\(3-3x=3(1-x)\\)，得\\(\\frac{3(1-x)}{x+1}\\)（\\(x\\neq-1\\)）。\n(3) 同分母\\((a+1)^2\\)，分子相加得\\(a+1\\)，约分得\\(\\frac{1}{a+1}\\)（\\(a\\neq-1\\)）。\n(4) 同分母\\((x-1)^2\\)，合并分子：\\(3-3x=3(1-x)=-3(x-1)\\)，再约分得\\(-\\frac{3}{x-1}\\)（\\(x\\neq1\\)）。",
+            "difficulty": 2,
+            "type": "填空题",
+            "meta": {
+                "book_prefix": "math_8a_rjb",
+                "source_md": "ch15_s2.md",
+                "question_no_in_source": 4,
+                "global_no": 78
+            },
+            "links": {
+                "concept_names": [
+                    "分式的加减法法则"
+                ],
+                "skill_names": [
+                    "因式分解与约分"
+                ]
+            }
+        },
+        {
+            "id": "math_8a_rjb_ch15_s2_t179",
+            "stem": "计算：\n\n(1) $\\frac{2a}{5a^2b} + \\frac{3b}{10ab^2}$ ;\n\n(2) $\\frac{2m}{5n^2p} - \\frac{3n}{4mp^2}$ ;\n\n(3) $\\frac{3y}{2x + 2y} + \\frac{2xy}{x^2 + xy}$ ;\n\n(4) $\\frac{2x}{x^2 - 64y^2} - \\frac{1}{x - 8y}$ .",
+            "answer": "(1) \\(\\frac{7}{10ab}\\)；(2) \\(\\frac{8m^2p-15n^3}{20mn^2p^2}\\)；(3) \\(\\frac{7y}{2(x+y)}\\)；(4) \\(\\frac{1}{x+8y}\\)",
+            "analysis": "(1) 先约分：\\(\\frac{2a}{5a^2b}=\\frac{2}{5ab}\\)，\\(\\frac{3b}{10ab^2}=\\frac{3}{10ab}\\)，通分得\\(\\frac{4}{10ab}+\\frac{3}{10ab}=\\frac{7}{10ab}\\)。\n(2) 最小公分母为\\(20mn^2p^2\\)。\\(\\frac{2m}{5n^2p}=\\frac{8m^2p}{20mn^2p^2}\\)，\\(\\frac{3n}{4mp^2}=\\frac{15n^3}{20mn^2p^2}\\)，相减得\\(\\frac{8m^2p-15n^3}{20mn^2p^2}\\)。\n(3) 化简：\\(\\frac{3y}{2x+2y}=\\frac{3y}{2(x+y)}\\)，\\(\\frac{2xy}{x^2+xy}=\\frac{2xy}{x(x+y)}=\\frac{2y}{x+y}\\)，通分得\\(\\frac{3y}{2(x+y)}+\\frac{4y}{2(x+y)}=\\frac{7y}{2(x+y)}\\)。\n(4) 因式分解：\\(x^2-64y^2=(x-8y)(x+8y)\\)。原式\\(=\\frac{2x}{(x-8y)(x+8y)}-\\frac{x+8y}{(x-8y)(x+8y)}\\)\\(=\\frac{x-8y}{(x-8y)(x+8y)}=\\frac{1}{x+8y}\\)。",
+            "difficulty": 2,
+            "type": "简答题",
+            "meta": {
+                "book_prefix": "math_8a_rjb",
+                "source_md": "ch15_s2.md",
+                "question_no_in_source": 5,
+                "global_no": 79
+            },
+            "links": {
+                "concept_names": [
+                    "分式的加减法法则"
+                ],
+                "skill_names": [
+                    "因式分解与约分"
+                ]
+            }
+        },
+        {
+            "id": "math_8a_rjb_ch15_s2_t180",
+            "stem": "计算：\n\n(1) $\\left(\\frac{1}{a} + \\frac{1}{b}\\right)^2 \\div \\left(\\frac{1}{a^2} - \\frac{1}{b^2}\\right)$ ;\n\n(2) $\\left(\\frac{3x^2}{4y}\\right)^2 \\cdot \\frac{2y}{3x} + \\frac{x^2}{2y^2} \\div \\frac{2y^2}{x}$ ;\n\n(3) $\\left(\\frac{x}{x + y} + \\frac{2y}{x + y}\\right) \\cdot \\frac{xy}{x + 2y} \\div \\left(\\frac{1}{x} + \\frac{1}{y}\\right)$ ;\n\n(4) $\\left(\\frac{a + b}{a - b}\\right)^2 \\cdot \\frac{2a - 2b}{3a + 3b} - \\frac{a^2}{a^2 - b^2} \\div \\frac{a}{b}$ .",
+            "answer": "(1) \\(\\dfrac{a+b}{b-a}\\)；(2) \\(\\dfrac{x^3(3y^3+2)}{8y^4}\\)；(3) \\(\\dfrac{x^2y^2}{(x+y)^2}\\)；(4) \\(\\dfrac{2a^2+ab+2b^2}{3(a^2-b^2)}\\)",
+            "analysis": "(1) 通分化简：\\((\\frac1a+\\frac1b)^2=\\frac{(a+b)^2}{a^2b^2}\\)，\\(\\frac1{a^2}-\\frac1{b^2}=\\frac{b^2-a^2}{a^2b^2}\\)，相除得\\(\\frac{(a+b)^2}{b^2-a^2}=\\frac{a+b}{b-a}\\)。\n(2) 第一项：\\((\\frac{3x^2}{4y})^2\\cdot\\frac{2y}{3x}=\\frac{3x^3}{8y}\\)；第二项：\\(\\frac{x^2}{2y^2}\\div\\frac{2y^2}{x}=\\frac{x^3}{4y^4}\\)，相加通分得\\(\\frac{x^3(3y^3+2)}{8y^4}\\)。\n(3) 先合并：\\(\\frac{x}{x+y}+\\frac{2y}{x+y}=\\frac{x+2y}{x+y}\\)，与\\(\\frac{xy}{x+2y}\\)相乘约去\\(x+2y\\)得\\(\\frac{xy}{x+y}\\)；再除以\\(\\frac1x+\\frac1y=\\frac{x+y}{xy}\\)，得\\(\\frac{xy}{x+y}\\cdot\\frac{xy}{x+y}=\\frac{x^2y^2}{(x+y)^2}\\)。\n(4) 第一项：\\((\\frac{a+b}{a-b})^2\\cdot\\frac{2a-2b}{3a+3b}=\\frac{2(a+b)}{3(a-b)}\\)；第二项：\\(\\frac{a^2}{a^2-b^2}\\div\\frac{a}{b}=\\frac{ab}{a^2-b^2}\\)。通分到\\(3(a-b)(a+b)\\)后：\\(\\frac{2(a+b)^2-3ab}{3(a-b)(a+b)}=\\frac{2a^2+ab+2b^2}{3(a^2-b^2)}\\)。",
+            "difficulty": 3,
+            "type": "简答题",
+            "meta": {
+                "book_prefix": "math_8a_rjb",
+                "source_md": "ch15_s2.md",
+                "question_no_in_source": 6,
+                "global_no": 80
+            },
+            "links": {
+                "concept_names": [
+                    "分式的乘法法则",
+                    "分式的除法法则",
+                    "分式的加减法法则",
+                    "分式的乘方法则"
+                ],
+                "skill_names": [
+                    "因式分解与约分"
+                ]
+            }
+        },
+        {
+            "id": "math_8a_rjb_ch15_s2_t181",
+            "stem": "计算：\n\n(1) $3a^{-2}b\\cdot 2ab^{-2}$\n\n(2) $4xy^{2}z \\div (-2x^{-2}yz^{-1})$ ;\n\n(3) $(-3ab^{-1})^3$\n\n(4) $(2m^{2}n^{-2})^{2} \\cdot 3m^{-3}n^{3}$ .",
+            "answer": "(1) \\(\\dfrac{6}{ab}\\)；(2) \\(-2x^{3}yz^{2}\\)；(3) \\(-\\dfrac{27a^{3}}{b^{3}}\\)；(4) \\(\\dfrac{12m}{n}\\)。",
+            "analysis": "(1) 系数相乘：3·2=6；同底数幂指数相加：a^(−2+1)=a^(−1)，b^(1−2)=b^(−1)，得6a^(−1)b^(−1)=6/(ab)。\n(2) 除以一个式子等于乘以它的倒数：4xy^2z÷(−2x^(−2)yz^(−1))=4xy^2z·(−1/2)x^2y^(−1)z；系数4·(−1/2)=−2，x^(1+2)=x^3，y^(2−1)=y，z^(1+1)=z^2，得−2x^3yz^2。\n(3) 幂的乘方：(−3ab^(−1))^3=(−3)^3·a^3·b^(−3)=−27a^3/b^3。\n(4) 先乘方：(2m^2n^(−2))^2=4m^4n^(−4)，再乘3m^(−3)n^3：系数4·3=12，m^(4−3)=m，n^(−4+3)=n^(−1)，得12m/n。",
+            "difficulty": 2,
+            "type": "简答题",
+            "meta": {
+                "book_prefix": "math_8a_rjb",
+                "source_md": "ch15_s2.md",
+                "question_no_in_source": 7,
+                "global_no": 81
+            },
+            "links": {
+                "concept_names": [
+                    "分式的乘法法则",
+                    "分式的除法法则",
+                    "分式的乘方法则",
+                    "整数指数幂及其运算性质",
+                    "负整数指数幂"
+                ],
+                "skill_names": [
+                    "因式分解与约分"
+                ]
+            }
+        },
+        {
+            "id": "math_8a_rjb_ch15_s2_t182",
+            "stem": "用科学记数法表示下列数：00001， 0.00002， 0.000000567， 0.000000301.",
+            "answer": "1×10^-5，2×10^-5，5.67×10^-7，3.01×10^-7",
+            "analysis": "科学记数法写成a×10^n（1≤a<10）。把小数点向右移动到第一个非零数字后：0.00001→1（右移5位）所以是1×10^-5；0.00002→2（右移5位）所以是2×10^-5；0.000000567→5.67（右移7位）所以是5.67×10^-7；0.000000301→3.01（右移7位）所以是3.01×10^-7。",
+            "difficulty": 2,
+            "type": "填空题",
+            "meta": {
+                "book_prefix": "math_8a_rjb",
+                "source_md": "ch15_s2.md",
+                "question_no_in_source": 8,
+                "global_no": 82
+            },
+            "links": {
+                "concept_names": [
+                    "整数指数幂及其运算性质",
+                    "负整数指数幂"
+                ]
+            }
+        },
+        {
+            "id": "math_8a_rjb_ch15_s2_t184",
+            "stem": "计算：\n\n(1) $(2 \\times 10^{-3}) \\times (5 \\times 10^{-3})$\n\n(2) $(3 \\times 10^{-5})^{2} \\div (3 \\times 10^{-1})^{2}$ .",
+            "answer": "(1) 1×10^{-5}\n(2) 1×10^{-8}",
+            "analysis": "(1) (2×10^{-3})(5×10^{-3})=(2×5)×10^{-3-3}=10×10^{-6}=10^{-5}=1×10^{-5}。\n(2) (3×10^{-5})^2÷(3×10^{-1})^2=[9×10^{-10}]÷[9×10^{-2}]=(9/9)×10^{-10-(-2)}=10^{-8}=1×10^{-8}。",
+            "difficulty": 2,
+            "type": "填空题",
+            "meta": {
+                "book_prefix": "math_8a_rjb",
+                "source_md": "ch15_s2.md",
+                "question_no_in_source": 9,
+                "global_no": 83
+            },
+            "links": {
+                "concept_names": [
+                    "整数指数幂及其运算性质"
+                ]
+            }
+        },
+        {
+            "id": "math_8a_rjb_ch15_s3_t185",
+            "stem": "八年级学生去距学校 $10 \\mathrm{~km}$ 的博物馆参观，一部分学生骑自行车先走，过了 $20 \\mathrm{~min}$ 后，其余学生乘汽车出发，结果他们同时到达。已知汽车的速度是骑车学生速度的2倍，求骑车学生的速度。",
+            "answer": "15 km/h",
+            "analysis": "设骑车学生速度为v(km/h)，则汽车速度为2v。骑车走完全程用时10/v(h)，汽车用时10/(2v)=5/v(h)。骑车先出发20 min=1/3 h，且同时到达，所以10/v=5/v+1/3。解得5/v=1/3，v=15(km/h)。",
+            "difficulty": 2,
+            "type": "应用题",
+            "meta": {
+                "book_prefix": "math_8a_rjb",
+                "source_md": "ch15_s3.md",
+                "question_no_in_source": 1,
+                "global_no": 84
+            },
+            "links": {
+                "concept_names": [
+                    "分式方程",
+                    "去分母"
+                ],
+                "skill_names": [
+                    "解分式方程的一般方法"
+                ]
+            }
+        },
+        {
+            "id": "math_8a_rjb_ch15_s3_t186",
+            "stem": "甲、乙二人做某种机械零件. 已知甲每小时比乙多做 6 个, 甲做 90 个所用的时间与乙做 60 个所用的时间相等. 求甲、乙每小时各做零件多少个.",
+            "answer": "甲每小时做18个，乙每小时做12个。",
+            "analysis": "设乙每小时做b个，则甲每小时做a=b+6个。由“甲做90个所用时间=乙做60个所用时间”得：90/a=60/b。两边交叉相乘：90b=60a=60(b+6)=60b+360，故30b=360，b=12。则a=b+6=18。",
+            "difficulty": 2,
+            "type": "应用题",
+            "meta": {
+                "book_prefix": "math_8a_rjb",
+                "source_md": "ch15_s3.md",
+                "question_no_in_source": 2,
+                "global_no": 85
+            },
+            "links": {
+                "concept_names": [
+                    "分式方程",
+                    "去分母",
+                    "最简公分母"
+                ],
+                "skill_names": [
+                    "解分式方程的一般方法"
+                ]
+            }
+        },
+        {
+            "id": "math_8a_rjb_ch15_s3_t187",
+            "stem": "解下列方程：\n\n(1) $\\frac{1}{x} = \\frac{5}{x + 3}$\n\n(2) $\\frac{x}{x - 1} = \\frac{3}{2x - 2} - 2$ ;\n\n(3) $\\frac{2}{2x - 1} = \\frac{4}{4x^2 - 1}$\n\n(4) $\\frac{3}{x^2 + 2x} - \\frac{1}{x^2 - 2x} = 0$ ;\n\n(5) $\\frac{x}{x - 3} = \\frac{x + 1}{x - 1}$\n\n(6) $\\frac{x - 3}{x - 2} + 1 = \\frac{3}{2 - x}$ ;\n\n(7) $\\frac{2x + 1}{x^2 + x} = \\frac{5}{6x + 6}$\n\n(8) $\\frac{3}{2} - \\frac{1}{3x - 1} = \\frac{5}{6x - 2}$ .",
+            "answer": "(1)x=3/4；(2)x=7/6；(3)无解；(4)x=4；(5)x=-3；(6)x=1；(7)x=-6/7；(8)x=10/9",
+            "analysis": "均为分式方程，先写出分母不为0的取值限制，再去分母化为整式方程求解，最后检验是否使原方程分母为0或产生增根。结果：(1)交叉相乘得x=3/4；(2)通分得6x=7，x=7/6；(3)约去(2x-1)后得到x=1/2但使分母为0，故无解；(4)约去x后解得x=4；(5)交叉相乘解得x=-3；(6)将3/(2-x)化为-3/(x-2)后同分母比较得x=1；(7)约去(x+1)后得12x+6=5x，x=-6/7；(8)利用6x-2=2(3x-1)去分母得9x=10，x=10/9。",
+            "difficulty": 3,
+            "type": "简答题",
+            "meta": {
+                "book_prefix": "math_8a_rjb",
+                "source_md": "ch15_s3.md",
+                "question_no_in_source": 1,
+                "global_no": 86
+            },
+            "links": {
+                "concept_names": [
+                    "分式方程",
+                    "去分母",
+                    "最简公分母",
+                    "分式方程的检验"
+                ],
+                "skill_names": [
+                    "解分式方程的一般方法"
+                ]
+            }
+        },
+        {
+            "id": "math_8a_rjb_ch15_s_15_t188",
+            "stem": "下列各式中，哪些是整式？哪些是分式？\n\n$$\n\\frac {x}{3}, \\frac {1}{n}, \\frac {1}{a + 5}, \\frac {a + b}{1 5}, \\frac {z}{x ^ {2} y}, \\frac {2 a b}{(a + b) ^ {2}}.\n$$",
+            "answer": "整式：x/3，(a+b)/15；分式：1/n，1/(a+5)，z/(x^2y)，2ab/(a+b)^2。",
+            "analysis": "判断标准：分母中含有字母（或含字母的式子）的是分式；分母为非零常数的可化为整式。x/3=(1/3)x，分母为常数→整式；(a+b)/15分母为常数→整式；1/n、1/(a+5)、z/(x^2y)、2ab/(a+b)^2的分母都含字母→分式。",
+            "difficulty": 2,
+            "type": "简答题",
+            "meta": {
+                "book_prefix": "math_8a_rjb",
+                "source_md": "ch15_s复习题15.md",
+                "question_no_in_source": 1,
+                "global_no": 87
+            }
+        },
+        {
+            "id": "math_8a_rjb_ch15_s_15_t189",
+            "stem": "计算：\n\n(1) $\\frac{s - 2t}{3s} \\cdot \\frac{6s^2}{s + 2t}$ ;\n\n(2) $\\frac{x - y}{x + y} \\div (x - y)^2$ ;\n\n(3) $\\frac{2a}{a + 1} + \\frac{2}{a + 1}$ ;\n\n(4) $\\frac{u - 2v}{u + 2v} - \\frac{2}{u^2 - 4v^2}$ ;\n\n(5) $(x^{-2}y^{3})^{-3}$\n\n(6) $\\left(\\frac{-3x}{y^3z}\\right)^2$ .",
+            "answer": "(1) \\(\\frac{2s(s-2t)}{s+2t}\\)；(2) \\(\\frac{1}{x^2-y^2}\\)；(3) \\(2\\)；(4) \\(\\frac{(u-2v)^2-2}{u^2-4v^2}\\)；(5) \\(\\frac{x^6}{y^9}\\)；(6) \\(\\frac{9x^2}{y^6z^2}\\)",
+            "analysis": "(1) 约分：\\(\\frac{s-2t}{3s}\\cdot\\frac{6s^2}{s+2t}=\\frac{(s-2t)\\cdot 6s^2}{3s(s+2t)}=\\frac{2s(s-2t)}{s+2t}\\)。\n(2) 除以幂等于乘倒数：\\(\\frac{x-y}{x+y}\\div(x-y)^2=\\frac{x-y}{x+y}\\cdot\\frac{1}{(x-y)^2}=\\frac{1}{(x+y)(x-y)}=\\frac{1}{x^2-y^2}\\)。\n(3) 同分母相加：\\(\\frac{2a}{a+1}+\\frac{2}{a+1}=\\frac{2a+2}{a+1}=2\\)。\n(4) 通分到\\(u^2-4v^2=(u-2v)(u+2v)\\)：\\(\\frac{u-2v}{u+2v}=\\frac{(u-2v)^2}{u^2-4v^2}\\)，所以结果为\\(\\frac{(u-2v)^2-2}{u^2-4v^2}\\)。\n(5) 幂的乘法法则：\\((x^{-2}y^3)^{-3}=x^6y^{-9}=\\frac{x^6}{y^9}\\)。\n(6) 平方后符号为正：\\(\\left(\\frac{-3x}{y^3z}\\right)^2=\\frac{9x^2}{y^6z^2}\\)。",
+            "difficulty": 2,
+            "type": "简答题",
+            "meta": {
+                "book_prefix": "math_8a_rjb",
+                "source_md": "ch15_s复习题15.md",
+                "question_no_in_source": 2,
+                "global_no": 88
+            }
+        },
+        {
+            "id": "math_8a_rjb_ch15_s_15_t190",
+            "stem": "计算：\n\n(1) $\\frac{2m}{3n} \\cdot \\left(\\frac{3n}{p}\\right)^{2} \\div \\frac{mn}{p^{2}}$ ;\n\n(2) $a^2 b^3 \\cdot (ab^2)^{-2}$ ;\n\n(3) $\\frac{x^2 - 16}{x^2 + 8x + 16} + \\frac{x}{x - 4}$ ;\n\n(4) $\\left(\\frac{pq}{2r}\\right)^3 \\div \\frac{2p}{r^2} + \\frac{1}{2q}$ ;\n\n(5) $1 \\div \\left(2x + \\frac{1 - x^2}{x}\\right)$ ;\n\n(6) $\\frac{a - b}{a} \\div \\left(a - \\frac{2ab - b^2}{a}\\right)$ ;\n\n(7) $1 - \\frac{a - b}{a + 2b} \\div \\frac{a^2 - b^2}{a^2 + 4ab + 4b^2}$ ;\n\n(8) $\\left(x - y + \\frac{4xy}{x - y}\\right)\\left(x + y - \\frac{4xy}{x + y}\\right)$ .",
+            "answer": "(1) 6；(2) 1/b；(3) (2x^2-4x+16)/(x^2-16)；(4) (p^2q^4+8r)/(16rq)；(5) x/(x^2+1)；(6) 1/(a-b)；(7) -b/(a+b)；(8) x^2-y^2",
+            "analysis": "(1) 把(3n/p)^2化为9n^2/p^2，约分后再除以mn/p^2得6。 (2) (ab^2)^{-2}=a^{-2}b^{-4}，与a^2b^3相乘得b^{-1}=1/b。 (3) 因式分解并约分：(x^2-16)/(x^2+8x+16)=(x-4)/(x+4)，通分相加得(2x^2-4x+16)/(x^2-16)。 (4) (pq/2r)^3=p^3q^3/(8r^3)，再除以2p/r^2得p^2q^3/(16r)，与1/(2q)通分得(p^2q^4+8r)/(16rq)。 (5) 2x+(1-x^2)/x=2x+1/x-x=x+1/x=(x^2+1)/x，故原式为x/(x^2+1)。 (6) 括号内：a-(2ab-b^2)/a=(a^2-2ab+b^2)/a=(a-b)^2/a，整体化简得1/(a-b)。 (7) (a^2-b^2)/(a^2+4ab+4b^2)=(a-b)(a+b)/(a+2b)^2，复合除法化简为(a+2b)/(a+b)，故1-该值=-b/(a+b)。 (8) 分别通分：x-y+4xy/(x-y)=(x+y)^2/(x-y)，x+y-4xy/(x+y)=(x-y)^2/(x+y)，相乘得(x+y)(x-y)=x^2-y^2。",
+            "difficulty": 3,
+            "type": "填空题",
+            "meta": {
+                "book_prefix": "math_8a_rjb",
+                "source_md": "ch15_s复习题15.md",
+                "question_no_in_source": 3,
+                "global_no": 89
+            }
+        },
+        {
+            "id": "math_8a_rjb_ch15_s_15_t191",
+            "stem": "解下列方程：\n\n(1) $\\frac{5x + 2}{x^2 + x} = \\frac{3}{x + 1}$\n\n(2) $\\frac{2x}{2x - 5} - \\frac{2}{2x + 5} = 1$ .",
+            "answer": "(1) 无解；(2) x = -35/6",
+            "analysis": "(1) 定义域：x≠0，x≠-1。两边同乘x(x+1)，得5x+2=3x，解得x=-1，但x=-1不在定义域内，故无解。\n(2) 定义域：x≠5/2，x≠-5/2。通分得(4x^2+10x)-(4x-10)=4x^2-25，化简为4x^2+6x+10=4x^2-25，解得6x=-35，故x=-35/6（满足定义域）。",
+            "difficulty": 3,
+            "type": "简答题",
+            "meta": {
+                "book_prefix": "math_8a_rjb",
+                "source_md": "ch15_s复习题15.md",
+                "question_no_in_source": 4,
+                "global_no": 90
+            }
+        },
+        {
+            "id": "math_8a_rjb_ch11_s1_t192",
+            "stem": "一个等腰三角形的一边长为 $6 \\mathrm{~cm}$ ，周长为 $20 \\mathrm{~cm}$ ，求其他两边的长.",
+            "answer": "可能为(7cm,7cm)或(6cm,8cm)",
+            "analysis": "设等腰三角形三边为a,b,c，周长20cm，其中一边为6cm。其余两边和为20−6=14cm。\n(1) 若6cm为底边，则另外两边相等，设为x，则2x=14，得x=7cm，故其余两边为7cm、7cm。\n(2) 若6cm为腰，则两腰为6cm、6cm，底边=20−6−6=8cm。\n两种情况均满足三角形两边之和大于第三边，因此答案如上。",
+            "difficulty": 2,
+            "type": "应用题",
+            "meta": {
+                "book_prefix": "math_8a_rjb",
+                "source_md": "ch11_s1.md",
+                "question_no_in_source": 6,
+                "global_no": 91
+            },
+            "links": {
+                "concept_names": [
+                    "等腰三角形",
+                    "三角形的边",
+                    "三角形不等式"
+                ]
+            }
+        },
+        {
+            "id": "math_8a_rjb_ch11_s1_t193",
+            "stem": "（1）已知等腰三角形的一边长等于5，一边长等于6，求它的周长；\n（2）已知等腰三角形的一边长等于4，一边长等于9，求它的周长.",
+            "answer": "（1）周长为16或17；（2）周长为22",
+            "analysis": "（1）等腰三角形有两边相等。已知两边分别为5和6，则可能为(5,5,6)或(6,6,5)，且均满足三角形两边之和大于第三边，所以周长分别为5+5+6=16，6+6+5=17。\n（2）已知两边分别为4和9，若为(4,4,9)则4+4≤9不成三角形；只能为(9,9,4)，周长9+9+4=22。",
+            "difficulty": 2,
+            "type": "应用题",
+            "meta": {
+                "book_prefix": "math_8a_rjb",
+                "source_md": "ch11_s1.md",
+                "question_no_in_source": 7,
+                "global_no": 92
+            },
+            "links": {
+                "concept_names": [
+                    "等腰三角形",
+                    "三角形不等式",
+                    "三角形的边"
+                ]
+            }
+        },
+        {
+            "id": "math_8a_rjb_ch11_s1_t196",
+            "stem": "要使四边形木架（用4根木条钉成）不变形，至少要再钉上几根木条？五边形木架和六边形木架呢？\n\n  \n四边形木架\n\n  \n五边形木架\n\n  \n六边形木架",
+            "answer": "四边形至少再钉1根木条；五边形至少再钉2根木条；六边形至少再钉3根木条。",
+            "analysis": "要使多边形木架不变形，可用斜撑把它分成若干个三角形（因为三角形最稳定）。n边形要分成(n−2)个三角形，需要从一个顶点向其他不相邻顶点钉(n−3)条对角木条。因此四边形n=4需1条；五边形n=5需2条；六边形n=6需3条。",
+            "difficulty": 2,
+            "type": "填空题",
+            "meta": {
+                "book_prefix": "math_8a_rjb",
+                "source_md": "ch11_s1.md",
+                "question_no_in_source": 10,
+                "global_no": 93
+            },
+            "links": {
+                "concept_names": [
+                    "三角形的稳定性"
+                ]
+            }
+        },
+        {
+            "id": "math_8a_rjb_ch12_s_12_t234",
+            "stem": "证明：如果两个三角形有两条边和其中一边上的中线分别相等，那么这两个三角形全等.",
+            "answer": "设△ABC与△A′B′C′中，AB=A′B′，AC=A′C′，且A到BC的中线AM与A′到B′C′的中线A′M′相等，则BC=B′C′，从而△ABC≌△A′B′C′。",
+            "analysis": "设BC=a，AC=b，AB=c，AM为边BC上的中线，记其长为m_a；对应地B′C′=a′，A′C′=b′，A′B′=c′，A′M′=m_{a′}。已知b=b′，c=c′，m_a=m_{a′}。\n由阿波罗尼奥斯定理（中线长公式）：m_a^2=\\frac{2b^2+2c^2-a^2}{4}，m_{a′}^2=\\frac{2b′^2+2c′^2-a′^2}{4}。\n将b=b′，c=c′，m_a=m_{a′}代入得：\\frac{2b^2+2c^2-a^2}{4}=\\frac{2b^2+2c^2-a′^2}{4}，故a^2=a′^2，进而a=a′，即BC=B′C′。\n于是AB=A′B′，AC=A′C′，BC=B′C′，三边分别相等，依据SSS判定得△ABC≌△A′B′C′。",
+            "difficulty": 4,
+            "type": "证明题",
+            "meta": {
+                "book_prefix": "math_8a_rjb",
+                "source_md": "ch12_s复习题12.md",
+                "question_no_in_source": 13,
+                "global_no": 94
+            }
+        },
+        {
+            "id": "math_8a_rjb_ch13_s1_t235",
+            "stem": "平面内不垂直的两条相交直线是轴对称图形吗？如果是，它有几条对称轴？",
+            "answer": "是轴对称图形，有2条对称轴（两条夹角的角平分线）。",
+            "analysis": "两条相交且不垂直的直线形成一对对顶角。作它们夹角的角平分线（内角平分线与外角平分线），关于任一角平分线作轴对称时，两条直线互相映射重合，整个图形保持不变；除这两条角平分线外，不存在其他使两条直线互换并保持图形不变的对称轴。因此共有2条对称轴。",
+            "difficulty": 2,
+            "type": "简答题",
+            "meta": {
+                "book_prefix": "math_8a_rjb",
+                "source_md": "ch13_s1.md",
+                "question_no_in_source": 7,
+                "global_no": 95
+            },
+            "links": {
+                "concept_names": [
+                    "轴对称图形",
+                    "对称轴"
+                ]
+            }
+        },
+        {
+            "id": "math_8a_rjb_ch13_s2_t242",
+            "stem": "根据下列点的坐标的变化，判断它们进行了怎样的运动：\n\n(1) $(-1, 3) \\rightarrow (-1, -3)$ ;\n\n(2) $(-5, -6) \\rightarrow (-5, -1)$ ;\n\n(3) $(3, 4) \\rightarrow (-3, 4)$ ;\n\n(4) $(-2, 3) \\rightarrow (2, -3)$ .",
+            "answer": "(1) 关于x轴对称（(x,y)→(x,−y)）；(2) 向上平移5个单位（平移向量(0,5)）；(3) 关于y轴对称（(x,y)→(−x,y)）；(4) 关于原点对称/绕原点旋转180°（(x,y)→(−x,−y)）。",
+            "analysis": "(1) x不变、y变号→关于x轴对称；(2) x不变，y由−6到−1增加5→向上平移5；(3) y不变、x变号→关于y轴对称；(4) x、y都变号→关于原点对称（等价于绕原点旋转180°）。",
+            "difficulty": 2,
+            "type": "简答题",
+            "meta": {
+                "book_prefix": "math_8a_rjb",
+                "source_md": "ch13_s2.md",
+                "question_no_in_source": 5,
+                "global_no": 96
+            },
+            "links": {
+                "concept_names": [
+                    "点关于x轴的对称坐标",
+                    "点关于y轴的对称坐标",
+                    "点关于直线的对称点"
+                ]
+            }
+        },
+        {
+            "id": "math_8a_rjb_ch13_s3_t246",
+            "stem": "某地地震过后，河沿村中学的同学用下面的方法检测教室的房梁是否水平：\n\n在等腰直角三角尺斜边中点拴一条线绳，线绳的另一端挂一个铅锤，把这块三角尺的斜边贴在房梁上，结果线绳经过三角尺的直角顶点，同学们由此确信房梁是水平的。他们的判断对吗？为什么？",
+            "answer": "对。因为等腰直角三角形中，斜边中点与直角顶点的连线既是斜边的中线又是斜边上的高，必垂直于斜边；线绳（铅锤）表示竖直方向，若线绳恰好经过直角顶点，则该连线为竖直线，从而斜边与竖直线垂直，即斜边水平，房梁水平。",
+            "analysis": "将三角尺的斜边贴在房梁上，斜边中点拴线并挂铅锤，线绳方向为竖直线。观察到线绳经过直角顶点，说明“斜边中点—直角顶点”这条线为竖直方向。在等腰直角三角形中，两直角边相等，直角顶点到斜边中点的连线是对称轴，因此它既平分斜边也垂直于斜边（即为斜边的高）。既然该连线竖直且垂直于斜边，则斜边必为水平线；斜边贴在房梁上，故房梁水平。",
+            "difficulty": 3,
+            "type": "简答题",
+            "meta": {
+                "book_prefix": "math_8a_rjb",
+                "source_md": "ch13_s3.md",
+                "question_no_in_source": 9,
+                "global_no": 97
+            },
+            "links": {
+                "concept_names": [
+                    "等腰三角形的性质2（三线合一）"
+                ],
+                "skill_names": [
+                    "利用轴对称研究图形性质"
+                ]
+            }
+        },
+        {
+            "id": "math_8a_rjb_ch13_s3_t248",
+            "stem": "上午8时，一条船从海岛 $A$ 出发，以 $15\\mathrm{~nmile/h}$ （海里/时， $1\\mathrm{~nmile} = 1852\\mathrm{~m}$ ）的速度向正北航行，10时到达海岛 $B$ 处。从 $A$ ， $B$ 望灯塔 $C$ ，测得 $\\angle NAC = 42^{\\circ}$ ， $\\angle NBC = 84^{\\circ}$ 。求从海岛 $B$ 到灯塔 $C$ 的距离。",
+            "answer": "30海里",
+            "analysis": "船从A到B向正北航行2小时，速度15海里/时，故AB=30海里。设灯塔C在AB同一侧。以A为原点、正北为y轴正向，则B(0,30)。由∠NAC=42°知AC与正北夹角42°，故C在A发出的射线方向向量为(\\sin42°,\\cos42°)；由∠NBC=84°知BC与正北夹角84°，故从B出发到C的方向向量为(\\sin84°,\\cos84°)。设BC=s，则C坐标也可表示为(0,30)+s(\\sin84°,\\cos84°)。两种表示相等得：t\\sin42°=s\\sin84°，t\\cos42°=30+s\\cos84°。消去t：s(\\sin84°\\cot42°-\\cos84°)=30。又\\sin84°=\\sin(2\\cdot42°)=2\\sin42°\\cos42°，\\cos84°=\\cos(2\\cdot42°)=2\\cos^2 42°-1，代入可化得括号内=1，故s=30。",
+            "difficulty": 3,
+            "type": "应用题",
+            "meta": {
+                "book_prefix": "math_8a_rjb",
+                "source_md": "ch13_s3.md",
+                "question_no_in_source": 11,
+                "global_no": 98
+            },
+            "links": {
+                "concept_names": [
+                    "等腰三角形的判定（等角对等边）"
+                ]
+            }
+        },
+        {
+            "id": "math_8a_rjb_ch13_s3_t250",
+            "stem": "等腰三角形两底角的平分线相等吗？两腰上的中线呢？两腰上的高呢？证明其中的一个结论.",
+            "answer": "在等腰三角形中，两底角的平分线相等；两腰上的中线相等；两腰上的高相等。（证明其中一个结论即可）",
+            "analysis": "证明“两底角的平分线相等”：设等腰三角形ABC中AB=AC，BD为∠B的角平分线交AC于D，CE为∠C的角平分线交AB于E。因为AB=AC，所以∠B=∠C。又BD平分∠B、CE平分∠C，得∠ABD=1/2∠B=1/2∠C=∠ACE。并且D在AC上、E在AB上，所以∠BAD=∠BAC=∠CAE。于是△ABD与△ACE中，AB=AC，∠ABD=∠ACE，∠BAD=∠CAE，按ASA判定△ABD≌△ACE，从而对应边BD=CE，即两底角的平分线相等。",
+            "difficulty": 3,
+            "type": "证明题",
+            "meta": {
+                "book_prefix": "math_8a_rjb",
+                "source_md": "ch13_s3.md",
+                "question_no_in_source": 13,
+                "global_no": 99
+            },
+            "links": {
+                "concept_names": [
+                    "等腰三角形",
+                    "等腰三角形的性质1（等边对等角）"
+                ],
+                "skill_names": [
+                    "利用全等三角形进行证明",
+                    "利用轴对称研究图形性质"
+                ]
+            }
+        },
+        {
+            "id": "math_8a_rjb_ch14_s1_t261",
+            "stem": "求值： $x^{2}(x - 1) - x(x^{2} + x - 1)$ ，其中 $x = \\frac{1}{2}$",
+            "answer": "0",
+            "analysis": "原式=x^2(x-1)-x(x^2+x-1)=(x^3-x^2)-(x^3+x^2-x)=x-2x^2。代入x=1/2，得1/2-2*(1/4)=1/2-1/2=0。",
+            "difficulty": 1,
+            "type": "填空题",
+            "meta": {
+                "book_prefix": "math_8a_rjb",
+                "source_md": "ch14_s1.md",
+                "question_no_in_source": 7,
+                "global_no": 100
+            },
+            "links": {
+                "concept_names": [
+                    "单项式乘法"
+                ],
+                "skill_names": [
+                    "利用乘法交换律和结合律进行整式化简"
+                ]
+            }
+        },
+        {
+            "id": "math_8a_rjb_ch14_s1_t262",
+            "stem": "计算：\n\n(1) $(x - 3)(x - 3) - 6(x^{2} + x - 1)$   \n(2) $(2x + 1)^{2} - (x + 3)^{2} - (x - 1)^{2} + 1.$",
+            "answer": "(1) -5x^2-12x+15；(2) 2x^2-8",
+            "analysis": "(1) (x-3)(x-3)=(x-3)^2=x^2-6x+9，-6(x^2+x-1)=-6x^2-6x+6，相加得-5x^2-12x+15。 (2) (2x+1)^2=4x^2+4x+1，(x+3)^2=x^2+6x+9，(x-1)^2=x^2-2x+1，代入并合并同类项：4x^2+4x+1-(x^2+6x+9)-(x^2-2x+1)+1=2x^2-8。",
+            "difficulty": 2,
+            "type": "简答题",
+            "meta": {
+                "book_prefix": "math_8a_rjb",
+                "source_md": "ch14_s1.md",
+                "question_no_in_source": 8,
+                "global_no": 101
+            },
+            "links": {
+                "skill_names": [
+                    "利用乘法交换律和结合律进行整式化简"
+                ]
+            }
+        },
+        {
+            "id": "math_8a_rjb_ch14_s1_t263",
+            "stem": "信息技术的存储设备常用 B，KB，MB，GB 等作为存储量的单位。例如，我们常说某计算机的硬盘容量是 $320 \\mathrm{~GB}$ ，某移动硬盘的容量是 $80 \\mathrm{~GB}$ ，某个文件大小是 $156 \\mathrm{~KB}$ 等，其中 $1 \\mathrm{~GB} = 2^{10} \\mathrm{MB}$ ， $1 \\mathrm{MB} = 2^{10} \\mathrm{KB}$ ， $1 \\mathrm{KB} = 2^{10} \\mathrm{~B}$ （字节）。对于一个存储量为 $8 \\mathrm{~GB}$ 的闪存盘，其容量有多少 B（字节）？",
+            "answer": "8589934592 B",
+            "analysis": "由题意：1GB=2^10MB，1MB=2^10KB，1KB=2^10B，所以1GB=2^(10+10+10)B=2^30B。8GB=8×2^30B=2^3×2^30B=2^33B=8589934592B。",
+            "difficulty": 2,
+            "type": "填空题",
+            "meta": {
+                "book_prefix": "math_8a_rjb",
+                "source_md": "ch14_s1.md",
+                "question_no_in_source": 9,
+                "global_no": 102
+            },
+            "links": {
+                "concept_names": [
+                    "同底数幂的乘法"
+                ],
+                "skill_names": [
+                    "利用乘法交换律和结合律进行整式化简"
+                ]
+            }
+        },
+        {
+            "id": "math_8a_rjb_ch14_s1_t264",
+            "stem": "卫星绕地球运动的速度（即第一宇宙速度）是 $7.9 \\times 10^{3} \\mathrm{~m} / \\mathrm{s}$ ，求卫星绕地球运行 $2 \\times 10^{2} \\mathrm{~s}$ 走过的路程.",
+            "answer": "1.58×10^6 m",
+            "analysis": "已知速度v=7.9×10^3 m/s，时间t=2×10^2 s。路程s=vt=(7.9×10^3)×(2×10^2)=15.8×10^5=1.58×10^6 m。",
+            "difficulty": 1,
+            "type": "应用题",
+            "meta": {
+                "book_prefix": "math_8a_rjb",
+                "source_md": "ch14_s1.md",
+                "question_no_in_source": 10,
+                "global_no": 103
+            },
+            "links": {
+                "concept_names": [
+                    "同底数幂的乘法"
+                ]
+            }
+        },
+        {
+            "id": "math_8a_rjb_ch14_s1_t267",
+            "stem": "已知 $2^{m} = a$ ， $32^{n} = b$ ， $m$ ， $n$ 为正整数，求 $2^{3m + 10n}$",
+            "answer": "a^3b^2",
+            "analysis": "由2^m=a得2^{3m}=(2^m)^3=a^3；由32^n=b且32=2^5，得2^{5n}=b，从而2^{10n}=(2^{5n})^2=b^2。故2^{3m+10n}=2^{3m}·2^{10n}=a^3b^2。",
+            "difficulty": 2,
+            "type": "填空题",
+            "meta": {
+                "book_prefix": "math_8a_rjb",
+                "source_md": "ch14_s1.md",
+                "question_no_in_source": 13,
+                "global_no": 104
+            },
+            "links": {
+                "concept_names": [
+                    "同底数幂的乘法",
+                    "幂的乘方"
+                ]
+            }
+        },
+        {
+            "id": "math_8a_rjb_ch14_s1_t268",
+            "stem": "解方程与不等式：\n\n(1) $(x - 3)(x - 2) + 18 = (x + 9)(x + 1)$   \n(2) $(3x + 4)(3x - 4) < 9(x - 2)(x + 3)$ .",
+            "answer": "（1）x=1；（2）x>38/9",
+            "analysis": "（1）展开并化简：左边(x−3)(x−2)+18=x^2−5x+6+18=x^2−5x+24；右边(x+9)(x+1)=x^2+10x+9。令两边相等：x^2−5x+24=x^2+10x+9，消去x^2得−5x+24=10x+9，移项得15=15x，所以x=1。\n（2）展开：左边(3x+4)(3x−4)=9x^2−16；右边9(x−2)(x+3)=9(x^2+x−6)=9x^2+9x−54。比较：9x^2−16<9x^2+9x−54，消去9x^2得−16<9x−54，两边加54得38<9x，故x>38/9。",
+            "difficulty": 2,
+            "type": "简答题",
+            "meta": {
+                "book_prefix": "math_8a_rjb",
+                "source_md": "ch14_s1.md",
+                "question_no_in_source": 14,
+                "global_no": 105
+            },
+            "links": {
+                "skill_names": [
+                    "利用乘法交换律和结合律进行整式化简"
+                ]
+            }
+        },
+        {
+            "id": "math_8a_rjb_ch14_s1_t269",
+            "stem": "确定下列各式中 $m$ 的值：\n\n(1) $(x + 4)(x + 9) = x^{2} + mx + 36$   \n(2) $(x - 2)(x - 18) = x^2 + mx + 36$   \n(3) $(x + 3)(x + p) = x^{2} + mx + 36$   \n(4) $(x - 6)(x - p) = x^{2} + mx + 36$   \n(5) $(x + p)(x + q) = x^{2} + mx + 36$ ， $p$ ， $q$ 为正整数.",
+            "answer": "(1)m=13；(2)m=-20；(3)p=12，m=15；(4)p=6，m=-12；(5)pq=36，m=p+q，可取12、13、15、20、37（对应(p,q)=(6,6),(4,9),(3,12),(2,18),(1,36)及交换）",
+            "analysis": "利用乘法公式展开并比较系数：\n(1)(x+4)(x+9)=x^2+(4+9)x+36=x^2+13x+36，故m=13。\n(2)(x-2)(x-18)=x^2-(2+18)x+36=x^2-20x+36，故m=-20。\n(3)(x+3)(x+p)=x^2+(3+p)x+3p。与x^2+mx+36比较得3p=36→p=12，m=3+p=15。\n(4)(x-6)(x-p)=x^2-(6+p)x+6p。比较得6p=36→p=6，m=-(6+p)=-12。\n(5)(x+p)(x+q)=x^2+(p+q)x+pq。比较得pq=36，m=p+q。p,q为正整数，36的正因数对为(1,36),(2,18),(3,12),(4,9),(6,6)，故m分别为37,20,15,13,12。",
+            "difficulty": 3,
+            "type": "填空题",
+            "meta": {
+                "book_prefix": "math_8a_rjb",
+                "source_md": "ch14_s1.md",
+                "question_no_in_source": 15,
+                "global_no": 106
+            },
+            "links": {
+                "concept_names": [
+                    "单项式乘法"
+                ],
+                "skill_names": [
+                    "利用乘法交换律和结合律进行整式化简"
+                ]
+            }
+        },
+        {
+            "id": "math_8a_rjb_ch14_s2_t270",
+            "stem": "运用乘法公式计算：\n\n(1) $(3x - 5)^2 -(2x + 7)^2$\n\n(2) $(x + y + 1)(x + y - 1)$\n\n(3) $(2x - y - 3)^2$\n\n(4) $\\left[(x + 2)(x - 2)\\right]^2$",
+            "answer": "(1) 5x^2-58x-24\n(2) x^2+2xy+y^2-1\n(3) 4x^2-4xy-12x+y^2+6y+9\n(4) x^4-8x^2+16",
+            "analysis": "(1) 用平方差公式A^2-B^2=(A-B)(A+B)，或分别展开：(3x-5)^2=9x^2-30x+25，(2x+7)^2=4x^2+28x+49，相减得5x^2-58x-24。\n(2) 令A=x+y，则(x+y+1)(x+y-1)=(A+1)(A-1)=A^2-1=(x+y)^2-1=x^2+2xy+y^2-1。\n(3) 视为(2x-(y+3))^2，按(a-b)^2=a^2-2ab+b^2：4x^2-4x(y+3)+(y+3)^2=4x^2-4xy-12x+y^2+6y+9。\n(4) 先算(x+2)(x-2)=x^2-4，再平方：(x^2-4)^2=x^4-8x^2+16。",
+            "difficulty": 2,
+            "type": "填空题",
+            "meta": {
+                "book_prefix": "math_8a_rjb",
+                "source_md": "ch14_s2.md",
+                "question_no_in_source": 3,
+                "global_no": 107
+            },
+            "links": {
+                "concept_names": [
+                    "平方差公式",
+                    "完全平方公式"
+                ],
+                "skill_names": [
+                    "识别特殊形式的多项式乘法"
+                ]
+            }
+        },
+        {
+            "id": "math_8a_rjb_ch14_s2_t271",
+            "stem": "先化简，再求值：\n\n$(2x + 3y)^2 - (2x + y)(2x - y)$ ，其中 $x = \\frac{1}{3}$ ， $y = -\\frac{1}{2}$ 。",
+            "answer": "1/2",
+            "analysis": "原式=(2x+3y)^2-(2x+y)(2x-y)=(4x^2+12xy+9y^2)-(4x^2-y^2)=12xy+10y^2。代入x=1/3，y=-1/2：12xy=12·(1/3)·(-1/2)=-2，10y^2=10·(1/4)=5/2，所以原式=-2+5/2=1/2。",
+            "difficulty": 2,
+            "type": "填空题",
+            "meta": {
+                "book_prefix": "math_8a_rjb",
+                "source_md": "ch14_s2.md",
+                "question_no_in_source": 4,
+                "global_no": 108
+            },
+            "links": {
+                "concept_names": [
+                    "完全平方公式",
+                    "平方差公式"
+                ],
+                "skill_names": [
+                    "识别特殊形式的多项式乘法"
+                ]
+            }
+        },
+        {
+            "id": "math_8a_rjb_ch14_s2_t272",
+            "stem": "一个正方形的边长增加 $3 \\mathrm{~cm}$ , 它的面积就增加 $39 \\mathrm{~cm}^{2}$ , 这个正方形的边长是多少?",
+            "answer": "5 cm",
+            "analysis": "设正方形原边长为x cm，则面积增加量为(x+3)^2−x^2=39。展开得x^2+6x+9−x^2=39，即6x+9=39，解得6x=30，x=5。因此正方形的边长是5 cm。",
+            "difficulty": 2,
+            "type": "应用题",
+            "meta": {
+                "book_prefix": "math_8a_rjb",
+                "source_md": "ch14_s2.md",
+                "question_no_in_source": 5,
+                "global_no": 109
+            },
+            "links": {
+                "concept_names": [
+                    "平方差公式"
+                ],
+                "skill_names": [
+                    "识别特殊形式的多项式乘法"
+                ]
+            }
+        },
+        {
+            "id": "math_8a_rjb_ch14_s2_t274",
+            "stem": "已知 $a + b = 5$ ， $ab = 3$ ，求 $a^2 + b^2$ 的值",
+            "answer": "19",
+            "analysis": "利用恒等式 a^2+b^2=(a+b)^2-2ab。已知 a+b=5，ab=3，则 a^2+b^2=5^2-2×3=25-6=19。",
+            "difficulty": 1,
+            "type": "填空题",
+            "meta": {
+                "book_prefix": "math_8a_rjb",
+                "source_md": "ch14_s2.md",
+                "question_no_in_source": 7,
+                "global_no": 110
+            },
+            "links": {
+                "concept_names": [
+                    "完全平方公式"
+                ],
+                "skill_names": [
+                    "识别特殊形式的多项式乘法"
+                ]
+            }
+        },
+        {
+            "id": "math_8a_rjb_ch14_s2_t275",
+            "stem": "解不等式 $(2x - 5)^2 + (3x + 1)^2 > 13(x^2 - 10)$ .",
+            "answer": "x<\\frac{78}{7}",
+            "analysis": "展开并合并：\\((2x-5)^2+(3x+1)^2=(4x^2-20x+25)+(9x^2+6x+1)=13x^2-14x+26\\)。右边：\\(13(x^2-10)=13x^2-130\\)。代入不等式得\\(13x^2-14x+26>13x^2-130\\)，消去\\(13x^2\\)得\\(-14x+26>-130\\)，即\\(-14x>-156\\)，两边同除以负数\\(-14\\)不等号方向改变，得\\(x<\\frac{78}{7}\\)。",
+            "difficulty": 2,
+            "type": "简答题",
+            "meta": {
+                "book_prefix": "math_8a_rjb",
+                "source_md": "ch14_s2.md",
+                "question_no_in_source": 8,
+                "global_no": 111
+            },
+            "links": {
+                "concept_names": [
+                    "完全平方公式"
+                ],
+                "skill_names": [
+                    "识别特殊形式的多项式乘法"
+                ]
+            }
+        },
+        {
+            "id": "math_8a_rjb_ch14_s2_t276",
+            "stem": "解方程组\n\n$$\n\\left\\{ \\begin{array}{l} (x + 2) ^ {2} - (y - 3) ^ {2} = (x + y) (x - y), \\\\ x - 3 y = 2. \\end{array} \\right.\n$$",
+            "answer": "x=\\frac{3}{2},\\ y=-\\frac{1}{6}",
+            "analysis": "由\\((x+y)(x-y)=x^2-y^2\\)。\n第一式左边展开：\\((x+2)^2-(y-3)^2=(x^2+4x+4)-(y^2-6y+9)=x^2-y^2+4x+6y-5\\)。\n与右边\\(x^2-y^2\\)相等，消去\\(x^2-y^2\\)，得\\(4x+6y-5=0\\)，即\\(4x+6y=5\\)。\n第二式为\\(x-3y=2\\)。联立解线性方程组：由\\(x=2+3y\\)，代入\\(4x+6y=5\\)：\\(4(2+3y)+6y=5\\Rightarrow 8+18y=5\\Rightarrow y=-\\frac{1}{6}\\)。\n再得\\(x=2+3\\left(-\\frac{1}{6}\\right)=\\frac{3}{2}\\)。",
+            "difficulty": 2,
+            "type": "简答题",
+            "meta": {
+                "book_prefix": "math_8a_rjb",
+                "source_md": "ch14_s2.md",
+                "question_no_in_source": 9,
+                "global_no": 112
+            },
+            "links": {
+                "concept_names": [
+                    "平方差公式",
+                    "完全平方公式"
+                ],
+                "skill_names": [
+                    "识别特殊形式的多项式乘法"
+                ]
+            }
+        },
+        {
+            "id": "math_8a_rjb_ch14_s3_t277",
+            "stem": "利用因式分解计算：\n\n(1) $21 \\times 3.14 + 62 \\times 3.14 + 17 \\times 3.14$   \n(2) $758^{2} - 258^{2}$",
+            "answer": "(1) 314\n(2) 508000",
+            "analysis": "(1) 提取公因数3.14：21×3.14+62×3.14+17×3.14=3.14(21+62+17)=3.14×100=314。\n(2) 平方差公式：758^2-258^2=(758-258)(758+258)=500×1016=508000。",
+            "difficulty": 2,
+            "type": "简答题",
+            "meta": {
+                "book_prefix": "math_8a_rjb",
+                "source_md": "ch14_s3.md",
+                "question_no_in_source": 4,
+                "global_no": 113
+            },
+            "links": {
+                "concept_names": [
+                    "因式分解",
+                    "公因式",
+                    "提公因式法",
+                    "平方差公式"
+                ],
+                "skill_names": [
+                    "识别多项式结构进行因式分解"
+                ]
+            }
+        },
+        {
+            "id": "math_8a_rjb_ch14_s3_t278",
+            "stem": "分解因式：\n\n(1) $(a - b)^2 + 4ab$ ;\n\n(2） $(p - 4)(p + 1) + 3p$\n\n(3) $4xy^{2} - 4x^{2}y - y^{3}$\n\n(4) $3ax^{2} - 3ay^{2}$",
+            "answer": "(1) (a+b)^2；(2) (p-2)(p+2)；(3) y(2x-y)^2（或 -y(y-2x)^2）；(4) 3a(x-y)(x+y)",
+            "analysis": "(1) 展开合并：(a-b)^2+4ab=a^2-2ab+b^2+4ab=a^2+2ab+b^2=(a+b)^2。 (2) 先展开再合并：(p-4)(p+1)+3p=p^2-3p-4+3p=p^2-4=(p-2)(p+2)。 (3) 提取公因式y：4xy^2-4x^2y-y^3=y(4xy-4x^2-y^2)=y[-(y^2-4xy+4x^2)]=y[-(y-2x)^2]=y(2x-y)^2。 (4) 提取公因式3a并用平方差：3ax^2-3ay^2=3a(x^2-y^2)=3a(x-y)(x+y)。",
+            "difficulty": 3,
+            "type": "填空题",
+            "meta": {
+                "book_prefix": "math_8a_rjb",
+                "source_md": "ch14_s3.md",
+                "question_no_in_source": 5,
+                "global_no": 114
+            },
+            "links": {
+                "concept_names": [
+                    "因式分解",
+                    "公因式",
+                    "提公因式法",
+                    "平方差公式",
+                    "完全平方公式"
+                ],
+                "skill_names": [
+                    "识别多项式结构进行因式分解"
+                ]
+            }
+        },
+        {
+            "id": "math_8a_rjb_ch14_s3_t282",
+            "stem": "已知 $4y^{2} + my + 9$ 是完全平方式，求 $m$ 的值",
+            "answer": "m=12或m=-12",
+            "analysis": "若4y^2+my+9为完全平方式，则可设为(ay+b)^2=a^2y^2+2aby+b^2。对比系数得a^2=4，b^2=9，所以a=±2，b=±3。于是m=2ab=2×(±2)×(±3)=±12。",
+            "difficulty": 2,
+            "type": "填空题",
+            "meta": {
+                "book_prefix": "math_8a_rjb",
+                "source_md": "ch14_s3.md",
+                "question_no_in_source": 9,
+                "global_no": 115
+            },
+            "links": {
+                "concept_names": [
+                    "完全平方公式"
+                ],
+                "skill_names": [
+                    "识别多项式结构进行因式分解"
+                ]
+            }
+        },
+        {
+            "id": "math_8a_rjb_ch14_s3_t283",
+            "stem": "观察下列式子：\n\n$$\n\\begin{array}{l} 2 \\times 4 + 1 = 9 = 3 ^ {2}; \\\\ 6 \\times 8 + 1 = 4 9 = 7 ^ {2}; \\\\ 1 4 \\times 1 6 + 1 = 2 2 5 = 1 5 ^ {2}; \\\\ \\dots \\\\ \\end{array}\n$$\n\n你得出了什么结论？你能证明这个结论吗？",
+            "answer": "结论：任意两个相差2的偶数相乘再加1，等于它们中间那个奇数的平方。即对任意正整数n，有\\((2n)(2n+2)+1=(2n+1)^2\\)。",
+            "analysis": "设两个相差2的偶数为\\(2n\\)与\\(2n+2\\)。则\\n\\[(2n)(2n+2)+1=4n^2+4n+1=(2n+1)^2.\\]\\n右边正是介于\\(2n\\)与\\(2n+2\\)之间的奇数\\(2n+1\\)的平方，故结论成立。",
+            "difficulty": 2,
+            "type": "证明题",
+            "meta": {
+                "book_prefix": "math_8a_rjb",
+                "source_md": "ch14_s3.md",
+                "question_no_in_source": 10,
+                "global_no": 116
+            },
+            "links": {
+                "concept_names": [
+                    "完全平方公式"
+                ],
+                "skill_names": [
+                    "识别多项式结构进行因式分解"
+                ]
+            }
+        },
+        {
+            "id": "math_8a_rjb_ch14_s3_t284",
+            "stem": "在实数范围内分解因式：\n\n(1) $x^{2} - 2$\n\n(2) $5x^{2} - 3.$\n\n（提示：根据平方根的意义把各式写成平方差的形式.）",
+            "answer": "(1) x^2-2=(x-\\sqrt2)(x+\\sqrt2)；(2) 5x^2-3=(\\sqrt5x-\\sqrt3)(\\sqrt5x+\\sqrt3)",
+            "analysis": "利用平方差公式a^2-b^2=(a-b)(a+b)。(1) x^2-2=x^2-(\\sqrt2)^2；(2) 5x^2-3=(\\sqrt5x)^2-(\\sqrt3)^2，然后套用平方差公式分解。",
+            "difficulty": 2,
+            "type": "简答题",
+            "meta": {
+                "book_prefix": "math_8a_rjb",
+                "source_md": "ch14_s3.md",
+                "question_no_in_source": 11,
+                "global_no": 117
+            },
+            "links": {
+                "concept_names": [
+                    "因式分解",
+                    "平方差公式"
+                ],
+                "skill_names": [
+                    "识别多项式结构进行因式分解"
+                ]
+            }
+        },
+        {
+            "id": "math_8a_rjb_ch14_s_14_t285",
+            "stem": "计算：\n\n(1) $4(x + 1)^{2} - (2x + 5)(2x - 5)$\n\n(2) $2x\\left(\\frac{1}{2} x^2 - 1\\right) - 3x\\left(\\frac{1}{3} x^2 + \\frac{2}{3}\\right)$ ;\n\n(3) $3(y - z)^2 - (2y + z)(-z + 2y)$ ;\n\n(4) $[x(x^{2}y^{2} - xy) - y(x^{2} - x^{3}y)]\\div 3x^{2}y.$",
+            "answer": "(1) 8x+29；(2) -4x；(3) -y^2-6yz+4z^2；(4) \\frac{2(xy-1)}{3}",
+            "analysis": "(1) 4(x+1)^2=4x^2+8x+4，(2x+5)(2x-5)=4x^2-25，相减得8x+29。\\n(2) 2x(\\tfrac12x^2-1)=x^3-2x，3x(\\tfrac13x^2+\\tfrac23)=x^3+2x，原式=(x^3-2x)-(x^3+2x)=-4x。\\n(3) 3(y-z)^2=3y^2-6yz+3z^2，(2y+z)(-z+2y)=(2y+z)(2y-z)=4y^2-z^2，相减得-y^2-6yz+4z^2。\\n(4) x(x^2y^2-xy)=x^3y^2-x^2y，-y(x^2-x^3y)=-x^2y+x^3y^2，括号内=2x^3y^2-2x^2y=2x^2y(xy-1)，再除以3x^2y得\\tfrac{2(xy-1)}{3}。",
+            "difficulty": 2,
+            "type": "简答题",
+            "meta": {
+                "book_prefix": "math_8a_rjb",
+                "source_md": "ch14_s复习题14.md",
+                "question_no_in_source": 6,
+                "global_no": 118
+            }
+        },
+        {
+            "id": "math_8a_rjb_ch14_s_14_t286",
+            "stem": "分解因式：\n\n(1) $x^{3} - 9x$\n\n(2) $16x^{4} - 1$\n\n(3) $6xy^{2} - 9x^{2}y - y^{3}$\n\n(4) $(2a - b)^2 + 8ab$ .",
+            "answer": "(1) x(x-3)(x+3)\n(2) (2x-1)(2x+1)(4x^2+1)\n(3) y(y-3x)^2\n(4) (2a+b)^2",
+            "analysis": "(1) 提取公因式x，再用平方差：x^3-9x=x(x^2-9)=x(x-3)(x+3)。\n(2) 视为平方差：16x^4-1=(4x^2)^2-1^2=(4x^2-1)(4x^2+1)，再分解4x^2-1=(2x-1)(2x+1)。\n(3) 提取公因式y：6xy^2-9x^2y-y^3=y(6xy-9x^2-y^2)=-y(3x-y)^2=y(y-3x)^2。\n(4) 展开合并： (2a-b)^2+8ab=4a^2-4ab+b^2+8ab=4a^2+4ab+b^2=(2a+b)^2。",
+            "difficulty": 3,
+            "type": "简答题",
+            "meta": {
+                "book_prefix": "math_8a_rjb",
+                "source_md": "ch14_s复习题14.md",
+                "question_no_in_source": 7,
+                "global_no": 119
+            }
+        },
+        {
+            "id": "math_8a_rjb_ch14_s_14_t287",
+            "stem": "已知 $(x + y)^2 = 25$ ， $(x - y)^2 = 9$ ，求 $xy$ 与 $x^2 + y^2$ 的值.",
+            "answer": "xy=4，x^2+y^2=17",
+            "analysis": "由(x+y)^2=25得x^2+2xy+y^2=25；由(x-y)^2=9得x^2-2xy+y^2=9。两式相加：2(x^2+y^2)=34，故x^2+y^2=17；两式相减：(x^2+2xy+y^2)-(x^2-2xy+y^2)=16，得4xy=16，故xy=4。",
+            "difficulty": 2,
+            "type": "填空题",
+            "meta": {
+                "book_prefix": "math_8a_rjb",
+                "source_md": "ch14_s复习题14.md",
+                "question_no_in_source": 8,
+                "global_no": 120
+            }
+        },
+        {
+            "id": "math_8a_rjb_ch14_s_14_t290",
+            "stem": "求证：当 $n$ 是整数时，两个连续奇数的平方差 $(2n + 1)^2 - (2n - 1)^2$ 是 8 的倍数.",
+            "answer": "当n为整数时，(2n+1)^2-(2n-1)^2=8n，因此必为8的倍数。",
+            "analysis": "展开并化简：\\n(2n+1)^2-(2n-1)^2=(4n^2+4n+1)-(4n^2-4n+1)=8n。\\n因为n是整数，所以8n能被8整除，故该平方差是8的倍数。",
+            "difficulty": 2,
+            "type": "证明题",
+            "meta": {
+                "book_prefix": "math_8a_rjb",
+                "source_md": "ch14_s复习题14.md",
+                "question_no_in_source": 11,
+                "global_no": 121
+            }
+        },
+        {
+            "id": "math_8a_rjb_ch14_s_14_t291",
+            "stem": "某种产品的原料提价，因而厂家决定对产品进行提价，现有三种方案：\n\n（1）第一次提价 $p\\%$ ，第二次提价 $q\\%$   \n(2)第一次提价 $q\\%$ ，第二次提价 $p\\%$   \n(3) 第一、二次提价均为 $\\frac{p + q}{2}\\%$ .\n\n其中 $p, q$ 是不相等的正数. 三种方案哪种提价最多？\n\n（提示：因为 $p \\neq q$ ， $(p - q)^2 = p^2 - 2pq + q^2 > 0$ ，所以 $p^2 + q^2 > 2pq$ ）",
+            "answer": "方案(3)提价最多（方案(1)与方案(2)相同且小于方案(3)）。",
+            "analysis": "设原价为1。\n方案(1)：最终价格=(1+p/100)(1+q/100)=1+(p+q)/100+pq/10000。\n方案(2)：(1+q/100)(1+p/100)与方案(1)相同。\n方案(3)：最终价格=(1+(p+q)/200)^2=1+(p+q)/100+(p+q)^2/40000。\n比较方案(1)与(3)的增量项：pq/10000 与 (p+q)^2/40000。\n乘以40000得：4pq 与 (p+q)^2=p^2+2pq+q^2。\n因p≠q且为正数，(p-q)^2>0 ⇒ p^2+q^2>2pq ⇒ p^2+2pq+q^2>4pq。\n故(p+q)^2/40000>pq/10000，方案(3)最终价格更大。",
+            "difficulty": 3,
+            "type": "简答题",
+            "meta": {
+                "book_prefix": "math_8a_rjb",
+                "source_md": "ch14_s复习题14.md",
+                "question_no_in_source": 12,
+                "global_no": 122
+            }
+        },
+        {
+            "id": "math_8a_rjb_ch15_s1_t292",
+            "stem": "$x$ 满足什么条件时下列分式有意义？\n\n(1) $\\frac{1}{x(x - 1)}$ ;\n\n(2) $\\frac{x + 5}{x^2 + 1}$ .",
+            "answer": "(1) x≠0且x≠1；(2) x为任意实数",
+            "analysis": "分式有意义要求分母不为0。(1) 分母x(x-1)≠0，所以x≠0且x-1≠0→x≠1。(2) 分母x^2+1对任意实数x恒大于0，不可能为0，所以x取任意实数。",
+            "difficulty": 1,
+            "type": "填空题",
+            "meta": {
+                "book_prefix": "math_8a_rjb",
+                "source_md": "ch15_s1.md",
+                "question_no_in_source": 8,
+                "global_no": 123
+            },
+            "links": {
+                "concept_names": [
+                    "分式的意义条件（分母不为0）"
+                ]
+            }
+        },
+        {
+            "id": "math_8a_rjb_ch15_s1_t293",
+            "stem": "小李要打一份12000字的文件，第一天她打字 $2 \\mathrm{~h}$ ，打字速度为 $\\omega$ 字 $/ \\mathrm{min}$ ，第二天她打字速度比第一天快了10字 $/ \\mathrm{min}$ ，两天打完全部文件，第二天她打字用了多长时间？",
+            "answer": "第二天用时 t=\\frac{12000-120\\omega}{\\omega+10}\\text{ min}=\\frac{120(100-\\omega)}{\\omega+10}\\text{ min}=\\frac{2(100-\\omega)}{\\omega+10}\\text{ h}",
+            "analysis": "第一天打字2h=120min，速度为\\omega字/min，所以第一天完成120\\omega字。设第二天用时t(min)，第二天速度为(\\omega+10)字/min，则第二天完成t(\\omega+10)字。两天共12000字：120\\omega+t(\\omega+10)=12000，解得t=\\frac{12000-120\\omega}{\\omega+10}。",
+            "difficulty": 2,
+            "type": "应用题",
+            "meta": {
+                "book_prefix": "math_8a_rjb",
+                "source_md": "ch15_s1.md",
+                "question_no_in_source": 9,
+                "global_no": 124
+            },
+            "links": {
+                "concept_names": [
+                    "分式"
+                ]
+            }
+        },
+        {
+            "id": "math_8a_rjb_ch15_s1_t294",
+            "stem": "某村种植了 $m \\mathrm{hm}^2$ 玉米，总产量为 $n \\mathrm{kg}$ ；水稻的种植面积比玉米的种植面积多 $p \\mathrm{hm}^2$ ，水稻的总产量比玉米总产量的 2 倍多 $q \\mathrm{kg}$ 。写出表示玉米和水稻的单位面积产量（单位： $\\mathrm{kg} / \\mathrm{hm}^2$ ）的式子。",
+            "answer": "玉米单位面积产量：\\(\\dfrac{n}{m}\\)（kg/hm\\(^2\\)）；水稻单位面积产量：\\(\\dfrac{2n+q}{m+p}\\)（kg/hm\\(^2\\)）。",
+            "analysis": "单位面积产量=总产量÷种植面积。玉米面积为\\(m\\)，总产量为\\(n\\)，所以为\\(n/m\\)。水稻面积比玉米多\\(p\\)，为\\(m+p\\)；水稻总产量比玉米的2倍多\\(q\\)，为\\(2n+q\\)，所以单位面积产量为\\((2n+q)/(m+p)\\)。",
+            "difficulty": 2,
+            "type": "填空题",
+            "meta": {
+                "book_prefix": "math_8a_rjb",
+                "source_md": "ch15_s1.md",
+                "question_no_in_source": 10,
+                "global_no": 125
+            },
+            "links": {
+                "concept_names": [
+                    "分式"
+                ]
+            }
+        },
+        {
+            "id": "math_8a_rjb_ch15_s1_t295",
+            "stem": "有四块小场地：第一块是边长为 $a \\mathrm{~m}$ 的正方形，第二块是边长为 $b \\mathrm{~m}$ 的正方形，其余两块都是长为 $a \\mathrm{~m}$ 、宽为 $b \\mathrm{~m}$ 的长方形。另有一块大长方形场地，它的面积等于上面四块场地面积的和，它的长为 $2(a + b) \\mathrm{m}$ ，用最简单的式子表示出大长方形的宽。",
+            "answer": "大长方形的宽为\\(\\dfrac{a+b}{2}\\,\\text{m}\\)。",
+            "analysis": "四块小场地总面积为\\(a^2+b^2+2ab=(a+b)^2\\)。大长方形面积等于该和，且长为\\(2(a+b)\\)，所以宽=面积÷长=\\(\\dfrac{(a+b)^2}{2(a+b)}=\\dfrac{a+b}{2}\\)。",
+            "difficulty": 2,
+            "type": "填空题",
+            "meta": {
+                "book_prefix": "math_8a_rjb",
+                "source_md": "ch15_s1.md",
+                "question_no_in_source": 11,
+                "global_no": 126
+            },
+            "links": {
+                "concept_names": [
+                    "分式的约分"
+                ],
+                "skill_names": [
+                    "整式分解因式"
+                ]
+            }
+        },
+        {
+            "id": "math_8a_rjb_ch15_s1_t296",
+            "stem": "下列各式对不对？如果不对，写出正确答案：\n\n(1) $\\frac{1 - a}{a^2 - 2a + 1} = \\frac{1}{1 - a}$\n\n(2) $\\frac{xy - x^2}{(x - y)^2} = \\frac{x}{x - y}.$",
+            "answer": "(1) 对（当a≠1时）。(2) 不对，正确应为\\(\\frac{xy-x^2}{(x-y)^2}=-\\frac{x}{x-y}=\\frac{x}{y-x}\\)（且x≠y）。",
+            "analysis": "(1) \\(a^2-2a+1=(a-1)^2=(1-a)^2\\)，故\\(\\frac{1-a}{a^2-2a+1}=\\frac{1-a}{(1-a)^2}=\\frac1{1-a}\\)，要求\\(1-a\\neq0\\Rightarrow a\\neq1\\)。\\n(2) \\(xy-x^2=x(y-x)=-x(x-y)\\)，故\\(\\frac{xy-x^2}{(x-y)^2}=\\frac{-x(x-y)}{(x-y)^2}=-\\frac{x}{x-y}\\)，要求\\(x-y\\neq0\\Rightarrow x\\neq y\\)。",
+            "difficulty": 2,
+            "type": "判断题",
+            "meta": {
+                "book_prefix": "math_8a_rjb",
+                "source_md": "ch15_s1.md",
+                "question_no_in_source": 12,
+                "global_no": 127
+            },
+            "links": {
+                "concept_names": [
+                    "分式的意义条件（分母不为0）",
+                    "分式的基本性质",
+                    "分式的约分"
+                ],
+                "skill_names": [
+                    "整式分解因式"
+                ]
+            }
+        },
+        {
+            "id": "math_8a_rjb_ch15_s1_t297",
+            "stem": "在什么条件下，下列分式的值为 0？\n\n(1) $\\frac{x - 1}{x}$ ;\n\n(2) $\\frac{5a - b}{a + b}$ .",
+            "answer": "(1) x=1（且x≠0）；(2) b=5a，且a+b≠0（即a≠0）",
+            "analysis": "分式的值为0当且仅当：分子=0且分母≠0。\n(1) (x−1)/x=0 ⇒ x−1=0 得x=1，同时要求x≠0，故条件为x=1。\n(2) (5a−b)/(a+b)=0 ⇒ 5a−b=0 得b=5a，同时要求a+b≠0，即a+5a≠0 ⇒ 6a≠0 ⇒ a≠0。",
+            "difficulty": 2,
+            "type": "简答题",
+            "meta": {
+                "book_prefix": "math_8a_rjb",
+                "source_md": "ch15_s1.md",
+                "question_no_in_source": 13,
+                "global_no": 128
+            },
+            "links": {
+                "concept_names": [
+                    "分式",
+                    "分式的意义条件（分母不为0）"
+                ]
+            }
+        },
+        {
+            "id": "math_8a_rjb_ch15_s2_t298",
+            "stem": "一艘船顺流航行 $n$ km 用了 $m$ h，如果逆流航速是顺流航速的 $\\frac{p}{q}$ ，那么这艘船逆流航行 $t$ h 走了多少路程？",
+            "answer": "这艘船逆流航行 t h 走了 \\(\\dfrac{pnt}{qm}\\) km。",
+            "analysis": "顺流速度 \\(v_\\text{顺}=\\dfrac{n}{m}\\) (km/h)。逆流速度为顺流速度的 \\(\\dfrac{p}{q}\\)，所以 \\(v_\\text{逆}=\\dfrac{p}{q}\\cdot\\dfrac{n}{m}=\\dfrac{pn}{qm}\\) (km/h)。逆流航行 \\(t\\) 小时的路程 \\(s=v_\\text{逆}\\cdot t=\\dfrac{pn}{qm}\\cdot t=\\dfrac{pnt}{qm}\\) (km)。",
+            "difficulty": 2,
+            "type": "应用题",
+            "meta": {
+                "book_prefix": "math_8a_rjb",
+                "source_md": "ch15_s2.md",
+                "question_no_in_source": 10,
+                "global_no": 129
+            },
+            "links": {
+                "concept_names": [
+                    "分式的乘法法则",
+                    "分式的除法法则"
+                ]
+            }
+        },
+        {
+            "id": "math_8a_rjb_ch15_s2_t299",
+            "stem": "在一块 $a \\mathrm{hm}^2$ 的稻田上插秧，如果10个人插秧，要用 $m$ 天完成；如果一台插秧机工作，要比10个人插秧提前3天完成。一台插秧机的工作效率是一个人工作效率的多少倍？",
+            "answer": "10m/(m-3)倍",
+            "analysis": "设1个人的工作效率为x（每人每天完成的面积）。\n10个人m天完成：a=10x·m，得x=a/(10m)。\n插秧机比10个人提前3天完成，所以用时m-3天：插秧机效率为a/(m-3)。\n插秧机效率与1个人效率之比为：\\frac{a/(m-3)}{a/(10m)}=\\frac{10m}{m-3}。",
+            "difficulty": 3,
+            "type": "应用题",
+            "meta": {
+                "book_prefix": "math_8a_rjb",
+                "source_md": "ch15_s2.md",
+                "question_no_in_source": 11,
+                "global_no": 130
+            },
+            "links": {
+                "concept_names": [
+                    "分式的除法法则"
+                ]
+            }
+        },
+        {
+            "id": "math_8a_rjb_ch15_s2_t300",
+            "stem": "绿化队原来用漫灌方式浇绿地， $a$ 天用水 $m$ t，现在改用喷灌方式，可使这些水多用3天，现在比原来每天节约用水多少吨？",
+            "answer": "现在比原来每天节约用水\\(\\dfrac{3m}{a(a+3)}\\)吨。",
+            "analysis": "原来每天用水\\(\\frac{m}{a}\\)吨；改用喷灌后同样的\\(m\\)吨水可用\\(a+3\\)天，所以现在每天用水\\(\\frac{m}{a+3}\\)吨。每天节约用水=\\(\\frac{m}{a}-\\frac{m}{a+3}=\\frac{3m}{a(a+3)}\\)吨。",
+            "difficulty": 2,
+            "type": "应用题",
+            "meta": {
+                "book_prefix": "math_8a_rjb",
+                "source_md": "ch15_s2.md",
+                "question_no_in_source": 12,
+                "global_no": 131
+            },
+            "links": {
+                "concept_names": [
+                    "分式的加减法法则"
+                ],
+                "skill_names": [
+                    "因式分解与约分"
+                ]
+            }
+        },
+        {
+            "id": "math_8a_rjb_ch15_s2_t301",
+            "stem": "两地相距 $n$ km，提速前火车从一地到另一地要用 $t$ h，提速后行车时间减少了 $0.5$ h，提速后火车的速度比原来速度快了多少？",
+            "answer": "提速后速度比原来快 \\(\\dfrac{n}{t-0.5}-\\dfrac{n}{t}=\\dfrac{n}{2t(t-0.5)}\\) km/h",
+            "analysis": "原速度 \\(v_1=\\dfrac{n}{t}\\)（km/h）。提速后用时 \\(t-0.5\\) h，新速度 \\(v_2=\\dfrac{n}{t-0.5}\\)。速度增加量 \\(\\Delta v=v_2-v_1=\\dfrac{n}{t-0.5}-\\dfrac{n}{t}=\\dfrac{n\\cdot 0.5}{t(t-0.5)}=\\dfrac{n}{2t(t-0.5)}\\)（km/h）。",
+            "difficulty": 2,
+            "type": "应用题",
+            "meta": {
+                "book_prefix": "math_8a_rjb",
+                "source_md": "ch15_s2.md",
+                "question_no_in_source": 13,
+                "global_no": 132
+            },
+            "links": {
+                "concept_names": [
+                    "分式的加减法法则"
+                ],
+                "skill_names": [
+                    "因式分解与约分"
+                ]
+            }
+        },
+        {
+            "id": "math_8a_rjb_ch15_s2_t302",
+            "stem": "一块麦田有 $m \\, \\mathrm{hm}^2$ ，甲收割完这块麦田需 $n \\, \\mathrm{h}$ ，乙比甲少用 $0.5 \\, \\mathrm{h}$ 就能收割完这块麦田，两人一起收割完这块麦田需要多少小时？",
+            "answer": "两人一起收割需要\\(\\dfrac{n(n-0.5)}{2n-0.5}\\,\\text{h}=\\dfrac{n(2n-1)}{4n-1}\\,\\text{h}\\)。",
+            "analysis": "甲的效率为\\(\\frac{m}{n}\\,\\text{hm}^2/\\text{h}\\)，乙用时\\(n-0.5\\)小时，效率为\\(\\frac{m}{n-0.5}\\)。两人合做效率\\(\\frac{m}{n}+\\frac{m}{n-0.5}=m\\left(\\frac{1}{n}+\\frac{1}{n-0.5}\\right)\\)。设合做时间为\\(t\\)，则\\(m=t\\cdot m\\left(\\frac{1}{n}+\\frac{1}{n-0.5}\\right)\\)，所以\\(t=\\frac{1}{\\frac{1}{n}+\\frac{1}{n-0.5}}=\\frac{n(n-0.5)}{2n-0.5}=\\frac{n(2n-1)}{4n-1}\\)小时。",
+            "difficulty": 2,
+            "type": "应用题",
+            "meta": {
+                "book_prefix": "math_8a_rjb",
+                "source_md": "ch15_s2.md",
+                "question_no_in_source": 14,
+                "global_no": 133
+            },
+            "links": {
+                "concept_names": [
+                    "分式的加减法法则",
+                    "分式的除法法则"
+                ],
+                "skill_names": [
+                    "因式分解与约分"
+                ]
+            }
+        },
+        {
+            "id": "math_8a_rjb_ch15_s2_t303",
+            "stem": "计算下列两式，探索其中的共同规律：\n\n(1) $\\frac{p}{mn} + \\frac{m}{np} + \\frac{n}{pm}$ ;\n\n(2) $\\frac{c - a}{(a - b)(b - c)} + \\frac{a - b}{(b - c)(c - a)} + \\frac{b - c}{(c - a)(a - b)}$ .",
+            "answer": "(1) \\(\\dfrac{p}{mn}+\\dfrac{m}{np}+\\dfrac{n}{pm}=\\dfrac{p^2+m^2+n^2}{mnp}\\).  \n(2) \\(\\dfrac{c-a}{(a-b)(b-c)}+\\dfrac{a-b}{(b-c)(c-a)}+\\dfrac{b-c}{(c-a)(a-b)}=\\dfrac{(c-a)^2+(a-b)^2+(b-c)^2}{(a-b)(b-c)(c-a)}\\)（亦可写为 \\(-\\dfrac{(a-b)^2+(b-c)^2+(a-c)^2}{(a-b)(b-c)(a-c)}\\)）。  \n共同规律：三项通分后，结果为“分子对应量的平方和 / 三个因式的乘积”。",
+            "analysis": "（1）通分到公分母 \\(mnp\\)：\\n\\n\\(\\dfrac{p}{mn}=\\dfrac{p^2}{mnp},\\ \\dfrac{m}{np}=\\dfrac{m^2}{mnp},\\ \\dfrac{n}{pm}=\\dfrac{n^2}{mnp}\\)，相加得 \\(\\dfrac{p^2+m^2+n^2}{mnp}\\)。\\n\\n（2）公分母为 \\((a-b)(b-c)(c-a)\\)。\\n\\n\\(\\dfrac{c-a}{(a-b)(b-c)}=\\dfrac{(c-a)^2}{(a-b)(b-c)(c-a)}\\)，\\n\\(\\dfrac{a-b}{(b-c)(c-a)}=\\dfrac{(a-b)^2}{(a-b)(b-c)(c-a)}\\)，\\n\\(\\dfrac{b-c}{(c-a)(a-b)}=\\dfrac{(b-c)^2}{(a-b)(b-c)(c-a)}\\)。\\n\\n相加得 \\(\\dfrac{(c-a)^2+(a-b)^2+(b-c)^2}{(a-b)(b-c)(c-a)}\\)。",
+            "difficulty": 3,
+            "type": "简答题",
+            "meta": {
+                "book_prefix": "math_8a_rjb",
+                "source_md": "ch15_s2.md",
+                "question_no_in_source": 15,
+                "global_no": 134
+            },
+            "links": {
+                "concept_names": [
+                    "分式的加减法法则"
+                ],
+                "skill_names": [
+                    "因式分解与约分"
+                ]
+            }
+        },
+        {
+            "id": "math_8a_rjb_ch15_s2_t304",
+            "stem": "一个无盖长方体盒子的容积是 $V$ .\n\n（1）如果盒子底面是边长为 $a$ 的正方形，这个盒子的表面积是多少？  \n(2) 如果盒子底面是长为 $b$ 、宽为 $c$ 的长方形, 这个盒子的表面积是多少?  \n(3) 上面两种情况下，如果盒子的底面面积相等，那么两种盒子的表面积相差多少？\n\n（不计制造材料的厚度.）",
+            "answer": "（1）底面为边长a的正方形：高h=V/a^2，表面积S=a^2+4ah=a^2+4V/a。\n（2）底面为b×c的长方形：高h=V/(bc)，表面积S=bc+2bh+2ch=bc+2V/c+2V/b。\n（3）若底面积相等（a^2=bc），则两种盒子表面积之差为ΔS=(a^2+4V/a)−(bc+2V/b+2V/c)=4V/a−2V/b−2V/c（相差多少取其绝对值）。",
+            "analysis": "无盖长方体盒子表面积=底面积+四个侧面积。先由体积V=底面积×高求高：\n(1) 底面积a^2→h=V/a^2；侧面积共4个，每个面积a·h，故S=a^2+4ah=a^2+4V/a。\n(2) 底面积bc→h=V/(bc)；侧面两块面积b·h，两块面积c·h，故S=bc+2bh+2ch=bc+2V/c+2V/b。\n(3) 若a^2=bc，底面积项相消，仅比较侧面积项，得差ΔS=4V/a−2V/b−2V/c，问“相差”则取|ΔS|。",
+            "difficulty": 3,
+            "type": "应用题",
+            "meta": {
+                "book_prefix": "math_8a_rjb",
+                "source_md": "ch15_s2.md",
+                "question_no_in_source": 16,
+                "global_no": 135
+            },
+            "links": {
+                "concept_names": [
+                    "分式的乘法法则",
+                    "分式的除法法则",
+                    "整数指数幂及其运算性质"
+                ],
+                "skill_names": [
+                    "因式分解与约分"
+                ]
+            }
+        },
+        {
+            "id": "math_8a_rjb_ch15_s3_t305",
+            "stem": "解方程求 $x$\n\n(1) $\\frac{1}{x - 1} + a = 1 (a \\neq 1)$ ;\n\n(2) $\\frac{m}{x} - \\frac{1}{x + 1} = 0 (m \\neq 0$ , 且 $m \\neq 1)$ .",
+            "answer": "（1）x=1+\\frac{1}{1-a}=\\frac{2-a}{1-a}\\n（2）x=\\frac{m}{1-m}",
+            "analysis": "（1）\\(\\frac{1}{x-1}+a=1\\Rightarrow \\frac{1}{x-1}=1-a\\)（因\\(a\\ne1\\)，右边不为0），故\\(x-1=\\frac{1}{1-a}\\Rightarrow x=1+\\frac{1}{1-a}=\\frac{2-a}{1-a}\\)，且满足\\(x\\ne1\\)。\\n（2）\\(\\frac{m}{x}-\\frac{1}{x+1}=0\\Rightarrow \\frac{m}{x}=\\frac{1}{x+1}\\Rightarrow m(x+1)=x\\Rightarrow mx+m=x\\Rightarrow (m-1)x=-m\\Rightarrow x=\\frac{m}{1-m}\\)，并且在\\(m\\ne0,1\\)时有\\(x\\ne0\\)且\\(x\\ne-1\\)。",
+            "difficulty": 2,
+            "type": "简答题",
+            "meta": {
+                "book_prefix": "math_8a_rjb",
+                "source_md": "ch15_s3.md",
+                "question_no_in_source": 2,
+                "global_no": 136
+            },
+            "links": {
+                "concept_names": [
+                    "分式方程",
+                    "去分母",
+                    "最简公分母",
+                    "分式方程的检验"
+                ],
+                "skill_names": [
+                    "解分式方程的一般方法"
+                ]
+            }
+        },
+        {
+            "id": "math_8a_rjb_ch15_s3_t306",
+            "stem": "甲、乙两人分别从距目的地 $6 \\mathrm{~km}$ 和 $10 \\mathrm{~km}$ 的两地同时出发，甲、乙的速度比是 $3:4$ ，结果甲比乙提前 $20 \\mathrm{~min}$ 到达目的地。求甲、乙的速度。",
+            "answer": "甲的速度为4.5 km/h，乙的速度为6 km/h。",
+            "analysis": "设甲、乙速度分别为3k、4k（km/h）。甲到目的地时间t甲=6/(3k)=2/k（h），乙到目的地时间t乙=10/(4k)=2.5/k（h）。已知甲比乙提前20 min=1/3 h到达，即t乙−t甲=1/3，所以2.5/k−2/k=0.5/k=1/3，得k=1.5。于是v甲=3k=4.5（km/h），v乙=4k=6（km/h）。",
+            "difficulty": 2,
+            "type": "应用题",
+            "meta": {
+                "book_prefix": "math_8a_rjb",
+                "source_md": "ch15_s3.md",
+                "question_no_in_source": 3,
+                "global_no": 137
+            },
+            "links": {
+                "concept_names": [
+                    "分式方程"
+                ],
+                "skill_names": [
+                    "解分式方程的一般方法"
+                ]
+            }
+        },
+        {
+            "id": "math_8a_rjb_ch15_s3_t307",
+            "stem": "A, B 两种机器人都被用来搬运化工原料, A 型机器人比 B 型机器人每小时多搬运 $30 \\mathrm{~kg}$ , A 型机器人搬运 $900 \\mathrm{~kg}$ 所用时间与 B 型机器人搬运 $600 \\mathrm{~kg}$ 所用时间相等,两种机器人每小时分别搬运多少化工原料?",
+            "answer": "A型机器人每小时搬运90kg，B型机器人每小时搬运60kg。",
+            "analysis": "设B型机器人每小时搬运y kg，则A型机器人每小时搬运y+30 kg。由题意：搬运900kg所用时间=搬运600kg所用时间，得900/(y+30)=600/y。交叉相乘：900y=600(y+30)=600y+18000，得300y=18000，y=60。则A型为y+30=90。",
+            "difficulty": 2,
+            "type": "应用题",
+            "meta": {
+                "book_prefix": "math_8a_rjb",
+                "source_md": "ch15_s3.md",
+                "question_no_in_source": 4,
+                "global_no": 138
+            },
+            "links": {
+                "concept_names": [
+                    "分式方程",
+                    "去分母",
+                    "最简公分母"
+                ],
+                "skill_names": [
+                    "解分式方程的一般方法"
+                ]
+            }
+        },
+        {
+            "id": "math_8a_rjb_ch15_s3_t308",
+            "stem": "张明 $3 \\mathrm{~h}$ 清点完一批图书的一半，李强加入清点另一半图书的工作，两人合作 $1.2 \\mathrm{~h}$ 清点完另一半图书。如果李强单独清点这批图书需要几小时？",
+            "answer": "4小时",
+            "analysis": "张明3小时完成全批图书的一半，故张明速度为(1/2)÷3=1/6（批/小时）。两人合作1.2小时完成另一半，合做速度为(1/2)÷1.2=5/12（批/小时）。则李强速度=5/12−1/6=5/12−2/12=1/4（批/小时），所以李强单独清点全批所需时间=1÷(1/4)=4小时。",
+            "difficulty": 3,
+            "type": "应用题",
+            "meta": {
+                "book_prefix": "math_8a_rjb",
+                "source_md": "ch15_s3.md",
+                "question_no_in_source": 5,
+                "global_no": 139
+            },
+            "links": {
+                "concept_names": [
+                    "分式方程"
+                ],
+                "skill_names": [
+                    "解分式方程的一般方法"
+                ]
+            }
+        },
+        {
+            "id": "math_8a_rjb_ch15_s3_t309",
+            "stem": "一个圆柱形容器的容积为 $V \\mathrm{~m}^{3}$ , 开始用一根小水管向容器内注水, 水面高度达到容器高度一半后, 改用一根口径为小水管 2 倍的大水管注水, 向容器中注满水的全过程共用时间 $t \\mathrm{~min}$ . 求两根水管各自的注水速度. (提示: 要考虑大水管的注水速度是小水管注水速度的多少倍.)",
+            "answer": "小水管注水速度为 \\(\\dfrac{5V}{8t}\\,\\text{m}^3/\\text{min}\\)，大水管注水速度为 \\(\\dfrac{5V}{2t}\\,\\text{m}^3/\\text{min}\\)。",
+            "analysis": "设小水管注水速度为 \\(x\\,\\text{m}^3/\\text{min}\\)。大水管口径为小水管的 2 倍，截面积与口径平方成正比，故大水管速度为 \\(4x\\)。圆柱容器水面到一半高度对应体积为 \\(\\frac V2\\)。前半段用小水管时间 \\(t_1=\\frac{V/2}{x}=\\frac{V}{2x}\\)；后半段用大水管时间 \\(t_2=\\frac{V/2}{4x}=\\frac{V}{8x}\\)。总时间 \\(t=t_1+t_2=\\frac{V}{2x}+\\frac{V}{8x}=\\frac{5V}{8x}\\)，解得 \\(x=\\frac{5V}{8t}\\)。因此大水管速度 \\(4x=\\frac{5V}{2t}\\)。",
+            "difficulty": 3,
+            "type": "应用题",
+            "meta": {
+                "book_prefix": "math_8a_rjb",
+                "source_md": "ch15_s3.md",
+                "question_no_in_source": 6,
+                "global_no": 140
+            },
+            "links": {
+                "concept_names": [
+                    "分式方程"
+                ],
+                "skill_names": [
+                    "解分式方程的一般方法"
+                ]
+            }
+        },
+        {
+            "id": "math_8a_rjb_ch15_s3_t310",
+            "stem": "改良玉米品种后，迎春村玉米平均每公顷增加产量 $a$ t，原来产 $m$ t 玉米的一块土地，现在的总产量增加了 $20$ t。原来和现在玉米的平均每公顷产量各是多少？",
+            "answer": "原来平均每公顷产量为\\(\\frac{am}{20}\\) t，现在平均每公顷产量为\\(\\frac{a(m+20)}{20}\\) t。",
+            "analysis": "设原来平均每公顷产量为\\(x\\) t，则土地面积为\\(\\frac{m}{x}\\)公顷。改良后平均每公顷增加\\(a\\) t，现平均每公顷为\\(x+a\\) t，所以现总产量为\\((x+a)\\cdot\\frac{m}{x}=m+20\\)。化简得\\(m\\left(1+\\frac{a}{x}\\right)=m+20\\)，于是\\(\\frac{am}{x}=20\\)，解得\\(x=\\frac{am}{20}\\)。因此现在平均每公顷产量为\\(x+a=\\frac{am}{20}+a=\\frac{a(m+20)}{20}\\)。",
+            "difficulty": 3,
+            "type": "应用题",
+            "meta": {
+                "book_prefix": "math_8a_rjb",
+                "source_md": "ch15_s3.md",
+                "question_no_in_source": 7,
+                "global_no": 141
+            },
+            "links": {
+                "concept_names": [
+                    "分式方程",
+                    "去分母"
+                ],
+                "skill_names": [
+                    "解分式方程的一般方法"
+                ]
+            }
+        },
+        {
+            "id": "math_8a_rjb_ch15_s3_t311",
+            "stem": "两个小组同时开始攀登一座 $450 \\mathrm{~m}$ 高的山，第一组的攀登速度是第二组的 1.2 倍，他们比第二组早 $15 \\mathrm{~min}$ 到达顶峰。两个小组的攀登速度各是多少？如果山高为 $h \\mathrm{~m}$ ，第一组的攀登速度是第二组的 $a$ 倍，并比第二组早 $t \\mathrm{~min}$ 到达顶峰，则两组的攀登速度各是多少？",
+            "answer": "（1）第二组速度为5 m/min，第一组速度为6 m/min。\n（2）设第二组速度为v2，则第一组速度v1=a v2。由 h/v2 - h/(a v2)=t 得 v2= h(a-1)/(a t)，v1= h(a-1)/t（单位：m/min，t以min计）。",
+            "analysis": "（1）设第二组速度为x(m/min)，则第一组为1.2x。到顶时间分别为T2=450/x，T1=450/(1.2x)。已知T2−T1=15：450/x−450/(1.2x)=15 ⇒ 450/x−375/x=15 ⇒ 75/x=15 ⇒ x=5，所以第二组5 m/min，第一组1.2×5=6 m/min。\n（2）设第二组速度v2，第一组v1=a v2。时间差：h/v2−h/v1=t ⇒ h/v2−h/(a v2)=t ⇒ h(1−1/a)/v2=t ⇒ v2=h(a−1)/(a t)，v1=a v2=h(a−1)/t。",
+            "difficulty": 3,
+            "type": "应用题",
+            "meta": {
+                "book_prefix": "math_8a_rjb",
+                "source_md": "ch15_s3.md",
+                "question_no_in_source": 8,
+                "global_no": 142
+            },
+            "links": {
+                "concept_names": [
+                    "分式方程",
+                    "去分母",
+                    "最简公分母",
+                    "分式方程的检验"
+                ],
+                "skill_names": [
+                    "解分式方程的一般方法"
+                ]
+            }
+        },
+        {
+            "id": "math_8a_rjb_ch15_s3_t312",
+            "stem": "联系实际问题，编出关于分式方程的应用题，并求出应用题的答案.",
+            "answer": "示例应用题：甲、乙两人合作完成一项任务。已知乙单独完成比甲单独完成多用6小时，两人一起做4小时完成任务。求甲、乙单独完成各需多少小时。\n答案：甲单独完成需6小时，乙单独完成需12小时。",
+            "analysis": "设甲单独完成需x小时，则乙单独完成需(x+6)小时。两人合作4小时完成，工作效率满足：1/x + 1/(x+6) = 1/4。\n通分得：(2x+6)/[x(x+6)] = 1/4，交叉相乘：4(2x+6)=x(x+6)。\n化简：8x+24=x^2+6x，移项：x^2-2x-24=0，因式分解：(x-6)(x+4)=0。\n取正值x=6（x=-4舍去）。所以甲6小时，乙x+6=12小时。",
+            "difficulty": 3,
+            "type": "应用题",
+            "meta": {
+                "book_prefix": "math_8a_rjb",
+                "source_md": "ch15_s3.md",
+                "question_no_in_source": 9,
+                "global_no": 143
+            },
+            "links": {
+                "concept_names": [
+                    "分式方程",
+                    "分式方程的检验"
+                ],
+                "skill_names": [
+                    "解分式方程的一般方法"
+                ]
+            }
+        },
+        {
+            "id": "math_8a_rjb_ch15_s_15_t313",
+            "stem": "$x$ 满足什么条件时下列分式有意义？\n\n(1) $\\frac{x - 2}{2x + 1} - \\frac{1}{x - 2}$ ;\n\n(2) $\\frac{3x}{x + 2} \\div \\frac{x - 2}{2x - 3}$ .",
+            "answer": "(1) x≠2，且x≠-1/2；(2) x≠-2，且x≠2，且x≠3/2。",
+            "analysis": "(1) 分式有意义需分母不为0：2x+1≠0，x-2≠0，所以x≠-1/2，x≠2。\n(2) 先看各分母：x+2≠0，2x-3≠0；又因为“÷(x-2)/(2x-3)”表示除以一个分式，除数不能为0，因此(x-2)/(2x-3)≠0，需x-2≠0（且2x-3≠0已包含）。综合得x≠-2，x≠3/2，x≠2。",
+            "difficulty": 2,
+            "type": "填空题",
+            "meta": {
+                "book_prefix": "math_8a_rjb",
+                "source_md": "ch15_s复习题15.md",
+                "question_no_in_source": 5,
+                "global_no": 144
+            }
+        },
+        {
+            "id": "math_8a_rjb_ch15_s_15_t314",
+            "stem": "填空：\n\n（1）当 $x$ 为 时，分式 $\\frac{3x - 6}{2x + 1}$ 的值为0；\n\n(2) 当 $x(x \\neq 0)$ 为 ______ 时，分式 $\\frac{2x + 1}{x^2}$ 的值为正；\n\n(3) 当 $x(x \\neq 0)$ 为 ______ 时，分式 $\\frac{x - 2}{x^2}$ 的值为负.",
+            "answer": "（1）2；（2）x>-1/2且x≠0（即x∈(-1/2,0)∪(0,+∞)）；（3）x<2且x≠0（即x∈(-∞,0)∪(0,2)）",
+            "analysis": "（1）分式值为0需分子=0且分母≠0：3x-6=0得x=2，且2x+1=5≠0。\n（2）x≠0时x^2>0，分式正负由分子2x+1决定：2x+1>0得x>-1/2，并排除x=0。\n（3）x≠0时x^2>0，分式为负需分子x-2<0：得x<2，并排除x=0。",
+            "difficulty": 2,
+            "type": "填空题",
+            "meta": {
+                "book_prefix": "math_8a_rjb",
+                "source_md": "ch15_s复习题15.md",
+                "question_no_in_source": 6,
+                "global_no": 145
+            }
+        },
+        {
+            "id": "math_8a_rjb_ch15_s_15_t315",
+            "stem": "什么情况下 $2(x + 1)^{-1}$ 与 $3(x - 2)^{-1}$ 的值相等？",
+            "answer": "x = -7",
+            "analysis": "令两式相等：2(x+1)^{-1}=3(x-2)^{-1}，即 2/(x+1)=3/(x-2)，且 x≠-1,2。交叉相乘得 2(x-2)=3(x+1)，化简：2x-4=3x+3，解得 x=-7。检验满足定义域，因此当 x=-7 时两式相等。",
+            "difficulty": 2,
+            "type": "填空题",
+            "meta": {
+                "book_prefix": "math_8a_rjb",
+                "source_md": "ch15_s复习题15.md",
+                "question_no_in_source": 7,
+                "global_no": 146
+            }
+        },
+        {
+            "id": "math_8a_rjb_ch15_s_15_t316",
+            "stem": "某工厂现在平均每天比原计划多生产 50 台机器，现在生产 600 台机器所需时间与原计划生产 450 台机器所需时间相同，现在平均每天生产多少台机器？",
+            "answer": "200台",
+            "analysis": "设原计划平均每天生产x台，则现在平均每天生产x+50台。由题意：生产600台所需时间=原计划生产450台所需时间，即 600/(x+50)=450/x。交叉相乘得600x=450(x+50)=450x+22500，故150x=22500，x=150。现在平均每天生产x+50=200台。",
+            "difficulty": 2,
+            "type": "应用题",
+            "meta": {
+                "book_prefix": "math_8a_rjb",
+                "source_md": "ch15_s复习题15.md",
+                "question_no_in_source": 8,
+                "global_no": 147
+            }
+        },
+        {
+            "id": "math_8a_rjb_ch15_s_15_t317",
+            "stem": "一台收割机的工作效率相当于一个农民工作效率的 150 倍，用这台机器收割 $10 \\mathrm{hm}^{2}$ 小麦比 100 个农民人工收割这些小麦要少用 $1 \\mathrm{~h}$ ，这台收割机每小时收割多少公顷小麦？",
+            "answer": "5公顷/小时",
+            "analysis": "设一个农民的工作效率为f（公顷/小时），则收割机效率为150f。收割10公顷，小机用时为10/(150f)，100个农民用时为10/(100f)。由“机器少用1小时”得：10/(150f)=10/(100f)-1。化简：1/(15f)=1/(10f)-1，移项得1/(10f)-1/(15f)=1，即(3-2)/(30f)=1，解得f=1/30。故收割机效率=150f=150×(1/30)=5（公顷/小时）。",
+            "difficulty": 3,
+            "type": "应用题",
+            "meta": {
+                "book_prefix": "math_8a_rjb",
+                "source_md": "ch15_s复习题15.md",
+                "question_no_in_source": 9,
+                "global_no": 148
+            }
+        },
+        {
+            "id": "math_8a_rjb_ch15_s_15_t318",
+            "stem": "一辆汽车开往距离出发地 $180 \\mathrm{~km}$ 的目的地，出发后第一小时内按原计划的速度匀速行驶，一小时后以原来速度的 1.5 倍匀速行驶，并比原计划提前 $40 \\mathrm{~min}$ 到达目的地。求前一小时的行驶速度。",
+            "answer": "60 km/h",
+            "analysis": "设原计划速度为v(km/h)。原计划用时T=180/v(h)。实际行程：前1小时走v km，余下(180−v) km以1.5v行驶，用时(180−v)/(1.5v) h。故实际用时T'=1+(180−v)/(1.5v)。又因提前40 min=2/3 h到达，T'=T−2/3。列方程：1+(180−v)/(1.5v)=180/v−2/3。化简：(180−v)/(1.5v)=120/v−2/3，所以左边为1+120/v−2/3=1/3+120/v。于是1/3+120/v=180/v−2/3，得1=60/v，解得v=60(km/h)。",
+            "difficulty": 3,
+            "type": "应用题",
+            "meta": {
+                "book_prefix": "math_8a_rjb",
+                "source_md": "ch15_s复习题15.md",
+                "question_no_in_source": 10,
+                "global_no": 149
+            }
+        },
+        {
+            "id": "math_8a_rjb_ch15_s_15_t319",
+            "stem": "（1）先化简，再求值： $\\frac{x^2 - 1}{x^2 - 2x + 1} \\div \\frac{x + 1}{x - 1} \\cdot \\frac{1 - x}{1 + x}$ 其中 $x = \\frac{1}{2}$\n(2) 当 $x = -3.2$ 时，求 $\\frac{x^2 - 4x + 4}{x^2 - 4} \\div \\frac{x - 2}{x^2 + 2x} + 3$ 的值.",
+            "answer": "（1）1/3；（2）-0.2",
+            "analysis": "（1）原式=\\(\\frac{(x-1)(x+1)}{(x-1)^2}\\div\\frac{x+1}{x-1}\\cdot\\frac{1-x}{1+x}\\)=\\(\\frac{x+1}{x-1}\\cdot\\frac{x-1}{x+1}\\cdot\\frac{1-x}{1+x}\\)=\\(\\frac{1-x}{1+x}= -\\frac{x-1}{x+1}\\)。代入\\(x=\\frac12\\)，得\\(-\\frac{-1/2}{3/2}=\\frac13\\)。\n（2）\\(\\frac{x^2-4x+4}{x^2-4}\\div\\frac{x-2}{x^2+2x}+3=\\frac{(x-2)^2}{(x-2)(x+2)}\\div\\frac{x-2}{x(x+2)}+3=\\frac{x-2}{x+2}\\cdot\\frac{x(x+2)}{x-2}+3=x+3\\)。代入\\(x=-3.2\\)，得\\(-3.2+3=-0.2\\)。",
+            "difficulty": 2,
+            "type": "计算题",
+            "meta": {
+                "book_prefix": "math_8a_rjb",
+                "source_md": "ch15_s复习题15.md",
+                "question_no_in_source": 11,
+                "global_no": 150
+            }
+        },
+        {
+            "id": "math_8a_rjb_ch15_s_15_t321",
+            "stem": "（1）式子 $\\frac{a}{bc} + \\frac{b}{ca} + \\frac{c}{ab}$ 的值能否为0？为什么？\n(2) 式子 $\\frac{a - b}{(b - c)(c - a)} + \\frac{b - c}{(a - b)(c - a)} + \\frac{c - a}{(a - b)(b - c)}$ 的值能否为 0? 为什么?",
+            "answer": "（1）不能为0。因为\\(\\frac{a}{bc}+\\frac{b}{ca}+\\frac{c}{ab}=\\frac{a^2+b^2+c^2}{abc}\\)。在\\(a,b,c\\neq0\\)的前提下，分母\\(abc\\neq0\\)；若值为0则需\\(a^2+b^2+c^2=0\\)，在实数范围只能推出\\(a=b=c=0\\)，与分母不为0矛盾。\n（2）不能为0。将各项通分到\\((a-b)(b-c)(c-a)\\)：原式=\\(\\frac{(a-b)^2+(b-c)^2+(c-a)^2}{(a-b)(b-c)(c-a)}\\)。分母要求\\(a\\neq b\\neq c\\neq a\\)使其非0；若原式为0则分子需为0，即\\((a-b)^2+(b-c)^2+(c-a)^2=0\\)，在实数范围只能推出\\(a=b=c\\)，但这会使分母为0，矛盾。",
+            "analysis": "（1）把每项写成同分母：\\(\\frac{a}{bc}=\\frac{a^2}{abc}\\)、\\(\\frac{b}{ca}=\\frac{b^2}{abc}\\)、\\(\\frac{c}{ab}=\\frac{c^2}{abc}\\)，故和为\\(\\frac{a^2+b^2+c^2}{abc}\\)。在实数且\\(a,b,c\\neq0\\)时，\\(a^2+b^2+c^2>0\\)，不可能为0。\n（2）设公共分母\\(D=(a-b)(b-c)(c-a)\\)。则\\(\\frac{a-b}{(b-c)(c-a)}=\\frac{(a-b)^2}{D}\\)，\\(\\frac{b-c}{(a-b)(c-a)}=\\frac{(b-c)^2}{D}\\)，\\(\\frac{c-a}{(a-b)(b-c)}=\\frac{(c-a)^2}{D}\\)。相加得\\(\\frac{(a-b)^2+(b-c)^2+(c-a)^2}{D}\\)。分子为0只能在\\(a=b=c\\)时发生，但此时\\(D=0\\)不成立，所以原式不能为0。",
+            "difficulty": 3,
+            "type": "简答题",
+            "meta": {
+                "book_prefix": "math_8a_rjb",
+                "source_md": "ch15_s复习题15.md",
+                "question_no_in_source": 13,
+                "global_no": 151
+            }
+        }
+    ]
+}

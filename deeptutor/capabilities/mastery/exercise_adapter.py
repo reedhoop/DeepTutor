@@ -20,10 +20,13 @@ plain short/open question rather than producing an ungradable choice.
 
 from __future__ import annotations
 
+import logging
 import re
 from typing import Any
 
 from deeptutor.services.kgraph import get_kg, is_available
+
+logger = logging.getLogger(__name__)
 
 # Chinese question-type label -> baseline mastery_quiz question_type.
 # "judge" is an internal marker: true/false questions become two-option choices
@@ -39,6 +42,13 @@ _TYPE_BASELINE: dict[str, str] = {
     "操作题": "open",
     "作图题": "open",
     "读图题": "open",
+    # afterclass_exercises adds these free-response labels; map explicitly so
+    # they don't fall through to keyword inference (which guesses short/open
+    # from answer length and is unstable for prose answers).
+    "解答题": "open",
+    "综合题": "open",
+    "综合应用题": "open",
+    "实验探究题": "open",
 }
 
 DIFFICULTY_LABELS: dict[int, str] = {1: "基础", 2: "常规", 3: "进阶", 4: "挑战"}
@@ -103,11 +113,22 @@ def variant_exercises(
 ) -> list[dict[str, Any]]:
     """Return up to *count* practice variants for *concept_id*, widening by tier.
 
-    Tier 1 ``tests_concept`` edges (the exercise written for this very concept),
-    tier 2 other exercises in the same section, tier 3 exercises of directly
-    neighbouring concepts (prerequisites and successors). Each result carries
-    ``source`` = ``direct`` / ``section`` / ``neighbor`` so the tutor can say
-    where a variant came from. Within a tier, easier exercises come first.
+    Source tiers, in consultation order:
+
+    * ``afterclass`` — curated, analysis-rich textbook exercises from
+      ``afterclass_exercises`` whose linked concept/skill names resolve to this
+      concept. Consulted first because they carry a worked ``analysis`` field
+      the KG ``Exercise`` nodes largely lack. Yields nothing when that dataset
+      is absent, so behaviour is unchanged in that case.
+    * ``direct`` — KG ``tests_concept`` edges (the exercise written for this
+      very concept).
+    * ``section`` — other exercises in the same section.
+    * ``neighbor`` — exercises of directly neighbouring concepts (prerequisites
+      and successors).
+    * ``chapter`` — any exercise in the enclosing chapter (widest net).
+
+    Each result carries ``source`` so the tutor can say where a variant came
+    from. Within a tier, easier exercises come first.
 
     Raises ``RuntimeError`` when the K12-KGraph dataset is absent.
     """
@@ -124,23 +145,23 @@ def variant_exercises(
     seen: set[str] = set()
     out: list[dict[str, Any]] = []
 
-    for source, ids in (
-        ("direct", _direct_exercises(kg, concept_id)),
-        ("section", _section_exercises(kg, concept_id)),
-        ("neighbor", _neighbor_exercises(kg, concept_id)),
-        ("chapter", _chapter_exercises(kg, concept_id)),
-    ):
+    providers = [
+        ("afterclass", _afterclass_provider(concept_id)),
+        ("direct", _kg_node_provider(kg, concept_id, _direct_exercises(kg, concept_id))),
+        ("section", _kg_node_provider(kg, concept_id, _section_exercises(kg, concept_id))),
+        ("neighbor", _kg_node_provider(kg, concept_id, _neighbor_exercises(kg, concept_id))),
+        ("chapter", _kg_node_provider(kg, concept_id, _chapter_exercises(kg, concept_id))),
+    ]
+    for source, provider in providers:
         tier: list[dict[str, Any]] = []
-        for eid in ids:
+        for item in provider:
+            eid = item["exercise_id"]
             if eid in seen or eid in skip:
                 continue
-            node = kg.get_node(eid)
-            if not node or node.get("label") != "Exercise":
-                continue
+            # Mark immediately so a later (wider) tier never re-processes it.
             seen.add(eid)
-            quiz = exercise_to_quiz(node, concept_id)
-            # A handful of Exercise nodes carry no properties at all — an
-            # unanswerable question is worse than one fewer variant.
+            quiz = item["quiz"]
+            # Skip unanswerable questions rather than serve a broken variant.
             if not quiz["question"] or not quiz["expected_answer"]:
                 continue
             if want is not None and quiz["difficulty"] != want:
@@ -152,6 +173,67 @@ def variant_exercises(
         if len(out) >= count:
             break
     return out[:count]
+
+
+# ── variant providers ─────────────────────────────────────────────────── #
+
+
+def _kg_node_provider(kg: Any, kp_id: str, ids: list[str]) -> list[dict[str, Any]]:
+    """Yield ``{"exercise_id", "quiz"}`` for KG ``Exercise`` node ids."""
+    items: list[dict[str, Any]] = []
+    for eid in ids:
+        node = kg.get_node(eid)
+        if not node or node.get("label") != "Exercise":
+            continue
+        items.append({"exercise_id": eid, "quiz": exercise_to_quiz(node, kp_id)})
+    return items
+
+
+def _afterclass_provider(concept_id: str) -> list[dict[str, Any]]:
+    """Yield ``{"exercise_id", "quiz"}`` for afterclass questions linked to
+    *concept_id* (by resolved KG id). Returns ``[]`` when the afterclass
+    dataset is absent or fails to load, so this source degrades gracefully."""
+    from deeptutor.services.afterclass_exercises import get_afterclass
+
+    try:
+        idx = get_afterclass()
+    except Exception as exc:  # noqa: BLE001 - dataset/KG issue → skip this source
+        logger.warning("afterclass provider disabled: %s", exc)
+        return []
+    items: list[dict[str, Any]] = []
+    for q in idx.questions_for(concept_id):
+        qid = str(q.get("id") or "")
+        if not qid:
+            continue
+        items.append(
+            {"exercise_id": qid, "quiz": exercise_to_quiz(_afterclass_as_node(q), concept_id)}
+        )
+    return items
+
+
+def _afterclass_as_node(q: dict[str, Any]) -> dict[str, Any]:
+    """Project a raw afterclass question onto the KG-``Exercise``-node shape
+    that :func:`exercise_to_quiz` expects, so type/difficulty/analysis mapping
+    stays in one place.
+
+    ``name`` is deliberately empty: :func:`exercise_to_quiz` falls back to
+    ``node.name`` when ``stem`` is missing, and an afterclass id is NOT a
+    meaningful stem — an empty name keeps an empty-stem question empty so the
+    caller's "skip unanswerable" guard catches it instead of leaking the id.
+    """
+    return {
+        "id": q.get("id"),
+        "name": "",
+        "label": "Exercise",
+        "properties": {
+            "stem": q.get("stem") or "",
+            "answer": q.get("answer") or "",
+            "analysis": q.get("analysis") or "",
+            "difficulty": q.get("difficulty"),
+            "type": q.get("type") or "",
+        },
+    }
+
 
 
 # ── exercise pools, one per tier ──────────────────────────────────────────

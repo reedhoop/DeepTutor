@@ -1,0 +1,2171 @@
+{
+    "book_prefix": "chemistry_highschool_rjb_xzxbx3",
+    "subject": "化学",
+    "stage": "高中",
+    "grade": "选择性必修三",
+    "publisher": "人教版-人民教育出版社",
+    "source_md": "chemistry_highschool_rjb_xzxbx3.md",
+    "questions": [
+        {
+            "id": "chemistry_highschool_rjb_xzxbx3_ch1_s1_t1",
+            "stem": "下列化合物中不属于有机化合物的是（ ）。\n\nA.醋酸  \nB. 尿素  \nC. 碳酸钙   \nD. 蔗糖",
+            "answer": "C",
+            "analysis": "有机化合物通常指含碳的化合物，但碳的氧化物（如CO2）、碳酸及其盐（如CaCO3）、碳酸氢盐等一般归为无机物。A醋酸、B尿素、D蔗糖均为常见有机物；C碳酸钙是碳酸盐，属于无机化合物。",
+            "difficulty": 1,
+            "type": "选择题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_xzxbx3",
+                "source_md": "ch1_s1.md",
+                "question_no_in_source": 1,
+                "global_no": 1
+            },
+            "links": {
+                "concept_names": [
+                    "有机化合物",
+                    "无机化合物"
+                ]
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_xzxbx3_ch1_s1_t2",
+            "stem": "下列化合物，其分子中所有原子不可能位于同一平面的是（ ）。\n\nA. $\\mathrm{H}_{2} \\mathrm{O}$   \nB. $\\mathrm{CH}_{2} = \\mathrm{CH}_{2}$   \nC. $\\mathrm{CH} \\equiv \\mathrm{CH}$   \nD. $\\mathrm{CH}_{4}$",
+            "answer": "D",
+            "analysis": "判断分子构型及是否可能共平面：A H2O为V形分子，三原子必共平面；B CH2=CH2中两个C为sp2杂化，分子呈平面结构；C CH≡CH中两个C为sp杂化，分子线形结构，原子共线也共平面；D CH4中C为sp3杂化，正四面体结构，四个H不可能与C全部共平面。故选D。",
+            "difficulty": 2,
+            "type": "选择题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_xzxbx3",
+                "source_md": "ch1_s1.md",
+                "question_no_in_source": 2,
+                "global_no": 2
+            },
+            "links": {
+                "concept_names": [
+                    "空间结构（立体结构）",
+                    "碳价四面体学说",
+                    "甲烷"
+                ]
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_xzxbx3_ch1_s1_t3",
+            "stem": "下列说法不正确的是（ ）。\n\nA. 碳原子的最外电子层有 4 个电子  \nB. 1 个碳原子可以与其他非金属原子形成 4 个共价键  \nC. 两个碳原子之间能形成单键、双键或三键  \nD. 所有有机化合物中都含有极性键和非极性键",
+            "answer": "D",
+            "analysis": "A：碳原子原子序数6，电子排布为2,4，最外层有4个电子，正确。B：碳具有四价特性，通常可与其他原子形成4个共价键，正确。C：碳与碳之间可形成C—C单键、C=C双键、C≡C三键，正确。D：并非所有有机化合物都同时含有极性键和非极性键，例如乙烷等烃类主要含C—C、C—H键（通常视为非极性或极性很弱），不一定同时具有明显的极性键和非极性键，因此D不正确。",
+            "difficulty": 2,
+            "type": "选择题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_xzxbx3",
+                "source_md": "ch1_s1.md",
+                "question_no_in_source": 3,
+                "global_no": 3
+            },
+            "links": {
+                "concept_names": [
+                    "有机化合物的结构特点",
+                    "共价键的极性",
+                    "共价键"
+                ]
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_xzxbx3_ch1_s1_t4",
+            "stem": "下列各组物质不互为同分异构体的是（ ）。\n\nA. $\\mathrm{NH_4OCN}$ 和 $\\mathrm{CO(NH_2)_2}$   \nB. $\\mathrm{CH}_{3} \\mathrm{CH}_{2} \\mathrm{OH}$ 和 $\\mathrm{CH}_{3} \\mathrm{OCH}_{3}$   \nC. $\\mathrm{CH}_{3} \\mathrm{CH}_{2} \\mathrm{COOH}$ 和 $\\mathrm{CH}_{2}=\\mathrm{CHCOOH}$",
+            "answer": "C",
+            "analysis": "同分异构体要求分子式相同、结构不同。A：NH4OCN 与 CO(NH2)2 的分子式均为 CH4N2O，为同分异构体；B：CH3CH2OH 与 CH3OCH3 的分子式均为 C2H6O，为同分异构体；C：CH3CH2COOH 的分子式为 C3H6O2，而 CH2=CHCOOH 的分子式为 C3H4O2，分子式不同，不互为同分异构体。",
+            "difficulty": 2,
+            "type": "选择题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_xzxbx3",
+                "source_md": "ch1_s1.md",
+                "question_no_in_source": 4,
+                "global_no": 4
+            },
+            "links": {
+                "concept_names": [
+                    "有机化合物的同分异构现象"
+                ],
+                "skill_names": [
+                    "从分子式与结构判断同分异构及其类型"
+                ]
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_xzxbx3_ch1_s1_t5",
+            "stem": "写出下列有机化合物中官能团的名称。\n\nO (1) $\\mathrm{CH}_2 = \\mathrm{CH}-\\mathrm{C}-\\mathrm{H}$   \nO O (2) CH3C-O C-OH   \n(3) $\\mathrm{Br}-\\mathrm{Br}-\\mathrm{OH}$",
+            "answer": "（1）碳碳双键（烯键）、醛基（-CHO）\n（2）酯基（-COO-）、羧基（-COOH）\n（3）羟基（醇羟基 -OH）、卤素原子（溴，卤代烃官能团）",
+            "analysis": "根据结构式识别官能团：\n（1）含C=C为烯键，末端-CHO为醛基。\n（2）CH3C(=O)O—为酯键的一部分（-COO-），末端C(=O)OH为羧基。\n（3）含-OH为醇羟基，含-Br为卤素原子（卤代烃）。",
+            "difficulty": 2,
+            "type": "填空题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_xzxbx3",
+                "source_md": "ch1_s1.md",
+                "question_no_in_source": 5,
+                "global_no": 5
+            },
+            "links": {
+                "concept_names": [
+                    "官能团",
+                    "碳碳双键",
+                    "醛",
+                    "酯",
+                    "羧酸",
+                    "羟基",
+                    "卤代烃"
+                ],
+                "skill_names": [
+                    "根据官能团对有机化合物分类"
+                ]
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_xzxbx3_ch1_s1_t6",
+            "stem": "按照官能团分类, 下列物质分别属于哪类有机化合物?\n\n(1) $\\mathrm{CH}_3\\mathrm{CH} = \\mathrm{CHCH}_3$\n\n(2) $\\mathrm{CH} \\equiv \\mathrm{CCH}_3$\n\n(3) $\\mathrm{CCl}_2\\mathrm{F}_2$\n\n(4) $\\mathrm{HOCH}_2\\mathrm{CH}_2\\mathrm{OH}$\n\n(5) $\\mathrm{CH}_3 \\xrightarrow{\\text{一}} \\mathrm{CH}_3 \\xrightarrow{\\text{一}} \\mathrm{OH}$\n\n(6)\n\n(7) $\\mathrm{C}_{17} \\mathrm{H}_{35} - \\mathrm{C} - \\mathrm{OH}$\n\nO (8) CH3CH2—C—OCH3",
+            "answer": "(1) 烯烃\n(2) 炔烃\n(3) 卤代烃（卤代烷/卤代烃）\n(4) 醇（多元醇，二元醇）\n(5) 醇（乙醇，伯醇）\n(6) 题干未给出结构，无法判断\n(7) 羧酸（脂肪酸）\n(8) 酯（羧酸酯）",
+            "analysis": "按官能团判断：含C=C为烯烃；含C≡C为炔烃；含C—X(X=Cl,F等)为卤代烃；含—OH为醇（两个—OH为二元醇）；含—COOH为羧酸；含—COO—为酯。",
+            "difficulty": 2,
+            "type": "填空题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_xzxbx3",
+                "source_md": "ch1_s1.md",
+                "question_no_in_source": 6,
+                "global_no": 6
+            },
+            "links": {
+                "concept_names": [
+                    "有机化合物的分类方法",
+                    "官能团分类",
+                    "官能团",
+                    "烯烃",
+                    "炔烃",
+                    "卤代烃",
+                    "醇",
+                    "醚",
+                    "羧酸",
+                    "酯"
+                ],
+                "skill_names": [
+                    "根据官能团对有机化合物分类"
+                ]
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_xzxbx3_ch1_s1_t7",
+            "stem": "写出丙烯与溴、乙醇催化氧化反应的化学方程式，分析反应前后有机化合物官能团与化学键的变化。",
+            "answer": "（1）丙烯与溴：CH3CH=CH2＋Br2→CH3CHBrCH2Br。\n官能团与化学键变化：反应前为烯烃（C=C双键）；反应后双键断裂变为C—C单键，并在原双键两端各生成一个C—Br键，官能团由烯烃变为二卤代烃。\n（2）乙醇催化氧化：CH3CH2OH＋1/2O2 ─(催化剂,加热)→ CH3CHO＋H2O。\n官能团与化学键变化：反应前为醇（—OH）；反应后生成醛（—CHO），碳原子上形成C=O键（由单键C—O转变为双键C=O），同时失去氢（C—H、O—H减少），体现氧化过程。",
+            "analysis": "丙烯与Br2发生加成反应：双键提供π键参与反应，π键断裂后在相邻两个碳上各连一个Br，产物为1,2-二溴丙烷。乙醇的催化氧化属于温和氧化：在催化剂作用下乙醇被氧化为乙醛，实质是—CH2OH中的碳被氧化，生成羰基C=O并生成水，官能团由醇基变为醛基。",
+            "difficulty": 3,
+            "type": "简答题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_xzxbx3",
+                "source_md": "ch1_s1.md",
+                "question_no_in_source": 7,
+                "global_no": 7
+            },
+            "links": {
+                "concept_names": [
+                    "烯烃",
+                    "加成反应",
+                    "碳碳双键",
+                    "σ键",
+                    "π键",
+                    "醇",
+                    "羟基",
+                    "乙醇",
+                    "醛",
+                    "官能团",
+                    "有机反应"
+                ],
+                "skill_names": [
+                    "判断有机分子中σ键和π键的组成",
+                    "根据官能团对有机化合物分类"
+                ]
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_xzxbx3_ch1_s2_t8",
+            "stem": "甲烷与氯气在光照条件下反应, 得到的产物中含有二氯甲烷、三氯甲烷和四氯化碳, 分离它们的操作方法是 ( )。\n\nA. 萃取\n\nB. 蒸馏\n\nC. 过滤\n\nD. 重结晶",
+            "answer": "B",
+            "analysis": "二氯甲烷、三氯甲烷、四氯化碳均为互溶的液体，不能用过滤或重结晶分离；萃取适用于互不相溶的液体或溶质在两相中分配差异。它们沸点不同（约40℃、61℃、77℃），应利用沸点差异进行（分馏）蒸馏分离。",
+            "difficulty": 2,
+            "type": "选择题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_xzxbx3",
+                "source_md": "ch1_s2.md",
+                "question_no_in_source": 1,
+                "global_no": 8
+            },
+            "links": {
+                "concept_names": [
+                    "分离与提纯",
+                    "蒸馏"
+                ],
+                "skill_names": [
+                    "选择适当的分离与提纯方法"
+                ]
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_xzxbx3_ch1_s2_t9",
+            "stem": "$3.0 \\mathrm{~g}$ 某有机化合物在足量氧气中完全燃烧, 生成 $4.4 \\mathrm{~g} \\mathrm{CO}_{2}$ 和 $1.8 \\mathrm{~g} \\mathrm{H}_{2} \\mathrm{O}$ 。下列说法不正确的是 ( )。\n\nA. 该有机化合物中只含有碳元素和氢元素  \nB. 该有机化合物中一定含有氧元素  \nC. 该有机化合物的分子式可能是 $\\mathrm{C}_{2} \\mathrm{H}_{4} \\mathrm{O}_{2}$   \nD. 该有机化合物分子中碳原子数与氢原子数之比一定是 $1: 2$",
+            "answer": "A",
+            "analysis": "由4.4 g CO2可得n(CO2)=4.4/44=0.10 mol，故n(C)=0.10 mol，m(C)=0.10×12=1.2 g；由1.8 g H2O可得n(H2O)=1.8/18=0.10 mol，故n(H)=2×0.10=0.20 mol，m(H)=0.20×1=0.2 g。则样品中C、H总质量为1.2+0.2=1.4 g，小于3.0 g，剩余质量3.0−1.4=1.6 g应为氧元素质量，故该有机物一定含O元素，B正确；n(O)=1.6/16=0.10 mol，C:H:O=0.10:0.20:0.10=1:2:1，最简式为CH2O，分子式可能为C2H4O2，C正确；碳氢原子数比一定为1:2，D正确。因此不正确的是A。",
+            "difficulty": 3,
+            "type": "选择题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_xzxbx3",
+                "source_md": "ch1_s2.md",
+                "question_no_in_source": 2,
+                "global_no": 9
+            },
+            "links": {
+                "concept_names": [
+                    "有机化合物的元素定性与定量分析",
+                    "实验式"
+                ],
+                "skill_names": [
+                    "根据元素质量分数求实验式"
+                ]
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_xzxbx3_ch1_s2_t11",
+            "stem": "具有下列结构的化合物，其核磁共振氢谱中有两组峰的是（ ）。\n\nA. $\\mathrm{CH}_3\\mathrm{CH}_2\\mathrm{OH}$\n\nB. $\\mathrm{CH}_{3} \\mathrm{CH}_{3}$\n\nC. $\\mathrm{CH}_3\\mathrm{OCH}_3$\n\nD. $\\mathrm{HOCH}_2\\mathrm{CH}_2\\mathrm{OH}$",
+            "answer": "D",
+            "analysis": "核磁共振氢谱中“峰的组数”对应分子中化学环境不同的氢原子种类数（等效氢算一组）。A 乙醇CH3、CH2、OH为三种氢→3组；B 乙烷两端对称，所有H等效→1组；C 二甲醚对称，两侧CH3等效→1组；D 乙二醇HOCH2CH2OH分子对称，两个CH2等效为1组，两个OH等效为1组→共2组峰。",
+            "difficulty": 2,
+            "type": "选择题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_xzxbx3",
+                "source_md": "ch1_s2.md",
+                "question_no_in_source": 4,
+                "global_no": 10
+            },
+            "links": {
+                "concept_names": [
+                    "核磁共振氢谱"
+                ]
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_xzxbx3_ch1_s2_t13",
+            "stem": "某烃在足量氧气中完全燃烧, 生成 $0.1 \\mathrm{~mol} \\mathrm{CO}_{2}$ 和 $0.1 \\mathrm{~mol} \\mathrm{H}_{2} \\mathrm{O}$ 。该有机化合物的实验式是________。要获得该物质的分子式, 还需要进行________测试。",
+            "answer": "CH2；测定该物质的相对分子质量（摩尔质量）",
+            "analysis": "完全燃烧生成0.1 mol CO2，说明含C为0.1 mol；生成0.1 mol H2O，说明含H为2×0.1=0.2 mol。原子个数比C:H=0.1:0.2=1:2，故实验式为CH2。要确定分子式还需知道其相对分子质量（由此确定(CH2)n中的n）。",
+            "difficulty": 2,
+            "type": "填空题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_xzxbx3",
+                "source_md": "ch1_s2.md",
+                "question_no_in_source": 6,
+                "global_no": 11
+            },
+            "links": {
+                "concept_names": [
+                    "有机化合物的元素定性与定量分析",
+                    "实验式",
+                    "分子式",
+                    "质谱法"
+                ],
+                "skill_names": [
+                    "根据元素质量分数求实验式",
+                    "用质谱图确定相对分子质量与分子式"
+                ]
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_xzxbx3_ch1_s2_t14",
+            "stem": "咖啡和茶类饮料中都含有兴奋剂咖啡因。经元素分析测定，咖啡因中各元素的质量分数是：碳 $49.5\\%$ ，氢 $5.2\\%$ ，氮 $28.9\\%$ ，氧 $16.4\\%$ 。\n\n（1）咖啡因的实验式为  \n(2) 质谱法测得咖啡因的相对分子质量为 194 , 则咖啡因的分子式为",
+            "answer": "（1）C4H5N2O\n（2）C8H10N4O2",
+            "analysis": "设取样100 g。各元素的物质的量：n(C)=49.5/12=4.125，n(H)=5.2/1=5.2，n(N)=28.9/14≈2.064，n(O)=16.4/16=1.025。以最小值1.025为1进行比值化：C：4.125/1.025≈4，H：5.2/1.025≈5，N：2.064/1.025≈2，O：1.025/1.025=1，得实验式C4H5N2O。实验式相对分子质量=4×12+5×1+2×14+16=97；已知相对分子质量194，则倍数=194/97=2，分子式为(C4H5N2O)2=C8H10N4O2。",
+            "difficulty": 3,
+            "type": "填空题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_xzxbx3",
+                "source_md": "ch1_s2.md",
+                "question_no_in_source": 7,
+                "global_no": 12
+            },
+            "links": {
+                "concept_names": [
+                    "实验式",
+                    "分子式",
+                    "质谱法"
+                ],
+                "skill_names": [
+                    "根据元素质量分数求实验式",
+                    "用质谱图确定相对分子质量与分子式"
+                ]
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_xzxbx3_ch1_s2_t15",
+            "stem": "丙醇有两种属于醇类的同分异构体：\n\nCH3CH2CH2OH\n\n1-丙醇\n\n2-丙醇\n\n上图是其中一种物质的核磁共振氢谱，则与该谱图对应的物质的名称是",
+            "answer": "2-丙醇（异丙醇）",
+            "analysis": "若氢谱只出现两组主要烃氢信号：一组为6H的双重峰（两个等效CH3），另一组为1H的七重峰（与6个等效甲基氢耦合的CH），并伴随可变的OH宽峰，则对应结构为(CH3)2CHOH，即2-丙醇；而1-丙醇应有三组不同的烃氢信号（CH3、CH2、CH2O）。",
+            "difficulty": 3,
+            "type": "填空题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_xzxbx3",
+                "source_md": "ch1_s2.md",
+                "question_no_in_source": 8,
+                "global_no": 13
+            },
+            "links": {
+                "concept_names": [
+                    "核磁共振氢谱"
+                ],
+                "skill_names": [
+                    "综合谱图推断有机物结构"
+                ]
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_xzxbx3_ch1_s2_t16",
+            "stem": "某有机化合物是汽车防冻液的成分之一，经元素分析测定，该有机化合物中各元素的质量分数是：碳 $38.7\\%$ ，氢 $9.7\\%$ ，氧 $51.6\\%$ 。\n\n(1) 该有机化合物的实验式为  \n(2) 用相对密度法测得该有机化合物的密度是同温同压下氢气密度的 31 倍, 则该物质的相对分子质量为  \n（3）根据该有机化合物的实验式和相对分子质量，推断其分子式。  \n(4) 该有机化合物的红外光谱中有羟基O—H和羟基C—H的吸收峰, 试写出其可能的结构简式。",
+            "answer": "（1）CH3O\n（2）62\n（3）C2H6O2\n（4）HO–CH2–CH2–OH（乙二醇）",
+            "analysis": "设取样100 g：n(C)=38.7/12=3.225 mol，n(H)=9.7/1=9.7 mol，n(O)=51.6/16=3.225 mol；各除以3.225得原子比C:H:O=1:3:1，实验式CH3O。相对密度D(H2)=31，则相对分子质量Mr=31×2=62。实验式式量为31，62/31=2，分子式为(C H3 O)2=C2H6O2。红外有O–H和与羟基相连的C–H吸收，符合二元醇结构，可能为HO–CH2–CH2–OH。",
+            "difficulty": 3,
+            "type": "填空题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_xzxbx3",
+                "source_md": "ch1_s2.md",
+                "question_no_in_source": 9,
+                "global_no": 14
+            },
+            "links": {
+                "concept_names": [
+                    "有机化合物的元素定性与定量分析",
+                    "实验式",
+                    "分子式",
+                    "红外光谱"
+                ],
+                "skill_names": [
+                    "根据元素质量分数求实验式",
+                    "综合谱图推断有机物结构"
+                ]
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_xzxbx3_ch1_s_t17",
+            "stem": "某气体在标准状况下的密度为 $1.25 \\mathrm{~g} / \\mathrm{L}$ , 则该气体的相对分子质量为 ( )。\n\nA. 26\n\nB. 28\n\nC. 32\n\nD. 125",
+            "answer": "B",
+            "analysis": "标准状况下气体的摩尔体积Vm=22.4 L/mol。气体摩尔质量M=密度ρ×Vm=1.25 g/L×22.4 L/mol=28.0 g/mol，因此相对分子质量为28，选B。",
+            "difficulty": 2,
+            "type": "选择题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_xzxbx3",
+                "source_md": "ch1_s整理与提升.md",
+                "question_no_in_source": 1,
+                "global_no": 15
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_xzxbx3_ch1_s_t18",
+            "stem": "下列有机化合物的一氯代物存在同分异构体的是（ ）。\n\nA. $\\mathrm{CH}_4$\n\nB. $\\mathrm{CH}_{3} \\mathrm{CH}_{3}$\n\nC. $\\mathrm{CH}_{3} - \\mathrm{CH} - \\mathrm{CH}_{3}$ CH3\n\nCH3 D.CH3—C—CH3 CH3",
+            "answer": "C",
+            "analysis": "判断一氯代物是否存在同分异构体，关键看分子中是否存在不等价的氢原子。A 甲烷中4个H等价，一氯代物只有1种；B 乙烷中两端对称，6个H等价，一氯代物只有1种；C 为异丁烷(2-甲基丙烷)，含1个三级氢和9个等价的一元氢，取代位置不同生成两种一氯代物；D 为新戊烷(2,2-二甲基丙烷)，所有H等价，一氯代物只有1种。故选C。",
+            "difficulty": 3,
+            "type": "选择题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_xzxbx3",
+                "source_md": "ch1_s整理与提升.md",
+                "question_no_in_source": 2,
+                "global_no": 16
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_xzxbx3_ch1_s_t19",
+            "stem": "下列反应中有C—H断裂的是（ ）。\n\nA. 光照下三氯甲烷与氯气反应\n\nB. 乙烯与溴的四氯化碳溶液反应\n\nC. 乙醇与钠反应\n\nD. 乙酸与碳酸氢钠反应",
+            "answer": "A",
+            "analysis": "判断是否发生C—H键断裂：\nA 光照下三氯甲烷（CHCl3）与氯气发生自由基取代反应，氯原子取代分子中的H，需断裂C—H键，符合。\nB 乙烯与溴的四氯化碳溶液反应为加成到C=C键上，不涉及C—H键断裂。\nC 乙醇与钠反应生成乙醇钠并放出H2，断裂的是O—H键。\nD 乙酸与碳酸氢钠为酸碱反应，断裂主要为O—H等键，不涉及C—H键断裂。\n故选A。",
+            "difficulty": 3,
+            "type": "选择题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_xzxbx3",
+                "source_md": "ch1_s整理与提升.md",
+                "question_no_in_source": 3,
+                "global_no": 17
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_xzxbx3_ch1_s_t21",
+            "stem": "某芳香烃的相对分子质量为 106 , 分子中有 3 种化学环境不同的氢原子。该芳香烃是 ( )。",
+            "answer": "邻二甲苯或对二甲苯（C8H10）",
+            "analysis": "相对分子质量106对应分子式C8H10（8×12+10=106），符合苯环衍生物。C8H10的常见芳香烃异构体为乙苯和三种二甲苯。乙苯中芳环H有3类（邻、间、对）且侧链CH2、CH3各1类，共5类H，不符；间二甲苯芳环H为3类且甲基H为1类，共4类H，不符；邻二甲苯与对二甲苯均因对称性使两甲基等效（1类H），芳环H分成2类，总共3类，符合题意。",
+            "difficulty": 3,
+            "type": "选择题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_xzxbx3",
+                "source_md": "ch1_s整理与提升.md",
+                "question_no_in_source": 5,
+                "global_no": 18
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_xzxbx3_ch1_s_t22",
+            "stem": "下列说法不正确的是（ ）。\n\nA. 提纯苯甲酸可采用重结晶的方法  \nB. 分离正己烷（沸点 $69^{\\circ} \\mathrm{C}$ ）和正庚烷（沸点 $98^{\\circ} \\mathrm{C}$ ）可采用蒸馏的方法  \nC. 某有机化合物的相对分子质量为 58 , 则其分子式一定为 $C_{4}H_{10}$   \nD. 某烃完全燃烧生成 $\\mathrm{CO}_{2}$ 和 $\\mathrm{H}_{2} \\mathrm{O}$ 的物质的量之比为 $1: 1$ , 则其实验式为 $\\mathrm{CH}_{2}$",
+            "answer": "C",
+            "analysis": "A：苯甲酸常用重结晶提纯，正确。B：正己烷(69℃)与正庚烷(98℃)沸点不同，可用蒸馏(沸点差较大时可用分馏)分离，正确。C：相对分子质量为58的有机物不一定是C4H10，还可能是C3H6O等其他分子式，因此该说法不正确。D：烃CxHy完全燃烧生成CO2与H2O的物质的量比为x : y/2=1:1，得y=2x，实验式为CH2，正确。",
+            "difficulty": 3,
+            "type": "选择题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_xzxbx3",
+                "source_md": "ch1_s整理与提升.md",
+                "question_no_in_source": 6,
+                "global_no": 19
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_xzxbx3_ch2_s1_t25",
+            "stem": "下列物质中，在常温和光照的条件下可以与乙烷发生化学反应的是（ ）。\n\nA. 稀硫酸\n\nB. NaOH溶液\n\nC. $\\mathrm{Cl}_{2}$\n\nD. 酸性 $\\mathrm{KMnO}_4$ 溶液",
+            "answer": "C",
+            "analysis": "乙烷为饱和烃，常温下性质较稳定；在光照条件下可与氯气发生自由基取代反应生成氯乙烷和HCl。稀硫酸、NaOH溶液与乙烷一般不反应；酸性KMnO4主要氧化不饱和键或易氧化物质，乙烷常温下不易被其氧化。故选C。",
+            "difficulty": 2,
+            "type": "选择题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_xzxbx3",
+                "source_md": "ch2_s1.md",
+                "question_no_in_source": 1,
+                "global_no": 20
+            },
+            "links": {
+                "concept_names": [
+                    "烷烃的化学性质"
+                ]
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_xzxbx3_ch2_s1_t26",
+            "stem": "下列说法不正确的是（ ）。\n\nA. 所有碳氢化合物中, 甲烷中碳的质量分数最低  \nB. 所有烷烃中, 甲烷的沸点最低  \nC. 甲烷分子中最多有 4 个原子共平面  \nD. 甲烷、乙烷和丙烷都能在光照下与氯气发生取代反应",
+            "answer": "C",
+            "analysis": "甲烷为正四面体结构，任意三个原子一定共平面；但不存在四个原子共平面（四个H为四面体顶点不共面，C与任意三个H也不共面），因此“最多有4个原子共平面”错误。A中甲烷H/C比最大，碳的质量分数最低；B中烷烃沸点随相对分子质量增大而升高，甲烷最低；D中甲烷、乙烷、丙烷均可在光照下与氯气发生取代反应。",
+            "difficulty": 2,
+            "type": "选择题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_xzxbx3",
+                "source_md": "ch2_s1.md",
+                "question_no_in_source": 2,
+                "global_no": 21
+            },
+            "links": {
+                "concept_names": [
+                    "烷烃",
+                    "甲烷",
+                    "烷烃的物理性质",
+                    "烷烃的化学性质"
+                ]
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_xzxbx3_ch2_s1_t27",
+            "stem": "下列分子式只表示一种物质的是（ ）。\n\nA. $\\mathrm{C}_{4} \\mathrm{H}_{10}$\n\nB. $\\mathrm{C}_{5} \\mathrm{H}_{12}$\n\nC. ${\\mathrm{C}}_{3}{\\mathrm{H}}_{7}\\mathrm{{Cl}}$\n\nD. $\\mathrm{CH}_2\\mathrm{Cl}_2$",
+            "answer": "D",
+            "analysis": "判断分子式是否只对应一种物质，关键看是否存在同分异构体。\nA C4H10：有正丁烷、异丁烷两种同分异构体；\nB C5H12：有正戊烷、异戊烷、新戊烷三种同分异构体；\nC C3H7Cl：氯代位置不同，有1-氯丙烷和2-氯丙烷两种同分异构体；\nD CH2Cl2：只有二氯甲烷一种结构，不存在位置异构。\n因此只表示一种物质的是D。",
+            "difficulty": 2,
+            "type": "选择题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_xzxbx3",
+                "source_md": "ch2_s1.md",
+                "question_no_in_source": 3,
+                "global_no": 22
+            },
+            "links": {
+                "concept_names": [
+                    "同分异构体"
+                ]
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_xzxbx3_ch2_s1_t28",
+            "stem": "下列物质中，与2-甲基丁烷互为同系物的是（ ）。\n\nA. $\\mathrm{CH}_3\\mathrm{CH}(\\mathrm{CH}_3)_2$\n\nB. $\\mathrm{CH}_{3} \\mathrm{CH}_{2} \\mathrm{CH}(\\mathrm{CH}_{3})_{2}$\n\nC. $\\mathrm{CH}_{3} \\mathrm{CH}_{2} \\mathrm{CH}_{2} \\mathrm{CH}_{2} \\mathrm{CH}_{3}$\n\nD. $\\mathrm{CH}_{3} \\mathrm{C} \\left(\\mathrm{CH}_{3}\\right)_{3}$",
+            "answer": "A",
+            "analysis": "2-甲基丁烷属于烷烃，分子式为C5H12。同系物应与其同属烷烃且分子式相差一个或多个—CH2—。A为CH3CH(CH3)2，分子式C4H10，与C5H12相差CH2，符合同系物关系；B为C5H12（即2-甲基丁烷本身）；C、D也都是C5H12，与2-甲基丁烷互为同分异构体而非同系物。故选A。",
+            "difficulty": 2,
+            "type": "选择题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_xzxbx3",
+                "source_md": "ch2_s1.md",
+                "question_no_in_source": 4,
+                "global_no": 23
+            },
+            "links": {
+                "concept_names": [
+                    "烷烃",
+                    "同分异构体"
+                ],
+                "skill_names": [
+                    "烷烃系统命名步骤"
+                ]
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_xzxbx3_ch2_s1_t29",
+            "stem": "下列物质中，与2,2-二甲基丁烷互为同分异构体的是（ ）。\n\nA. 2-甲基丁烷\n\nB. 3-甲基戊烷\n\nC. 2-甲基己烷\n\nD. 2,2-二甲基丙烷",
+            "answer": "B",
+            "analysis": "2,2-二甲基丁烷的碳原子数为4（丁烷）+2（两个甲基）=6，因此分子式为C6H14。同分异构体需分子式相同。A为C5H12，C为C7H16，D为C5H12，只有B 3-甲基戊烷为C6H14，故选B。",
+            "difficulty": 2,
+            "type": "选择题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_xzxbx3",
+                "source_md": "ch2_s1.md",
+                "question_no_in_source": 5,
+                "global_no": 24
+            },
+            "links": {
+                "concept_names": [
+                    "同分异构体",
+                    "烷烃的同分异构体",
+                    "系统命名法"
+                ]
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_xzxbx3_ch2_s1_t30",
+            "stem": "（1）烹调油烟中含有十一烷，该烷烃的分子式是\n\n(2) 烷烃 $\\mathrm{CH}_{3}-\\mathrm{CH}-\\mathrm{CH}_{2}-\\mathrm{CH}-\\mathrm{CH}_{3}$ 的分子式为 , 它与甲烷的关系是 。请用 $\\mathrm{CH}_{3} \\quad \\mathrm{C}_{2} \\mathrm{H}_{5}$\n\n系统命名法对其命名：\n\n(3) 2,2,3,3- 四甲基丁烷的结构简式为 , 其一氯代物有 种。\n\nCH3CH3CH3CH3CH3CH3CH3CH3CH3CH3CH3CH3CH3CH3CH3CH3CH3CH3CH3CH3CH3CH3CH3CH3CH3CH3CH3CH3CH3CH3CH3CH3CH3CH3CH3CH3CH3CH3CH3CH3CH3CH3CH3CH3CH3CH3CH3CH3CH3CH3CH",
+            "answer": "(1) C11H24；(2) C8H18；同系物；2,4-二甲基己烷；(3) CH3-C(CH3)2-C(CH3)2-CH3（或 (CH3)3C-C(CH3)3）；一氯代物1种",
+            "analysis": "（1）烷烃通式C_nH_{2n+2}，n=11→C11H24。\\n（2）按题意在两个CH处分别连CH3与C2H5，总碳数5+1+2=8→C8H18；与甲烷同属烷烃同系物。选最长碳链为6个碳，支链为2、4位甲基→2,4-二甲基己烷。\\n（3）2,2,3,3-四甲基丁烷可写为CH3-C(CH3)2-C(CH3)2-CH3（等同于(CH3)3C-C(CH3)3）；分子高度对称，所有H等效，故一氯代物只有1种。",
+            "difficulty": 3,
+            "type": "填空题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_xzxbx3",
+                "source_md": "ch2_s1.md",
+                "question_no_in_source": 6,
+                "global_no": 25
+            },
+            "links": {
+                "concept_names": [
+                    "烷烃",
+                    "甲烷",
+                    "烃基",
+                    "甲基",
+                    "乙基",
+                    "烷基支链",
+                    "同分异构体",
+                    "烷烃的同分异构体",
+                    "系统命名法"
+                ],
+                "skill_names": [
+                    "烷烃系统命名步骤",
+                    "选择烷烃主链的方法",
+                    "给烷烃主链编号的方法",
+                    "表示取代基位置和个数的方法"
+                ]
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_xzxbx3_ch2_s1_t31",
+            "stem": "碳原子数小于 10 的链状烷烃中, 一氯代物不存在同分异构体的烷烃有多少种? 写出它们的结构简式。",
+            "answer": "4种：CH4；CH3-CH3；(CH3)4C（2,2-二甲基丙烷/新戊烷）；(CH3)3C-C(CH3)3（2,2,3,3-四甲基丁烷/六甲基乙烷）。",
+            "analysis": "一氯代物不存在同分异构体⇔分子中所有可被取代的氢原子处于完全等价的化学环境（只有一种氢）。链状烷烃要满足这一点：除甲烷外，分子中只能出现一种类型的氢，通常要求骨架中不含CH、CH2（否则与CH3氢不等价），只由CH3和不带氢的季碳构成（或特例乙烷）。对由“甲基(度数1)”与“季碳(度数4)”构成的树状碳骨架，有度数关系：4q+m=2(n-1)=2(m+q-1)，得m=2q+2，n=m+q=3q+2。n<10时：q=0→n=2（乙烷）；q=1→n=5（新戊烷）；q=2→n=8（2,2,3,3-四甲基丁烷）。再加上n=1的甲烷。故共4种，并写出其结构简式如答案所列。",
+            "difficulty": 4,
+            "type": "简答题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_xzxbx3",
+                "source_md": "ch2_s1.md",
+                "question_no_in_source": 7,
+                "global_no": 26
+            },
+            "links": {
+                "concept_names": [
+                    "烷烃",
+                    "烷烃的直链结构",
+                    "同分异构体",
+                    "烷烃的同分异构体"
+                ]
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_xzxbx3_ch2_s1_t32",
+            "stem": "烷烃分子中可能存在以下结构单元：—CH3、—CH2—、—CH—、—C—。其中的碳原子分别被称为伯、仲、叔、季碳原子，数目分别用 $n_1$ 、 $n_2$ 、 $n_3$ 、 $n_4$ 表示。例如，以下分子中， $n_1 = 6$ ， $n_2 = 1$ ， $n_3 = 2$ ， $n_4 = 1$ 。\n\n请根据不同烷烃的组成和结构，分析烷烃（除甲烷外）中各种原子数的关系。\n\n（1）烷烃分子中的氢原子数为 $N(\\mathrm{H})$ ，则 $N(\\mathrm{H})$ 与 $n_1$ 、 $n_2$ 、 $n_3$ 、 $n_4$ 的关系是：\n\n$N(\\mathrm{H}) =$ 或 $N(\\mathrm{H}) =$\n\n（2）若某烷烃的 $n_2 = n_3 = n_4 = 1$ ，则其结构简式可能是",
+            "answer": "（1）N(H)=3n1+2n2+n3；或 N(H)=2(n1+n2+n3+n4)+2。\n（2）CH3CH2CH(CH3)C(CH3)3",
+            "analysis": "（1）按结构单元计氢：—CH3含3个H，—CH2—含2个H，—CH—含1个H，—C—含0个H，所以N(H)=3n1+2n2+n3。又烷烃(非环)通式为CnH2n+2，且n=n1+n2+n3+n4，因此N(H)=2(n1+n2+n3+n4)+2。\n（2）烷烃碳骨架为树状结构，设碳—碳键数为E，则E=(n1+n2+n3+n4)-1；各类碳的“度数”分别为1、2、3、4，所以n1+2n2+3n3+4n4=2E=2(n1+n2+n3+n4-1)。代入n2=n3=n4=1得n1+9=2(n1+2)，解得n1=5。构造含5个伯碳、1个仲碳、1个叔碳、1个季碳的分子，可写为CH3CH2CH(CH3)C(CH3)3。",
+            "difficulty": 3,
+            "type": "填空题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_xzxbx3",
+                "source_md": "ch2_s1.md",
+                "question_no_in_source": 8,
+                "global_no": 27
+            },
+            "links": {
+                "concept_names": [
+                    "烷烃",
+                    "烷基支链",
+                    "烷烃的同分异构体"
+                ]
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_xzxbx3_ch2_s3_t33",
+            "stem": "下列化合物中，不溶于水，且密度小于水的是（ ）。\n\nA. 乙酸\n\nB. 乙醇\n\nC. 苯\n\nD. 四氯化碳",
+            "answer": "C",
+            "analysis": "逐项判断溶解性与密度：乙酸、乙醇都与水互溶；苯难溶于水且密度约0.88 g/cm³，小于水；四氯化碳难溶于水但密度约1.59 g/cm³，大于水。故选C。",
+            "difficulty": 2,
+            "type": "选择题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_xzxbx3",
+                "source_md": "ch2_s3.md",
+                "question_no_in_source": 1,
+                "global_no": 28
+            },
+            "links": {
+                "concept_names": [
+                    "苯"
+                ],
+                "skill_names": [
+                    "通过实验现象推断分子结构和性质"
+                ]
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_xzxbx3_ch2_s3_t34",
+            "stem": "下列有机化合物的分子中，所有原子不可能位于同一平面的是（ ）。\n\nA. $\\mathrm{C}_{2} \\mathrm{H}_{2}$\n\nB. ${\\mathrm{C}}_{2}{\\mathrm{H}}_{4}$\n\nC. $\\mathrm{C}_{6} \\mathrm{H}_{6}$ （苯）\n\nD. $\\mathrm{C}_{7} \\mathrm{H}_{8}$ （甲苯）",
+            "answer": "D",
+            "analysis": "A 乙炔为sp杂化，分子呈直线型，所有原子共线必共面；B 乙烯中两个C均为sp2杂化，相关原子构成平面结构；C 苯环中C均为sp2杂化，环平面结构，H也在该平面内；D 甲苯中苯环虽为平面，但取代基—CH3中的C为sp3杂化呈四面体构型，三个H不可能同时都落在苯环平面内，因此分子中所有原子不可能位于同一平面。",
+            "difficulty": 3,
+            "type": "选择题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_xzxbx3",
+                "source_md": "ch2_s3.md",
+                "question_no_in_source": 2,
+                "global_no": 29
+            },
+            "links": {
+                "concept_names": [
+                    "苯的分子结构",
+                    "苯的同系物",
+                    "甲苯"
+                ]
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_xzxbx3_ch2_s3_t35",
+            "stem": "对下列变化过程中发生反应的类型判断不正确的是（ ）。\n\nA. $\\mathrm{CH}_4 \\rightarrow \\mathrm{CH}_3\\mathrm{Cl}$ 取代反应\n\nB. $\\mathrm{CH}_2 = \\mathrm{CH}_2 \\rightarrow \\mathrm{CH}_2\\mathrm{BrCH}_2\\mathrm{Br}$ 加成反应\n\nC. \\(\\overline{\\langle\\langle\\langle\\langle\\langle\\langle\\langle\\langle\\langle\\langle\\langle\\langle\\langle\\langle\\langle\\langle\\langle\\langle\\langle\\langle\\langle\\langle\\langle\\langle\\langle\\langle\\langle\\langle\\langle\\langle\\langle\\langle\\langle\\langle\\langle\\langle\\langle\\langle\\langle\\langle\\langle\\langle\\langle\\langle\\langle\\langle\\langle\\langle\\langle\\langle\\langle \\rangle \\rangle \\rangle \\rangle \\rangle \\rangle \\rangle \\rangle \\rangle \\rangle \\rangle \\rangle \\rangle \\rangle \\rangle \\rangle \\rangle \\rangle \\rangle \\rangle \\rangle \\rangle \\rangle \\rangle \\rangle \\rangle \\rangle \\rangle \\rangle \\rangle \\rangle \\rangle \\rangle \\rangle \\rangle \\rangle \\rangle \\rangle \\rangle \\rangle \\rangle \\rangle \\rangle \\rangle \\rangle \\rangle \\rangle \\rangle \\rangle \\rangle \\langle \\langle \\langle \\langle \\langle \\langle \\langle \\langle \\langle \\langle \\langle \\langle \\langle \\langle \\langle \\langle \\langle \\langle \\langle \\langle \\langle \\langle \\langle \\langle \\langle \\langle \\langle \\langle \\langle \\langle \\langle \\langle \\langle \\langle \\langle \\langle \\langle \\langle \\langle \\langle \\langle \\langle \\langle \\langle \\langle \\langle \\langle \\langle \\langle \\langle \\rangle \\rangle \\rangle \\rangle \\rangle \\rangle \\rangle \\rangle \\rangle \\rangle \\rangle \\rangle \\rangle \\rangle \\rangle \\rangle \\rangle \\rangle \\rangle \\rangle \\rangle \\rangle \\rangle \\rangle \\rangle \\rangle \\rangle \\rangle \\rangle \\rangle \\rangle \\rangle \\rangle \\rangle \\rangle \\rangle \\rangle \\rangle \\rangle \\rangle \\rangle \\rangle \\rangle \\rangle \\rangle \\rangle \\rangle \\rangle \\rangle\n\nD. $\\overline{\\langle\\bigstar\\rangle}\\rightarrow \\overline{\\langle\\bigstar\\rangle}\\mathrm{-NO}_2$ 加成反应",
+            "answer": "D",
+            "analysis": "A：CH4生成CH3Cl是卤代反应，本质为取代反应，判断正确。B：乙烯与Br2加成生成1,2-二溴乙烷，为加成反应，判断正确。D：芳香环上引入—NO2（硝化反应）属于亲电取代反应，而不是加成反应，因此该项判断不正确。",
+            "difficulty": 3,
+            "type": "选择题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_xzxbx3",
+                "source_md": "ch2_s3.md",
+                "question_no_in_source": 3,
+                "global_no": 30
+            },
+            "links": {
+                "concept_names": [
+                    "苯的化学性质",
+                    "苯的取代反应",
+                    "硝基苯"
+                ]
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_xzxbx3_ch2_s3_t36",
+            "stem": "下列物质中，属于苯的同系物的是（ ）。\n\nA. C\n\nB. $\\mathrm{CH}_{2} \\mathrm{CH}_{3}$\n\nC. $\\mathrm{CH} = \\mathrm{CH}_{2}$\n\nD. $\\mathrm{Br}$",
+            "answer": "B",
+            "analysis": "苯的同系物指与苯具有相同芳香环结构、分子式相差若干个—CH2—的烷基苯（如甲苯、乙苯等）。选项中只有—CH2CH3属于烷基，可与苯构成乙苯，属于苯的同系物；—CH=CH2为烯基（不符合烷基苯同系物特征），Br为卤素取代基，也不属于同系物。",
+            "difficulty": 2,
+            "type": "选择题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_xzxbx3",
+                "source_md": "ch2_s3.md",
+                "question_no_in_source": 4,
+                "global_no": 31
+            },
+            "links": {
+                "concept_names": [
+                    "苯的同系物",
+                    "苯的同系物的通式"
+                ],
+                "skill_names": [
+                    "由通式判断同系物的分子式和结构特征",
+                    "基于结构式判断芳香烃类型"
+                ]
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_xzxbx3_ch2_s3_t37",
+            "stem": "下列物质中，可被用于鉴别苯和甲苯的是（ ）。\n\nA. 水\n\nB. 溴水\n\nC. 酸性高锰酸钾溶液\n\nD. 氢氧化钠溶液",
+            "answer": "C",
+            "analysis": "苯和甲苯均不溶于水，加入水无法鉴别；溴水在常温无催化剂条件下均不易与苯、甲苯发生反应，难以区分；酸性高锰酸钾能氧化甲苯的侧链（–CH3）生成苯甲酸等，使紫色褪去，而苯在该条件下不易被氧化，故可鉴别；氢氧化钠溶液与二者均不反应，不能鉴别。",
+            "difficulty": 2,
+            "type": "选择题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_xzxbx3",
+                "source_md": "ch2_s3.md",
+                "question_no_in_source": 5,
+                "global_no": 32
+            },
+            "links": {
+                "concept_names": [
+                    "甲苯侧链活性",
+                    "酸性高锰酸钾溶液的氧化性（对烯烃/芳香烃对比）"
+                ],
+                "skill_names": [
+                    "通过实验现象推断分子结构和性质"
+                ]
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_xzxbx3_ch2_s3_t38",
+            "stem": "分子式均为 $\\mathrm{C}_{8} \\mathrm{H}_{10}$ 的下列化合物中, 苯环上的一氯代物只有一种的是 ( )。\n\nA. 乙苯\n\nB. 邻二甲苯\n\nC. 间二甲苯\n\nD. 对二甲苯",
+            "answer": "D",
+            "analysis": "判断苯环上一氯代物种数取决于苯环上氢原子的等效性（分子对称性）。乙苯只有一个取代基，环上有邻、间、对三种不同位置，产物不止一种；邻二甲苯与间二甲苯对称性较低，环上氢分成两类，产物各有两种；对二甲苯对称性最高，环上4个氢彼此等效，一氯代物只有一种，故选D。",
+            "difficulty": 2,
+            "type": "选择题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_xzxbx3",
+                "source_md": "ch2_s3.md",
+                "question_no_in_source": 6,
+                "global_no": 33
+            },
+            "links": {
+                "concept_names": [
+                    "苯的取代反应",
+                    "苯的同系物"
+                ],
+                "skill_names": [
+                    "基于结构式判断芳香烃类型"
+                ]
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_xzxbx3_ch2_s3_t39",
+            "stem": "下列苯的同系物的名称不正确的是（ ）。\n\nA. $\\mathrm{CH}_3$ —— $\\mathrm{CH}_3$ ——CH3\n\n对二甲苯\n\nB. $\\mathrm{CH}_{2} \\mathrm{CH}_{3}$\n\n乙苯\n\nCH3 C. CH3 CH3\n\n1,2,3-三甲苯\n\nD. $\\mathrm{CH}_{3} - \\left\\langle \\right\\rangle - \\mathrm{CH}_{3}$\n\n1,3,4-三甲苯",
+            "answer": "D",
+            "analysis": "苯环上有多个取代基时，应按“最小位次组”原则编号，使得到的一组数字尽可能小。D所示为三甲苯的一种异构体，按正确编号应为1,2,4-三甲苯，而不是1,3,4-三甲苯，因此D名称不正确。",
+            "difficulty": 3,
+            "type": "选择题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_xzxbx3",
+                "source_md": "ch2_s3.md",
+                "question_no_in_source": 7,
+                "global_no": 34
+            },
+            "links": {
+                "concept_names": [
+                    "苯的同系物"
+                ],
+                "skill_names": [
+                    "基于结构式判断芳香烃类型"
+                ]
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_xzxbx3_ch2_s3_t41",
+            "stem": "某种苯的同系物完全燃烧时，所得 $\\mathrm{CO}_{2}$ 和 $\\mathrm{H}_{2} \\mathrm{O}$ 的物质的量之比为 $8: 5$ 。\n\n(1) 苯的同系物的通式为 , 该物质的分子式为  \n(2) 若该物质苯环上的一氯代物只有两种, 则其结构简式为 , 名称为",
+            "answer": "(1) C_nH_{2n-6}；C8H10\n(2) C6H4(CH3)2；二甲苯",
+            "analysis": "设该苯的同系物分子式为C_nH_{2n-6}。完全燃烧：生成CO2的物质的量为n，生成H2O的物质的量为(2n-6)/2=n-3。由题给n(CO2):n(H2O)=8:5，得n:(n-3)=8:5，解得5n=8n-24，n=8，所以分子式为C8H10。C8H10的苯系同分异构体有乙苯(C6H5C2H5)和二甲苯(C6H4(CH3)2)；乙苯苯环上一氯代物有邻、间、对三种，而二甲苯苯环上一氯代物只有两种，因此该物质为C6H4(CH3)2，名称为二甲苯。",
+            "difficulty": 3,
+            "type": "填空题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_xzxbx3",
+                "source_md": "ch2_s3.md",
+                "question_no_in_source": 9,
+                "global_no": 35
+            },
+            "links": {
+                "concept_names": [
+                    "苯的同系物",
+                    "苯的同系物的通式",
+                    "苯的取代反应"
+                ],
+                "skill_names": [
+                    "由通式判断同系物的分子式和结构特征",
+                    "通过实验现象推断分子结构和性质"
+                ]
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_xzxbx3_ch2_s3_t43",
+            "stem": "苯的某些同系物可被酸性高锰酸钾溶液氧化，例如：\n\n（1）以上反应说明苯的这些同系物分子中的烷基受到了什么影响？  \n(2) 若苯的同系物侧链的烷基中, 直接与苯环连接的碳原子上没有 $\\mathrm{C}-\\mathrm{H}$ , 则该物质一般不能被酸性高锰酸钾溶液氧化成苯甲酸。某分子式为 $\\mathrm{C}_{11} \\mathrm{H}_{16}$ 的单烷基取代苯, 已知它可以被氧化成苯甲酸的同分异构体共有 7 种, 其中的 3 种是: $\\mathrm{CH}_{2} \\mathrm{CH}_{2} \\mathrm{CH}_{2} \\mathrm{CH}_{2} \\mathrm{CH}_{3}$ 、 $\\mathrm{CH}_{2} \\mathrm{CH}(\\mathrm{CH}_{3}) \\mathrm{CH}_{2} \\mathrm{CH}_{2} \\mathrm{CH}_{3}$ 、 $\\mathrm{CH}_{2} \\mathrm{CH}(\\mathrm{CH}_{3}) \\mathrm{CH}_{2} \\mathrm{CH}_{3}$ 。请写出其他 4 种的结构简式。",
+            "answer": "（1）说明苯的这些同系物分子中的烷基侧链（苄位碳上的C—H）易被酸性KMnO4氧化，侧链最终可被氧化为—COOH（生成苯甲酸/其同分异构体）。\n（2）其他4种侧链烷基的结构简式：CH(CH3)CH2CH2CH3；CH(CH2CH3)CH2CH3；CH2CH2CH(CH3)CH3；CH2C(CH3)3。",
+            "analysis": "（1）酸性高锰酸钾可把具有苄位氢的烷基苯侧链强氧化，侧链碳骨架被“截短”，苄位最终变为—COOH。\n（2）由分子式C11H16知为C6H5—C5H11（单烷基取代苯）。能被氧化成苯甲酸要求与苯环直接相连的碳原子上必须有至少1个H（有苄位氢），因此仅排除连接碳为季碳的叔戊基。剩余可氧化的7种中题干已给出3种，补写其余4种为：sec-戊基（CH(CH3)CH2CH2CH3）、3-戊基（CH(CH2CH3)CH2CH3）、异戊基/3-甲基丁基（CH2CH2CH(CH3)CH3）、新戊基（CH2C(CH3)3）。",
+            "difficulty": 4,
+            "type": "简答题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_xzxbx3",
+                "source_md": "ch2_s3.md",
+                "question_no_in_source": 11,
+                "global_no": 36
+            },
+            "links": {
+                "concept_names": [
+                    "苯的同系物",
+                    "苯的同系物的化学性质",
+                    "甲苯侧链活性",
+                    "酸性高锰酸钾溶液的氧化性（对烯烃/芳香烃对比）"
+                ],
+                "skill_names": [
+                    "通过实验现象推断分子结构和性质",
+                    "由通式判断同系物的分子式和结构特征"
+                ]
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_xzxbx3_ch2_s_t44",
+            "stem": "可以用分液漏斗分离的一组混合物是（ ）。\n\nA. 苯和甲苯\n\nB. 乙醇和水\n\nC. 苯和水\n\nD. 溴和四氯化碳",
+            "answer": "C",
+            "analysis": "分液漏斗用于分离互不相溶且密度不同的液体混合物。A苯和甲苯互溶；B乙醇和水互溶；C苯和水互不相溶，可用分液漏斗分离；D溴易溶于四氯化碳，形成均相溶液，不能用分液漏斗分离。",
+            "difficulty": 2,
+            "type": "选择题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_xzxbx3",
+                "source_md": "ch2_s整理与提升.md",
+                "question_no_in_source": 1,
+                "global_no": 37
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_xzxbx3_ch2_s_t45",
+            "stem": "下列物质：①甲烷、②乙烯、③乙炔、④苯、⑤甲苯，既能使酸性高锰酸钾溶液褪色，又能使溴的四氯化碳溶液褪色的是（ ）。\n\nA. ①②\n\nB. ②④\n\nC. ②③\n\nD. ④⑤",
+            "answer": "C",
+            "analysis": "酸性高锰酸钾溶液和溴的四氯化碳溶液均可被不饱和烃（含C=C或C≡C）发生加成/氧化而褪色。②乙烯含C=C、③乙炔含C≡C，均能使两种试剂褪色；①甲烷为饱和烃一般不褪色；④苯、⑤甲苯在无催化剂条件下不能使溴的四氯化碳溶液褪色。故选②③，即C。",
+            "difficulty": 2,
+            "type": "选择题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_xzxbx3",
+                "source_md": "ch2_s整理与提升.md",
+                "question_no_in_source": 2,
+                "global_no": 38
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_xzxbx3_ch2_s_t46",
+            "stem": "下列物质的分子中，所有碳原子不可能位于同一平面的是（ ）。\n\nA. $\\mathrm{CH}=\\mathrm{CH}_{2}$\n\nB. $\\mathrm{CH}_{2} \\mathrm{CH}_{3}$\n\nC. CH CH CH3\n\nD. $\\mathrm{CH}_{3} \\mathrm{CH}_{3}$",
+            "answer": "C",
+            "analysis": "要使“所有碳原子位于同一平面”，分子中的碳骨架必须能够整体共面。含有sp2杂化的C=C结构（如A）中相关碳原子趋于共面；而当分子中出现与三个碳原子成键的sp3杂化碳（四面体构型，键角约109.5°）时，这三个相连的碳原子可确定一个平面，但该sp3碳原子必定不在该平面内，因此所有碳原子不可能共面。选项C对应含有这种四面体sp3碳连接多个碳原子的结构，故选C。",
+            "difficulty": 3,
+            "type": "选择题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_xzxbx3",
+                "source_md": "ch2_s整理与提升.md",
+                "question_no_in_source": 3,
+                "global_no": 39
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_xzxbx3_ch2_s_t47",
+            "stem": "下列有机化合物的分子中，含有两种处于不同化学环境的氢原子的是（ ）。\n\nCH3 A.CH3-C-CH3 CH3\n\nB. $\\mathrm{CH}_3 - \\mathrm{CH} - \\mathrm{CH} = \\mathrm{CH}_2$ CH3\n\nC. $\\mathrm{CH}_{3}$\n\nD. $\\mathrm{CH}_{3} - \\mathrm{CH}_{3}$",
+            "answer": "C",
+            "analysis": "判断氢原子是否处于不同化学环境，关键看分子中氢所连碳原子的化学环境是否因对称性而等同。A为高度对称的结构（所有甲基等同），氢原子只有一种；D为乙烷（两端甲基等同），氢原子也只有一种；B中含有甲基、亚甲基/次甲基以及烯烃端基等，多种不同环境的氢原子（多于两种）。C为丙烷CH3–CH2–CH3，两端CH3上的氢等同为一种，中间CH2上的氢为另一种，共两种不同化学环境的氢原子。",
+            "difficulty": 2,
+            "type": "选择题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_xzxbx3",
+                "source_md": "ch2_s整理与提升.md",
+                "question_no_in_source": 4,
+                "global_no": 40
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_xzxbx3_ch2_s_t48",
+            "stem": "下列反应中，其有机产物含有两个官能团的是（ ）。\n\nA. $1 \\mathrm{~mol}$ 乙炔与 $2 \\mathrm{~mol}$ 溴发生加成反应\n\nB. 乙烯与溴发生加成反应\n\nC. $1 \\mathrm{~mol}$ 苯与 $3 \\mathrm{~mol}$ 氢气发生加成反应\n\nD. 甲苯硝化生成三硝基甲苯",
+            "answer": "B",
+            "analysis": "B项：乙烯与溴加成生成1,2-二溴乙烷，分子中含有两个卤素原子（两个卤代官能团）。A项生成四溴乙烷，含4个卤代官能团；C项生成环己烷，无官能团；D项三硝基甲苯含3个硝基官能团。",
+            "difficulty": 2,
+            "type": "选择题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_xzxbx3",
+                "source_md": "ch2_s整理与提升.md",
+                "question_no_in_source": 5,
+                "global_no": 41
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_xzxbx3_ch2_s_t49",
+            "stem": "完全燃烧 $1.00 \\mathrm{~g}$ 某脂肪烃, 生成 $3.08 \\mathrm{~g} \\mathrm{CO}_{2}$ 和 $1.44 \\mathrm{~g} \\mathrm{H}_{2} \\mathrm{O}$ 。质谱法测得其相对分子质量为 100 。下列说法不正确的是 ( )。\n\nA. 该脂肪烃属于烷烃, 其分子式为 $\\mathrm{C}_{7} \\mathrm{H}_{16}$   \nB. 该脂肪烃能发生取代反应, 不能发生加成反应  \nC. 该脂肪烃主链有 4 个碳原子的结构有 2 种  \nD. 该脂肪烃主链有 5 个碳原子的结构有 5 种",
+            "answer": "C",
+            "analysis": "由燃烧产物求组成：n(C)=3.08/44=0.070 mol，m(C)=0.070×12=0.84 g；n(H2O)=1.44/18=0.080 mol，n(H)=2×0.080=0.160 mol，m(H)=0.160 g。故1.00 g样品中C、H物质的量之比为0.070:0.160=7:16，经验式为C7H16；其摩尔质量7×12+16=100，与题给相对分子质量100一致，所以分子式为C7H16，为烷烃。烷烃可发生取代反应，一般不发生加成反应，A、B正确。C7H16的结构异构体中主链为5个碳的有5种（3-乙基戊烷、2,2-二甲基戊烷、2,3-二甲基戊烷、2,4-二甲基戊烷、3,3-二甲基戊烷），D正确；主链为4个碳的只有1种（2,2,3-三甲基丁烷），因此C“有2种”不正确。",
+            "difficulty": 4,
+            "type": "选择题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_xzxbx3",
+                "source_md": "ch2_s整理与提升.md",
+                "question_no_in_source": 6,
+                "global_no": 42
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_xzxbx3_ch2_s_t50",
+            "stem": "下列有机反应中，C—H发生断裂的是（ ）。\n\nA. 甲烷与氯气在光照条件下反应  \nB. 乙烯与溴的四氯化碳溶液反应  \nC. 乙炔与氯化氢在催化剂和加热条件下反应  \nD. 苯与氢气在催化剂和加热条件下反应",
+            "answer": "A",
+            "analysis": "A中甲烷与氯气在光照条件下发生自由基取代反应，Cl·取代H原子，必然断裂C—H键并生成HCl和氯代甲烷；B为乙烯与溴的加成，断裂的是C=C的π键；C为乙炔与HCl的加成，断裂的是C≡C的π键；D为苯的加氢，断裂的是苯环中的π键，均不涉及C—H键断裂。",
+            "difficulty": 2,
+            "type": "选择题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_xzxbx3",
+                "source_md": "ch2_s整理与提升.md",
+                "question_no_in_source": 7,
+                "global_no": 43
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_xzxbx3_ch2_s_t51",
+            "stem": "在甲苯中加入少量紫红色的酸性高锰酸钾溶液，振荡后褪色。其原因是（ ）。\n\nA. 甲苯属于不饱和烃, 可被酸性高锰酸钾溶液氧化  \nB. 苯环受甲基影响, 可被酸性高锰酸钾溶液氧化  \nC. 甲基受苯环影响, 可被酸性高锰酸钾溶液氧化  \nD. 甲苯催化高锰酸钾在酸性溶液中分解",
+            "answer": "C",
+            "analysis": "甲苯的苯环在一般条件下不易被酸性高锰酸钾氧化，但其侧链甲基处于苄位（与苯环相连的碳），受苯环共轭/诱导影响更易被氧化，酸性KMnO4被还原而使紫红色褪去，因此褪色原因是甲基受苯环影响可被氧化。",
+            "difficulty": 3,
+            "type": "选择题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_xzxbx3",
+                "source_md": "ch2_s整理与提升.md",
+                "question_no_in_source": 8,
+                "global_no": 44
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_xzxbx3_ch2_s_t52",
+            "stem": "在一定条件下，乙烷和乙烯都可以通过化学反应生成氯乙烷。\n\n(1) 用乙烷制备氯乙烷的化学方程式是__________，该反应的类型是__________。  \n(2) 用乙烯制备氯乙烷的化学方程式是__________，该反应的类型是__________。  \n（3）你认为上述两种方法中较好的是哪一种？请说明原因。",
+            "answer": "(1) C2H6 + Cl2 \\xrightarrow{光照} C2H5Cl + HCl；反应类型：取代反应（自由基取代）。\n(2) C2H4 + HCl → C2H5Cl；反应类型：加成反应。\n(3) 较好的是用乙烯制备：加成反应选择性高、副反应少，产物较单一，便于得到较纯的氯乙烷；而乙烷与氯气取代易继续取代生成多种氯代物，产物混合、分离困难且生成HCl。",
+            "analysis": "乙烷为饱和烃，和氯气在光照条件下发生自由基取代，生成一氯乙烷并副产HCl，但可能进一步取代生成多氯代物。乙烯含C=C双键，可与HCl发生加成，双键断裂形成C—C单键并引入H与Cl，产物主要为氯乙烷。比较两法：加成法产物更单一、选择性更好，因此更优。",
+            "difficulty": 3,
+            "type": "简答题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_xzxbx3",
+                "source_md": "ch2_s整理与提升.md",
+                "question_no_in_source": 9,
+                "global_no": 45
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_xzxbx3_ch2_s_t54",
+            "stem": "有机化合物A是一种重要的化工原料，在一定条件下可以发生如下反应：\n\n已知苯环侧链上的烃基在一定条件下能被氧化成羧基。\n\n（1）下列关于有机化合物A的说法正确的是 （填字母）。\n\na. 属于芳香烃\n\nb. 属于苯的同系物\n\nc. 苯环上连有烷基\n\nd. 侧链中含碳碳双键\n\n(2) 有机化合物 A 的结构简式为  \n（3）请写出 $\\mathrm{A}\\rightarrow \\mathrm{B}$ 反应的化学方程式，并指出其反应类型。  \n(4) D具有优良的绝热、绝缘性能, 可用作包装材料和建筑材料, 在工业上以A为原料生产。请写出相关反应的化学方程式, 并指出其反应类型。",
+            "answer": "（1）ad\n（2）C6H5CH=CH2（或CH2=CH—C6H5）\n（3）C6H5CH=CH2 + 5[O] → C6H5COOH + CO2 + H2O；反应类型：氧化反应\n（4）nCH2=CHC6H5 → [—CH2—CH(C6H5)—]n（D为聚苯乙烯）；反应类型：加聚反应（加成聚合）",
+            "analysis": "A能发生加聚生成用于绝热、绝缘的高分子材料D，可判断A为苯乙烯（C6H5CH=CH2），其侧链含C=C。苯乙烯侧链在强氧化条件下可被氧化成羧基，生成苯甲酸，同时断裂产生CO2和H2O，可用[O]表示氧化剂配平为5[O]。D由A单体发生加成聚合得到：nCH2=CHC6H5→[—CH2—CH(C6H5)—]n。",
+            "difficulty": 3,
+            "type": "简答题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_xzxbx3",
+                "source_md": "ch2_s整理与提升.md",
+                "question_no_in_source": 11,
+                "global_no": 46
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_xzxbx3_ch3_s3_t55",
+            "stem": "某有机化合物的结构简式为 $\\mathrm{CH}_{2}=\\mathrm{CHCH}_{2}-\\mathrm{CHO}$ , 下列对其化学性质的判断不正确的是 ( )。\n\nA. 能被银氨溶液氧化\n\nB. 能使酸性 $\\mathrm{KMnO}_4$ 溶液褪色\n\nC. $1 \\mathrm{~mol}$ 该物质能与 $1 \\mathrm{~mol} \\mathrm{HBr}$ 发生加成反应\n\nD. $1 \\mathrm{~mol}$ 该物质只能与 $1 \\mathrm{~mol} \\mathrm{H}_{2}$ 发生加成反应",
+            "answer": "D",
+            "analysis": "该有机物为CH2=CH–CH2–CHO，含有碳碳双键(C=C)和醛基(–CHO)。\nA：醛基可被银氨溶液(Tollens试剂)氧化，正确。\nB：含C=C，可使酸性KMnO4褪色（醛基也易被氧化），正确。\nC：分子中只有1个C=C，一般与HBr发生一次加成，1 mol物质消耗1 mol HBr，正确。\nD：加氢时C=C加成需1 mol H2，醛基C=O还可加氢还原为醇再需1 mol H2，共可消耗2 mol H2，因此“只能与1 mol H2加成”不正确。",
+            "difficulty": 3,
+            "type": "选择题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_xzxbx3",
+                "source_md": "ch3_s3.md",
+                "question_no_in_source": 1,
+                "global_no": 47
+            },
+            "links": {
+                "concept_names": [
+                    "醛基",
+                    "醛",
+                    "加成反应",
+                    "银氨溶液",
+                    "银镜反应",
+                    "醛的一般化学性质"
+                ],
+                "skill_names": [
+                    "根据结构判断有机物类别",
+                    "利用官能团推断有机物化学性质",
+                    "用弱氧化剂检验醛基"
+                ]
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_xzxbx3_ch3_s3_t56",
+            "stem": "下列反应属于还原反应的是（ ）。\n\nA. $\\mathrm{RCHO} + \\mathrm{H}_{2}\\longrightarrow \\mathrm{RCH}_{2}\\mathrm{OH}$\n\nB. $\\mathrm{CH}_2 = \\mathrm{CH}_2 + \\mathrm{Br}_2 \\longrightarrow \\mathrm{CH}_2\\mathrm{BrCH}_2\\mathrm{Br}$\n\nC. $2 \\mathrm{CH}_{3} \\mathrm{CHO} + \\mathrm{O}_{2} \\longrightarrow 2 \\mathrm{CH}_{3} \\mathrm{COOH}$\n\nD. $2 \\mathrm{CH}_{3} \\mathrm{CH}_{2} \\mathrm{OH} + \\mathrm{O}_{2} \\longrightarrow 2 \\mathrm{CH}_{3} \\mathrm{CHO} + 2 \\mathrm{H}_{2} \\mathrm{O}$",
+            "answer": "A",
+            "analysis": "有机物的还原反应常表现为“加氢”或“失氧”。A中醛RCHO与H2反应生成醇RCH2OH，碳原子相当于得到氢（加氢），属于还原反应；B为加溴（相当于加卤素，通常视为氧化）；C为醛被O2氧化为羧酸；D为乙醇被O2氧化为乙醛并生成水，均为氧化反应。",
+            "difficulty": 2,
+            "type": "选择题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_xzxbx3",
+                "source_md": "ch3_s3.md",
+                "question_no_in_source": 2,
+                "global_no": 48
+            },
+            "links": {
+                "concept_names": [
+                    "催化加氢反应（乙醛）"
+                ],
+                "skill_names": [
+                    "利用官能团推断有机物化学性质"
+                ]
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_xzxbx3_ch3_s3_t57",
+            "stem": "1-丙醇在铜作催化剂并加热的条件下，可被氧化为M。下列物质与M互为同分异构体的是（ ）。\n\nA. $\\mathrm{CH}_3\\mathrm{OCH}_2\\mathrm{CH}_3$\n\nB. $\\mathrm{CH}_3\\mathrm{CH}(\\mathrm{OH})\\mathrm{CH}_3$\n\nC. $\\mathrm{CH}_3\\mathrm{COCH}_3$\n\nD. $\\mathrm{CH}_{3} \\mathrm{CH}_{2} \\mathrm{CHO}$",
+            "answer": "C",
+            "analysis": "1-丙醇（CH3CH2CH2OH）在铜作催化剂并加热条件下发生温和氧化，生成醛：丙醛M（CH3CH2CHO），分子式为C3H6O。比较选项分子式：A、B均为C3H8O；D为CH3CH2CHO，与M相同不是同分异构体；C为丙酮CH3COCH3，分子式C3H6O且结构不同，故与M互为同分异构体。",
+            "difficulty": 2,
+            "type": "选择题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_xzxbx3",
+                "source_md": "ch3_s3.md",
+                "question_no_in_source": 3,
+                "global_no": 49
+            },
+            "links": {
+                "concept_names": [
+                    "醛",
+                    "酮",
+                    "丙酮"
+                ],
+                "skill_names": [
+                    "根据结构判断有机物类别",
+                    "利用官能团推断有机物化学性质"
+                ]
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_xzxbx3_ch3_s3_t58",
+            "stem": "某有机化合物的分子式为 $\\mathrm{C}_{6} \\mathrm{H}_{12} \\mathrm{O}$ , 主链有 4 个碳原子, 能发生银镜反应。请写出其可能的结构简式。",
+            "answer": "能发生银镜反应且分子式为C6H12O，应为醛类；主链(含—CHO)为4个碳时，可能的结构简式为：\n1) CH3CH2C(CH3)2CHO（2,2-二甲基丁醛）\n2) CH3C(CH3)2CH2CHO（3,3-二甲基丁醛）\n3) CH3CH(CH3)CH(CH3)CHO（2,3-二甲基丁醛）",
+            "analysis": "不饱和度：(2×6+2−12)/2=1；只有1个不饱和度且能银镜反应，说明含—CHO（羰基提供这1个不饱和度），其余为饱和开链。主链4碳(含醛基碳)则骨架为丁醛(4C)并再引入2个碳作支链；若出现乙基支链会形成≥5碳最长链，不符合“主链4碳”，因此只能以两个甲基作为支链，分别得到2,2-二甲基丁醛、3,3-二甲基丁醛、2,3-二甲基丁醛三种。",
+            "difficulty": 3,
+            "type": "填空题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_xzxbx3",
+                "source_md": "ch3_s3.md",
+                "question_no_in_source": 4,
+                "global_no": 50
+            },
+            "links": {
+                "concept_names": [
+                    "醛基",
+                    "醛",
+                    "饱和一元醛的通式",
+                    "银镜反应"
+                ],
+                "skill_names": [
+                    "根据结构判断有机物类别",
+                    "利用官能团推断有机物化学性质",
+                    "用弱氧化剂检验醛基"
+                ]
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_xzxbx3_ch3_s3_t59",
+            "stem": "某有机化合物的燃烧产物只有 $\\mathrm{CO}_{2}$ 和 $\\mathrm{H}_{2} \\mathrm{O}$ , 完全燃烧 $2.9 \\mathrm{~g}$ 该物质, 生成 $3.36 \\mathrm{~L} \\mathrm{CO}_{2}$ (标准状况)。该物质的蒸气密度是相同条件下氢气的 29 倍。\n\n(1) 该有机化合物的分子式为________。若该物质能发生银镜反应, 且 $0.58 \\mathrm{~g}$ 该物质与足量银氨溶液反应, 生成 $2.16 \\mathrm{~g} \\mathrm{Ag}$ , 该有机化合物的结构简式为________。\n\n(2) 若该物质不能发生银镜反应, 核磁共振氢谱中只有一组峰, 其结构简式为",
+            "answer": "(1) 分子式：C3H6O；结构简式：CH3CH2CHO\n(2) 结构简式：CH3COCH3",
+            "analysis": "由标准状况CO2体积3.36 L得n(CO2)=3.36/22.4=0.15 mol。蒸气密度为H2的29倍，故摩尔质量M=29×2=58 g·mol⁻¹。燃烧2.9 g物质的物质的量n=2.9/58=0.05 mol，所以每个分子含C原子数=0.15/0.05=3，设分子式为C3HxOy，则36+x+16y=58，得x+16y=22，取整数解y=1，x=6，故分子式C3H6O。\n(1) 0.58 g物质为0.58/58=0.01 mol，生成Ag 2.16 g为2.16/108=0.02 mol；银镜反应中1 mol醛基还原2 mol Ag，故每分子含1个醛基，C3H6O对应醛为丙醛CH3CH2CHO。\n(2) 不能银镜反应且¹H-NMR只有一组峰，说明所有H等效；C3H6O中满足者为丙酮CH3COCH3（两端CH3等效且只有一种氢环境）。",
+            "difficulty": 4,
+            "type": "填空题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_xzxbx3",
+                "source_md": "ch3_s3.md",
+                "question_no_in_source": 5,
+                "global_no": 51
+            },
+            "links": {
+                "concept_names": [
+                    "银氨溶液",
+                    "银镜反应",
+                    "醛基",
+                    "醛",
+                    "酮"
+                ],
+                "skill_names": [
+                    "根据结构判断有机物类别",
+                    "利用官能团推断有机物化学性质",
+                    "用弱氧化剂检验醛基"
+                ]
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_xzxbx3_ch3_s3_t60",
+            "stem": "用化学方法鉴别下列各组物质。\n\n（1）溴乙烷、乙醇、乙醛；\n\n（2）苯、甲苯、乙醇、1-己烯、甲醛溶液、苯酚溶液。",
+            "answer": "（1）先加新制银氨溶液并温水浴：出现银镜（或黑色Ag）的是乙醛；其余两种再分别加少量金属钠：放出H2气并生成白色絮状物的是乙醇；无明显现象的是溴乙烷（也可用乙醇溶液AgNO3微热：溴乙烷生成浅黄色AgBr沉淀，乙醇不反应）。\n（2）依次鉴别：①加溴水：苯酚溶液使溴水褪色并生成白色沉淀（2,4,6-三溴苯酚）；1-己烯使溴水褪色但无沉淀；其余基本不变色。②对剩余样品加银氨溶液或斐林试剂：甲醛溶液显银镜（或生成砖红色Cu2O）。③对剩余样品加I2/NaOH（碘仿反应）：乙醇生成黄色碘仿沉淀。④对剩余两者用热的酸性或碱性KMnO4：甲苯被氧化（褪色），酸化后析出白色苯甲酸；苯不反应。",
+            "analysis": "（1）乙醛具有醛基，能还原[Ag(NH3)2]+生成银镜；乙醇含—OH可与Na置换放H2；溴乙烷为卤代烃不与Na发生上述反应（或与AgNO3生成AgBr）。\n（2）先用溴水区分“能发生加成/取代”的：苯酚发生溴代生成白色三溴苯酚沉淀；烯烃（1-己烯）发生加成仅褪色无沉淀。再用醛的特征反应（银镜/斐林）找甲醛。乙醇可做碘仿反应生成CHI3。最后用侧链易被KMnO4氧化区分甲苯与苯：甲苯氧化为苯甲酸，苯难被氧化。",
+            "difficulty": 4,
+            "type": "简答题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_xzxbx3",
+                "source_md": "ch3_s3.md",
+                "question_no_in_source": 6,
+                "global_no": 52
+            },
+            "links": {
+                "concept_names": [
+                    "醛基",
+                    "醛",
+                    "乙醛",
+                    "甲醛",
+                    "银氨溶液",
+                    "银镜反应",
+                    "新制Cu(OH)2的氧化性",
+                    "醛的一般化学性质"
+                ],
+                "skill_names": [
+                    "根据结构判断有机物类别",
+                    "利用官能团推断有机物化学性质",
+                    "用弱氧化剂检验醛基"
+                ]
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_xzxbx3_ch3_s3_t61",
+            "stem": "分别写出丙醛与下列物质反应的化学方程式。\n\n（1）与银氨溶液反应；\n\n（2）与新制的氢氧化铜反应；\n\n（3）与氢气反应；\n\n（4）与氰化氢反应。",
+            "answer": "（1）CH3CH2CHO + 2[Ag(NH3)2]OH → CH3CH2COONH4 + 2Ag↓ + 3NH3 + H2O\n（2）CH3CH2CHO + 2Cu(OH)2 → CH3CH2COOH + Cu2O↓ + 2H2O\n（3）CH3CH2CHO + H2 → CH3CH2CH2OH（Ni，△）\n（4）CH3CH2CHO + HCN ⇌ CH3CH2CH(OH)CN",
+            "analysis": "丙醛（CH3CH2CHO）具有醛基：可被温和氧化剂（银氨溶液、Cu(OH)2）氧化为丙酸/丙酸盐，同时Ag+被还原成Ag、Cu2+被还原成Cu2O；与H2发生加成还原生成一元醇；与HCN发生亲核加成生成氰醇（在醛基C=O上加成，得到—CH(OH)CN）。",
+            "difficulty": 3,
+            "type": "简答题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_xzxbx3",
+                "source_md": "ch3_s3.md",
+                "question_no_in_source": 7,
+                "global_no": 53
+            },
+            "links": {
+                "concept_names": [
+                    "醛",
+                    "醛的一般化学性质",
+                    "银氨溶液",
+                    "银镜反应",
+                    "新制Cu(OH)2的氧化性",
+                    "加成反应",
+                    "催化加氢反应（乙醛）",
+                    "乙醛与氰化氢加成反应"
+                ],
+                "skill_names": [
+                    "利用官能团推断有机物化学性质",
+                    "用弱氧化剂检验醛基"
+                ]
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_xzxbx3_ch3_s3_t62",
+            "stem": "某同学向溴水中加入足量的乙醛溶液, 发现溴水褪色。这是由于醛基具有还原性, 溴水可将乙醛氧化为乙酸。请尝试写出该反应的化学方程式。",
+            "answer": "CH3CHO + Br2 + H2O → CH3COOH + 2HBr",
+            "analysis": "乙醛(醛基-CHO)具有还原性，可被溴水中的Br2氧化为乙酸(羧基-COOH)，同时Br2被还原为HBr。配平时补充H2O以提供氧并配平H、Br，得到：CH3CHO + Br2 + H2O → CH3COOH + 2HBr。",
+            "difficulty": 2,
+            "type": "填空题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_xzxbx3",
+                "source_md": "ch3_s3.md",
+                "question_no_in_source": 8,
+                "global_no": 54
+            },
+            "links": {
+                "concept_names": [
+                    "醛基",
+                    "乙醛",
+                    "乙醛的氧化反应",
+                    "醛的一般化学性质"
+                ],
+                "skill_names": [
+                    "利用官能团推断有机物化学性质",
+                    "用弱氧化剂检验醛基"
+                ]
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_xzxbx3_ch3_s3_t63",
+            "stem": "桂皮中含有的肉桂醛（CH=CHCHO）是一种食用香料，广泛用于牙膏、洗涤剂、糖果和调味品中。工业上可通过苯甲醛与乙醛反应进行制备：\n\n$$\n\\left\\langle \\mathrm {C H O} + \\mathrm {C H} _ {3} \\mathrm {C H O} \\xrightarrow [ \\Delta ]{\\mathrm {N a O H} \\text {溶 液}} \\left\\langle \\mathrm {C H} = \\mathrm {C H C H O} + \\mathrm {H} _ {2} \\mathrm {O} \\right. \\right.\n$$\n\n上述反应主要经历了加成和消去的过程，请尝试写出相应反应的化学方程式。",
+            "answer": "加成（生成β-羟基醛）：C6H5CHO + CH3CHO \\xrightarrow{NaOH} C6H5CH(OH)CH2CHO\n消去（脱水生成肉桂醛）：C6H5CH(OH)CH2CHO \\xrightarrow{\\Delta,\\ NaOH} C6H5CH=CHCHO + H2O",
+            "analysis": "在NaOH溶液中，乙醛α-H被夺取生成烯醇盐（亲核体），进攻苯甲醛的羰基碳发生羟醛加成，得到β-羟基醛C6H5CH(OH)CH2CHO；加热条件下β-羟基醛进一步在碱性条件发生消去（脱水），形成共轭双键，生成肉桂醛C6H5CH=CHCHO并放出H2O。",
+            "difficulty": 4,
+            "type": "简答题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_xzxbx3",
+                "source_md": "ch3_s3.md",
+                "question_no_in_source": 9,
+                "global_no": 55
+            },
+            "links": {
+                "concept_names": [
+                    "加成反应",
+                    "乙醛",
+                    "苯甲醛",
+                    "肉桂醛",
+                    "醛"
+                ],
+                "skill_names": [
+                    "利用官能团推断有机物化学性质"
+                ]
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_xzxbx3_ch3_s5_t64",
+            "stem": "$\\mathrm{CH}_{2} = \\mathrm{CH}_{2} + \\mathrm{H}_{2} \\mathrm{O} \\xrightarrow[\\triangle]{\\text { 催化剂 }} \\mathrm{CH}_{3} \\mathrm{CH}_{2} \\mathrm{OH}$",
+            "answer": "加成反应（乙烯与水在催化、加热条件下发生水合反应生成乙醇：CH2=CH2+H2O→CH3CH2OH）",
+            "analysis": "乙烯分子含有碳碳双键，能发生加成反应；在催化剂并加热条件下，H和OH分别加到双键两端，生成饱和的乙醇CH3CH2OH。",
+            "difficulty": 2,
+            "type": "填空题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_xzxbx3",
+                "source_md": "ch3_s5.md",
+                "question_no_in_source": 1,
+                "global_no": 56
+            },
+            "links": {
+                "concept_names": [
+                    "官能团引入",
+                    "有机化学基本反应类型"
+                ],
+                "skill_names": [
+                    "分析官能团引入与保护"
+                ]
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_xzxbx3_ch3_s5_t65",
+            "stem": "$\\mathrm{CH}_2 = \\mathrm{CH}_2 + \\mathrm{Cl}_2 \\longrightarrow \\mathrm{CH}_2 - \\mathrm{CH}_2$",
+            "answer": "CH2Cl—CH2Cl（1,2-二氯乙烷）",
+            "analysis": "乙烯（CH2=CH2）与氯气（Cl2）发生加成反应，双键断裂，两个Cl分别加到双键的两个碳原子上，生成CH2Cl—CH2Cl。",
+            "difficulty": 1,
+            "type": "填空题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_xzxbx3",
+                "source_md": "ch3_s5.md",
+                "question_no_in_source": 2,
+                "global_no": 57
+            },
+            "links": {
+                "concept_names": [
+                    "有机化学基本反应类型",
+                    "官能团引入"
+                ],
+                "skill_names": [
+                    "分析官能团引入与保护"
+                ]
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_xzxbx3_ch3_s5_t66",
+            "stem": "CH2CH2+ 2NaOH CH2CH2+ 2NaCl Cl Cl OH OH\n催化剂 4. CH2CH2+2O2 HO-C-C-OH+2HO OH OH  \n催化剂 5.HO—C—C—OH+2CH3CH2OH C2H5O—C—C—OC2H5+2HO\n\n当通过以上方法得到了几条不同的合成路线后，还需要综合多方面因素进行选择，合理规划方案。如合成步骤较少，副反应少，反应产率高；原料、溶剂和催化剂尽可能价廉易得、低毒；反应条件温和，操作简便，产物易于分离提纯；污染排放少；等等。在进行有机合成时，要贯彻“绿色化学”理念，选择最佳合成路线，以较低的经济成本和环境代价得到目标产物。",
+            "answer": "选择合成路线需综合考虑：合成步骤尽量少、副反应少、产率高；原料/溶剂/催化剂价廉易得且低毒；反应条件温和、操作简便；产物易分离提纯；污染物排放少。贯彻“绿色化学”理念，选择经济成本和环境代价更低的最佳路线。",
+            "analysis": "题干给出多条可能的合成路线，并提示应从效率（步骤、产率、副反应）、成本与安全（原料溶剂催化剂的价格、可得性、毒性）、操作条件（温和、简便）、后处理（分离提纯难易）以及环保（排放少）等方面评价，最终选出符合绿色化学的最优路线。",
+            "difficulty": 2,
+            "type": "简答题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_xzxbx3",
+                "source_md": "ch3_s5.md",
+                "question_no_in_source": 3,
+                "global_no": 58
+            },
+            "links": {
+                "concept_names": [
+                    "有机合成",
+                    "有机合成路线"
+                ],
+                "skill_names": [
+                    "有机合成路线设计"
+                ]
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_xzxbx3_ch3_s5_t67",
+            "stem": "写出以2-丁烯为原料制备下列物质反应的化学方程式，并分析反应过程中官能团的转化，体会卤代烃在有机合成中的作用。\n\n(1)2-氯丁烷\n\n(2)2-丁醇\n\n(3)2,3-二氯丁烷\n\n(4)2,3-丁二醇",
+            "answer": "(1) CH3CH=CHCH3 + HCl → CH3CH(Cl)CH2CH3（2-氯丁烷）\n(2) CH3CH=CHCH3 + H2O  —H+→  CH3CH(OH)CH2CH3（2-丁醇）\n(3) CH3CH=CHCH3 + Cl2 → CH3CHClCHClCH3（2,3-二氯丁烷）\n(4) CH3CH=CHCH3 + H2O + [O]  —冷稀KMnO4→  CH3CH(OH)CH(OH)CH3（2,3-丁二醇）",
+            "analysis": "起始物2-丁烯含有C=C双键，主要发生加成反应实现官能团转化：\n(1) 与HCl加成：双键断裂，分别加H和Cl，生成卤代烃（C=C → C–Cl）。\n(2) 酸催化水合：双键加H和OH，生成醇（C=C → C–OH）。\n(3) 与Cl2加成：双键两端各引入一个Cl，得邻二卤代烃（C=C → vic-二卤代）。\n(4) 温和氧化羟基化（如冷稀KMnO4）：双键两端各引入一个OH，得邻二醇（C=C → vic-二醇）。\n体会卤代烃作用：卤代烃可由烯烃方便引入（如(1)(3)），其中C–X键活泼，常作为有机合成中间体进一步发生取代/消去等反应（如卤代烃水解可转化为醇），便于构建多种含氧等官能团化合物。",
+            "difficulty": 3,
+            "type": "简答题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_xzxbx3",
+                "source_md": "ch3_s5.md",
+                "question_no_in_source": 1,
+                "global_no": 59
+            },
+            "links": {
+                "concept_names": [
+                    "有机合成",
+                    "官能团",
+                    "官能团引入",
+                    "官能团转化",
+                    "有机合成路线",
+                    "有机化学基本反应类型"
+                ],
+                "skill_names": [
+                    "有机合成路线设计",
+                    "分析官能团引入与保护"
+                ]
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_xzxbx3_ch3_s5_t68",
+            "stem": "2-氯-1,3-丁二烯是制备氯丁橡胶的原料。它比1,3-丁二烯多了一个氯原子，但由于碳碳双键上的氢原子较难发生取代反应，不能通过1,3-丁二烯直接与氯气反应制得。2-氯-1,3-丁二烯的某种逆合成分析思路可表示为：\n\n$$\n\\begin{array}{c c c c c} \\mathrm {C H} _ {2} = \\mathrm {C} - \\mathrm {C H} = \\mathrm {C H} _ {2} & \\text {①} & \\mathrm {C H} _ {2} - \\mathrm {C H} - \\mathrm {C H} = \\mathrm {C H} _ {2} & \\text {②} \\\\ \\mid & \\mid & \\mid & \\mid \\\\ \\mathrm {C l} & \\mathrm {C l} & \\mathrm {C l} & \\end{array} \\quad \\mathrm {C H} _ {2} = \\mathrm {C H} - \\mathrm {C H} = \\mathrm {C H} _ {2}\n$$\n\n请你根据以上逆合成分析完成合成路线，并指出各步反应的类型。",
+            "answer": "合成路线：\nCH2=CH–CH=CH2  —(② Cl2，加成)→  CH2=CH–CHCl–CH2Cl(3,4-二氯-1-丁烯)  —(① 醇KOH/NaOH，加热，消去HCl)→  CH2=C(Cl)–CH=CH2(2-氯-1,3-丁二烯)\n\n反应类型：②为卤素对共轭二烯的加成反应（电加成，生成二氯代物）；①为脱卤化氢消去反应（β-消去，E2）。",
+            "analysis": "根据逆合成：目标物为烯基氯化物，不能由丁二烯直接发生取代得到，需先把Cl引入饱和碳上再消去形成双键。\n②：对1,3-丁二烯进行Cl2加成，可得到含相邻(或1,4-)二氯代的加成产物；选用CH2=CH–CHCl–CH2Cl作为中间体。\n①：中间体在碱性条件下发生β-消去，脱去一分子HCl，在原单键处形成新的C=C，同时保留一个Cl在双键碳上，得到CH2=C(Cl)–CH=CH2(氯丁二烯)。",
+            "difficulty": 4,
+            "type": "简答题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_xzxbx3",
+                "source_md": "ch3_s5.md",
+                "question_no_in_source": 2,
+                "global_no": 60
+            },
+            "links": {
+                "concept_names": [
+                    "有机合成",
+                    "官能团引入",
+                    "官能团转化",
+                    "有机合成路线",
+                    "中间体",
+                    "目标分子/目标化合物",
+                    "有机化学基本反应类型",
+                    "共轭二烯烃"
+                ],
+                "skill_names": [
+                    "有机合成路线设计",
+                    "分析官能团引入与保护"
+                ]
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_xzxbx3_ch3_s5_t69",
+            "stem": "1,4- 环己二醇是生产某些液晶材料和药物的原料，可通过以下路线合成：\n\n请写出各步反应的化学方程式，并指出其反应类型；分析以上合成路线中官能团的转化过程。（提示：反应⑤利用了1,3-环己二烯与 $\\mathrm{Br}_{2}$ 的1,4-加成反应。）",
+            "answer": "题干未给出“以下路线合成”中各步(①～⑤等)的具体反应物/产物结构与反应条件，无法完整写出“各步反应”的化学方程式与反应类型。根据提示仅能确定：反应⑤为1,3-环己二烯与Br2发生1,4-加成：C6H8(1,3-环己二烯)+Br2→C6H8Br2(1,4-二溴环己-2-烯)。其反应类型为加成反应(共轭二烯的1,4-加成)。官能团转化可概括为：共轭C=C加成引入C—Br官能团，后续通常可通过亲核取代(水解/醇解)将C—Br转化为C—OH，再通过加氢将残余C=C转化为C—C，得到1,4-环己二醇。",
+            "analysis": "由于合成路线图缺失，无法逐步对应①～④的方程式；但从目标产物1,4-环己二醇及“⑤为1,4-加成”可推知路线核心思路是：先利用共轭二烯的1,4-加成在1,4-位引入可转化的离去基(Br)，再经取代生成二醇(—OH)，最后(如有未饱和键)再加氢饱和化。",
+            "difficulty": 4,
+            "type": "简答题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_xzxbx3",
+                "source_md": "ch3_s5.md",
+                "question_no_in_source": 3,
+                "global_no": 61
+            },
+            "links": {
+                "concept_names": [
+                    "有机合成路线",
+                    "有机合成",
+                    "有机化学基本反应类型",
+                    "官能团",
+                    "官能团转化",
+                    "共轭二烯烃"
+                ],
+                "skill_names": [
+                    "有机合成路线设计",
+                    "分析官能团引入与保护"
+                ]
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_xzxbx3_ch3_s5_t70",
+            "stem": "1,4-二氧杂环己烷（又称1,4-二氧六环或1,4-二噁烷， $\\left\\langle \\begin{array}{c}\\mathrm{O}\\\\ \\mathrm{O}\\end{array} \\right\\rangle$ ）是一种常用的溶剂，在医药、化妆品、香料等精细化学品的生产中有广泛应用。请以乙烯为基础原料，使用逆合成分析法设计它的合成路线。（提示：参考乙醇分子间脱水生成乙醚的反应。）",
+            "answer": "逆合成：1,4-二噁烷 ⇐（分子内脱水成环）二甘醇 HO–CH2CH2–O–CH2CH2–OH ⇐（环氧乙烷开环加成）环氧乙烷 + 乙二醇 ⇐（乙烯环氧化/水合）乙烯 → 环氧乙烷 → 乙二醇。\n正向合成路线（以乙烯为原料）：\n① 乙烯 CH2=CH2 在Ag催化下与O2环氧化生成环氧乙烷；\n② 环氧乙烷水合生成乙二醇 HO–CH2CH2–OH；\n③ 乙二醇作亲核试剂开环加成环氧乙烷生成二甘醇 HO–CH2CH2–O–CH2CH2–OH；\n④ 二甘醇在酸催化下分子内脱水成环（类似乙醇分子间脱水成乙醚）生成1,4-二噁烷。",
+            "analysis": "按逆合成思路先“断环”：1,4-二噁烷可看作二甘醇发生分子内脱水（形成一个新的C–O键并脱去H2O）得到的六元含两个氧的环，类比“乙醇分子间脱水生成乙醚”。\n再追溯二甘醇来源：二甘醇可由环氧乙烷被乙二醇开环进攻生成（工业上也可看作环氧乙烷的逐步聚合到二聚体）。\n乙二醇由环氧乙烷水合得到；环氧乙烷由乙烯在银催化下选择性氧化（环氧化）得到。故合成主线：乙烯→环氧乙烷→乙二醇/二甘醇→酸催化环化脱水→1,4-二噁烷。",
+            "difficulty": 4,
+            "type": "应用题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_xzxbx3",
+                "source_md": "ch3_s5.md",
+                "question_no_in_source": 4,
+                "global_no": 62
+            },
+            "links": {
+                "concept_names": [
+                    "有机合成",
+                    "有机合成路线",
+                    "成环反应",
+                    "官能团转化",
+                    "官能团引入"
+                ],
+                "skill_names": [
+                    "有机合成路线设计",
+                    "分析碳骨架变化",
+                    "分析官能团引入与保护"
+                ]
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_xzxbx3_ch3_s5_t71",
+            "stem": "苯甲酸苯甲酯（）是一种有水果香气的食品香料。请以甲苯为基础原料，使用逆合成分析法设计它的合成路线。",
+            "answer": "逆合成：苯甲酸苯甲酯(PhCOOCH2Ph) ← 苯甲酸(PhCOOH) + 苄醇(PhCH2OH)（酯化/酰氯化后酯化）。\n正向合成（以甲苯为原料，分两路制备两种片段）：\n(1) 甲苯 PhCH3 →（KMnO4/△，酸化）→ 苯甲酸 PhCOOH。\n(2) 甲苯 PhCH3 →（Cl2/hν，侧链取代）→ 苄氯 PhCH2Cl →（NaOH(aq)）→ 苄醇 PhCH2OH。\n(3) 苯甲酸 + 苄醇 →（浓H2SO4，加热回流，脱水）→ 苯甲酸苯甲酯 PhCOOCH2Ph。\n（或：苯甲酸 →（SOCl2）苯甲酰氯，再与苄醇酯化生成目标产物。）",
+            "analysis": "目标物是酯，逆合成先断开酯键得到“酸+醇”：PhCOOCH2Ph → PhCOOH 与 PhCH2OH。两者都可由甲苯通过侧链官能团转化获得：甲苯强氧化可把—CH3全部氧化为—COOH生成苯甲酸；另一份甲苯进行光照氯化发生侧链自由基取代得到苄氯，再水解得苄醇。最后用酸催化酯化（或先把酸变成更活泼的酰氯）与苄醇缩合生成苯甲酸苯甲酯。",
+            "difficulty": 4,
+            "type": "简答题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_xzxbx3",
+                "source_md": "ch3_s5.md",
+                "question_no_in_source": 5,
+                "global_no": 63
+            },
+            "links": {
+                "concept_names": [
+                    "有机合成",
+                    "官能团",
+                    "官能团引入",
+                    "官能团转化",
+                    "有机合成路线",
+                    "中间体",
+                    "目标分子/目标化合物"
+                ],
+                "skill_names": [
+                    "有机合成路线设计",
+                    "分析官能团引入与保护"
+                ]
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_xzxbx3_ch3_s5_t72",
+            "stem": "乙烯是有机化工生产中重要的基础原料，请以乙烯为基本原料合成正丁醇（ $\\mathrm{CH}_3\\mathrm{CH}_2\\mathrm{CH}_2\\mathrm{CH}_2\\mathrm{OH}$ ），写出有关反应的化学方程式。\n\n已知：",
+            "answer": "① 2CH2=CH2  —(催化剂)→  CH3CH2CH=CH2（1-丁烯）\n② CH3CH2CH=CH2 + HBr  —(过氧化物)→  CH3CH2CH2CH2Br（1-溴丁烷）\n③ CH3CH2CH2CH2Br + NaOH(aq) → CH3CH2CH2CH2OH + NaBr",
+            "analysis": "由乙烯合成正丁醇需先“碳链增长”再引入—OH。可先将乙烯二聚得到1-丁烯；再利用过氧化物存在下HBr对1-丁烯发生反马氏加成生成1-溴丁烷；最后用NaOH水溶液水解（亲核取代）把Br替换成OH，得到正丁醇。",
+            "difficulty": 4,
+            "type": "简答题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_xzxbx3",
+                "source_md": "ch3_s5.md",
+                "question_no_in_source": 6,
+                "global_no": 64
+            },
+            "links": {
+                "concept_names": [
+                    "有机合成",
+                    "碳链增长",
+                    "官能团引入",
+                    "官能团转化",
+                    "有机合成路线",
+                    "有机化学基本反应类型"
+                ],
+                "skill_names": [
+                    "有机合成路线设计",
+                    "分析碳骨架变化"
+                ]
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_xzxbx3_ch3_s5_t73",
+            "stem": "氟他胺是一种抗肿瘤药，在实验室由芳香烃A制备氟他胺的合成路线如下所示：\n\n  \n氟他胺\n\n(1) 芳香烃A的名称是 , 反应③和④的反应类型分别是 、  \n(2) 请写出反应⑤的化学方程式。吡啶是一种有机碱, 请推测其在反应⑤中的作用。  \n(3) 对甲氧基乙酰苯胺 $\\left(\\mathrm{CH}_{3} \\mathrm{O}-\\rightleftharpoons \\left(\\rightleftharpoons \\mathrm{NHCOCH}_{3}$ ) 是合成染料和药物的中间体, 请写出由苯甲醚 $\\left(\\rightleftharpoons \\left(\\rightleftharpoons \\mathrm{OCH}_{3}\\right)$ 制备对甲氧基乙酰苯胺的合成路线 (其他试剂任选)。",
+            "answer": "（题干缺少“合成路线图/反应③④⑤的具体反应物与中间体结构”，因此（1）中芳香烃A名称及反应③④的反应类型无法据题干唯一确定。）\n(2) 若反应⑤为“芳香胺的酰化生成酰胺”（制氟他胺的常见末步），可写作：Ar–NH2 + (CH3)2CHCOCl → Ar–NHCOCH(CH3)2 + HCl（Ar表示带NO2、CF3等取代的芳环）。吡啶作用：作有机碱吸收/中和反应生成的HCl，促进酰化（亦可作溶剂/催化剂）。\n(3) 合成路线示例：苯甲醚(C6H5OCH3) —(浓HNO3/浓H2SO4，硝化，分离对位产物)→ 对硝基苯甲醚(p-O2N–C6H4–OCH3) —(Fe/HCl 或 H2/Pd-C，还原)→ 对氨基苯甲醚(p-H2N–C6H4–OCH3) —((CH3CO)2O 或 CH3COCl/吡啶，乙酰化)→ 对甲氧基乙酰苯胺(p-CH3O–C6H4–NHCOCH3)。",
+            "analysis": "本题属于有机合成路线分析：末步由“芳香胺→酰胺”通常为酰氯/酸酐与胺的酰化，副产HCl需用碱（如吡啶）捕获以推动反应；由苯甲醚制对甲氧基乙酰苯胺可用经典三步：对位定向硝化→硝基还原成胺→胺乙酰化成酰胺。由于题干未给出关键合成路线图，A及③④类型无法从文字唯一确定。",
+            "difficulty": 5,
+            "type": "应用题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_xzxbx3",
+                "source_md": "ch3_s5.md",
+                "question_no_in_source": 7,
+                "global_no": 65
+            },
+            "links": {
+                "concept_names": [
+                    "有机合成",
+                    "官能团",
+                    "官能团引入",
+                    "官能团转化",
+                    "有机合成路线",
+                    "有机化学基本反应类型"
+                ],
+                "skill_names": [
+                    "有机合成路线设计",
+                    "分析官能团引入与保护"
+                ]
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_xzxbx3_ch3_s_t74",
+            "stem": "下列各组混合物中，用分液漏斗不能分离的是（ ）。\n\nA. 甲苯和水\n\nB. 正己烷和水\n\nC. 乙酸乙酯和水\n\nD. 乙酸和乙醇",
+            "answer": "D",
+            "analysis": "分液漏斗用于分离互不相溶、能形成分层的液体混合物。甲苯/水、正己烷/水、乙酸乙酯/水均能形成两层（乙酸乙酯与水虽有一定互溶，但仍可分层），可用分液漏斗分离；乙酸与乙醇互溶，不分层，不能用分液漏斗分离。",
+            "difficulty": 2,
+            "type": "选择题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_xzxbx3",
+                "source_md": "ch3_s整理与提升.md",
+                "question_no_in_source": 1,
+                "global_no": 66
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_xzxbx3_ch3_s_t75",
+            "stem": "下列物质中，能与镁反应并生成氢气的是（ ）。\n\nA. 二氧化碳\n\nB. 乙酸溶液\n\nC. 乙烷\n\nD. 苯",
+            "answer": "B",
+            "analysis": "镁与酸反应可置换出氢气：Mg + 2CH3COOH → (CH3COO)2Mg + H2↑。乙酸溶液属于酸溶液，能与镁反应产生氢气；二氧化碳、乙烷、苯均不与镁发生生成氢气的反应。",
+            "difficulty": 1,
+            "type": "选择题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_xzxbx3",
+                "source_md": "ch3_s整理与提升.md",
+                "question_no_in_source": 2,
+                "global_no": 67
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_xzxbx3_ch3_s_t76",
+            "stem": "由羟基与下列基团组成的化合物中，属于醇类的是（ ）。\n\nA. $\\mathrm{C}_2\\mathrm{H}_5$ —\n\nB. $\\mathrm{CH}_{2}-$\n\nC. $\\mathrm{CH}_{3} - \\overleftarrow{\\langle \\rangle}$\n\nD. R—CO—",
+            "answer": "A",
+            "analysis": "醇类的结构特征是羟基（—OH）直接连接在饱和烃基（烷基）上，通式为R—OH。A中C2H5—为烷基，与—OH组成C2H5OH（乙醇），属于醇。B中—CH2—为二价基团，不能单独与—OH构成R—OH；C为芳香烃基，与—OH形成酚类；D为酰基R—CO—，与—OH形成羧酸R—COOH。",
+            "difficulty": 2,
+            "type": "选择题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_xzxbx3",
+                "source_md": "ch3_s整理与提升.md",
+                "question_no_in_source": 3,
+                "global_no": 68
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_xzxbx3_ch3_s_t77",
+            "stem": "下列物质不能用于杀菌消毒的是（ ）。\n\nA. 苯酚\n\nB. 乙醇\n\nC. 甲醛\n\nD. 乙酸乙酯",
+            "answer": "D",
+            "analysis": "苯酚、乙醇、甲醛均具有杀菌消毒作用（分别可作为酚类消毒剂、酒精消毒、甲醛熏蒸/消毒）。乙酸乙酯主要用作有机溶剂和香料成分，一般不用于杀菌消毒，因此选D。",
+            "difficulty": 2,
+            "type": "选择题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_xzxbx3",
+                "source_md": "ch3_s整理与提升.md",
+                "question_no_in_source": 4,
+                "global_no": 69
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_xzxbx3_ch3_s_t79",
+            "stem": "有机化合物 $\\mathrm{CH}_2\\mathrm{Cl}-\\mathrm{CH}_2-\\mathrm{CH}=\\mathrm{CH}-\\mathrm{CHO}$ 不可能发生的化学反应是（ ）。\n\nA. 水解反应\n\nB. 酯化反应\n\nC. 加成反应\n\nD. 氧化反应",
+            "answer": "B",
+            "analysis": "该有机物含有C–Cl键、C=C双键和醛基（–CHO）。C–Cl可发生水解取代生成醇；C=C和醛基均可发生加成反应；醛基易被氧化为羧酸，故可发生氧化反应。分子中不含–OH或–COOH，不能直接发生酯化反应，因此不可能发生的是酯化反应。",
+            "difficulty": 2,
+            "type": "选择题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_xzxbx3",
+                "source_md": "ch3_s整理与提升.md",
+                "question_no_in_source": 6,
+                "global_no": 70
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_xzxbx3_ch3_s_t80",
+            "stem": "下列事实不能用有机化合物分子中基团间的相互作用解释的是（ ）。\n\nA. 苯酚能与 $\\mathrm{NaOH}$ 溶液反应而乙醇不能  \nB. 苯在 $50 \\sim 60^{\\circ} \\mathrm{C}$ 时发生硝化反应而甲苯在 $30^{\\circ} \\mathrm{C}$ 时即可反应  \nC. 甲苯能使酸性 $\\mathrm{KMnO}_{4}$ 溶液褪色而甲烷不能  \nD. 乙烯能发生加成反应而乙烷不能",
+            "answer": "D",
+            "analysis": "A：苯酚中—OH与苯环共轭，负离子可被苯环离域稳定，酸性增强，能与NaOH反应；乙醇无此稳定作用，不能反应，属基团间相互作用解释。B：甲基对苯环有给电子作用（+I、超共轭），使甲苯比苯更易硝化、所需温度更低，属基团间相互作用解释。C：甲苯的苄位氢在氧化过程中可形成较稳定的苄基中间体（与苯环共振稳定有关），因此易被酸性KMnO4氧化褪色；甲烷无此结构特点，难被氧化，亦可用基团/结构相互作用解释。D：乙烯能加成而乙烷不能，根本原因是乙烯含C=C双键（有π键易断裂参与加成），乙烷只有C—C单键，属于键型差异而非“分子中基团间相互作用”。",
+            "difficulty": 3,
+            "type": "选择题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_xzxbx3",
+                "source_md": "ch3_s整理与提升.md",
+                "question_no_in_source": 7,
+                "global_no": 71
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_xzxbx3_ch3_s_t81",
+            "stem": "有机合成的主要任务之一是引入目标官能团。下列反应中, 能够在有机化合物碳链上引入羟基官能团的是 ( )。\n\nA. 烷烃在光照条件下与氯气反应  \nB. 卤代烃在氢氧化钠的乙醇溶液中加热反应  \nC. 醛在有催化剂并加热的条件下与氢气反应  \nD. 羧酸和醇在有浓硫酸并加热的条件下反应\n\nOH O 9.由有机化合物CH—C=CH2合成CH—C—C—H的合成路线中，不涉及的反应类型是（ ）\n\nA. 取代反应\n\nB. 加成反应\n\nC. 消去反应\n\nD. 氧化反应",
+            "answer": "第1题：C；第2题：C",
+            "analysis": "第1题：A为烷烃取代生成卤代烃；B为卤代烃在乙醇NaOH中发生消去生成烯烃；C为醛加氢还原生成醇，引入—OH；D为羧酸与醇酯化生成酯，不是在碳链上引入羟基。故选C。\n第2题：由含C=C的不饱和物合成含—OH与—CHO的产物，路线通常需要对C=C进行加成（引入官能团前体）、再通过取代把卤素等转为—OH，并通过氧化/还原调控得到醛基；不需要通过消去反应来实现目标官能团的引入。故不涉及的反应类型为消去反应，选C。",
+            "difficulty": 3,
+            "type": "选择题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_xzxbx3",
+                "source_md": "ch3_s整理与提升.md",
+                "question_no_in_source": 8,
+                "global_no": 72
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_xzxbx3_ch3_s_t82",
+            "stem": "比较下列有机化合物在水中溶解度的大小。\n\n$①$ 一OH\n\n$②$ $\\mathrm{CH}_3\\mathrm{CH}_2\\mathrm{OH}$\n\n$③ \\mathrm { C H } _ { 3 } \\mathrm { C H } _ { 2 } \\mathrm { C O O C H } _ { 3 }$",
+            "answer": "①＞②＞③",
+            "analysis": "水中溶解度与分子极性及能否与水形成氢键有关。①、②为醇，—OH可与水形成氢键，溶解度较大；且碳链越短疏水性越弱，溶解度越大，因此①（碳链更短）＞②。③为酯，虽有极性但不能像醇那样提供氢键且含较大疏水基团，溶解度最小。",
+            "difficulty": 2,
+            "type": "简答题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_xzxbx3",
+                "source_md": "ch3_s整理与提升.md",
+                "question_no_in_source": 10,
+                "global_no": 73
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_xzxbx3_ch3_s_t83",
+            "stem": "请用化学方法鉴别苯、乙醇、乙酸、甲酸溶液和苯酚溶液。写出鉴别方法和使用化学试剂的先后顺序，并写出有关反应的化学方程式。",
+            "answer": "鉴别顺序与方法：\n(1) 先加水(或取少量样品与水混合观察)：不互溶、分层者为苯；其余能与水互溶/为水溶液。\n(2) 对其余样品分别加入NaHCO3溶液：有气泡放出(CO2)者为乙酸或甲酸；无明显气泡者为乙醇或苯酚溶液。\n(3) 区分乙酸与甲酸：对(2)中放出CO2的两份溶液分别加入银氨溶液(Tollens试剂)并温热：出现银镜/黑色银者为甲酸；无反应者为乙酸。\n(4) 区分乙醇与苯酚：对(2)中不放出CO2的两份溶液分别滴加FeCl3溶液：显紫色(或蓝紫色)者为苯酚溶液；无明显颜色变化者为乙醇。\n有关反应方程式：\n① CH3COOH + NaHCO3 → CH3COONa + CO2↑ + H2O\n② HCOOH + NaHCO3 → HCOONa + CO2↑ + H2O\n③ HCOOH + 2[Ag(NH3)2]OH → 2Ag↓ + CO2↑ + 4NH3 + 2H2O\n④ FeCl3 + 3C6H5OH ⇌ Fe(OC6H5)3 + 3HCl(生成有色络合物，呈紫色)",
+            "analysis": "利用物理/化学差异分步排除：先用与水互溶性快速锁定苯(不互溶分层)；再用NaHCO3把羧酸(乙酸、甲酸)与非羧酸(乙醇、苯酚)分开(羧酸放CO2)；对两种羧酸用还原性鉴别(甲酸能还原银氨溶液生成Ag，乙酸不能)；最后用FeCl3与酚羟基形成有色络合物鉴别苯酚，剩下即乙醇。",
+            "difficulty": 4,
+            "type": "简答题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_xzxbx3",
+                "source_md": "ch3_s整理与提升.md",
+                "question_no_in_source": 11,
+                "global_no": 74
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_xzxbx3_ch3_s_t84",
+            "stem": "某有机化合物的分子式是 $\\mathrm{C}_{3} \\mathrm{H}_{4} \\mathrm{O}_{2}$ , 水溶液显酸性, 能与 $\\mathrm{Na}_{2} \\mathrm{CO}_{3}$ 溶液反应, 又能使溴水褪色。请写出这种有机化合物的结构简式。",
+            "answer": "CH2=CH-COOH（丙烯酸）",
+            "analysis": "分子式C3H4O2且水溶液显酸性、能与Na2CO3反应，说明含有—COOH（羧酸）。又能使溴水褪色，说明分子中含有C=C双键。满足C3H4O2且含羧基与碳碳双键的结构为CH2=CH-COOH（丙烯酸）。",
+            "difficulty": 3,
+            "type": "填空题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_xzxbx3",
+                "source_md": "ch3_s整理与提升.md",
+                "question_no_in_source": 12,
+                "global_no": 75
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_xzxbx3_ch3_s_t85",
+            "stem": "我国传统酿醋工艺主要包括以下过程: ① “蒸” ——将大米、高粱、小米等原料蒸熟后放至冷却; ② “酵” ——拌曲入坛发酵, 使淀粉经糖化发酵生成乙醇, 然后在醋酸菌的作用下生成乙酸; ③ “沥” ——除去醋坛底层的糟, 此时可以闻到酒和醋混合在一起的香味; ④ “陈” ——将醋陈放 $1 \\sim 3$ 年, 以增强其风味, 在此过程中乙酸与乙醇缓慢地发生反应生成一种具有果香味的有机化合物。\n\n（1）请写出上述过程中涉及主要反应的化学方程式。  \n(2) 目前在市场上, 除了酿造食醋外, 还有使用食用乙酸等混合配制而成的酸性调味液 (曾被称为配制食醋)。请对市场上出售的相关产品进行调查, 并查阅资料, 了解二者在生产工艺和成分上有何异同, 分析它们在风味上有所区别的原因。",
+            "answer": "（1）主要反应方程式：\n① 淀粉糖化： (C6H10O5)n + nH2O → nC6H12O6\n② 酒精发酵： C6H12O6 → 2C2H5OH + 2CO2\n③ 乙醇氧化成乙酸（醋酸发酵）： C2H5OH + O2 → CH3COOH + H2O\n④ 陈酿过程中乙酸与乙醇生成果香物质（酯化）： CH3COOH + C2H5OH ⇌ CH3COOC2H5 + H2O（生成乙酸乙酯）\n\n（2）酿造食醋与以食用乙酸配制的酸性调味液的异同与风味原因：\n相同点：都以乙酸提供酸味、均为酸性调味品。\n不同点：\n- 工艺：酿造食醋经历原料糖化→酒精发酵→醋酸发酵→陈酿；配制酸性调味液一般以食用乙酸（冰醋酸稀释）为主体，按比例加入水、盐、糖、香辛料或香精等调配，通常不经历完整发酵与长期陈酿。\n- 成分：酿造食醋除乙酸外，还含有多种有机酸（乳酸、琥珀酸等）、酯类（如乙酸乙酯）、醇、醛/酮、氨基酸、糖类及色素等风味物质；配制产品成分相对单一，主要为乙酸（及可能的添加剂），复杂发酵副产物含量较少。\n风味差异原因：酿造与陈酿产生并积累多种挥发性与非挥发性风味物质（尤其酯类带来果香、氨基酸/还原糖等带来醇厚感），香气更丰富、口感更柔和；配制产品以乙酸刺激性酸味为主，层次较少，整体风味相对单薄。",
+            "analysis": "（1）按工艺链条依次确定反应：淀粉先在曲中酶作用下水解成葡萄糖；葡萄糖在酵母作用下无氧发酵生成乙醇和CO2；乙醇在醋酸菌作用下被O2氧化为乙酸；陈酿时乙酸与乙醇发生可逆酯化生成有果香的乙酸乙酯。\n（2）比较思路：从“是否经历微生物发酵与陈酿”入手归纳工艺差异，再据此推出成分差异（发酵副产物与陈化生成物），最后用风味物质的种类与含量解释口感和香气层次的不同。",
+            "difficulty": 4,
+            "type": "应用题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_xzxbx3",
+                "source_md": "ch3_s整理与提升.md",
+                "question_no_in_source": 13,
+                "global_no": 76
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_xzxbx3_ch3_s_t86",
+            "stem": "硝酸甘油（三硝酸甘油酯）是临床上常用的治疗心绞痛的药物。该药可以丙醇为原料合成，其合成步骤如下：\n\n1-丙醇 $\\xrightarrow{1}$ 丙烯 $\\xrightarrow{2}$ $\\xrightarrow{3}$ 1,2,3-三氯丙烷（ $\\mathrm{ClCH_2CHClCH_2Cl}$ ） $\\xrightarrow{4}$ $\\xrightarrow{5}$ 三硝酸甘油酯（提示： $\\mathrm{CH_2 = CHCH_3 + Cl_2\\xrightarrow{500°C}CH_2 = CHCH_2Cl + HCl}$ ）\n\n（1）请写出反应 $②④$ 的产物  \n（2）写出 $① \\sim ⑤$ 各步变化的化学方程式  \n(3) 如果在制取丙烯时所用的 1-丙醇中混有 2-丙醇, 对所制丙烯的纯度有何影响? 请简要说明理由。",
+            "answer": "（1）②：CH2=CHCH2Cl（烯丙基氯/3-氯丙烯）；④：HOCH2CH(OH)CH2OH（甘油/丙三醇）。\n（2）① CH3CH2CH2OH  —(浓H2SO4,加热)→  CH2=CHCH3 + H2O\n② CH2=CHCH3 + Cl2  —(500℃)→  CH2=CHCH2Cl + HCl\n③ CH2=CHCH2Cl + Cl2 → ClCH2CHClCH2Cl\n④ ClCH2CHClCH2Cl + 3NaOH(aq) → HOCH2CH(OH)CH2OH + 3NaCl\n⑤ HOCH2CH(OH)CH2OH + 3HNO3 —(浓H2SO4)→ C3H5(ONO2)3（三硝酸甘油酯）+ 3H2O\n（3）对丙烯纯度基本无影响：2-丙醇在脱水条件下也生成丙烯（产物相同），因此不会引入新的烯烃杂质；只是可能影响丙烯产量。",
+            "analysis": "路线判断：①为醇脱水得丙烯；题干提示给出丙烯与Cl2在500℃发生取代生成烯丙基氯，因此②产物为CH2=CHCH2Cl；③再与Cl2对双键加成得到1,2,3-三氯丙烷；④三氯代烃用NaOH(aq)水解三次取代生成丙三醇；⑤丙三醇与硝酸（浓硫酸作催化/吸水剂）酯化生成三硝酸甘油酯。杂醇问题：1-丙醇和2-丙醇脱水均生成同一丙烯，故纯度不变。",
+            "difficulty": 4,
+            "type": "简答题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_xzxbx3",
+                "source_md": "ch3_s整理与提升.md",
+                "question_no_in_source": 14,
+                "global_no": 77
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_xzxbx3_ch3_s_t89",
+            "stem": "某种具有菠萝气味的香料M是有机化合物A与苯氧乙酸发生酯化反应的产物。苯氧乙酸的结构可表示为:\n\n（1）有机化合物A中一定含有的官能团的名称是  \n(2) $5.8 \\mathrm{~g} \\mathrm{~A}$ 完全燃烧可产生 $0.3 \\mathrm{~mol} \\mathrm{CO}_{2}$ 和 $0.3 \\mathrm{~mol} \\mathrm{H}_{2} \\mathrm{O}$ , $\\mathrm{A}$ 的蒸气对氢气的相对密度是 29, $\\mathrm{A}$ 分子中不含甲基, 且为链状结构, 其结构简式是  \n(3) 苯氧乙酸有多种属于酯类的同分异构体, 请写出能与 $\\mathrm{FeCl}_{3}$ 溶液发生显色反应, 且苯环上有两种一硝基取代物的同分异构体的结构简式。  \n（4）已知：\n\nM的合成路线如下：\n\n① 试剂X可选用________（填字母）。\n\na. $\\mathrm{CH}_3\\mathrm{COONa}$ 溶液\n\nb. NaOH溶液\n\nc. $\\mathrm{NaHCO}_3$ 溶液\n\nd. $\\mathrm{Na}_2\\mathrm{CO}_3$ 溶液\n\n(2) C 的结构简式是 , 由 B 生成 C 的反应类型是  \n(3) 请写出由苯氧乙酸生成M的化学方程式。",
+            "answer": "（1）羟基（—OH）\n（2）CH2=CH—CH2OH\n（3）对羟基苯乙酸酯：p-HO—C6H4—O—COCH3\n（4）① b\n② C：C6H5O—CH2—COONa；反应类型：取代反应（亲核取代/威廉姆逊醚化）\n③ C6H5OCH2COOH + HOCH2CH=CH2 ⇌ C6H5OCH2COOCH2CH=CH2 + H2O（浓H2SO4，加热）",
+            "analysis": "（1）与羧酸发生酯化反应需要醇，故A必含—OH。\n（2）由燃烧数据：n(C)=0.3 mol，n(H)=2×0.3=0.6 mol；m(O)=5.8-3.6-0.6=1.6 g→n(O)=0.1 mol，得最简式C3H6O。相对密度D(H2)=29→M=58，与C3H6O相符。又“不含甲基、链状且含—OH”，故为烯丙醇CH2=CH—CH2OH。\n（3）要与FeCl3显色需酚羟基；且苯环上只有两类位置可发生一硝基取代，需对位二取代（具对称性），满足分子式C8H8O3的酯可写为p-HO—C6H4—O—COCH3。\n（4）X用于生成苯氧负离子选NaOH；B(苯氧钠)与卤代乙酸盐发生SN2生成C(苯氧乙酸钠)；苯氧乙酸与A酯化生成M并放出H2O。",
+            "difficulty": 4,
+            "type": "填空题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_xzxbx3",
+                "source_md": "ch3_s整理与提升.md",
+                "question_no_in_source": 17,
+                "global_no": 78
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_xzxbx3_ch4_s1_t90",
+            "stem": "下列有关糖类的叙述正确的是（ ）。\n\nA. 糖类都具有甜味   \nB. 糖类都含有羰基, 对氢氧化铜等弱氧化剂表现出还原性  \nC. 糖类的组成都符合 $\\mathrm{C}_{m}(\\mathrm{H}_{2} \\mathrm{O})_{n}$ 的通式  \nD. 糖类是多羟基醛、多羟基酮和它们的脱水缩合物",
+            "answer": "D",
+            "analysis": "A错误：淀粉、纤维素等多糖没有甜味；B错误：并非所有糖类都含游离羰基且具有还原性，如蔗糖为非还原糖；C错误：糖类不一定都符合Cm(H2O)n通式，如脱氧核糖C5H10O4不满足；D正确：糖类本质上是多羟基醛、多羟基酮及其脱水缩合物（如二糖、多糖）。",
+            "difficulty": 3,
+            "type": "选择题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_xzxbx3",
+                "source_md": "ch4_s1.md",
+                "question_no_in_source": 1,
+                "global_no": 79
+            },
+            "links": {
+                "concept_names": [
+                    "糖类",
+                    "多羟基醛、多羟基酮及脱水缩合物"
+                ]
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_xzxbx3_ch4_s1_t91",
+            "stem": "下列关于淀粉和纤维素的叙述错误的是（ ）。\n\nA. 都能发生水解反应  \nB. 基本结构单元相同  \nC. 互为同分异构体  \nD. 都是天然高分子",
+            "answer": "C",
+            "analysis": "淀粉和纤维素都是由葡萄糖脱水缩合形成的天然高分子，故基本结构单元相同（B对），也都能在酸或酶作用下发生水解（A对），且都属于天然高分子（D对）。同分异构体要求分子式必须确定且相同，而淀粉、纤维素属于高分子物质，聚合度n不固定，通常不严格称为互为同分异构体，因此C错误。",
+            "difficulty": 2,
+            "type": "选择题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_xzxbx3",
+                "source_md": "ch4_s1.md",
+                "question_no_in_source": 2,
+                "global_no": 80
+            },
+            "links": {
+                "concept_names": [
+                    "淀粉",
+                    "纤维素",
+                    "多糖",
+                    "淀粉和纤维素的高分子性质"
+                ]
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_xzxbx3_ch4_s1_t92",
+            "stem": "下列物质在一定条件下既能发生水解反应，又能发生银镜反应的是（ ）。\n\nA. 蔗糖   \nB. 葡萄糖   \nC. 乙酸乙酯  \nD. 麦芽糖",
+            "answer": "D",
+            "analysis": "题意要求“既能水解又能银镜反应”。\nA 蔗糖：可水解为葡萄糖和果糖，但本身为非还原性糖，不能发生银镜反应。\nB 葡萄糖：为单糖，不能再水解，但能发生银镜反应。\nC 乙酸乙酯：能水解（酸/碱性条件），但不发生银镜反应。\nD 麦芽糖：为二糖，可水解生成葡萄糖；且为还原性糖，含有游离半缩醛羟基，能发生银镜反应。故选D。",
+            "difficulty": 3,
+            "type": "选择题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_xzxbx3",
+                "source_md": "ch4_s1.md",
+                "question_no_in_source": 3,
+                "global_no": 81
+            },
+            "links": {
+                "concept_names": [
+                    "二糖",
+                    "麦芽糖",
+                    "还原糖"
+                ],
+                "skill_names": [
+                    "根据水解产物对糖类进行分类",
+                    "利用弱氧化剂检验糖类还原性"
+                ]
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_xzxbx3_ch4_s1_t93",
+            "stem": "能证明淀粉已完全水解的现象是（ ）。\n\nA. 能发生银镜反应  \nB. 能溶于水  \nC. 有甜味  \nD. 遇碘不再变蓝",
+            "answer": "D",
+            "analysis": "检验淀粉是否还存在常用碘液：淀粉遇碘变蓝。若淀粉已完全水解，体系中不再含淀粉，加入碘液不再出现蓝色，因此选D。",
+            "difficulty": 2,
+            "type": "选择题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_xzxbx3",
+                "source_md": "ch4_s1.md",
+                "question_no_in_source": 4,
+                "global_no": 82
+            },
+            "links": {
+                "concept_names": [
+                    "淀粉",
+                    "淀粉与碘显色反应"
+                ],
+                "skill_names": [
+                    "利用显色反应检验淀粉"
+                ]
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_xzxbx3_ch4_s1_t94",
+            "stem": "根据核糖和脱氧核糖的结构式，推测其可能发生的反应：________（填序号）。\n\n①氧化反应\n\n②还原反应\n\n③酯化反应\n\n④水解反应\n\n(5)加成反应\n\n(6)中和反应",
+            "answer": "①②③⑤",
+            "analysis": "核糖、脱氧核糖为含醛基（—CHO）和多个羟基（—OH）的多元醇：醛基可发生氧化反应(①)和还原反应(②)，也可与某些试剂发生加成反应(⑤)；羟基可与酸发生酯化反应(③)。单糖本身一般不发生水解(④)；分子中无明显酸性/碱性基团，不属于中和反应(⑥)。",
+            "difficulty": 3,
+            "type": "填空题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_xzxbx3",
+                "source_md": "ch4_s1.md",
+                "question_no_in_source": 5,
+                "global_no": 83
+            },
+            "links": {
+                "concept_names": [
+                    "核糖",
+                    "脱氧核糖",
+                    "糖类的酯化反应"
+                ],
+                "skill_names": [
+                    "从分子结构判断是否为糖类"
+                ]
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_xzxbx3_ch4_s1_t95",
+            "stem": "某工厂用 $10 \\mathrm{t}$ 含淀粉质量分数为 $50 \\%$ 的薯干生产乙醇，在发酵过程中有 $80 \\%$ 的淀粉转化为乙醇，可生产多少质量分数为 $95 \\%$ 的乙醇？",
+            "answer": "可生产约2.39 t（质量分数95%）的乙醇。",
+            "analysis": "薯干10 t中淀粉质量=10×50%=5 t；发酵中转化为乙醇的淀粉=5×80%=4 t。设淀粉的基本单元为(C6H10O5)，则(C6H10O5)+H2O→2C2H5OH+2CO2，162 g淀粉生成92 g乙醇，故生成纯乙醇质量=4×(92/162)=2.2716 t。制得95%乙醇溶液的质量=2.2716/0.95=2.3912 t≈2.39 t。",
+            "difficulty": 3,
+            "type": "应用题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_xzxbx3",
+                "source_md": "ch4_s1.md",
+                "question_no_in_source": 6,
+                "global_no": 84
+            },
+            "links": {
+                "concept_names": [
+                    "淀粉"
+                ]
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_xzxbx3_ch4_s1_t96",
+            "stem": "淀粉水解可产生某有机化合物A，A在不同的氧化剂作用下，可以生成B（ $\\mathrm{C_6H_{12}O_7}$ ）或C（ $\\mathrm{C_6H_{10}O_8}$ ），B和C都不能发生银镜反应。A、B、C都可以被强还原剂还原为D（ $\\mathrm{C_6H_{14}O_6}$ ）。B脱水可得到具有五元环状结构的酯E或具有六元环状结构的酯F。已知以下几类有机化合物被氧化的容易程度： $\\mathrm{RCHO} > \\mathrm{R}-\\mathrm{CH}_2\\mathrm{OH} > \\mathrm{R}-\\mathrm{CH}-\\mathrm{OH}$ 。请写出A~F的结构简式。",
+            "answer": "A：CHO-(CHOH)4-CH2OH（葡萄糖，开链式）\nB：HOOC-(CHOH)4-CH2OH（葡糖酸）\nC：HOOC-(CHOH)4-COOH（葡糖二酸/黏酸）\nD：HOCH2-(CHOH)4-CH2OH（山梨醇/葡萄糖醇）\nE：O=C1OC(C(O)CO)C(O)C(O)C1O（B分子内脱水生成1,4-内酯，五元环）\nF：O=C1OC(CO)C(O)C(O)C(O)C1O（B分子内脱水生成1,5-内酯，六元环）",
+            "analysis": "淀粉水解产物为葡萄糖A（C6H12O6，含醛基）。按氧化难易：醛基最易被氧化，因此A在温和氧化剂下醛基→羧基得一元酸B（C6H12O7，葡糖酸），在更强氧化剂下末端—CH2OH也进一步被氧化为—COOH，得二元酸C（C6H10O8，葡糖二酸）。B、C均无醛基，故不能银镜反应。A、B、C在强还原剂作用下，醛基/羧基均可还原为伯醇，均生成同一六元醇D（C6H14O6，山梨醇）。B分子内脱水（羧基与分子内羟基成酯）可形成不同环大小的内酯：与C4-OH成酯为1,4-内酯（五元环）E；与C5-OH成酯为1,5-内酯（六元环）F。",
+            "difficulty": 4,
+            "type": "简答题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_xzxbx3",
+                "source_md": "ch4_s1.md",
+                "question_no_in_source": 7,
+                "global_no": 85
+            },
+            "links": {
+                "concept_names": [
+                    "淀粉",
+                    "葡萄糖",
+                    "单糖",
+                    "还原糖",
+                    "醛糖",
+                    "葡萄糖的环状结构",
+                    "糖类的酯化反应"
+                ],
+                "skill_names": [
+                    "利用弱氧化剂检验糖类还原性",
+                    "根据水解产物对糖类进行分类"
+                ]
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_xzxbx3_ch4_s1_t97",
+            "stem": "有人认为“无蔗糖食品”就是“无糖食品”；还有人认为“无蔗糖食品”所使用的甜味剂虽然自身所提供的能量较少，但是甜味剂的使用仍会刺激食欲，导致能量摄入增多。请对市场上出售的这类食品进行调查，了解其配料和营养成分，对上述观点进行评价。",
+            "answer": "评价要点：①“无蔗糖”不等于“无糖”。无蔗糖仅表示未添加蔗糖，仍可能含葡萄糖、果糖、麦芽糖、乳糖、淀粉水解物（麦芽糊精、葡萄糖浆等）或天然含糖原料（水果等），因此不一定低糖/低能量；是否“无糖”应以营养成分表中糖含量（及相关标示标准）为依据。②含甜味剂食品能量未必为零：甜味剂（如阿斯巴甜、三氯蔗糖、安赛蜜、甜菊糖苷、赤藓糖醇等）本身供能很低或接近0，但产品总能量还取决于是否含淀粉、脂肪等；应查看每100g/份的能量、碳水化合物和糖。③“甜味剂会刺激食欲导致能量摄入增多”结论不能一概而论：部分人可能因心理补偿、口味偏好或搭配进食导致总体摄入增加，但也有研究显示以甜味剂替代糖可降低能量摄入；关键在于个人饮食行为与总能量控制。④调查结论示例：若配料中出现麦芽糊精/糖浆/果汁浓缩液等且营养成分表碳水或糖较高，则“无蔗糖=无糖”观点错误；是否更易增重需结合该食品能量与实际食用量判断。建议消费者以营养成分表为准，优先比较能量与碳水/糖含量并控制食用量，糖尿病人需关注总碳水而非仅看“无蔗糖”字样。",
+            "analysis": "解题思路：1) 明确概念：区分“无蔗糖/未添加蔗糖”与“无糖/低糖”（以标签标准与营养成分表糖含量判定）。2) 设计调查：选取多种“无蔗糖”食品（饮料、饼干、酸奶等），记录配料表中是否含其他糖/糖浆/淀粉类；抄录营养成分表每100g(ml)能量、碳水化合物、糖、脂肪。3) 对比分析：判断是否仍含糖或高碳水，从而评价“无蔗糖就是无糖”的正误；再结合能量与主要供能营养素来源，判断是否真正低能量。4) 评价第二观点：说明甜味剂供能低但产品总能量取决于其他配料；食欲影响存在个体差异与行为补偿，不能绝对化，最终以总能量摄入与实际食用量为依据提出建议。",
+            "difficulty": 4,
+            "type": "应用题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_xzxbx3",
+                "source_md": "ch4_s1.md",
+                "question_no_in_source": 8,
+                "global_no": 86
+            },
+            "links": {
+                "concept_names": [
+                    "蔗糖",
+                    "甜味剂",
+                    "糖类的能量功能",
+                    "碳水化合物",
+                    "糖类"
+                ]
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_xzxbx3_ch4_s3_t98",
+            "stem": "核酸是由________单体形成的生物大分子，其单体水解可得到核苷和________。核苷进一步水解得到________和________。天然的核酸根据其组成中戊糖的不同，分为________和________。",
+            "answer": "核苷酸；磷酸；含氮碱基；戊糖；脱氧核糖核酸（DNA）；核糖核酸（RNA）",
+            "analysis": "核酸的基本组成单位是核苷酸。核苷酸水解可去除磷酸基团，得到核苷和磷酸；核苷进一步水解可分解为含氮碱基和戊糖。根据所含戊糖不同，天然核酸分为含脱氧核糖的DNA和含核糖的RNA。",
+            "difficulty": 2,
+            "type": "填空题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_xzxbx3",
+                "source_md": "ch4_s3.md",
+                "question_no_in_source": 1,
+                "global_no": 87
+            },
+            "links": {
+                "concept_names": [
+                    "核酸的组成",
+                    "核苷酸",
+                    "核酸水解",
+                    "核苷",
+                    "磷酸",
+                    "戊糖",
+                    "碱基",
+                    "脱氧核糖核酸（DNA）",
+                    "核糖核酸（RNA）"
+                ]
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_xzxbx3_ch4_s3_t99",
+            "stem": "结合图4-17和图4-19，分析DNA分子的结构，回答下列问题。\n\n(1) DNA 分子是由几条多聚核苷酸链组成的? 具有怎样的空间结构?\n\n(2) DNA 的基本结构单元核苷酸由哪几类物质组成? 分别对应图 4-19 中 DNA 分子的哪一部分?\n\n(3) DNA 分子中含有哪几种碱基? 它们是如何相互作用进行配对的?",
+            "answer": "(1) 由两条多聚核苷酸链组成；两条链反向平行盘旋形成规则的双螺旋结构。\n(2) 核苷酸由含氮碱基、脱氧核糖和磷酸三部分组成；图中“磷酸”和“脱氧核糖”构成两侧的糖-磷酸骨架，“含氮碱基”位于内侧并两两配对。\n(3) 含有4种碱基：腺嘌呤(A)、胸腺嘧啶(T)、鸟嘌呤(G)、胞嘧啶(C)；通过氢键按互补碱基配对原则配对：A与T配对(2个氢键)，G与C配对(3个氢键)。",
+            "analysis": "根据DNA双螺旋模型：DNA由两条反向平行的多聚核苷酸链组成并形成双螺旋；每个核苷酸由磷酸、脱氧核糖、含氮碱基构成，糖-磷酸连接成骨架、碱基位于内侧；碱基种类为A/T/G/C，靠氢键按A—T、G—C互补配对维持两条链结合。",
+            "difficulty": 2,
+            "type": "简答题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_xzxbx3",
+                "source_md": "ch4_s3.md",
+                "question_no_in_source": 2,
+                "global_no": 88
+            },
+            "links": {
+                "concept_names": [
+                    "脱氧核糖核酸（DNA）",
+                    "DNA双螺旋结构",
+                    "核苷酸",
+                    "戊糖",
+                    "磷酸",
+                    "碱基",
+                    "DNA的碱基组成",
+                    "碱基互补配对原则"
+                ],
+                "skill_names": [
+                    "从组成推断生物大分子的结构与功能"
+                ]
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_xzxbx3_ch4_s3_t101",
+            "stem": "某种海洋生物的DNA分子中, 腺嘌呤的数量约占碱基总数的 $32 \\%$ , 请由此推测其他三种碱基的数量占碱基总数的百分比。",
+            "answer": "胸腺嘧啶32%，鸟嘌呤18%，胞嘧啶18%。",
+            "analysis": "双链DNA遵循碱基互补配对原则：A=T，G=C，且四种碱基百分比之和为100%。已知A=32%，则T=32%；剩余为100%-32%-32%=36%，由G=C可知G=18%，C=18%。",
+            "difficulty": 2,
+            "type": "填空题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_xzxbx3",
+                "source_md": "ch4_s3.md",
+                "question_no_in_source": 4,
+                "global_no": 89
+            },
+            "links": {
+                "concept_names": [
+                    "碱基互补配对原则",
+                    "DNA的碱基组成"
+                ],
+                "skill_names": [
+                    "从组成推断生物大分子的结构与功能"
+                ]
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_xzxbx3_ch4_s_t102",
+            "stem": "下列物质不属于高分子的是（ ）。\n\nA.纤维素\n\nB. 核糖\n\nC. 核酸\n\nD. 蛋白质",
+            "answer": "B",
+            "analysis": "高分子（高聚物）通常由大量重复单元组成，分子量很大。纤维素是多糖高分子；核酸是由核苷酸聚合形成的高分子；蛋白质是由氨基酸聚合形成的高分子。核糖是单糖，分子量较小，不属于高分子。",
+            "difficulty": 1,
+            "type": "选择题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_xzxbx3",
+                "source_md": "ch4_s整理与提升.md",
+                "question_no_in_source": 1,
+                "global_no": 90
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_xzxbx3_ch4_s_t103",
+            "stem": "下列物质中，能够在酸性溶液中水解，生成两种相对分子质量相同物质的是（ ）。\n\nA. 麦芽糖\n\nB. 蔗糖\n\nC. 油脂\n\nD. 淀粉",
+            "answer": "B",
+            "analysis": "在酸性条件下水解：\nA 麦芽糖水解生成2分子葡萄糖，只生成一种物质；\nB 蔗糖水解生成葡萄糖和果糖，两种物质且二者分子式均为C6H12O6，相对分子质量相同；\nC 油脂水解生成甘油和高级脂肪酸，相对分子质量不同；\nD 淀粉水解最终生成葡萄糖，只生成一种物质。\n故选B。",
+            "difficulty": 3,
+            "type": "选择题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_xzxbx3",
+                "source_md": "ch4_s整理与提升.md",
+                "question_no_in_source": 2,
+                "global_no": 91
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_xzxbx3_ch4_s_t104",
+            "stem": "淀粉在人体内消化过程的可能产物是（ ）。\n\nA. 葡萄糖\n\nB. 蔗糖\n\nC. 麦芽糖\n\nD. 纤维素",
+            "answer": "A、C",
+            "analysis": "淀粉在消化道中先在淀粉酶作用下分解为麦芽糖，随后在麦芽糖酶作用下进一步分解为葡萄糖；蔗糖不是淀粉消化产生物，纤维素也不是淀粉分解产物。",
+            "difficulty": 2,
+            "type": "选择题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_xzxbx3",
+                "source_md": "ch4_s整理与提升.md",
+                "question_no_in_source": 3,
+                "global_no": 92
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_xzxbx3_ch4_s_t105",
+            "stem": "下列物质既能发生水解反应，又能发生银镜反应的是（ ）。\n\nA. 油酸甘油酯\n\nB. 麦芽糖\n\nC. 蛋白质\n\nD. 核酸",
+            "answer": "B",
+            "analysis": "银镜反应要求物质具有还原性（通常含有醛基或在溶液中能形成游离醛基的还原糖）。麦芽糖是还原性二糖，分子中保留一个半缩醛羟基，能发生银镜反应；同时麦芽糖还能在酸或酶作用下水解生成两分子葡萄糖。油酸甘油酯可水解但不具银镜反应；蛋白质、核酸可水解但一般不发生银镜反应。故选B。",
+            "difficulty": 2,
+            "type": "选择题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_xzxbx3",
+                "source_md": "ch4_s整理与提升.md",
+                "question_no_in_source": 4,
+                "global_no": 93
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_xzxbx3_ch4_s_t106",
+            "stem": "乙醇的体积分数为 $75\\%$ 的医用酒精可用来消毒，这是因为（ ）。\n\nA. 乙醇与细菌蛋白质发生氧化反应  \nB. 乙醇使细菌蛋白质发生变性  \nC. 乙醇使细菌蛋白质发生盐析  \nD. 乙醇使细菌蛋白质发生水解反应",
+            "answer": "B",
+            "analysis": "75%医用酒精消毒的主要机理是乙醇能使细菌（微生物）蛋白质变性并破坏细胞膜结构，从而导致细菌失活。氧化反应、水解反应不是其主要消毒机理；盐析通常由高浓度无机盐引起，不符合该情境。",
+            "difficulty": 2,
+            "type": "选择题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_xzxbx3",
+                "source_md": "ch4_s整理与提升.md",
+                "question_no_in_source": 5,
+                "global_no": 94
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_xzxbx3_ch4_s_t107",
+            "stem": "下列过程中，没有发生酯化反应的是（ ）。\n\nA. 用秸秆制取燃料乙醇   \nB. 用纤维素制取硝酸纤维   \nC. 核苷酸聚合生成多聚核苷酸  \nD. 白酒在陈化过程中产生香味",
+            "answer": "A",
+            "analysis": "酯化反应本质是形成酯键（如羧酸与醇生成羧酸酯，或生成硝酸酯、磷酸酯等）。B中纤维素与硝酸生成硝酸纤维，属于生成硝酸酯；C中核苷酸聚合生成磷酸二酯键，属于形成磷酸酯键；D中白酒陈化时醇与有机酸生成酯类物质产生香味，属于酯化。A中秸秆制取燃料乙醇主要经历纤维素水解与发酵生成乙醇，不涉及生成酯键，因此没有发生酯化反应。",
+            "difficulty": 2,
+            "type": "选择题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_xzxbx3",
+                "source_md": "ch4_s整理与提升.md",
+                "question_no_in_source": 6,
+                "global_no": 95
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_xzxbx3_ch4_s_t108",
+            "stem": "某种多肽的分子式为 $\\mathrm{C}_{a} \\mathrm{H}_{b} \\mathrm{O}_{c} \\mathrm{~N}_{d}$ , 将其完全水解后得到三种氨基酸: 丙氨酸 $\\left(\\mathrm{C}_{3} \\mathrm{H}_{7} \\mathrm{O}_{2} \\mathrm{~N}\\right)$ 、天冬氨酸 $\\left(\\mathrm{C}_{4} \\mathrm{H}_{7} \\mathrm{O}_{4} \\mathrm{~N}\\right)$ 和赖氨酸 $\\left(\\mathrm{C}_{6} \\mathrm{H}_{14} \\mathrm{O}_{2} \\mathrm{~N}_{2}\\right)$ 。1 个该多肽分子完全水解后, 得到天冬氨酸分子的个数为 ( )。\n\nA. $a - d$\n\nB. $a - 2d$\n\nC. $a - 3d$\n\nD. 无法计算",
+            "answer": "C",
+            "analysis": "设完全水解后得到丙氨酸、天冬氨酸、赖氨酸的分子数分别为x、y、z。多肽中碳原子数a等于各氨基酸碳原子数之和：a=3x+4y+6z；氮原子数d等于各氨基酸氮原子数之和：d=x+y+2z。由d得x=d−y−2z，代入a：a=3(d−y−2z)+4y+6z=3d+y，因此y=a−3d，即天冬氨酸分子个数为a−3d。",
+            "difficulty": 3,
+            "type": "选择题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_xzxbx3",
+                "source_md": "ch4_s整理与提升.md",
+                "question_no_in_source": 7,
+                "global_no": 96
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_xzxbx3_ch4_s_t109",
+            "stem": "请在括号内填上相应物质的结构简式。\n\nHCl HCl ( ) NaOH R-CH-C-OH NaOH NH2",
+            "answer": "Cl⁻[H3N⁺–CH(R)–COOH]",
+            "analysis": "氨基酸R–CH(NH2)–COOH与HCl反应时，氨基被质子化生成铵盐，结构为[H3N⁺–CH(R)–COOH]Cl⁻；再加NaOH可中和H⁺恢复为氨基酸。",
+            "difficulty": 2,
+            "type": "填空题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_xzxbx3",
+                "source_md": "ch4_s整理与提升.md",
+                "question_no_in_source": 8,
+                "global_no": 97
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_xzxbx3_ch4_s_t110",
+            "stem": "三支试管中分别盛有葡萄糖、蔗糖和淀粉的溶液, 你如何用化学方法区分它们?",
+            "answer": "先分别取样滴加碘液：变蓝的是淀粉溶液。对其余两支分别加入斐林试剂（或本尼迪特试剂）并加热：出现砖红色沉淀的是葡萄糖溶液；无明显变化的是蔗糖溶液（蔗糖经稀酸水解后再加斐林试剂并加热可出现砖红色沉淀以验证）。",
+            "analysis": "淀粉与碘形成蓝色络合物，可用碘液直接检出；葡萄糖是还原糖，能在加热条件下还原斐林试剂生成Cu2O砖红色沉淀；蔗糖为非还原糖，直接与斐林试剂不反应，但酸水解生成葡萄糖和果糖后即可呈阳性，因此可区分并验证。",
+            "difficulty": 3,
+            "type": "简答题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_xzxbx3",
+                "source_md": "ch4_s整理与提升.md",
+                "question_no_in_source": 9,
+                "global_no": 98
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_xzxbx3_ch4_s_t111",
+            "stem": "写出以下过程涉及主要反应的化学方程式。\n\n（1）淀粉在人体内被消化产生单糖；  \n（2）秸秆生产燃料乙醇；  \n(3) 氨基酸在酶的作用下生成多肽（氨基酸以通式表示）。",
+            "answer": "（1）(C6H10O5)n + nH2O —(酶)→ nC6H12O6\n（2）(C6H10O5)n + nH2O —(水解)→ nC6H12O6；C6H12O6 —(酵母/酶)→ 2C2H5OH + 2CO2\n（3）n H2N—CH(R)—COOH —(酶)→ H2N—CH(R)—[—CO—NH—CH(R)—]n−1—COOH + (n−1)H2O",
+            "analysis": "（1）淀粉属于多糖，人体消化过程本质为糖苷键水解，生成单糖葡萄糖：每个结构单元(C6H10O5)对应加一分子水生成C6H12O6。\n（2）秸秆主要成分为纤维素，可先水解为葡萄糖，再经发酵生成乙醇和二氧化碳。\n（3）氨基酸缩合形成肽键（—CO—NH—），每形成一个肽键脱去一分子水；n个氨基酸生成含(n−1)个肽键的多肽并生成(n−1)H2O。",
+            "difficulty": 3,
+            "type": "简答题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_xzxbx3",
+                "source_md": "ch4_s整理与提升.md",
+                "question_no_in_source": 10,
+                "global_no": 99
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_xzxbx3_ch4_s_t112",
+            "stem": "有机化合物A和B的分子式都是 $\\mathrm{C_9H_{11}O_2N}$ 。\n\n(1) 化合物A是天然蛋白质的水解产物, 其分子结构中不存在甲基, 则化合物A的结构简式是  \n(2) 化合物 B 是某种分子式为 $\\mathrm{C}_{9} \\mathrm{H}_{12}$ 的芳香烃的唯一单硝化产物（硝基连在苯环上），化合物 B 的结构简式是",
+            "answer": "（1）C6H5CH2CH(NH2)COOH（苯丙氨酸）\n（2）1,3,5-三甲基-2-硝基苯（2-硝基间三甲苯），结构简式可写为：C6H2(CH3)3NO2",
+            "analysis": "（1）天然蛋白质水解产物为α-氨基酸。分子式C9H11O2N且“不存在甲基”，符合苯丙氨酸：C6H5-CH2-CH(NH2)-COOH。\n（2）B为某C9H12芳香烃的“唯一”单硝化产物，说明苯环上可被硝化取代的位置等同、只生成一种异构体。C9H12中满足高对称性的芳香烃为1,3,5-三甲基苯（间三甲苯/均三甲苯，mesitylene），其单硝化只得一种产物：1,3,5-三甲基-2-硝基苯，对应分子式C9H11O2N。",
+            "difficulty": 4,
+            "type": "填空题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_xzxbx3",
+                "source_md": "ch4_s整理与提升.md",
+                "question_no_in_source": 11,
+                "global_no": 100
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_xzxbx3_ch4_s_t113",
+            "stem": "玉米芯、花生壳、木屑等农林副产品是生物质资源，人们曾将其作为燃料直接燃烧，造成了大气污染。为综合利用资源，保护环境，目前人们可以用化学方法使其中的木聚糖转化为木糖等物质，得到一系列食品、医药和化工原料。\n\n(1) 木糖的分子式为 $\\mathrm{C}_{5} \\mathrm{H}_{10} \\mathrm{O}_{5}$ , 属于醛糖, 其分子结构中无支链, 与葡萄糖的结构类似。木糖的结构简式为 (不考虑立体异构)。  \n(2) 木糖经催化加氢可以生成木糖醇, 木糖醇的结构简式为__________（不考虑立体异构）。木糖醇是一种常用的甜味剂, 可用于口香糖和糖尿病患者专用食品等的生产, 下列有关木糖醇的叙述正确的是__________（填字母）。\n\na. 木糖醇与葡萄糖类似, 属于单糖  \nb. 木糖醇与核糖类似, 属于戊糖  \nc. 木糖醇与丙三醇（甘油）类似，属于多元醇   \nd. 木糖醇不易溶于水\n\n(3) 木糖在一定条件下脱水缩合生成的糠醛是一种重要的化工原料, 可用于药物、合成材料等的生产。糠醛的结构简式为 $\\left\\langle \\begin{array}{l} \\mathrm{O} \\\\ \\mathrm{O} \\end{array} \\right\\rangle - \\mathrm{CHO}$ , 请写出由木糖生成糠醛的化学方程式。",
+            "answer": "(1) CHO-CH(OH)-CH(OH)-CH(OH)-CH2OH\n(2) HOCH2-CH(OH)-CH(OH)-CH(OH)-CH2OH；c\n(3) C5H10O5 → C5H4O2 + 3H2O",
+            "analysis": "（1）木糖为无支链醛戊糖：一端为醛基（-CHO），其余为3个-CH(OH)-，末端为-CH2OH，得CHＯ-CH(OH)-CH(OH)-CH(OH)-CH2OH。\n（2）催化加氢将醛基-CHO还原为伯醇-CH2OH，生成五元醇：HOCH2-CH(OH)-CH(OH)-CH(OH)-CH2OH。木糖醇不属于单糖或戊糖（它是糖醇/多元醇），与甘油同类为多元醇，选c。\n（3）由木糖脱水生成糠醛，按原子守恒配平：C5H10O5 → C5H4O2 + 3H2O。",
+            "difficulty": 4,
+            "type": "综合题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_xzxbx3",
+                "source_md": "ch4_s整理与提升.md",
+                "question_no_in_source": 12,
+                "global_no": 101
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_xzxbx3_ch5_s_t114",
+            "stem": "分别写出由乙烯合成低密度聚乙烯与高密度聚乙烯的聚合反应方程式，并注明各自的反应条件。说明这两种不同的聚乙烯的结构、性能与用途。",
+            "answer": "（1）低密度聚乙烯（LDPE）的聚合反应：\n nCH2=CH2  —(高压(约100～300 MPa)、高温(约200～300℃)、引发剂O2/过氧化物，自由基聚合)→  —[CH2—CH2]n—\n（2）高密度聚乙烯（HDPE）的聚合反应：\n nCH2=CH2  —(低压/常压～中压(约0.1～1 MPa)、较低温度(约50～80℃)、Ziegler–Natta催化剂TiCl4/Al(C2H5)3或Phillips催化剂Cr/SiO2，配位聚合)→  —[CH2—CH2]n—\n（3）结构差异：\n LDPE：分子链支化多（短支链/长支链），结晶度低、密度低；\n HDPE：分子链近似线型、支化少，结晶度高、密度高。\n（4）性能与用途：\n LDPE：柔软、透明性较好、耐低温、易加工但强度/耐热性较低；用于薄膜、保鲜膜、塑料袋、电线电缆绝缘层等。\n HDPE：硬度大、强度高、耐磨、耐化学腐蚀、耐热性较好但透明性较差；用于中空容器（瓶、桶）、管材、周转箱、玩具及日用品等。",
+            "analysis": "由乙烯加成聚合生成聚乙烯的本质反应式相同，区别在于聚合机理与条件：高压自由基聚合易发生链转移与支化→LDPE；低压配位催化聚合抑制支化、增长线型链→HDPE。支化程度影响结晶度与密度：结晶度高→材料更硬、更强、耐热更好（HDPE）；结晶度低→更柔软、透明性较好（LDPE），据此对应典型用途。",
+            "difficulty": 4,
+            "type": "简答题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_xzxbx3",
+                "source_md": "ch5_s整理与提升.md",
+                "question_no_in_source": 1,
+                "global_no": 102
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_xzxbx3_ch5_s_t115",
+            "stem": "写出由乙炔转化为氯乙烯与聚氯乙烯的化学方程式。请查阅资料，了解为什么聚氯乙烯塑料制品不能用于餐具和食品包装。",
+            "answer": "①制氯乙烯：C2H2＋HCl → CH2=CHCl（催化剂HgCl2，△）\n②制聚氯乙烯：nCH2=CHCl → (—CH2—CHCl—)n（聚合）\n聚氯乙烯（PVC）塑料制品一般不用于餐具和食品包装的原因：PVC中可能残留氯乙烯单体（有毒、致癌）；加工中常加入增塑剂、稳定剂等添加剂（如邻苯二甲酸酯类增塑剂、含铅/镉稳定剂等），这些物质在与油脂或加热条件下易迁移到食品中，存在健康风险；受热还可能释放HCl等有害物质。",
+            "analysis": "由乙炔加成制备氯乙烯：乙炔分子含三键，可与HCl发生加成反应生成烯烃氯乙烯；再由氯乙烯发生加聚反应（开双键链式聚合）得到聚氯乙烯重复结构单元(—CH2—CHCl—)n。PVC不用于食品接触材料主要从“残留单体+添加剂迁移+受热分解释放有害物”三方面说明。",
+            "difficulty": 4,
+            "type": "简答题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_xzxbx3",
+                "source_md": "ch5_s整理与提升.md",
+                "question_no_in_source": 2,
+                "global_no": 103
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_xzxbx3_ch5_s_t116",
+            "stem": "ABS树脂是丙烯腈（acrylonitrile， $\\mathrm{CH}_2 = \\mathrm{CHCN}$ ）、1,3-丁二烯（1,3-butadiene）和苯乙烯（styrene）三种单体的共聚物，具有耐热、耐腐蚀、强度高等特点，可用于家用电器和仪表的外壳，并可作为3D打印的材料。请写出生成ABS树脂的聚合反应方程式。",
+            "answer": "x CH2=CHCN + y CH2=CH–CH=CH2 + z C6H5CH=CH2  →  –[CH2–CH(CN)]x–[CH2–CH=CH–CH2]y–[CH2–CH(C6H5)]z–  （ABS共聚物）",
+            "analysis": "三种单体（丙烯腈、1,3-丁二烯、苯乙烯）都含有C=C双键，可发生加成聚合。写共聚反应时用x、y、z表示三种单体在链中的重复单元数，将双键打开连接成链段：分别对应–CH2–CH(CN)–、–CH2–CH=CH–CH2–和–CH2–CH(C6H5)–，组合写成三元共聚物的通式即可。",
+            "difficulty": 3,
+            "type": "简答题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_xzxbx3",
+                "source_md": "ch5_s整理与提升.md",
+                "question_no_in_source": 3,
+                "global_no": 104
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_xzxbx3_ch5_s_t117",
+            "stem": "请写出癸二酸与癸二胺发生缩聚反应制取锦纶1010的化学方程式。",
+            "answer": "n HOOC-(CH2)8-COOH + n H2N-(CH2)10-NH2 → [—NH-(CH2)10-NH-CO-(CH2)8-CO—]n + 2n H2O",
+            "analysis": "癸二酸为二元羧酸HOOC-(CH2)8-COOH，癸二胺为二元胺H2N-(CH2)10-NH2；缩聚时—COOH与—NH2脱水生成酰胺键—CO—NH—。每形成1个重复单元包含2个酰胺键，因此生成2n个H2O，聚合物重复结构为[—NH-(CH2)10-NH-CO-(CH2)8-CO—]n。",
+            "difficulty": 3,
+            "type": "简答题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_xzxbx3",
+                "source_md": "ch5_s整理与提升.md",
+                "question_no_in_source": 4,
+                "global_no": 105
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_xzxbx3_ch5_s_t118",
+            "stem": "请以乙烯和对二甲苯为起始原料，设计聚对苯二甲酸乙二酯的合成路线，写出相关的化学方程式。",
+            "answer": "合成思路：由乙烯制乙二醇；由对二甲苯氧化制对苯二甲酸；再与乙二醇缩聚得PET。\n(1) 乙烯 → 乙二醇：\nCH2=CH2 + 1/2 O2 → C2H4O(环氧乙烷)\nC2H4O + H2O → HO–CH2–CH2–OH\n(2) 对二甲苯 → 对苯二甲酸：\nCH3–C6H4–CH3 + 3 O2 → HOOC–C6H4–COOH + 2 H2O\n(3) 对苯二甲酸与乙二醇缩聚制聚对苯二甲酸乙二酯(PET)：\nn HOOC–C6H4–COOH + n HO–CH2–CH2–OH → [–O–CH2–CH2–O–CO–C6H4–CO–]n + 2n H2O",
+            "analysis": "先确定PET的重复结构单元为 –O–CH2–CH2–O–CO–C6H4–CO–，因此单体应为乙二醇与对苯二甲酸。乙烯可经氧化生成环氧乙烷，再水合生成乙二醇；对二甲苯可被空气/氧气催化氧化为对苯二甲酸；最后二元酸与二元醇发生酯化-缩聚（先生成低聚酯，再缩聚）放出水，得到PET。",
+            "difficulty": 4,
+            "type": "简答题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_xzxbx3",
+                "source_md": "ch5_s整理与提升.md",
+                "question_no_in_source": 5,
+                "global_no": 106
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_xzxbx3_ch5_s_t119",
+            "stem": "仿瓷餐具质轻美观，不易破碎，其主要成分蜜胺树脂是由三聚氰胺与甲醛在一定条件下缩聚得到的网状结构的聚合物。已知：\n\n请据此写出三聚氰胺与甲醛反应得到线型聚合物的化学方程式，并说明线型聚合物如何进一步反应生成网状结构的蜜胺树脂。",
+            "answer": "线型缩聚（以三聚氰胺分子上一个—NH2参与成键为例，用“Mel”表示三聚氰胺骨架C3N3(—)）：\n(1) 2 Mel—NH2 + HCHO → Mel—NH—CH2—NH—Mel + H2O\n推广：n Mel—NH2 + (n−1)HCHO → H—[Mel—NH—CH2—NH—]n−1—Mel + (n−1)H2O（得到线型聚合物，链节间以—NH—CH2—NH—相连）。\n\n线型聚合物进一步生成网状蜜胺树脂：线型链上仍保留的其他—NH2（及其先与HCHO生成的—NH—CH2OH）继续发生缩聚，与同一条链或不同链上的—NH2/—NH—CH2OH反应，不断形成新的—NH—CH2—NH—（或—NH—CH2—O—CH2—NH—）桥键，使多条分子链交联，最终形成三维网状结构的蜜胺树脂。",
+            "analysis": "要点：三聚氰胺含有多个—NH2，甲醛可把两个含氨基的氮“连接”起来。\n典型缩聚基本反应为：2R—NH2 + HCHO → R—NH—CH2—NH—R + H2O（生成亚甲基桥并脱水），把R理解成带有剩余—NH2的三聚氰胺残基即可。\n当每个三聚氰胺只用部分—NH2参与成键时，结构可近似看作线型链；由于每个单体仍有未反应的—NH2/—NH—CH2OH位点，这些位点继续与HCHO及其他链反应形成更多桥键，造成交联，从线型转为三维网状树脂。",
+            "difficulty": 4,
+            "type": "简答题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_xzxbx3",
+                "source_md": "ch5_s整理与提升.md",
+                "question_no_in_source": 6,
+                "global_no": 107
+            }
+        },
+        {
+            "id": "chemistry_highschool_rjb_xzxbx3_ch5_s_t120",
+            "stem": "有机高分子A可用于生产俗称“白乳胶”的木材黏合剂，B通过加聚反应可制得A。B的蒸气对 $\\mathrm{H}_{2}$ 的相对密度为43，分子中C、H、O的原子个数比为 $2:3:1$ 。B在酸性条件下水解可生成碳原子数相同的两种有机化合物D和M。\n\n（1）写出B在一定条件下生成A的化学方程式  \n（2）写出属于不饱和羧酸的B的同分异构体的结构简式（包括顺反异构体）。  \n(3) 已知羟基与碳碳双键直接相连的有机化合物会迅速转化为醛。M可以发生银镜反应, 请写出M的结构简式。  \n（4）已知： $\\mathrm{R - CH_2 - COOH}\\xrightarrow[\\text{一定条件}]{\\mathrm{Br_2}}\\mathrm{R - CH - COOH}$\n\nD可以发生如下转化：\n\n有机化合物G是F的同系物，且G的相对分子质量比F的大14，两分子G反应可生成六元环状化合物H，请写出H的结构简式和G生成链状缩聚物的化学方程式。",
+            "answer": "B为乙酸乙烯酯CH2=CH–O–COCH3，A为聚乙酸乙烯酯。\n(1) nCH2=CH–O–COCH3 → [–CH2–CH(OCOCH3)–]n\n(2) 属于不饱和羧酸且与B(C4H6O2)同分异构体：\nCH2=CH–CH2–COOH；CH2=C(CH3)–COOH；顺式-CH3–CH=CH–COOH；反式-CH3–CH=CH–COOH。\n(3) M为乙醛：CH3CHO。\n(4) G为乳酸CH3–CH(OH)–COOH，两分子G生成六元环H(丙交酯/乳酸内二酯)结构简式可表示为环状[–O–CO–CH(CH3)–]2；\nG生成链状缩聚物：nCH3CH(OH)COOH → [–O–CH(CH3)–CO–]n + (n−1)H2O。",
+            "analysis": "由相对密度D(H2)=43得Mr(B)=86，且C:H:O=2:3:1→最简式C2H3O，分子式C4H6O2；结合“加聚得白乳胶用聚合物”判断B为乙酸乙烯酯，A为其加聚物。酸性水解生成乙酸与乙烯醇，乙烯醇迅速互变为乙醛(M)，故M可银镜反应。B的同分异构体中需含–COOH且含C=C，列出丁烯酸与甲基丙烯酸并补充顺反异构。由D=乙酸经HVZ反应可到卤代酸再水解得羟基酸F(羟基乙酸)，其同系物Mr大14为乳酸G；两分子乳酸缩合得六元环内二酯H，并可进一步缩聚为聚酯。",
+            "difficulty": 4,
+            "type": "综合题",
+            "meta": {
+                "book_prefix": "chemistry_highschool_rjb_xzxbx3",
+                "source_md": "ch5_s整理与提升.md",
+                "question_no_in_source": 7,
+                "global_no": 108
+            }
+        }
+    ]
+}

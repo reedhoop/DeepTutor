@@ -187,6 +187,11 @@ class PendingQuestion(BaseModel):
     # later instead of a bare right/wrong.
     explanation: str = ""
     difficulty: str = ""
+    # [KGRAPH-EXT] Worked solution revealed to the learner AFTER grading. Set by
+    # variant_exercise (real textbook exercises carry it); empty for LLM-authored
+    # mastery_quiz questions. Never round-trips through the model before grading
+    # — mastery_grade reads it from here and hands it back for feedback.
+    analysis: str = ""
     created_at: float = Field(default_factory=time.time)
 
 
