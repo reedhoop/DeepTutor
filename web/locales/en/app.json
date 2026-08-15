@@ -4360,7 +4360,6 @@
   "Task models": "Task models",
   "The model behind work DeepTutor starts on its own, rather than in a turn you asked for.": "The model behind work DeepTutor starts on its own, rather than in a turn you asked for.",
   "These lines are written by the active model unless you pin one.": "These lines are written by the active model unless you pin one.",
-  "Voice": "Voice",
   "Provider-specific voice name, e.g. alloy (OpenAI) or model:voice (SiliconFlow).": "Provider-specific voice name, e.g. alloy (OpenAI) or model:voice (SiliconFlow).",
   "Output format": "Output format",
   "Image size": "Image size",
@@ -4748,5 +4747,11 @@
   "mastery.continueGreeting": "Let's start studying this mastery path.",
   "mastery.welcomeTitle": "Mastery Path",
   "mastery.welcomeDescription": "Your AI tutor will guide you through each knowledge point based on your progress. Ready to start?",
-  "mastery.preparing": "Preparing learning content…"
+  "mastery.preparing": "Preparing learning content…",
+  "VLM": "VLM",
+  "Configure the explicit vision-language model (VLM) slot. When the active LLM lacks native vision, image attachments are routed here for understanding (T1 fallback tier).": "Configure the explicit vision-language model (VLM) slot. When the active LLM lacks native vision, image attachments are routed here for understanding (T1 fallback tier).",
+  "{{unit}} {{n}} of {{total}}": "{{unit}} {{n}} of {{total}}",
+  "Smaller text": "Smaller text",
+  "Larger text": "Larger text",
+  "Change line width": "Change line width"
 }

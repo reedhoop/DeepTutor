@@ -1103,7 +1103,7 @@
   "Add files & context": "添加文件和上下文",
   "Select persona": "选择 Persona",
   "Record voice": "录制语音",
-  "Voice": "语音",
+  "Voice": "音色",
   "Select voice": "选择音色",
   "System default voice": "系统默认音色",
   "Use the catalog's configured voice": "使用目录中配置的默认音色",
@@ -4360,7 +4360,6 @@
   "Task models": "任务模型",
   "The model behind work DeepTutor starts on its own, rather than in a turn you asked for.": "DeepTutor 自己发起的调用使用的模型，不属于你主动开始的某一轮对话。",
   "These lines are written by the active model unless you pin one.": "这三行由当前模型生成，除非你为它单独指定。",
-  "Voice": "音色",
   "Provider-specific voice name, e.g. alloy (OpenAI) or model:voice (SiliconFlow).": "供应商各自的音色名，例如 alloy（OpenAI）或 model:voice（SiliconFlow）。",
   "Output format": "输出格式",
   "Image size": "图像尺寸",
@@ -4748,5 +4747,11 @@
   "mastery.continueGreeting": "我们开始这条精通之路的学习吧。",
   "mastery.welcomeTitle": "精通之路",
   "mastery.welcomeDescription": "AI 导师将根据你的掌握情况，逐步带你学习每个知识点。准备好开始了吗？",
-  "mastery.preparing": "正在准备学习内容…"
+  "mastery.preparing": "正在准备学习内容…",
+  "VLM": "视觉语言模型",
+  "Configure the explicit vision-language model (VLM) slot. When the active LLM lacks native vision, image attachments are routed here for understanding (T1 fallback tier).": "配置显式的视觉语言模型（VLM）槽位。当当前 LLM 不具备原生视觉能力时，图片附件会被路由到此模型进行理解（T1 回退层）。",
+  "{{unit}} {{n}} of {{total}}": "第 {{n}} {{unit}} / 共 {{total}}",
+  "Smaller text": "减小字号",
+  "Larger text": "增大字号",
+  "Change line width": "切换行宽"
 }

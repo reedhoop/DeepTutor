@@ -365,6 +365,7 @@ def test_document_parsing_v1_to_v2_migration(tmp_path: Path) -> None:
         "docling",
         "markitdown",
         "pymupdf4llm",
+        "liteparse",
         "ovisocr2",
         "paddleocr_vl",
         "pp_structurev3",

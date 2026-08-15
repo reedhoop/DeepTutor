@@ -40,8 +40,8 @@ import MarkdownRenderer from "@/components/common/MarkdownRenderer";
  * Chat); this page is the map of where the learner stands. It reads the
  * gate-accurate snapshot from ``/progress/{id}/map`` (per-type status computed
  * by ``deeptutor.learning.policy``) so the colours here agree with the gate the
- * tutor enforces. A path is keyed by its chat session, so "Continue" reopens
- * that session in mastery mode.
+ * tutor enforces. A path and a conversation have independent identities, so
+ * "Continue" starts a focused chat while retaining the selected path state.
  */
 export default function MasteryPathPage() {
   const { i18n } = useTranslation();

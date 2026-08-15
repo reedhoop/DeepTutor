@@ -18,6 +18,8 @@ def test_known_engines() -> None:
         "docling",
         "markitdown",
         "pymupdf4llm",
+        "liteparse",
+        "tika",
         "ovisocr2",
         "paddleocr_vl",
         "pp_structurev3",
@@ -37,6 +39,8 @@ def test_list_engines_reports_metadata_and_availability() -> None:
         "docling",
         "markitdown",
         "pymupdf4llm",
+        "liteparse",
+        "tika",
         "ovisocr2",
         "paddleocr_vl",
         "pp_structurev3",
@@ -50,6 +54,9 @@ def test_list_engines_reports_metadata_and_availability() -> None:
     assert engines["mineru"]["needs_local_models"] is True
     assert engines["markitdown"]["needs_local_models"] is False
     assert engines["pymupdf4llm"]["needs_local_models"] is False
+    assert engines["liteparse"]["needs_local_models"] is False
+    assert engines["tika"]["available"] is True
+    assert engines["tika"]["needs_local_models"] is False
     # vLLM-backed engines are always available (no local import needed).
     assert engines["ovisocr2"]["available"] is True
     assert engines["ovisocr2"]["needs_local_models"] is False

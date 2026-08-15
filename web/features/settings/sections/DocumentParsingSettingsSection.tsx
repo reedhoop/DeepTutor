@@ -59,6 +59,7 @@ const PIP_HINT: Record<string, string> = {
   docling: "pip install deeptutor[parse-docling]",
   markitdown: "pip install deeptutor[parse-markitdown]",
   pymupdf4llm: "pip install deeptutor[parse-pymupdf4llm]",
+  liteparse: "pip install deeptutor[parse-liteparse]",
   pp_structurev3: "pip install deeptutor[parse-pp-structurev3]",
 };
 
@@ -390,6 +391,21 @@ export default function DocumentParsingSettingsPage() {
               onInstalled={load}
               onSave={(patch) =>
                 putDocumentParsing({ engines: { pymupdf4llm: patch } })
+              }
+            />
+          )}
+
+          {data.engine === "liteparse" && (
+            <LiteParsePanel
+              slice={data.engines.liteparse || {}}
+              available={
+                data.available_engines.find((e) => e.id === "liteparse")
+                  ?.available ?? false
+              }
+              busy={busyRef.current}
+              onInstalled={load}
+              onSave={(patch) =>
+                putDocumentParsing({ engines: { liteparse: patch } })
               }
             />
           )}

@@ -259,8 +259,8 @@ export type ProviderOption = {
   requires_api_key?: boolean;
   requires_base_url?: boolean;
   soft_fallback?: boolean;
-  status?: "supported" | "deprecated" | "legacy";,
-  preset_models?: TtsPresetModel[];,
+  status?: "supported" | "deprecated" | "legacy";
+  preset_models?: TtsPresetModel[];
 };
 
 export type SystemStatus = {

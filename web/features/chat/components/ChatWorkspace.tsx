@@ -98,7 +98,7 @@ import {
 } from "@/lib/research-types";
 import { listKnowledgeBases } from "@/features/knowledge/api/catalog";
 import { getSubagentSettings } from "@/lib/subagents-api";
-import { listLLMOptions, type LLMOption } from "@/lib/llm-options";
+import { useLLMOptions } from "@/hooks/useLLMOptions";
 import {
   getEnabledOptionalTools,
   invalidateEnabledOptionalToolsCache,
@@ -391,6 +391,7 @@ export default function ChatPage() {
     setCapability,
     setKBs,
     setLLMSelection,
+    setMasteryPathId,
     setPersonaSelection,
     sendMessage,
     cancelStreamingTurn,
@@ -433,12 +434,14 @@ export default function ChatPage() {
   // resume without injecting a greeting.
   const pendingCreated = searchParams?.get("created") === "1";
   const masteryPathHandledRef = useRef(false);
-  const [llmOptions, setLLMOptions] = useState<LLMOption[]>([]);
-  const [activeLLMDefault, setActiveLLMDefault] = useState<LLMSelection | null>(
-    null,
-  );
-  const [llmOptionsLoading, setLLMOptionsLoading] = useState(true);
-  const [llmOptionsError, setLLMOptionsError] = useState(false);
+
+  const {
+    options: llmOptions,
+    activeDefault: activeLLMDefault,
+    loading: llmOptionsLoading,
+    error: llmOptionsError,
+    refresh: refreshLLMOptions,
+  } = useLLMOptions();
   const [capabilityConfigs, setCapabilityConfigs] =
     useState<CapabilityPlaygroundConfigMap>({});
   // User-toggleable tools the user has enabled in /settings/tools. This is
@@ -1086,6 +1089,26 @@ export default function ChatPage() {
           if (!ctrl.signal.aborted) {
             loadAbortRef.current = null;
             setSessionLoading(false);
+            // Settle at the bottom once the transcript is really laid out.
+            // The layout-effect pin runs as the messages first render, when
+            // lazily-loaded images (ChatMessages `loading="lazy"`) and the
+            // `next/dynamic` capability viewers have not contributed their
+            // heights yet, so its `scrollHeight` is short and the viewport
+            // stops above the true bottom. One frame later those are in.
+            //
+            // Only on a cold open. A cached session is already painted at
+            // the bottom and this resolves after a background revalidate —
+            // re-arming there would yank a reader who had scrolled up.
+            if (!cached) {
+              shouldAutoScrollRef.current = true;
+              requestAnimationFrame(() => {
+                requestAnimationFrame(() => {
+                  // A newer session may have superseded this one while the
+                  // two frames elapsed; that load owns the viewport now.
+                  if (!ctrl.signal.aborted) scrollToBottom("instant");
+                });
+              });
+            }
           }
         })
         .catch(() => {
@@ -1098,7 +1121,13 @@ export default function ChatPage() {
           }
         });
     },
-    [loadSession, navigateToHome, showCachedSession],
+    [
+      loadSession,
+      navigateToHome,
+      showCachedSession,
+      scrollToBottom,
+      shouldAutoScrollRef,
+    ],
   );
 
   // Initial mount — load the session from the URL.
@@ -1194,29 +1223,6 @@ export default function ChatPage() {
     void refreshUserEnabledTools();
   }, [refreshUserEnabledTools]);
 
-  const refreshLLMOptions = useCallback(
-    async (options?: { force?: boolean }) => {
-      setLLMOptionsLoading(true);
-      try {
-        const payload = await listLLMOptions({ force: options?.force });
-        setLLMOptions(payload.options);
-        setActiveLLMDefault(payload.active);
-        setLLMOptionsError(false);
-      } catch {
-        setLLMOptionsError(true);
-        setLLMOptions([]);
-        setActiveLLMDefault(null);
-      } finally {
-        setLLMOptionsLoading(false);
-      }
-    },
-    [],
-  );
-
-  useEffect(() => {
-    void refreshLLMOptions();
-  }, [refreshLLMOptions]);
-
   useEffect(() => {
     if (state.llmSelection || !activeLLMDefault) return;
     setLLMSelection(activeLLMDefault);
@@ -1226,7 +1232,7 @@ export default function ChatPage() {
     if (typeof window === "undefined") return;
     const refresh = () => {
       void refreshKnowledgeBases({ force: true });
-      void refreshLLMOptions({ force: true });
+      void refreshLLMOptions({ force: true, background: true });
       // Picks up toggles the user changed in another tab (/settings/tools).
       invalidateEnabledOptionalToolsCache();
       void refreshUserEnabledTools({ force: true });
@@ -1250,12 +1256,14 @@ export default function ChatPage() {
     setCapabilityConfigs(loadCapabilityPlaygroundConfigs());
   }, []);
 
-  /* URL query params (capability, tool) */
+  /* URL query params (capability, tool, persistent mastery path) */
   useEffect(() => {
     if (typeof window === "undefined") return;
     const p = new URLSearchParams(window.location.search);
     const qc = p.get("capability");
     const qt = p.getAll("tool");
+    const masteryPathId = p.get("mastery_path_id")?.trim();
+    if (masteryPathId) setMasteryPathId(masteryPathId);
     if (qc !== null) handleSelectCapability(qc || "");
     else if (qt.length) {
       const valid = qt.filter((t): t is ToolName =>
