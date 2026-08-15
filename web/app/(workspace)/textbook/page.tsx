@@ -174,10 +174,16 @@ export default function TextbookNavigatorPage() {
   );
 
   const handleStart = useCallback(async () => {
-    // Start a mastery path from the active node. A chapter id works directly
-    // (section_to_module gathers its teachable KPs via appears_in / is_part_of
-    // edges), so we no longer need a section to exist.
-    const targetId = selected?.id ?? selectedChapter?.id ?? null;
+    // KGraph stores teachable KPs at two levels:
+    //   • section-level for biology/chemistry/physics and 初中+ math — a
+    //     chapter id returns 404 there, so fall back to the first section.
+    //   • chapter-level for 小学 math (1–6年级) — those chapters have no
+    //     sections and own KPs directly, so send the chapter id as-is.
+    const targetId =
+      selected?.id ??
+      (selectedChapter
+        ? selectedChapter.sections[0]?.id ?? selectedChapter.id
+        : null);
     if (!targetId) return;
     setStarting(true);
     setStartError(null);
@@ -193,9 +199,9 @@ export default function TextbookNavigatorPage() {
   }, [selected, selectedChapter, router, tr]);
 
   // Fetch the active node's knowledge points so the preview pane always shows
-  // real content. Works for both a selected section and a selected chapter —
-  // a chapter with no section-level tree data still owns teachable KPs via its
-  // appears_in / is_part_of edges, which is exactly what the mastery path uses.
+  // real content. KGraph stores KPs at section level — chapter nodes have no
+  // direct KPs but expose a `path` of is_part_of sub-sections, which the UI
+  // surfaces as a "pick a section" hint when the chapter is selected.
   const activeNodeId = selected?.id ?? selectedChapter?.id ?? null;
   useEffect(() => {
     if (!activeNodeId) {
@@ -228,6 +234,17 @@ export default function TextbookNavigatorPage() {
       for (const b of s.books) for (const c of b.chapters) n += c.sections.length;
     return n;
   }, [tree]);
+
+  // The Start button is enabled when the active node has something to learn.
+  // Section view already targets that section. Chapter view has two shapes:
+  //   • chapter with sections  -> start from the first section
+  //   • chapter without sections (小学 math) -> chapter owns KPs directly, so
+  //     it's learnable once the KP fetch resolves with points.
+  const canStart = selected
+    ? true
+    : selectedChapter
+    ? selectedChapter.sections.length > 0 || kp.points.length > 0
+    : false;
 
   return (
     <div className="flex min-h-0 flex-1 flex-col">
@@ -453,7 +470,7 @@ export default function TextbookNavigatorPage() {
 
             <button
               onClick={handleStart}
-              disabled={starting}
+              disabled={starting || !canStart}
               className="mt-5 flex items-center gap-2 rounded-lg bg-[var(--primary)] px-4 py-2.5 text-sm font-medium text-[var(--primary-foreground)] shadow-md shadow-[var(--primary)]/15 transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-60 cursor-pointer"
             >
               {starting ? (
@@ -482,14 +499,20 @@ export default function TextbookNavigatorPage() {
               )}
             </p>
             <p className="mt-2 text-xs leading-relaxed text-[var(--muted-foreground)]/80">
-              {tr(
-                selected
-                  ? "→ 本节涵盖知识点、前置链和练习题，请进入学习工作区查看。"
-                  : "→ 选一节进入，或直接开始学习本章。",
-                selected
-                  ? "→ The knowledge points, prerequisites and exercises live in the learning workspace."
-                  : "→ Pick a section to dive in, or start learning this whole chapter.",
-              )}
+              {selected
+                ? tr(
+                    "→ 本节涵盖知识点、前置链和练习题，请进入学习工作区查看。",
+                    "→ The knowledge points, prerequisites and exercises live in the learning workspace.",
+                  )
+                : selectedChapter && selectedChapter.sections.length > 0
+                ? tr(
+                    "→ 选一节进入，或从本章第一节开始学习。",
+                    "→ Pick a section to dive in, or start from the first section of this chapter.",
+                  )
+                : tr(
+                    "→ 本章知识点可直接开始学习。",
+                    "→ This chapter's knowledge points can be started directly.",
+                  )}
             </p>
           </div>
         )}
