@@ -34,10 +34,13 @@ $BackendPort  = 8002
 $FrontendPort = 3800
 
 # ---- Resolve K12_KGRAPH_DATA_DIR ----
-# precedence: -K12DataDir > $env:K12_KGRAPH_DATA_DIR > sibling "K12-KGraph-data"
+# K12 is ON by default: the dataset is vendored inside the repo at
+# <repo>/K12-KGraph-data, so no -K12DataDir flag is needed for a fresh clone.
+# precedence: -K12DataDir > $env:K12_KGRAPH_DATA_DIR > in-repo > sibling
 if (-not $K12DataDir) { $K12DataDir = $env:K12_KGRAPH_DATA_DIR }
-if (-not $K12DataDir) {
-    # default: a sibling directory next to the repo (e.g. ../K12-KGraph-data)
+if (-not $K12DataDir) { $K12DataDir = Join-Path $Repo "K12-KGraph-data" }
+if (-not (Test-Path $K12DataDir)) {
+    # Fallback: a sibling directory next to the repo (e.g. ../K12-KGraph-data)
     $K12DataDir = Join-Path (Split-Path -Parent $Repo) "K12-KGraph-data"
 }
 # Normalize MSYS/Git-Bash style paths (/d/foo -> D:/foo) so Windows Python can read them

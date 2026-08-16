@@ -80,6 +80,9 @@ DeepTutor 是香港大学 HKUDS 团队开源的**「代理原生（agent-native�
   - 后端：`uvicorn deeptutor.api.main:app --port 8101`（用项目 venv 解释器，禁用系统 `C:\Python312`）。
   - 前端：**必须带环境变量** `DEEPTUTOR_API_BASE_URL=http://127.0.0.1:8101 BACKEND_PORT=8101` 启动 Next dev（端口 3782），否则代理回落 8001 导致所有 `/api/*` 挂起；且务必用 `127.0.0.1` 而非 `localhost`（双栈 `::1` 回落失败）。
 - 完整官方安装（PyPI / 源码 / Docker / CLI）见上游 README 的 *Get Started* 章节。
+- **生产部署（Windows NSSM 服务化）**：`python scripts/install_prod_service.py install --skip-build` 一条命令注册
+  `DeepTutorBackend`(:8002) / `DeepTutorFrontend`(:3800) 两个常驻服务（开机自启 + 崩溃自愈，K12 默认走仓库内
+  `K12-KGraph-data`，无需额外参数），详见 [DEPLOY_PRODUCTION.md](DEPLOY_PRODUCTION.md)。
 
 ---
 

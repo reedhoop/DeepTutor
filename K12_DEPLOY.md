@@ -3,6 +3,10 @@
 > 本文档只讲 **K12 fork 专属** 的部署要点。基础安装（PyPI / 源码 / Docker）请看主
 > [README.md](README.md) 与 [CONTAINERIZATION.md](CONTAINERIZATION.md)。
 >
+> **生产环境（Windows 常驻服务，开机自启 + 崩溃自愈）**请走 NSSM 服务化：
+> `python scripts/install_prod_service.py install --skip-build`，详见
+> [DEPLOY_PRODUCTION.md](DEPLOY_PRODUCTION.md)（本文为 dev 模式：端口 8001/3782）。
+>
 > 一句话：**基础 DeepTutor 很好部署，但 K12 叠加层缺一个「一键 + 自举」的入口。**
 > 本仓库提供的 [`scripts/deploy_k12.py`](scripts/deploy_k12.py) 就是这个入口。
 
