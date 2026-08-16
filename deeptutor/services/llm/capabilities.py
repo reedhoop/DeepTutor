@@ -688,8 +688,22 @@ __all__ = [
     "has_thinking_tags",
     "supports_tools",
     "supports_vision",
+    "model_name_implies_vision",
+    "model_vision_confirmed",
     "requires_api_version",
     "get_effective_temperature",
     "disable_response_format_at_runtime",
     "is_response_format_disabled_at_runtime",
 ]
+
+# --- DeepTutor fork: vision capability judgments (isolated in ``_local``) ----
+# All fork-specific vision detection lives in ``deeptutor._local.vision_capability``
+# so this shared upstream module stays close to upstream and easy to rebase. The
+# hook below merges the fork's MODEL_OVERRIDES rows into the shared table (so the
+# loose ``supports_vision`` used for the *user-selected* model sees them too) and
+# binds ``model_name_implies_vision`` / ``model_vision_confirmed`` into this
+# namespace; callers keep importing them from here unchanged.
+from deeptutor._local.vision_capability import FORK_MODEL_OVERRIDES, _make_vision_judges
+
+MODEL_OVERRIDES.update(FORK_MODEL_OVERRIDES)
+model_name_implies_vision, model_vision_confirmed = _make_vision_judges(MODEL_OVERRIDES)

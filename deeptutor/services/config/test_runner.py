@@ -11,7 +11,7 @@ from uuid import uuid4
 
 from .context_window_detection import detect_context_window
 from .embedding_endpoint import redact_embedding_endpoint_for_display
-from .model_catalog import get_model_catalog_service, redact_catalog_secrets
+from .model_catalog import get_model_catalog_service
 from .provider_runtime import (
     resolve_embedding_runtime_config,
     resolve_llm_runtime_config,
@@ -118,6 +118,8 @@ class ConfigTestRunner:
 
             if service == "llm":
                 asyncio.run(self._test_llm(run, catalog))
+            elif service == "vlm":
+                asyncio.run(self._test_vlm(run, profile, model, catalog))
             elif service == "embedding":
                 asyncio.run(self._test_embedding(run, model or {}, catalog))
             elif service == "search":
@@ -160,7 +162,7 @@ class ConfigTestRunner:
         model["dimension"] = str(actual_dimension)
         saved = service.save(catalog)
         reset_embedding_client()
-        return redact_catalog_secrets(saved)
+        return saved
 
     @staticmethod
     def _capabilities_from_adapter(adapter: Any, model_name: str) -> dict[str, Any]:
@@ -207,36 +209,22 @@ class ConfigTestRunner:
             "model_known": model_known,
         }
 
-    async def _test_llm(self, run: TestRun, catalog: dict[str, Any]) -> None:
-        from deeptutor.services.llm import clear_llm_config_cache, get_token_limit_kwargs
-        from deeptutor.services.llm import complete as llm_complete
-        from deeptutor.services.llm.config import LLMConfig
+    async def _probe_text_model(self, run: TestRun, llm_config: "LLMConfig") -> None:
+        """Run the shared OpenAI-compatible text probe against *llm_config*.
 
-        clear_llm_config_cache()
-        run.emit("info", "Loading LLM config from the active catalog selection.")
-        resolved = resolve_llm_runtime_config(catalog=catalog)
-        llm_config = LLMConfig(
-            model=resolved.model,
-            api_key=resolved.api_key,
-            base_url=resolved.base_url,
-            effective_url=resolved.effective_url,
-            binding=resolved.binding,
-            provider_name=resolved.provider_name,
-            provider_mode=resolved.provider_mode,
-            api_version=resolved.api_version,
-            extra_headers=resolved.extra_headers,
-            wire_api=resolved.wire_api,
-            reasoning_effort=resolved.reasoning_effort,
-        )
-        run.emit(
-            "info", f"Resolved model `{llm_config.model}` with binding `{llm_config.binding}`."
-        )
-        run.emit("info", f"Request target: {llm_config.base_url}")
+        Used by both the ``llm`` and ``vlm`` probes: emit the token options, call
+        ``complete`` once, and require a non-empty response. The ``vlm`` slot is
+        OpenAI-compatible, so the probe is identical; only the surrounding
+        config-resolution and the post-probe messaging differ.
+        """
+        from deeptutor.services.llm import get_token_limit_kwargs
+        from deeptutor.services.llm import complete as llm_complete
+
+        from .loader import get_agent_params
+
         # Reasoning models spend part of the budget on internal thinking;
         # too tight a cap makes them return empty content. Configurable
         # via diagnostics.llm_probe.max_tokens in agents.yaml.
-        from .loader import get_agent_params
-
         probe_params = get_agent_params("llm_probe")
         max_tokens = _coerce_int(probe_params.get("max_tokens"), 1024)
         temperature = _coerce_float(probe_params.get("temperature"), 0.1)
@@ -260,9 +248,34 @@ class ConfigTestRunner:
             **token_kwargs,
         )
         snippet = (response or "").strip()
-        run.emit("response", "Received LLM response.", snippet=snippet[:400])
+        run.emit("response", "Received model response.", snippet=snippet[:400])
         if not snippet:
-            raise ValueError("LLM returned an empty response.")
+            raise ValueError("Model returned an empty response.")
+
+    async def _test_llm(self, run: TestRun, catalog: dict[str, Any]) -> None:
+        from deeptutor.services.llm import clear_llm_config_cache
+        from deeptutor.services.llm.config import LLMConfig
+
+        clear_llm_config_cache()
+        run.emit("info", "Loading LLM config from the active catalog selection.")
+        resolved = resolve_llm_runtime_config(catalog=catalog)
+        llm_config = LLMConfig(
+            model=resolved.model,
+            api_key=resolved.api_key,
+            base_url=resolved.base_url,
+            effective_url=resolved.effective_url,
+            binding=resolved.binding,
+            provider_name=resolved.provider_name,
+            provider_mode=resolved.provider_mode,
+            api_version=resolved.api_version,
+            extra_headers=resolved.extra_headers,
+            reasoning_effort=resolved.reasoning_effort,
+        )
+        run.emit(
+            "info", f"Resolved model `{llm_config.model}` with binding `{llm_config.binding}`."
+        )
+        run.emit("info", f"Request target: {llm_config.base_url}")
+        await self._probe_text_model(run, llm_config)
         run.emit(
             "info",
             (
@@ -287,6 +300,59 @@ class ConfigTestRunner:
         run.emit(
             "info",
             "Context window detection is available in Settings and was not written automatically.",
+        )
+
+    async def _test_vlm(
+        self,
+        run: TestRun,
+        profile: dict[str, Any],
+        model: dict[str, Any],
+        catalog: dict[str, Any],
+    ) -> None:
+        from deeptutor.services.llm import clear_llm_config_cache
+        from deeptutor.services.llm.config import LLMConfig
+
+        from deeptutor._local.capability_resolver import resolve_catalog_pair
+
+        clear_llm_config_cache()
+        run.emit("info", "Loading VLM config from the active catalog selection (vlm slot).")
+        if not profile or not (model or {}).get("model"):
+            raise ValueError(
+                "No active VLM model is configured. Please set one in Settings > Catalog (VLM slot)."
+            )
+        resolved = resolve_catalog_pair(profile, model, catalog=catalog)
+        llm_config = LLMConfig(
+            model=resolved.model,
+            api_key=resolved.api_key,
+            base_url=resolved.base_url,
+            effective_url=resolved.effective_url,
+            binding=resolved.binding,
+            provider_name=resolved.provider_name,
+            provider_mode=resolved.provider_mode,
+            api_version=resolved.api_version,
+            extra_headers=resolved.extra_headers,
+            reasoning_effort=resolved.reasoning_effort,
+        )
+        run.emit(
+            "info", f"Resolved VLM model `{llm_config.model}` with binding `{llm_config.binding}`."
+        )
+        run.emit("info", f"Request target: {llm_config.base_url}")
+        run.emit(
+            "info",
+            (
+                "The vlm slot is the explicit T1 tier of the capability-fallback router. "
+                "Whatever model is placed here is trusted to accept images, so this probe "
+                "validates connectivity, binding and model identity. The chat pipeline uses "
+                "it for image inputs when the selected LLM lacks native vision."
+            ),
+        )
+        await self._probe_text_model(run, llm_config)
+        run.emit(
+            "info",
+            (
+                "VLM connection probe succeeded. Configure this slot in Settings > Catalog "
+                "(VLM) to route image attachments through it without OCR extraction."
+            ),
         )
 
     async def _test_embedding(

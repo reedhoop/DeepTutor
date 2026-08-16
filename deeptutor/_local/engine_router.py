@@ -161,6 +161,19 @@ def _first_ready(candidates: Tuple[str, ...], ttl: float) -> Optional[str]:
     return None
 
 
+def first_ready_ocr_engine() -> Optional[str]:
+    """Return the first OCR-capable engine that is currently ready.
+
+    Used by the chat capability-fallback router (T3) to turn an uploaded image
+    into text when the active LLM cannot see images. Mirrors the auto-router's
+    OCR pool (deliberately excludes vLLM-only engines like ``chandra`` that
+    need a manually started server), so an undeployed engine is never selected.
+    Returns ``None`` when no OCR engine is ready, letting callers degrade.
+    """
+    rttl, _ = _routing_ttls()
+    return _first_ready(_OCR_ENGINES, rttl)
+
+
 def resolve_engine(
     source_path: str | Path,
     *,

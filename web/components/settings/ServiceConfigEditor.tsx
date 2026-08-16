@@ -93,6 +93,7 @@ const SERVICE_LABEL: Record<ServiceName, string> = {
   stt: "Speech-to-Text",
   imagegen: "Image Generation",
   videogen: "Video Generation",
+  vlm: "VLM",
 };
 
 export function ServiceConfigEditor({ service }: { service: ServiceName }) {
@@ -290,7 +291,7 @@ export function ServiceConfigEditor({ service }: { service: ServiceName }) {
       ? llmContextDetection
       : null;
   const reasoningOptions =
-    service === "llm" && activeModel
+    (service === "llm" || service === "vlm") && activeModel
       ? isManagedCodex
         ? isBoundManagedCodex
           ? reasoningEffortOptionsFromSupportedLevels(

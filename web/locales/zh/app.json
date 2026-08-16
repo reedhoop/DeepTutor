@@ -346,6 +346,8 @@
   "Speech-to-Text": "语音识别",
   "Image Generation": "文生图",
   "Video Generation": "文生视频",
+  "VLM": "视觉语言模型",
+  "Configure the explicit vision-language model (VLM) slot. When the active LLM lacks native vision, image attachments are routed here for understanding (T1 fallback tier).": "配置显式的视觉语言模型（VLM）槽位。当当前 LLM 不具备原生视觉能力时，图片附件会被路由到此模型进行理解（T1 回退层）。",
   "Read assistant replies aloud from the chat speaker button. Works with any OpenAI-compatible audio API — OpenAI, OpenRouter, Groq, SiliconFlow, Azure, or a local server.": "从聊天的喇叭按钮朗读助手回复。兼容任意 OpenAI 风格的音频接口——OpenAI、OpenRouter、Groq、SiliconFlow、Azure 或本地服务。",
   "Transcribe the chat composer's microphone recordings. Works with any OpenAI-compatible audio API — OpenAI, Groq, SiliconFlow, Azure, or a local server.": "转写聊天输入框的麦克风录音。兼容任意 OpenAI 风格的音频接口——OpenAI、Groq、SiliconFlow、Azure 或本地服务。",
   "Text-to-image model used by the chat 'imagegen' tool. Works with any OpenAI-compatible /images/generations API — OpenAI, Volcengine Seedream, or compatible gateways.": "chat「imagegen」工具使用的文生图模型。兼容任意 OpenAI 风格的 /images/generations 接口——OpenAI、火山引擎 Seedream 或兼容网关。",

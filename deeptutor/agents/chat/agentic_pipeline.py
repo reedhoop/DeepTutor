@@ -54,6 +54,7 @@ from deeptutor.services.cli_apps.models import TOOL_PREFIX as CLI_APP_TOOL_PREFI
 from deeptutor.services.config import get_chat_params
 from deeptutor.services.llm import (
     get_llm_config,
+    LLMConfig,
     get_token_limit_kwargs,  # noqa: F401  (re-exported for tests)
     prepare_multimodal_messages,
     supports_tools,  # noqa: F401  (re-exported for tests)
@@ -232,6 +233,9 @@ class AgenticChatPipeline:
         self.event_stage = str(event_stage or "responding")
         self.emit_result = bool(emit_result)
         self.last_result: dict[str, Any] | None = None
+        # Set by the capability-fallback pre-flight (see ``_apply_capability_fallback``);
+        # non-empty means images were OCR-extracted and should replace image parts.
+        self._ocr_fallback_text: str = ""
 
         try:
             chat_cfg = get_chat_params()
@@ -344,6 +348,10 @@ class AgenticChatPipeline:
         return self.respond_max_tokens
 
     async def run(self, context: UnifiedContext, stream: StreamBus) -> dict[str, Any]:
+        # Capability fallback pre-flight: if the active LLM can't see images but
+        # the user attached some, swap to a vision-capable model (vlm slot or
+        # auto-discovered) before the first call, or OCR-extract the image text.
+        self._apply_capability_fallback(context)
         await self._prepare_deferred_tools(context)
         await self._prepare_kb_manifests(context)
         self._exec_enabled = await self._exec_allowed(context)
@@ -476,12 +484,41 @@ class AgenticChatPipeline:
         messages: list[dict[str, Any]],
         context: UnifiedContext,
     ) -> list[dict[str, Any]]:
+        if self._ocr_fallback_text:
+            # Images were OCR-extracted upstream; send the text instead of image
+            # parts (the primary model cannot see images).
+            from deeptutor._local.agentic_capability_apply import prepare_ocr_text_messages
+
+            return prepare_ocr_text_messages(messages, self._ocr_fallback_text, self.language)
         return prepare_multimodal_messages(
             messages,
             context.attachments,
             binding=self.binding,
             model=self.model,
         ).messages
+
+    def _apply_capability_fallback(self, context: UnifiedContext) -> None:
+        """Stage-0 pre-flight for capability-aware model fallback.
+
+        The fork-specific routing + application logic lives in
+        ``deeptutor._local.agentic_capability_apply`` so this shared upstream
+        module stays thin; this stub only delegates.
+        """
+        from deeptutor._local.agentic_capability_apply import apply_capability_fallback
+
+        apply_capability_fallback(self, context)
+
+    def _apply_llm_config(self, cfg: LLMConfig) -> None:
+        """Reassign the turn's LLM config + derived attributes from *cfg*.
+
+        Delegates to ``deeptutor._local.agentic_capability_apply.apply_llm_config``
+        (the real implementation). That helper rebuilds ``self._client_config`` —
+        the snapshot ``_build_openai_client`` reads — so the HTTP client follows
+        the swap; a stale snapshot would keep it pointed at the primary model.
+        """
+        from deeptutor._local.agentic_capability_apply import apply_llm_config
+
+        apply_llm_config(self, cfg)
 
     # ---- deferred tools / tool composition ------------------------------
 

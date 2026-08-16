@@ -151,6 +151,7 @@ def _search_shell() -> dict[str, Any]:
 SERVICE_NAMES: tuple[str, ...] = (
     "llm",
     "task",
+    "vlm",
     "embedding",
     "search",
     "tts",
@@ -165,6 +166,7 @@ SERVICE_NAMES: tuple[str, ...] = (
 CONNECTABLE_SERVICES: tuple[str, ...] = (
     "llm",
     "task",
+    "vlm",
     "embedding",
     "tts",
     "stt",

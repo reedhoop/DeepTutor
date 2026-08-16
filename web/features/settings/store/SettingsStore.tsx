@@ -41,7 +41,8 @@ export type ServiceName =
   | "tts"
   | "stt"
   | "imagegen"
-  | "videogen";
+  | "videogen"
+  | "vlm";
 
 /**
  * What the user declared about a model, overriding the built-in capability
@@ -181,6 +182,7 @@ export type Catalog = {
     stt: CatalogService;
     imagegen: CatalogService;
     videogen: CatalogService;
+    vlm: CatalogService;
   };
 };
 
@@ -427,6 +429,7 @@ export function defaultCatalog(): Catalog {
         active_model_id: null,
         profiles: [],
       },
+      vlm: { active_profile_id: null, active_model_id: null, profiles: [] },
     },
   };
 }
@@ -748,6 +751,7 @@ export function SettingsProvider({ children }: { children: ReactNode }) {
     stt: [],
     imagegen: [],
     videogen: [],
+    vlm: [],
   });
   const [connectionTargets, setConnectionTargets] = useState<
     ConnectionTarget[]

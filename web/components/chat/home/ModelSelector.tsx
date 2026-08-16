@@ -11,6 +11,7 @@ import {
   sameLLMSelection,
   type LLMOption,
 } from "@/lib/llm-options";
+import { inferModelBrandKey } from "@/lib/model-brand";
 
 function formatContextWindow(value?: number) {
   if (!value) return "";
@@ -60,7 +61,11 @@ function ModelOptionRow({
       }`}
     >
       <ProviderIcon
-        provider={option.provider}
+        // Prefer the brand inferred from the model id (e.g. "glm-5.2" → Zhipu)
+        // so OpenAI-compatible profiles that aggregate third-party models
+        // don't render every row with the binding's logo. Falls back to the
+        // profile binding for native models (gpt-*, claude-*, gemini-*, ...).
+        provider={inferModelBrandKey(option.model) || option.provider}
         size={14}
         className={
           selected ? "text-[var(--primary)]" : "text-[var(--muted-foreground)]"
@@ -113,7 +118,6 @@ export default function ModelSelector({
   helperText,
   placement = "top",
   onChange,
-  onRefresh,
 }: {
   options: LLMOption[];
   activeDefault: LLMSelection | null;
@@ -126,7 +130,6 @@ export default function ModelSelector({
   helperText?: string;
   placement?: "top" | "bottom";
   onChange: (selection: LLMSelection | null) => void;
-  onRefresh?: () => void;
 }) {
   const { t } = useTranslation();
   const [open, setOpen] = useState(false);
@@ -160,16 +163,12 @@ export default function ModelSelector({
   const defaultLabel = systemDefaultLabel || t("System default");
   const defaultDetail =
     systemDefaultDetail || t("Use the active default model from Settings");
-  const canRefresh = error && Boolean(onRefresh);
   const disabled =
-    loading ||
-    (!canRefresh && (error || (options.length === 0 && !allowSystemDefault)));
+    loading || error || (options.length === 0 && !allowSystemDefault);
   const label = loading
     ? t("Loading models")
     : error
-      ? canRefresh
-        ? t("Refresh models")
-        : t("Models unavailable")
+      ? t("Models unavailable")
       : allowSystemDefault && !selectedSelection
         ? defaultLabel
         : // Official model ID, consistent with the dropdown rows.
@@ -188,16 +187,8 @@ export default function ModelSelector({
       <button
         type="button"
         disabled={disabled}
-        onClick={() => {
-          if (canRefresh) {
-            setOpen(false);
-            onRefresh?.();
-            return;
-          }
-          setOpen((current) => !current);
-        }}
-        aria-label={canRefresh ? t("Refresh models") : t("Select model")}
-        title={canRefresh ? t("Refresh models") : undefined}
+        onClick={() => setOpen((current) => !current)}
+        aria-label={t("Select model")}
         aria-expanded={open}
         {...lingerProps}
         className={`inline-flex h-8 shrink-0 items-center rounded-lg px-2 text-[14px] font-medium transition-[background-color,color,transform] duration-150 active:scale-[0.97] ${
@@ -211,7 +202,13 @@ export default function ModelSelector({
         {error ? (
           <AlertCircle size={16} strokeWidth={1.7} className="shrink-0" />
         ) : (
-          <ProviderIcon provider={selectedOption?.provider} size={16} />
+          <ProviderIcon
+            provider={
+              inferModelBrandKey(selectedOption?.model) ||
+              selectedOption?.provider
+            }
+            size={16}
+          />
         )}
         <span
           className={`flex min-w-0 items-center gap-1 overflow-hidden whitespace-nowrap transition-[max-width,opacity,margin-left] duration-300 ease-out ${

@@ -346,6 +346,8 @@
   "Speech-to-Text": "Speech-to-Text",
   "Image Generation": "Image Generation",
   "Video Generation": "Video Generation",
+  "VLM": "VLM",
+  "Configure the explicit vision-language model (VLM) slot. When the active LLM lacks native vision, image attachments are routed here for understanding (T1 fallback tier).": "Configure the explicit vision-language model (VLM) slot. When the active LLM lacks native vision, image attachments are routed here for understanding (T1 fallback tier).",
   "Read assistant replies aloud from the chat speaker button. Works with any OpenAI-compatible audio API — OpenAI, OpenRouter, Groq, SiliconFlow, Azure, or a local server.": "Read assistant replies aloud from the chat speaker button. Works with any OpenAI-compatible audio API — OpenAI, OpenRouter, Groq, SiliconFlow, Azure, or a local server.",
   "Transcribe the chat composer's microphone recordings. Works with any OpenAI-compatible audio API — OpenAI, Groq, SiliconFlow, Azure, or a local server.": "Transcribe the chat composer's microphone recordings. Works with any OpenAI-compatible audio API — OpenAI, Groq, SiliconFlow, Azure, or a local server.",
   "Text-to-image model used by the chat 'imagegen' tool. Works with any OpenAI-compatible /images/generations API — OpenAI, Volcengine Seedream, or compatible gateways.": "Text-to-image model used by the chat 'imagegen' tool. Works with any OpenAI-compatible /images/generations API — OpenAI, Volcengine Seedream, or compatible gateways.",

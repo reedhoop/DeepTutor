@@ -619,6 +619,10 @@ def _provider_choices() -> dict[str, list[dict[str, Any]]]:
         "stt": stt,
         "imagegen": imagegen,
         "videogen": videogen,
+        # The vlm slot is OpenAI-compatible (same binding semantics as llm), so
+        # it shares the llm provider set. This lets the Settings UI offer the
+        # same vendor list for the explicit T1 VLM slot.
+        "vlm": llm,
     }
 
 
