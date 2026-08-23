@@ -142,6 +142,7 @@ def test_prompt_blocks_include_localized_optional_context() -> None:
     blocks = assembler.blocks(context=ctx, tool_manifest="", workspace_note="工作区可用")
 
     names = [block.name for block in blocks]
+    assert names[:4] == ["general", "runtime_context", "runtime_policy", "loop"]
     assert names[:4] == ["general", "runtime_policy", "k12_teaching_template", "loop"]
     assert "persona_style" in names
     assert "memory" in names
