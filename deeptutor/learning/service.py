@@ -295,6 +295,12 @@ class LearningService:
                 scheduler.schedule_next(state, kp_type, is_correct)
                 progress.review_queue = scheduler.build_review_queue(progress)
         _notify_post_grade(progress, knowledge_point_id, is_correct)  # [KGRAPH-EXT]
+        # NOTE: deliberately no save() here. This helper is documented as
+        # I/O-free; callers own persistence — `grade_and_record` saves
+        # explicitly and `grade_interaction` commits via the store transaction.
+        # Saving here nested a second BEGIN IMMEDIATE inside that transaction
+        # and self-deadlocked it (sqlite3 "database is locked" after the 30s
+        # busy_timeout).
         return is_correct
 
     # ── Loop-driven tutoring helpers ─────────────────────────────────────
