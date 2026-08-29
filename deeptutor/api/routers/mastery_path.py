@@ -49,15 +49,19 @@ _learning_service_cache_lock = threading.Lock()
 
 
 def get_learning_service() -> LearningService:
-    from deeptutor.services.path_service import get_path_service
-
-    root = str(get_path_service().get_workspace_dir())
+    # Key the cache by the *resolved* store root, not the logical workspace dir.
+    # Under test the store is monkeypatched to a per-test temp dir, so the
+    # logical workspace dir stays constant while the real root differs per test;
+    # keying on it would bind every test to the first test's store and leak
+    # state across tests. In production the resolved root is the workspace dir.
+    store = LearningStore()
+    root = str(store._root)
     svc = _learning_service_cache.get(root)
     if svc is None:
         with _learning_service_cache_lock:
             svc = _learning_service_cache.get(root)
             if svc is None:
-                svc = LearningService(LearningStore())
+                svc = LearningService(store)
                 # Bound memory across many distinct workspaces (e.g. multi-tenant).
                 if len(_learning_service_cache) > 256:
                     _learning_service_cache.clear()

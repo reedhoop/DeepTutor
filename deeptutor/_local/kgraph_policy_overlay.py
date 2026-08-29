@@ -26,6 +26,10 @@ def topo_aware_kp_selector(
     Returns the next ``KnowledgePoint`` to work on, or ``None`` to fall through
     to the original logic (e.g. nothing overrides this module).
     """
+    # No KGraph dependency map => nothing to topologically override. Degrade to
+    # the original linear scan so hand-built paths behave exactly as upstream.
+    if not progress.dep_map:
+        return None
     # Real-time fallback: if the learner is stuck on a KP, revisit an unmastered
     # prerequisite first.
     fallback = _check_wrong_trigger(progress, module)
