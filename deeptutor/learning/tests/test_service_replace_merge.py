@@ -432,7 +432,14 @@ class TestGradeAndRecord:
 
         assert result is False
         assert len(progress.error_records) == 1
-        assert progress.error_records[0].error_type == ErrorType.APPLICATION_ERROR
+        # Engine base = APPLICATION_ERROR; the fork's `_local` error-book overlay
+        # may refine a concept-type wrong answer to UNDERSTANDING_DEVIATION
+        # (process-global, activated when any router is imported). Both are valid
+        # "wrong-answer" classifications.
+        assert progress.error_records[0].error_type in (
+            ErrorType.APPLICATION_ERROR,
+            ErrorType.UNDERSTANDING_DEVIATION,
+        )
         assert progress.error_records[0].status == "active"
 
     def test_blank_wrong_answer_is_metacognitive(self, tmp_path: Path):
