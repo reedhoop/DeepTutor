@@ -24,6 +24,7 @@ from .book_permission import (
 from .learner_profile import normalize_profile
 from .models import AccountPreset, Role
 from .paths import PROJECT_ROOT, SYSTEM_ROOT, migrate_legacy_multi_user_tree
+from deeptutor.utils.secret_files import write_secret_text
 
 logger = logging.getLogger(__name__)
 
