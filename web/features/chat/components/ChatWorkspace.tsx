@@ -8,13 +8,14 @@ import {
   useMemo,
   useRef,
   useState,
-  Suspense,
 } from "react";
-import { useParams, useRouter, useSearchParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 
 import {
   BarChart3,
+  BookOpenText,
   BrainCircuit,
+  CircleHelp,
   Clapperboard,
   Code2,
   Compass,
@@ -25,9 +26,7 @@ import {
   Image as ImageIcon,
   Lightbulb,
   MessageSquare,
-  MessagesSquare,
   Microscope,
-  Presentation,
   PenLine,
   type LucideIcon,
 } from "lucide-react";
@@ -36,11 +35,16 @@ import type { SelectedRecord } from "@/lib/notebook-selection-types";
 import type { SelectedHistorySession } from "@/components/chat/HistorySessionPicker";
 import type { SelectedQuestionEntry } from "@/components/chat/QuestionBankPicker";
 import ChatComposer from "@/components/chat/home/ChatComposer";
-import { DigitalHumanWidget } from "@/components/chat/digital/DigitalHumanWidget";
 import type { ContextBudget } from "@/components/chat/home/ContextBudgetChip";
 import { ChatMessageList } from "@/features/chat/messages";
 import { TurnNavigator } from "@/components/chat/home/TurnNavigator";
 import SessionLoadingView from "@/components/chat/home/SessionLoadingView";
+import {
+  SESSION_LOAD_TIMEOUT_MS,
+  shouldSurfaceLoadFailure,
+} from "@/lib/session-load";
+import StarterSuggestions from "@/components/chat/home/StarterSuggestions";
+import MasteryPathStrip from "@/components/chat/home/MasteryPathStrip";
 // Imported eagerly so the drawer shell is always mounted off-screen —
 // clicking a chip becomes a single CSS class flip, no chunk fetch + double
 // render. The heavy renderers inside still load lazily.
@@ -55,9 +59,9 @@ import {
   useQuizFollowupController,
 } from "@/context/QuizFollowupContext";
 import {
-  KgTabProvider,
-  useKgTabOpener,
-} from "@/context/KgTabContext"; // === K12-KGraph: KG browser tab — local addition, NOT in upstream (DeepTutor fork only) ===
+  GeogebraTabProvider,
+  useGeogebraTabOpener,
+} from "@/context/GeogebraTabContext";
 import { BookmarkPlus, Download, PanelRight } from "lucide-react";
 import {
   useChatStateAdapter,
@@ -65,6 +69,8 @@ import {
   type MessageRequestSnapshot,
 } from "@/features/chat/ChatStateAdapter";
 import { useAppShell } from "@/context/AppShellContext";
+
+import { READER_ASK_EVENT, ReaderPane } from "@/components/reading/ReaderPane";
 import type { FilePreviewSource } from "@/components/chat/preview/previewerFor";
 import type { LLMSelection, StreamEvent } from "@/features/chat/model/protocol";
 import {
@@ -72,9 +78,13 @@ import {
   readFileAsDataUrl,
 } from "@/lib/file-attachments";
 import { classifyFile, isSvgFilename } from "@/lib/doc-attachments";
+import { readChatLaunchIntent } from "@/lib/chat-launch-intent";
 import { useAttachmentLimits } from "@/lib/attachment-limits";
+import { hasPendingAskUser } from "@/lib/ask-user-state";
 import { useChatAutoScroll } from "@/hooks/useChatAutoScroll";
 import { useMeasuredHeight } from "@/hooks/useMeasuredHeight";
+import { useSetupSync } from "@/hooks/useSetupSync";
+import { consumePendingPrompt } from "@/lib/pending-prompt";
 import {
   fetchSessionAskHint,
   updateSessionOrganization,
@@ -119,6 +129,10 @@ import {
   selectedBooksToPayload,
   type SelectedBookReference,
 } from "@/lib/book-references";
+import {
+  normalizeSelectedText,
+  type SelectionTutorContext,
+} from "@/lib/selection-tutor";
 
 const NotebookRecordPicker = dynamic(
   () => import("@/components/notebook/NotebookRecordPicker"),
@@ -170,7 +184,9 @@ const SaveToNotebookModal = dynamic(
 // don't need a form (Chat / Solve) don't ship the form JS.
 const CapabilityConfigCard = dynamic(
   () => import("@/components/chat/home/CapabilityConfigCard"),
-  { ssr: false },
+  {
+    ssr: false,
+  },
 );
 const QuizConfigPanel = dynamic(
   () => import("@/components/quiz/QuizConfigPanel"),
@@ -178,11 +194,15 @@ const QuizConfigPanel = dynamic(
 );
 const VisualizeConfigPanel = dynamic(
   () => import("@/components/visualize/VisualizeConfigPanel"),
-  { ssr: false },
+  {
+    ssr: false,
+  },
 );
 const ResearchConfigPanel = dynamic(
   () => import("@/components/research/ResearchConfigPanel"),
-  { ssr: false },
+  {
+    ssr: false,
+  },
 );
 
 /* ------------------------------------------------------------------ */
@@ -223,11 +243,16 @@ interface CapabilityDef {
   icon: LucideIcon;
   allowedTools: ToolName[];
   defaultTools: ToolName[];
-  // Loop-engine capabilities run on the chat agent loop (solve / mastery) rather
-  // than a bespoke pipeline. They are collapsed into the "More" flyout in the
-  // capability picker instead of listed directly. Driven by the loop-capability
-  // registry on the backend; mirrored here as a static flag.
-  loopEngine?: boolean;
+  /**
+   * Collapse this capability into the picker's "More" flyout instead of listing
+   * it directly.
+   *
+   * Purely about presentation — which handful of modes deserve to be one click
+   * away. It used to key off whether a capability ran on the chat agent loop,
+   * which conflated an implementation detail with menu order and meant the menu
+   * could not be reordered without lying about the engine.
+   */
+  secondary?: boolean;
 }
 
 const CAPABILITIES: CapabilityDef[] = [
@@ -255,7 +280,24 @@ const CAPABILITIES: CapabilityDef[] = [
     icon: BrainCircuit,
     allowedTools: ["web_search", "code_execution", "reason"],
     defaultTools: ["web_search", "code_execution", "reason"],
-    loopEngine: true,
+    secondary: true,
+  },
+  {
+    value: "ask_questions",
+    label: "Ask Questions",
+    description: "Let the model ask you questions to fill in missing context",
+    icon: CircleHelp,
+    allowedTools: [
+      "brainstorm",
+      "geogebra_analysis",
+      "web_search",
+      "code_execution",
+      "reason",
+      "paper_search",
+      "imagegen",
+      "videogen",
+    ],
+    defaultTools: [],
   },
   {
     value: "deep_question",
@@ -272,6 +314,7 @@ const CAPABILITIES: CapabilityDef[] = [
     icon: Microscope,
     allowedTools: ["web_search", "paper_search", "code_execution"],
     defaultTools: ["web_search", "paper_search", "code_execution"],
+    secondary: true,
   },
   {
     value: "visualize",
@@ -292,29 +335,16 @@ const CAPABILITIES: CapabilityDef[] = [
     // These are only the extra optional tools the tutor may also reach for.
     allowedTools: ["web_search", "code_execution"],
     defaultTools: [],
-    loopEngine: true,
   },
   {
-    value: "socratic_tutor",
-    label: "Socratic Tutoring",
-    description: "Guide by questioning, never hand over the answer",
-    icon: MessagesSquare,
-    // Socratic tutoring reuses the full chat tool surface and shapes the
-    // tutor's replies via a guardrail system block (no dedicated tools).
+    value: "immersive_reading",
+    label: "Immersive Reading",
+    description: "Read a document with the assistant, cited line by line",
+    icon: BookOpenText,
+    // The five reading tools auto-mount server-side once a document is open;
+    // these are the extra tools the assistant may also reach for while reading.
     allowedTools: ["web_search", "code_execution", "reason"],
     defaultTools: [],
-    loopEngine: true,
-  },
-  {
-    value: "feynman_tutor",
-    label: "Feynman Tutoring",
-    description: "Learn by explaining in your own words; the tutor checks clarity, gaps, and misunderstandings",
-    icon: Presentation,
-    // Feynman tutoring reuses the full chat tool surface and shapes the
-    // tutor's replies via a Feynman-style system block (no dedicated tools).
-    allowedTools: ["web_search", "code_execution", "reason"],
-    defaultTools: [],
-    loopEngine: true,
   },
 ];
 
@@ -326,6 +356,10 @@ interface KnowledgeBase {
     type?: string;
     /** Backend of a connected subagent: "claude_code" | "codex" | "partner". */
     agent_kind?: string;
+    rag_provider?: string;
+  };
+  statistics?: {
+    rag_provider?: string;
   };
 }
 
@@ -404,10 +438,14 @@ export default function ChatPage() {
     loadSession,
     showCachedSession,
     renameSessionTitle,
-    selectedSessionId,
   } = useUnifiedChat();
 
   const [knowledgeBases, setKnowledgeBases] = useState<KnowledgeBase[]>([]);
+  const [knowledgeBasesLoaded, setKnowledgeBasesLoaded] = useState(false);
+  const availableKbNames = useMemo(
+    () => new Set(knowledgeBases.map((kb) => kb.name)),
+    [knowledgeBases],
+  );
   // A connected agent to preselect once it loads, from `?agent=<name>` on the
   // URL (the partner list page links here to drop straight into a chat with a
   // partner). Captured once at first client render — the URL is rewritten to
@@ -420,21 +458,16 @@ export default function ChatPage() {
         ? null
         : new URLSearchParams(window.location.search).get("agent");
   }
+  // A course-page "New course chat" link carries the destination only until
+  // the first turn creates its durable session. Consume it once so later
+  // messages cannot undo an explicit move made from the sidebar.
+  const pendingCourseRef = useRef<string | null | undefined>(undefined);
+  useEffect(() => {
+    pendingCourseRef.current = new URLSearchParams(window.location.search).get(
+      "course",
+    );
+  }, []);
   const agentPreselectDoneRef = useRef(false);
-  // Reactive search params so that client-side navigations to
-  // `/home?mastery_path=<id>` (e.g. from the learning dashboard "继续" button)
-  // are picked up even when the component doesn't remount. Falls back to null
-  // during SSR / before Suspense resolves.
-  const searchParams = useSearchParams();
-  const pendingMasteryPath = searchParams?.get("mastery_path") ?? null;
-  const pendingMasteryTitle = searchParams?.get("title") ?? null;
-  // "1" when the learning dashboard just created the chat session via
-  // ``GET /sessions/by-path`` (the new binding-aware flow); absent / "0"
-  // means the URL points at an already-existing session that we should
-  // resume without injecting a greeting.
-  const pendingCreated = searchParams?.get("created") === "1";
-  const masteryPathHandledRef = useRef(false);
-
   const {
     options: llmOptions,
     activeDefault: activeLLMDefault,
@@ -467,6 +500,14 @@ export default function ChatPage() {
   // Single right-side panel: the Activity/Viewer. Its home view is the
   // session activity; files and web pages open as tabs alongside it.
   const [viewerPanelOpen, setViewerPanelOpen] = useState(false);
+  const [selectionTutorPrompt, setSelectionTutorPrompt] = useState<{
+    text: string;
+    sourceMessageId: number;
+    sourceMessageText: string;
+    sourceMessageRole: SelectionTutorContext["sourceMessageRole"];
+    left: number;
+    top: number;
+  } | null>(null);
   useEffect(() => {
     if (typeof window === "undefined") return;
     if (browserStorage.readRaw("local", "dt:chat:viewer-panel") === "1") {
@@ -640,6 +681,10 @@ export default function ChatPage() {
   // Session-loading overlay: shown while navigating from chat-history →
   // session detail. Holds an AbortController so the user can cancel.
   const [sessionLoading, setSessionLoading] = useState(false);
+  // A load that ended without a session: terminal, and retryable. Kept
+  // separate from `sessionLoading` so the overlay can tell "still
+  // arriving" apart from "never arrived".
+  const [sessionLoadFailed, setSessionLoadFailed] = useState(false);
   const loadAbortRef = useRef<AbortController | null>(null);
   // Bridge ref: ``ChatComposer`` writes a prefill function into this on
   // mount; ``ChatMessageList`` reads it via ``handlePrefillComposer`` so an
@@ -648,6 +693,32 @@ export default function ChatPage() {
   const handlePrefillComposer = useCallback((text: string) => {
     prefillInputRef.current?.(text);
   }, []);
+
+  // A message handed over by another page (Settings' "set up with DeepTutor"
+  // button). Prefilled rather than sent: the user reads what will be asked and
+  // presses enter themselves. Consumed once, so a refresh does not retype it.
+  //
+  // Retried on a short bounded schedule rather than fired once: the composer
+  // installs its prefill bridge from its own effect, and it is not mounted at
+  // all while a session is still loading. A single attempt would land on a null
+  // ref and drop the message silently — the user arrives from Settings at an
+  // empty box with no idea the button did anything.
+  useEffect(() => {
+    const pending = consumePendingPrompt();
+    if (!pending) return;
+    let attempts = 0;
+    let timer: ReturnType<typeof setTimeout>;
+    const attempt = () => {
+      if (prefillInputRef.current) {
+        handlePrefillComposer(pending);
+        return;
+      }
+      if (attempts++ >= 20) return; // ~2s, then give up quietly
+      timer = setTimeout(attempt, 100);
+    };
+    timer = setTimeout(attempt, 0);
+    return () => clearTimeout(timer);
+  }, [handlePrefillComposer]);
 
   // A clickable node inside an inlined visualization SVG (data-prompt) — and the
   // html widget's sendPrompt bridge — dispatch this window event; mirror it into
@@ -661,6 +732,30 @@ export default function ChatPage() {
     return () => window.removeEventListener("dt:visualize-prompt", onVizPrompt);
   }, [handlePrefillComposer]);
 
+  // "Ask about this" on a reader selection. Prefilled rather than sent, and
+  // shaped as a quote plus a locator so the model can verify it against the
+  // document instead of taking the user's paraphrase on faith.
+  useEffect(() => {
+    const onReaderAsk = (event: Event) => {
+      const detail = (
+        event as CustomEvent<{
+          quote?: string;
+          locator?: number;
+          unit?: string;
+        }>
+      ).detail;
+      const quote = (detail?.quote || "").trim();
+      if (!quote) return;
+      const unit = detail?.unit || "page";
+      const where = detail?.locator ? ` (${unit} ${detail.locator})` : "";
+      handlePrefillComposer(
+        `> ${quote}\n\n${t("Explain this passage")}${where}: `,
+      );
+    };
+    window.addEventListener(READER_ASK_EVENT, onReaderAsk);
+    return () => window.removeEventListener(READER_ASK_EVENT, onReaderAsk);
+  }, [handlePrefillComposer, t]);
+
   const activeCap = useMemo(
     () =>
       capabilities.find(
@@ -671,6 +766,7 @@ export default function ChatPage() {
   const isQuizMode = activeCap.value === "deep_question";
   const isVisualizeMode = activeCap.value === "visualize";
   const isResearchMode = activeCap.value === "deep_research";
+  const isReadingMode = activeCap.value === "immersive_reading";
   const capabilityNeedsConfig = isQuizMode || isVisualizeMode || isResearchMode;
   const returnedResearchTurnRef = useRef<string | null>(null);
 
@@ -755,6 +851,10 @@ export default function ChatPage() {
       ensureActivityPanelOpen();
     }
   }, [capabilityNeedsConfig, ensureActivityPanelOpen]);
+  // Adopt UI preferences the assistant changed mid-conversation: the browser
+  // otherwise keeps serving its own cached language/theme and the user is told
+  // "done" while nothing visibly changes.
+  useSetupSync(state.messages);
   const hasMessages = state.messages.length > 0;
   // A line the user might type next, written by the task model against the
   // conversation's own tail — general prediction, not a question to ask,
@@ -822,21 +922,9 @@ export default function ChatPage() {
     [state.messages],
   );
   const persistedSessionTitle = state.sessionTitle.trim();
-  // In Mastery Path mode the chapter/section name from the URL (?title=章节名)
-  // is the authoritative, distinguishable title — it must win over any
-  // persisted greeting/placeholder (e.g. "我们开始这条精通之路的学习吧。")
-  // so the header and sidebar stay useful. This also guarantees the correct
-  // title shows *immediately*, even before renameSessionTitle's async PATCH
-  // lands (or if it fails silently). The rename call still persists it for
-  // the sidebar.
-  const displaySessionTitle = useMemo(() => {
-    if (activeCap.value === "mastery_path" && pendingMasteryTitle?.trim()) {
-      return pendingMasteryTitle.trim();
-    }
-    return isPlaceholderSessionTitle(persistedSessionTitle)
-      ? firstUserTitle || t("New chat")
-      : persistedSessionTitle;
-  }, [activeCap.value, pendingMasteryTitle, persistedSessionTitle, firstUserTitle, t]);
+  const displaySessionTitle = isPlaceholderSessionTitle(persistedSessionTitle)
+    ? firstUserTitle || t("New chat")
+    : persistedSessionTitle;
   const canRenameSession = Boolean(state.sessionId);
   const titleInputRef = useRef<HTMLInputElement | null>(null);
   const skipTitleCommitRef = useRef(false);
@@ -1045,6 +1133,25 @@ export default function ChatPage() {
     scrollToBottom("instant");
   }, [scrollToBottom, shouldAutoScrollRef]);
 
+  /* A card waiting on the user is the one thing that MUST be on screen: the
+     turn cannot continue until they act on it. Reading the question that
+     precedes it normally scrolls up, which releases the streaming pin — so a
+     quiz card would appear below the fold, under the composer, and the
+     conversation looked stalled. Re-arm the pin and land on the card. */
+  const awaitingUserReply = hasPendingAskUser(lastMessage?.events);
+  // Read inside ``handleSend`` without adding a dependency that would rebuild
+  // the callback (and so the composer) on every streamed event.
+  const awaitingUserReplyRef = useRef(awaitingUserReply);
+  awaitingUserReplyRef.current = awaitingUserReply;
+  useEffect(() => {
+    if (!awaitingUserReply) return;
+    shouldAutoScrollRef.current = true;
+    // One frame later: the card has to be laid out before the bottom it
+    // defines exists.
+    const frame = requestAnimationFrame(() => scrollToBottom("instant"));
+    return () => cancelAnimationFrame(frame);
+  }, [awaitingUserReply, scrollToBottom, shouldAutoScrollRef]);
+
   const copyAssistantMessage = useCallback(async (content: string) => {
     if (!content.trim()) return;
     try {
@@ -1064,17 +1171,23 @@ export default function ChatPage() {
     loadAbortRef.current?.abort();
     loadAbortRef.current = null;
     setSessionLoading(false);
+    setSessionLoadFailed(false);
     navigateToHome();
   }, [navigateToHome]);
 
   /**
-   * Shared helper: kick off a load. The user can cancel via the ✕ button;
-   * otherwise the loading overlay stays until the API responds (no timeout).
+   * Shared helper: kick off a load. The user can cancel via the ✕ button.
    *
    * A session we already hold in memory is painted right away and refreshed
    * in the background — switching back to a conversation read earlier in this
    * visit costs nothing, and the overlay is reserved for the case where we
    * genuinely have nothing to show.
+   *
+   * The wait is bounded. A fetch that never settles used to leave the overlay
+   * spinning forever with no way out but abandoning the conversation, and a
+   * fetch that *failed* used to replace the URL with /home — dropping the
+   * session id, so a transient error read as "my history is gone". Both now
+   * end in the same terminal, retryable state with the id still in the URL.
    */
   const startSessionLoad = useCallback(
     (sid: string) => {
@@ -1083,9 +1196,20 @@ export default function ChatPage() {
       loadAbortRef.current = ctrl;
       const cached = showCachedSession(sid);
       setSessionLoading(!cached);
+      setSessionLoadFailed(false);
+
+      // Aborting is how the timeout stops waiting, so it has to be
+      // distinguishable from the user's ✕ and from a newer load taking over:
+      // those two own the resulting state, a timeout does not.
+      let timedOut = false;
+      const timeout = setTimeout(() => {
+        timedOut = true;
+        ctrl.abort();
+      }, SESSION_LOAD_TIMEOUT_MS);
 
       void loadSession(sid, { signal: ctrl.signal, revalidate: cached })
         .then(() => {
+          clearTimeout(timeout);
           if (!ctrl.signal.aborted) {
             loadAbortRef.current = null;
             setSessionLoading(false);
@@ -1112,23 +1236,26 @@ export default function ChatPage() {
           }
         })
         .catch(() => {
-          if (!ctrl.signal.aborted) {
-            loadAbortRef.current = null;
-            setSessionLoading(false);
-            // A background refresh that fails leaves the cached copy on
-            // screen; only a cold open has nothing to fall back to.
-            if (!cached) navigateToHome();
-          }
+          clearTimeout(timeout);
+          const surface = shouldSurfaceLoadFailure({
+            aborted: ctrl.signal.aborted,
+            timedOut,
+            cached,
+          });
+          // A newer load (or the user's ✕) owns the state from here, and a
+          // failed background refresh leaves the cached copy on screen.
+          if (!surface) return;
+          loadAbortRef.current = null;
+          setSessionLoading(false);
+          setSessionLoadFailed(true);
         });
     },
-    [
-      loadSession,
-      navigateToHome,
-      showCachedSession,
-      scrollToBottom,
-      shouldAutoScrollRef,
-    ],
+    [loadSession, showCachedSession, scrollToBottom, shouldAutoScrollRef],
   );
+
+  const retrySessionLoad = useCallback(() => {
+    if (sessionIdParam) startSessionLoad(sessionIdParam);
+  }, [sessionIdParam, startSessionLoad]);
 
   // Initial mount — load the session from the URL.
   // Uses a ref-based flag so Strict Mode double-mount doesn't break the flow:
@@ -1160,12 +1287,14 @@ export default function ChatPage() {
     if (sessionIdParam) {
       if (sessionIdParam === state.sessionId) {
         setSessionLoading(false);
+        setSessionLoadFailed(false);
         return;
       }
       startSessionLoad(sessionIdParam);
     } else {
       newSession();
       setSessionLoading(false);
+      setSessionLoadFailed(false);
     }
   }, [sessionIdParam, startSessionLoad, newSession, state.sessionId]);
 
@@ -1185,7 +1314,9 @@ export default function ChatPage() {
       try {
         const list = await listKnowledgeBases({ force: options?.force });
         setKnowledgeBases(list);
+        setKnowledgeBasesLoaded(true);
       } catch {
+        setKnowledgeBasesLoaded(false);
         setKnowledgeBases([]);
       }
     },
@@ -1205,6 +1336,16 @@ export default function ChatPage() {
   useEffect(() => {
     void refreshKnowledgeBases();
   }, [refreshKnowledgeBases]);
+
+  // A physical KB delete does not cascade into persisted session preferences.
+  // Reconcile only after a successful fetch: an empty result then means every
+  // KB was deleted, while a failed request must keep the existing selection.
+  useEffect(() => {
+    if (!knowledgeBasesLoaded) return;
+    const selected = state.knowledgeBases;
+    const pruned = selected.filter((name) => availableKbNames.has(name));
+    if (pruned.length !== selected.length) setKBs(pruned);
+  }, [availableKbNames, knowledgeBasesLoaded, state.knowledgeBases, setKBs]);
 
   const refreshUserEnabledTools = useCallback(
     async (options?: { force?: boolean }) => {
@@ -1256,17 +1397,16 @@ export default function ChatPage() {
     setCapabilityConfigs(loadCapabilityPlaygroundConfigs());
   }, []);
 
-  /* URL query params (capability, tool, persistent mastery path) */
+  /* Composer setup requested by the URL that opened this page (capability,
+     tools, persistent mastery path). Runs once: from here on the composer is
+     the user's to change. */
   useEffect(() => {
     if (typeof window === "undefined") return;
-    const p = new URLSearchParams(window.location.search);
-    const qc = p.get("capability");
-    const qt = p.getAll("tool");
-    const masteryPathId = p.get("mastery_path_id")?.trim();
-    if (masteryPathId) setMasteryPathId(masteryPathId);
-    if (qc !== null) handleSelectCapability(qc || "");
-    else if (qt.length) {
-      const valid = qt.filter((t): t is ToolName =>
+    const intent = readChatLaunchIntent(window.location.search);
+    if (intent.masteryPathId) setMasteryPathId(intent.masteryPathId);
+    if (intent.capability !== null) handleSelectCapability(intent.capability);
+    else if (intent.tools.length) {
+      const valid = intent.tools.filter((t): t is ToolName =>
         ALL_TOOLS.some((d) => d.name === t),
       );
       if (valid.length) setTools(Array.from(new Set(valid)));
@@ -1474,8 +1614,11 @@ export default function ChatPage() {
   // Fold all messages once per state.messages change to power the
   // SessionActivityPanel on the right (tools, KBs, space refs, attachments).
   const sessionActivity = useMemo(
-    () => buildSessionActivity(state.messages),
-    [state.messages],
+    () =>
+      buildSessionActivity(state.messages, {
+        availableKbNames: knowledgeBasesLoaded ? availableKbNames : undefined,
+      }),
+    [state.messages, availableKbNames, knowledgeBasesLoaded],
   );
 
   // Context-window readout for the composer chip: the newest turn that was
@@ -1604,6 +1747,91 @@ export default function ChatPage() {
     viewerPanelRef.current?.openWebTab(href);
   }, []);
 
+  const handleMessagesSelection = useCallback(() => {
+    const container = messagesContainerRef.current;
+    const selection = window.getSelection();
+    if (
+      !container ||
+      !selection ||
+      selection.isCollapsed ||
+      !selection.rangeCount
+    ) {
+      setSelectionTutorPrompt(null);
+      return;
+    }
+    const range = selection.getRangeAt(0);
+    if (!container.contains(range.commonAncestorContainer)) {
+      setSelectionTutorPrompt(null);
+      return;
+    }
+    const text = normalizeSelectedText(selection.toString());
+    if (text.length < 2) {
+      setSelectionTutorPrompt(null);
+      return;
+    }
+
+    const messageElementForNode = (node: Node | null): HTMLElement | null => {
+      const element =
+        node instanceof HTMLElement ? node : (node?.parentElement ?? null);
+      return element?.closest<HTMLElement>("[data-chat-message-id]") ?? null;
+    };
+    const anchorMessage = messageElementForNode(selection.anchorNode);
+    const focusMessage = messageElementForNode(selection.focusNode);
+    if (!anchorMessage || anchorMessage !== focusMessage) {
+      setSelectionTutorPrompt(null);
+      return;
+    }
+    const sourceMessageId = Number(anchorMessage.dataset.chatMessageId);
+    const sourceMessage = state.messages.find(
+      (message) => message.id === sourceMessageId,
+    );
+    if (!Number.isInteger(sourceMessageId) || !sourceMessage) {
+      setSelectionTutorPrompt(null);
+      return;
+    }
+
+    const rects = range.getClientRects();
+    const rect =
+      rects.length > 0
+        ? rects[rects.length - 1]
+        : range.getBoundingClientRect();
+    const buttonWidth = 118;
+    const buttonHeight = 38;
+    const left = Math.max(
+      12,
+      Math.min(rect.right - buttonWidth, window.innerWidth - buttonWidth - 12),
+    );
+    const below = rect.bottom + 8;
+    const top =
+      below + buttonHeight <= window.innerHeight - 12
+        ? below
+        : Math.max(12, rect.top - buttonHeight - 8);
+    setSelectionTutorPrompt({
+      text,
+      sourceMessageId,
+      sourceMessageText: sourceMessage.content,
+      sourceMessageRole: sourceMessage.role,
+      left,
+      top,
+    });
+  }, [messagesContainerRef, state.messages]);
+
+  const openSelectionTutor = useCallback(() => {
+    if (!selectionTutorPrompt) return;
+    viewerPanelRef.current?.openSelectionTutorTab(
+      {
+        selectedText: selectionTutorPrompt.text,
+        parentSessionId: state.sessionId,
+        sourceMessageId: selectionTutorPrompt.sourceMessageId,
+        sourceMessageText: selectionTutorPrompt.sourceMessageText,
+        sourceMessageRole: selectionTutorPrompt.sourceMessageRole,
+      },
+      state.language,
+    );
+    setSelectionTutorPrompt(null);
+    window.getSelection()?.removeAllRanges();
+  }, [selectionTutorPrompt, state.language, state.sessionId]);
+
   const handleClosePreview = useCallback(() => {
     setPreviewSource(null);
   }, []);
@@ -1678,6 +1906,14 @@ export default function ChatPage() {
 
   const handleSend = useCallback(
     async (content: string) => {
+      // A turn paused on a question: what the user typed is their answer, not
+      // a new message. Routing it here means the card is one way to answer,
+      // not the only one — and a card that never rendered no longer strands
+      // the learner with a turn they can only cancel.
+      if (awaitingUserReplyRef.current) {
+        if (content.trim()) submitUserReply({ text: content });
+        return;
+      }
       if (
         (!content &&
           !attachments.length &&
@@ -1756,6 +1992,10 @@ export default function ChatPage() {
       if (selectedAgent && subagentBudget) {
         config = { ...(config ?? {}), subagent_consult_budget: subagentBudget };
       }
+      const launchCourseId = pendingCourseRef.current?.trim();
+      if (launchCourseId) {
+        config = { ...(config ?? {}), _course_id: launchCourseId };
+      }
 
       const memoryPayload = [...memoryReferencesPayload];
       const messageContent =
@@ -1785,6 +2025,7 @@ export default function ChatPage() {
         undefined,
         memoryPayload,
       );
+      pendingCourseRef.current = null;
       shouldAutoScrollRef.current = true;
       setAttachments([]);
       setSelectedBookReferences([]);
@@ -1819,6 +2060,7 @@ export default function ChatPage() {
       shouldAutoScrollRef,
       state.isStreaming,
       subagentBudget,
+      submitUserReply,
       t,
       visualizeConfig,
     ],
@@ -1875,13 +2117,23 @@ export default function ChatPage() {
   const handleToggleKB = useCallback(
     (name: string) => {
       const current = state.knowledgeBases;
+      const providerOf = (kbName: string) => {
+        const kb = knowledgeBases.find((item) => item.name === kbName);
+        return kb?.metadata?.rag_provider || kb?.statistics?.rag_provider || "";
+      };
+      const selectingOss = providerOf(name) === "pageindex-oss";
       setKBs(
         current.includes(name)
           ? current.filter((kb) => kb !== name)
-          : [...current, name],
+          : [
+              ...(selectingOss
+                ? current.filter((kb) => providerOf(kb) !== "pageindex-oss")
+                : current),
+              name,
+            ],
       );
     },
-    [setKBs, state.knowledgeBases],
+    [knowledgeBases, setKBs, state.knowledgeBases],
   );
 
   // Real knowledge bases and connected subagents render as separate composer
@@ -1920,113 +2172,6 @@ export default function ChatPage() {
     agentPreselectDoneRef.current = true;
     handleSelectAgent(name);
   }, [agentNameSet, handleSelectAgent]);
-  // Honor `?mastery_path=<book_id>` on a fresh session: drop straight into
-  // Mastery Path mode and send the first turn carrying the path id, so the
-  // backend loads that exact path (with textbook context) and the tutor
-  // greets the learner with the first objective. Two flows now reach here:
-  //
-  //   1. **Legacy draft** — URL is `/home?mastery_path=...` (no sessionId
-  //      segment). A draft session is created on mount; we send the greeting
-  //      into that draft. (Will be removed once all callers migrate to flow
-  //      2; kept for backward-compat with existing bookmarks and ad-hoc
-  //      links.)
-  //   2. **Path-bound** — learning dashboard already called
-  //      `GET /sessions/by-path` and navigated to
-  //      `/home/<sessionId>?mastery_path=...&created=0|1`. The session is
-  //      already persisted on the server, so:
-  //        - `created=1`: brand-new (empty) session → send the greeting.
-  //        - `created=0` (or absent): resumed session → just enable Mastery
-  //          Path mode; never inject a greeting into the user's history.
-  //
-  // In flow 2 we wait until `selectedSessionId === sessionIdParam` before
-  // calling ``sendMessage`` so the greeting targets the just-created
-  // session, not the previous one still in state.
-  useEffect(() => {
-    if (masteryPathHandledRef.current) return;
-    const pathId = pendingMasteryPath;
-    if (!pathId) {
-      masteryPathHandledRef.current = true;
-      return;
-    }
-    // ── Flow 2: URL has the real session id from get-or-create ─────────
-    if (sessionIdParam) {
-      masteryPathHandledRef.current = true;
-      setCapability("mastery_path");
-      if (!pendingCreated) {
-        // Resumed: never inject a greeting; the chapter title was already
-        // set at session creation by the get-or-create endpoint, so the
-        // sidebar will show "第一章 认识生物" instead of "新对话".
-        return;
-      }
-      // Newly created: wait until the just-loaded session is the selected
-      // one, then send the greeting on the next tick (matches the legacy
-      // draft-flow timing — give setCapability a chance to commit first).
-      if (selectedSessionId !== sessionIdParam) {
-        // Roll back the handled flag so the effect re-runs once the
-        // session is bound; the outer guard above will short-circuit on
-        // the second pass once we get past the wait.
-        masteryPathHandledRef.current = false;
-        return;
-      }
-      let t2: ReturnType<typeof setTimeout> | undefined;
-      const t1: ReturnType<typeof setTimeout> = setTimeout(() => {
-        masteryPathHandledRef.current = true;
-        t2 = setTimeout(() => {
-          sendMessage(
-            t("mastery.continueGreeting", "我们开始这条精通之路的学习吧。"),
-            undefined,
-            { mastery_path_id: pathId },
-          );
-        }, 0);
-      }, 0);
-      return () => {
-        clearTimeout(t1);
-        if (t2) clearTimeout(t2);
-      };
-    }
-    // ── Flow 1: legacy draft (no sessionIdParam) ───────────────────────
-    // Existing chat opened straight from "/home?mastery_path=...": the
-    // mount effect creates a draft session, messages.length === 0 → send
-    // the greeting into the draft.
-    if (state.messages.length > 0) {
-      masteryPathHandledRef.current = true;
-      setCapability("mastery_path");
-      if (pendingMasteryTitle?.trim()) {
-        renameSessionTitle(pendingMasteryTitle.trim());
-      }
-      return;
-    }
-    let t2: ReturnType<typeof setTimeout> | undefined;
-    const t1: ReturnType<typeof setTimeout> = setTimeout(() => {
-      masteryPathHandledRef.current = true;
-      setCapability("mastery_path");
-      t2 = setTimeout(() => {
-        sendMessage(
-          t("mastery.continueGreeting", "我们开始这条精通之路的学习吧。"),
-          undefined,
-          { mastery_path_id: pathId },
-        );
-        if (pendingMasteryTitle?.trim()) {
-          renameSessionTitle(pendingMasteryTitle.trim());
-        }
-      }, 0);
-    }, 0);
-    return () => {
-      clearTimeout(t1);
-      if (t2) clearTimeout(t2);
-    };
-  }, [
-    state.messages.length,
-    selectedSessionId,
-    sessionIdParam,
-    pendingMasteryPath,
-    pendingMasteryTitle,
-    pendingCreated,
-    setCapability,
-    sendMessage,
-    renameSessionTitle,
-    t,
-  ]);
   const handleSelectNotebookPicker = useCallback(() => {
     setShowNotebookPicker(true);
   }, []);
@@ -2152,127 +2297,122 @@ export default function ChatPage() {
   }, [state.messages]);
 
   return (
-    <Suspense fallback={null}>
     <QuizFollowupProvider>
-      {/* === K12-KGraph: KG browser tab (local addition, not in upstream) === */}
-      <KgTabProvider>
+      <GeogebraTabProvider>
         <QuizFollowupBridge viewerPanelRef={viewerPanelRef} />
-        <KgTabBridge viewerPanelRef={viewerPanelRef} />
+        <GeogebraTabBridge viewerPanelRef={viewerPanelRef} />
         <SubagentTabWatcher
           messages={state.messages}
           viewerPanelRef={viewerPanelRef}
         />
-        <div
-          // When the preview drawer is open AND the viewport is wide enough,
-          // push the chat content to the left by the drawer's width so the two
-          // panels live side-by-side (matches Claude desktop). On smaller
-          // screens the drawer overlays — squeezing a phone-width chat into
-          // the remaining ~30 px would be useless. The actual padding +
-          // transition lives in `chat-preview-shell` (globals.css) so we can
-          // hand-tune it without fighting Tailwind's arbitrary-value parser.
-          data-preview-open={previewSource ? "true" : "false"}
-          data-viewer-open={viewerPanelOpen ? "true" : "false"}
-          className="chat-preview-shell flex h-full flex-col overflow-hidden bg-[var(--background)]"
-        >
-          <div className="mx-auto flex w-full max-w-[960px] flex-wrap items-center justify-between gap-x-3 gap-y-1.5 px-6 pt-3 pb-0">
-            <div className="group/title min-w-0 flex flex-1 items-center gap-2">
-              {sessionTitleEditing ? (
-                <input
-                  ref={titleInputRef}
-                  value={sessionTitleDraft}
-                  onChange={(event) => setSessionTitleDraft(event.target.value)}
-                  onBlur={() => void commitSessionTitleEdit()}
-                  onKeyDown={handleSessionTitleKeyDown}
-                  disabled={sessionTitleSaving}
-                  aria-label={t("Session title")}
-                  className="min-w-0 flex-1 rounded-xl border border-[var(--border)] bg-[var(--background)] px-3 py-1.5 font-serif text-[17px] font-semibold tracking-[-0.01em] text-[var(--foreground)] shadow-sm outline-none transition focus:border-[var(--ring)] focus:ring-2 focus:ring-[var(--ring)]/20 disabled:opacity-60"
-                  maxLength={100}
-                />
-              ) : (
-                <button
-                  type="button"
-                  onClick={startSessionTitleEdit}
-                  disabled={!canRenameSession}
-                  title={
-                    canRenameSession
-                      ? t("Click to rename session")
-                      : t("Start a conversation to rename")
-                  }
-                  className="inline-flex min-w-0 max-w-full items-center gap-2 rounded-xl px-2 py-1 text-left font-serif text-[17px] font-semibold tracking-[-0.01em] text-[var(--foreground)] transition hover:bg-[var(--muted)]/55 disabled:cursor-default disabled:hover:bg-transparent"
-                >
-                  <span className="truncate">{displaySessionTitle}</span>
-                  {canRenameSession ? (
-                    <PenLine className="h-3.5 w-3.5 shrink-0 text-[var(--muted-foreground)] opacity-0 transition-opacity group-hover/title:opacity-100" />
-                  ) : null}
-                </button>
-              )}
-              {sessionTitleSaving ? (
-                <span className="shrink-0 text-xs text-[var(--muted-foreground)]">
-                  {t("Saving...")}
-                </span>
-              ) : null}
-              {sessionTitleError ? (
-                <span className="shrink-0 text-xs text-[var(--destructive)]">
-                  {sessionTitleError}
-                </span>
-              ) : null}
-            </div>
-            <div className="flex shrink-0 items-center gap-0.5">
-              <HeaderActionButton
-                onClick={() => setShowSaveModal(true)}
-                disabled={!chatSavePayload}
-                icon={BookmarkPlus}
-                label={t("Save to Notebook")}
-              />
-              <HeaderActionButton
-                onClick={handleDownloadMarkdown}
-                disabled={!state.messages.length}
-                icon={Download}
-                label={t("Download Markdown")}
-                title={t("Download chat history as Markdown")}
-              />
-              <HeaderActionButton
-                onClick={toggleViewerPanel}
-                active={viewerPanelOpen}
-                icon={PanelRight}
-                label={t("Activity")}
-                title={t("Session activity, attachments & previews")}
-              />
-            </div>
+        {/* Positioning context for the reader pane. AppShell's own content box
+            is not positioned, so without this the absolutely-positioned pane
+            would escape and cover the sidebar. */}
+        <div className="relative h-full overflow-hidden">
+          {/* The reader slides in from the left and the chat column shrinks to
+            make room. Rendered as a sibling with its own transform rather than
+            wrapping the chat, so switching modes never remounts the chat tree —
+            a remount would refetch every piece of session metadata and stall the
+            UI for seconds (the regression behind the slow session-open bug). */}
+          <div
+            data-reader-open={isReadingMode ? "true" : "false"}
+            className="dt-reader-shell"
+          >
+            {isReadingMode && <ReaderPane onClose={() => setCapability("")} />}
           </div>
-          <div className="flex w-full flex-1 min-h-0 flex-col">
-            {sessionLoading ? (
-              <div className="flex w-full flex-1 min-h-0 justify-center px-6">
-                <div className="h-full w-full max-w-[960px]">
-                  <SessionLoadingView onCancel={cancelSessionLoad} />
-                </div>
+          <div
+            // When the preview drawer is open AND the viewport is wide enough,
+            // push the chat content to the left by the drawer's width so the two
+            // panels live side-by-side (matches Claude desktop). On smaller
+            // screens the drawer overlays — squeezing a phone-width chat into
+            // the remaining ~30 px would be useless. The actual padding +
+            // transition lives in `chat-preview-shell` (globals.css) so we can
+            // hand-tune it without fighting Tailwind's arbitrary-value parser.
+            data-preview-open={previewSource ? "true" : "false"}
+            data-viewer-open={viewerPanelOpen ? "true" : "false"}
+            data-reader-open={isReadingMode ? "true" : "false"}
+            className="chat-preview-shell flex h-full flex-col overflow-hidden bg-[var(--background)]"
+          >
+            <div className="mx-auto flex w-full max-w-[960px] flex-wrap items-center justify-between gap-x-3 gap-y-1.5 px-6 pt-3 pb-0">
+              <div className="group/title min-w-0 flex flex-1 items-center gap-2">
+                {sessionTitleEditing ? (
+                  <input
+                    ref={titleInputRef}
+                    value={sessionTitleDraft}
+                    onChange={(event) =>
+                      setSessionTitleDraft(event.target.value)
+                    }
+                    onBlur={() => void commitSessionTitleEdit()}
+                    onKeyDown={handleSessionTitleKeyDown}
+                    disabled={sessionTitleSaving}
+                    aria-label={t("Session title")}
+                    className="min-w-0 flex-1 rounded-xl border border-[var(--border)] bg-[var(--background)] px-3 py-1.5 font-serif text-[17px] font-semibold tracking-[-0.01em] text-[var(--foreground)] shadow-sm outline-none transition focus:border-[var(--ring)] focus:ring-2 focus:ring-[var(--ring)]/20 disabled:opacity-60"
+                    maxLength={100}
+                  />
+                ) : (
+                  <button
+                    type="button"
+                    onClick={startSessionTitleEdit}
+                    disabled={!canRenameSession}
+                    title={
+                      canRenameSession
+                        ? t("Click to rename session")
+                        : t("Start a conversation to rename")
+                    }
+                    className="inline-flex min-w-0 max-w-full items-center gap-2 rounded-xl px-2 py-1 text-left font-serif text-[17px] font-semibold tracking-[-0.01em] text-[var(--foreground)] transition hover:bg-[var(--muted)]/55 disabled:cursor-default disabled:hover:bg-transparent"
+                  >
+                    <span className="truncate">{displaySessionTitle}</span>
+                    {canRenameSession ? (
+                      <PenLine className="h-3.5 w-3.5 shrink-0 text-[var(--muted-foreground)] opacity-0 transition-opacity group-hover/title:opacity-100" />
+                    ) : null}
+                  </button>
+                )}
+                {sessionTitleSaving ? (
+                  <span className="shrink-0 text-xs text-[var(--muted-foreground)]">
+                    {t("Saving...")}
+                  </span>
+                ) : null}
+                {sessionTitleError ? (
+                  <span className="shrink-0 text-xs text-[var(--destructive)]">
+                    {sessionTitleError}
+                  </span>
+                ) : null}
               </div>
-            ) : !hasMessages ? (
-              /* ---- Mastery Path cold-start welcome ---- */
-              (activeCap.value === "mastery_path" ||
-                pendingMasteryPath != null) &&
-              pendingMasteryPath != null ? (
-                <div className="flex w-full flex-1 min-h-0 items-center justify-center px-6 animate-fade-in">
-                  <div className="w-full max-w-[560px] rounded-2xl border border-[var(--border)] bg-[var(--card)] p-8 text-center shadow-sm">
-                    <div className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-full bg-[var(--primary)]/10">
-                      <GraduationCap className="h-6 w-6 text-[var(--primary)]" />
-                    </div>
-                    <h2 className="mb-2 font-serif text-xl font-semibold text-[var(--foreground)]">
-                      {t("mastery.welcomeTitle", "精通之路")}
-                    </h2>
-                    <p className="mb-4 text-sm leading-relaxed text-[var(--muted-foreground)]">
-                      {t(
-                        "mastery.welcomeDescription",
-                        "AI 导师将根据你的掌握情况，逐步带你学习每个知识点。准备好开始了吗？",
-                      )}
-                    </p>
-                    <div className="flex items-center justify-center gap-1.5 text-xs text-[var(--muted-foreground)]">
-                      <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-[var(--primary)]" />
-                      {t("mastery.preparing", "正在准备学习内容…")}
-                    </div>
+              <div className="flex shrink-0 items-center gap-0.5">
+                <HeaderActionButton
+                  onClick={() => setShowSaveModal(true)}
+                  disabled={!chatSavePayload}
+                  icon={BookmarkPlus}
+                  label={t("Save to Notebook")}
+                />
+                <HeaderActionButton
+                  onClick={handleDownloadMarkdown}
+                  disabled={!state.messages.length}
+                  icon={Download}
+                  label={t("Download Markdown")}
+                  title={t("Download chat history as Markdown")}
+                />
+                <HeaderActionButton
+                  onClick={toggleViewerPanel}
+                  active={viewerPanelOpen}
+                  icon={PanelRight}
+                  label={t("Activity")}
+                  title={t("Session activity, attachments & previews")}
+                />
+              </div>
+            </div>
+            <div className="flex w-full flex-1 min-h-0 flex-col">
+              {sessionLoading || sessionLoadFailed ? (
+                <div className="flex w-full flex-1 min-h-0 justify-center px-6">
+                  <div className="h-full w-full max-w-[960px]">
+                    <SessionLoadingView
+                      onCancel={cancelSessionLoad}
+                      failed={sessionLoadFailed}
+                      onRetry={retrySessionLoad}
+                    />
                   </div>
                 </div>
-              ) : (
+              ) : !hasMessages ? (
                 <div className="flex w-full flex-1 min-h-0 items-end justify-center pb-14 animate-fade-in px-6">
                   <div className="w-full max-w-[960px] flex items-center justify-center gap-4">
                     <img
@@ -2288,221 +2428,267 @@ export default function ChatPage() {
                     </h1>
                   </div>
                 </div>
-              )
-            ) : (
-              // Positioned wrapper spanning exactly the scrollport, so the
-              // turn navigator can overlay the left gutter without living
-              // inside the masked scroll container (its top/bottom fade
-              // would clip the rail's ends).
-              <div className="relative flex w-full flex-1 min-h-0 flex-col">
-                <div
-                  ref={messagesContainerRef}
-                  data-chat-scroll-root="true"
-                  onScroll={handleMessagesScroll}
-                  onClick={handleMessagesClick}
-                  // `both-edges` reserves the scrollbar gutter on both sides so
-                  // the inner mx-auto column centers on the same axis as the
-                  // header and composer (siblings outside this scrollport) on
-                  // classic-scrollbar platforms; plain `stable` would shift it
-                  // ~half a scrollbar-width left of them.
-                  className={`w-full flex-1 min-h-0 overflow-y-auto [scrollbar-gutter:stable_both-edges] ${hasMessages ? "pt-6" : "pt-2 pb-6"}`}
-                  style={
-                    hasMessages
-                      ? (() => {
-                          // The bottom 40 px of the messages area fades to
-                          // transparent so content "dissolves" into the composer
-                          // gutter. Without enough bottom padding, the fade
-                          // overlaps the last assistant paragraph and looks like
-                          // a stuck scroll — the user reaches scrollHeight but
-                          // can still see only a faded sliver of text. paddingBottom
-                          // is sized so the fade falls over empty space.
-                          const maskImage =
-                            "linear-gradient(to bottom, transparent 0px, #000 32px, #000 calc(100% - 40px), transparent 100%)";
-                          return {
-                            paddingBottom: "48px",
-                            WebkitMaskImage: maskImage,
-                            maskImage,
-                          };
-                        })()
-                      : undefined
-                  }
-                >
+              ) : (
+                // Positioned wrapper spanning exactly the scrollport, so the
+                // turn navigator can overlay the left gutter without living
+                // inside the masked scroll container (its top/bottom fade
+                // would clip the rail's ends).
+                <div className="relative flex w-full flex-1 min-h-0 flex-col">
                   <div
-                    data-chat-column="true"
-                    className="mx-auto w-full max-w-[960px] space-y-9 px-6"
+                    ref={messagesContainerRef}
+                    data-chat-scroll-root="true"
+                    onScroll={() => {
+                      setSelectionTutorPrompt(null);
+                      handleMessagesScroll();
+                    }}
+                    onClick={handleMessagesClick}
+                    onMouseUp={handleMessagesSelection}
+                    onKeyUp={handleMessagesSelection}
+                    // `both-edges` reserves the scrollbar gutter on both sides so
+                    // the inner mx-auto column centers on the same axis as the
+                    // header and composer (siblings outside this scrollport) on
+                    // classic-scrollbar platforms; plain `stable` would shift it
+                    // ~half a scrollbar-width left of them.
+                    className={`w-full flex-1 min-h-0 overflow-y-auto [scrollbar-gutter:stable_both-edges] ${hasMessages ? "pt-6" : "pt-2 pb-6"}`}
+                    style={
+                      hasMessages
+                        ? (() => {
+                            // The bottom 40 px of the messages area fades to
+                            // transparent so content "dissolves" into the composer
+                            // gutter. Without enough bottom padding, the fade
+                            // overlaps the last assistant paragraph and looks like
+                            // a stuck scroll — the user reaches scrollHeight but
+                            // can still see only a faded sliver of text. paddingBottom
+                            // is sized so the fade falls over empty space.
+                            const maskImage =
+                              "linear-gradient(to bottom, transparent 0px, #000 32px, #000 calc(100% - 40px), transparent 100%)";
+                            return {
+                              paddingBottom: "48px",
+                              WebkitMaskImage: maskImage,
+                              maskImage,
+                            };
+                          })()
+                        : undefined
+                    }
                   >
-                    <ChatMessageList
-                      messages={state.messages}
-                      isStreaming={state.isStreaming}
-                      sessionId={state.sessionId}
-                      language={state.language}
-                      onCopyAssistantMessage={copyAssistantMessage}
-                      onRegenerateMessage={handleRegenerateMessage}
-                      onConfirmOutline={handleConfirmOutline}
-                      onPreviewAttachment={handlePreviewMessageAttachment}
-                      onDeleteTurn={deleteTurn}
-                      selectedBranches={state.selectedBranches}
-                      onEditMessage={editMessage}
-                      onSwitchBranch={switchBranch}
-                      onSubmitUserReply={submitUserReply}
-                    />
                     <div
-                      ref={messagesEndRef}
-                      className="h-px w-full shrink-0"
-                    />
+                      data-chat-column="true"
+                      className="mx-auto w-full max-w-[960px] space-y-9 px-6"
+                    >
+                      <ChatMessageList
+                        messages={state.messages}
+                        isStreaming={state.isStreaming}
+                        sessionId={state.sessionId}
+                        language={state.language}
+                        onCopyAssistantMessage={copyAssistantMessage}
+                        onRegenerateMessage={handleRegenerateMessage}
+                        onConfirmOutline={handleConfirmOutline}
+                        onPreviewAttachment={handlePreviewMessageAttachment}
+                        onDeleteTurn={deleteTurn}
+                        selectedBranches={state.selectedBranches}
+                        onEditMessage={editMessage}
+                        onSwitchBranch={switchBranch}
+                        onSubmitUserReply={submitUserReply}
+                        availableKbNames={
+                          knowledgeBasesLoaded ? availableKbNames : undefined
+                        }
+                      />
+                      <div
+                        ref={messagesEndRef}
+                        className="h-px w-full shrink-0"
+                      />
+                    </div>
                   </div>
+                  {selectionTutorPrompt ? (
+                    <button
+                      type="button"
+                      onPointerDown={(event) => event.preventDefault()}
+                      onClick={openSelectionTutor}
+                      aria-label={t("Ask Little Tutor")}
+                      className="fixed z-[45] inline-flex h-[38px] items-center gap-1.5 rounded-xl border border-[var(--border)] bg-[var(--foreground)] px-3 text-[12px] font-medium text-[var(--background)] shadow-lg transition-transform hover:-translate-y-0.5"
+                      style={{
+                        left: selectionTutorPrompt.left,
+                        top: selectionTutorPrompt.top,
+                      }}
+                    >
+                      <GraduationCap size={15} strokeWidth={1.8} />
+                      {t("Ask Little Tutor")}
+                    </button>
+                  ) : null}
+                  <TurnNavigator
+                    entries={chatOutline}
+                    scrollRootRef={messagesContainerRef}
+                    onJump={jumpToTurn}
+                    onJumpToBottom={resumeFollowingLatest}
+                  />
                 </div>
-                <TurnNavigator
-                  entries={chatOutline}
-                  scrollRootRef={messagesContainerRef}
-                  onJump={jumpToTurn}
-                  onJumpToBottom={resumeFollowingLatest}
-                />
-              </div>
-            )}
+              )}
 
-            <ChatComposer
-              composerRef={composerRef}
-              capMenuRef={capMenuRef}
-              capBtnRef={capBtnRef}
-              spaceMenuRef={spaceMenuRef}
-              spaceBtnRef={spaceBtnRef}
-              dragCounter={dragCounter}
-              dragging={dragging}
-              capMenuOpen={capMenuOpen}
-              spaceMenuOpen={spaceMenuOpen}
-              hasMessages={hasMessages}
-              attachments={attachments}
-              attachmentError={attachmentError}
-              activeCap={activeCap}
-              knowledgeBases={kbOptions}
-              connectedAgents={agentOptions}
-              selectedAgent={selectedAgent}
-              onSelectAgent={handleSelectAgent}
-              subagentBudget={subagentBudget}
-              onSubagentBudgetChange={setSubagentBudget}
-              llmOptions={llmOptions}
-              activeLLMDefault={activeLLMDefault}
-              llmSelection={state.llmSelection}
-              llmOptionsLoading={llmOptionsLoading}
-              llmOptionsError={llmOptionsError}
-              contextBudget={contextBudget}
-              selectedBookReferences={selectedBookReferences}
-              selectedNotebookRecords={selectedNotebookRecords}
-              selectedHistorySessions={selectedHistorySessions}
-              selectedAgentSessions={selectedAgentSessions}
-              selectedQuestionEntries={selectedQuestionEntries}
-              notebookReferenceGroups={notebookReferenceGroups}
-              selectedPersona={null}
-              selectedMemoryFiles={selectedMemoryFiles}
-              selectedKnowledgeBases={selectedKbOnly}
-              isStreaming={state.isStreaming}
-              isVisualizeMode={isVisualizeMode}
-              capabilityNeedsConfig={capabilityNeedsConfig}
-              capabilityConfigConfirmed={capabilityConfigConfirmed}
-              onRequestConfigConfirm={ensureActivityPanelOpen}
-              capabilities={CAPABILITIES}
-              onSetCapMenuOpen={setCapMenuOpen}
-              onSetSpaceMenuOpen={setSpaceMenuOpen}
-              onToggleKB={handleToggleKB}
-              onSelectLLM={setLLMSelection}
-              onSelectNotebookPicker={handleSelectNotebookPicker}
-              onSelectBookPicker={handleSelectBookPicker}
-              onSelectHistoryPicker={handleSelectHistoryPicker}
-              onSelectAgentsPicker={handleSelectAgentsPicker}
-              onSelectQuestionBankPicker={handleSelectQuestionBankPicker}
-              onSelectPersonaPicker={handleSelectPersonaPicker}
-              onSelectMemoryPicker={handleSelectMemoryPicker}
-              onClearPersona={handleClearPersona}
-              personaSelection={state.personaSelection}
-              onPersonaSelectionChange={setPersonaSelection}
-              personaSelectorOpen={personaSelectorOpen}
-              onPersonaSelectorOpenChange={setPersonaSelectorOpen}
-              onToggleMemoryFile={handleToggleMemoryFile}
-              onSend={handleSend}
-              onRemoveAttachment={removeAttachment}
-              onPreviewAttachment={handlePreviewPendingAttachment}
-              onRemoveHistory={handleRemoveHistory}
-              onRemoveAgent={handleRemoveAgent}
-              onRemoveBookReference={handleRemoveBookReference}
-              onRemoveNotebook={handleRemoveNotebook}
-              onRemoveQuestion={handleRemoveQuestion}
-              onDragEnter={handleDragEnter}
-              onDragLeave={handleDragLeave}
-              onDragOver={handleDragOver}
-              onDrop={handleDrop}
-              onPaste={handlePaste}
-              onAddFiles={handleAddFiles}
-              onSelectCapability={handleSelectCapability}
-              onCancelStreaming={cancelStreamingTurn}
-              prefillInputRef={prefillInputRef}
+              {/* Anchors the conversation to the path it is advancing. Only when
+                the mastery capability is actually driving this turn — a stale
+                path id on a plain chat would be a lie. */}
+              {state.activeCapability === "mastery_path" &&
+                state.masteryPathId && (
+                  <MasteryPathStrip pathId={state.masteryPathId} />
+                )}
+
+              <ChatComposer
+                composerRef={composerRef}
+                capMenuRef={capMenuRef}
+                capBtnRef={capBtnRef}
+                spaceMenuRef={spaceMenuRef}
+                spaceBtnRef={spaceBtnRef}
+                dragCounter={dragCounter}
+                dragging={dragging}
+                capMenuOpen={capMenuOpen}
+                spaceMenuOpen={spaceMenuOpen}
+                hasMessages={hasMessages}
+                attachments={attachments}
+                attachmentError={attachmentError}
+                activeCap={activeCap}
+                knowledgeBases={kbOptions}
+                connectedAgents={agentOptions}
+                selectedAgent={selectedAgent}
+                onSelectAgent={handleSelectAgent}
+                subagentBudget={subagentBudget}
+                onSubagentBudgetChange={setSubagentBudget}
+                llmOptions={llmOptions}
+                activeLLMDefault={activeLLMDefault}
+                llmSelection={state.llmSelection}
+                llmOptionsLoading={llmOptionsLoading}
+                llmOptionsError={llmOptionsError}
+                onRefreshLLMOptions={() =>
+                  void refreshLLMOptions({ force: true })
+                }
+                contextBudget={contextBudget}
+                selectedBookReferences={selectedBookReferences}
+                selectedNotebookRecords={selectedNotebookRecords}
+                selectedHistorySessions={selectedHistorySessions}
+                selectedAgentSessions={selectedAgentSessions}
+                selectedQuestionEntries={selectedQuestionEntries}
+                notebookReferenceGroups={notebookReferenceGroups}
+                selectedPersona={null}
+                selectedMemoryFiles={selectedMemoryFiles}
+                selectedKnowledgeBases={selectedKbOnly}
+                isStreaming={state.isStreaming}
+                isVisualizeMode={isVisualizeMode}
+                capabilityNeedsConfig={capabilityNeedsConfig}
+                capabilityConfigConfirmed={capabilityConfigConfirmed}
+                onRequestConfigConfirm={ensureActivityPanelOpen}
+                capabilities={CAPABILITIES}
+                onSetCapMenuOpen={setCapMenuOpen}
+                onSetSpaceMenuOpen={setSpaceMenuOpen}
+                onToggleKB={handleToggleKB}
+                onSelectLLM={setLLMSelection}
+                onSelectNotebookPicker={handleSelectNotebookPicker}
+                onSelectBookPicker={handleSelectBookPicker}
+                onSelectHistoryPicker={handleSelectHistoryPicker}
+                onSelectAgentsPicker={handleSelectAgentsPicker}
+                onSelectQuestionBankPicker={handleSelectQuestionBankPicker}
+                onSelectPersonaPicker={handleSelectPersonaPicker}
+                onSelectMemoryPicker={handleSelectMemoryPicker}
+                onClearPersona={handleClearPersona}
+                personaSelection={state.personaSelection}
+                onPersonaSelectionChange={setPersonaSelection}
+                personaSelectorOpen={personaSelectorOpen}
+                onPersonaSelectorOpenChange={setPersonaSelectorOpen}
+                onToggleMemoryFile={handleToggleMemoryFile}
+                onSend={handleSend}
+                awaitingUserReply={awaitingUserReply}
+                onRemoveAttachment={removeAttachment}
+                onPreviewAttachment={handlePreviewPendingAttachment}
+                onRemoveHistory={handleRemoveHistory}
+                onRemoveAgent={handleRemoveAgent}
+                onRemoveBookReference={handleRemoveBookReference}
+                onRemoveNotebook={handleRemoveNotebook}
+                onRemoveQuestion={handleRemoveQuestion}
+                onDragEnter={handleDragEnter}
+                onDragLeave={handleDragLeave}
+                onDragOver={handleDragOver}
+                onDrop={handleDrop}
+                onPaste={handlePaste}
+                onAddFiles={handleAddFiles}
+                onSelectCapability={handleSelectCapability}
+                onCancelStreaming={cancelStreamingTurn}
+                prefillInputRef={prefillInputRef}
+              />
+              {/* Starter chips sit between the composer and the spacer, so they
+                ride up with the composer on the empty screen and disappear the
+                moment the conversation has a first message. Clicking one sends
+                it through the normal send path: this page is already a draft
+                session when it has no messages, so that both creates the
+                session and starts it on the topic. */}
+              {!hasMessages ? (
+                <StarterSuggestions
+                  onPick={(prompt) => void handleSend(prompt)}
+                  disabled={state.isStreaming}
+                />
+              ) : null}
+              <div
+                aria-hidden="true"
+                className="shrink-0"
+                style={{
+                  flexGrow: hasMessages ? 0 : 1.4,
+                  transition: "flex-grow 650ms cubic-bezier(0.16, 1, 0.3, 1)",
+                }}
+              />
+            </div>
+            <NotebookRecordPicker
+              open={showNotebookPicker}
+              onClose={handleCloseNotebookPicker}
+              onApply={handleApplyNotebookRecords}
             />
-            <DigitalHumanWidget />
-            <div
-              aria-hidden="true"
-              className="shrink-0"
-              style={{
-                flexGrow: hasMessages ? 0 : 1.4,
-                transition: "flex-grow 650ms cubic-bezier(0.16, 1, 0.3, 1)",
-              }}
+            <BookReferencePicker
+              open={showBookPicker}
+              initialReferences={selectedBookReferences}
+              onClose={handleCloseBookPicker}
+              onApply={handleApplyBookReferences}
+            />
+            <HistorySessionPicker
+              open={showHistoryPicker}
+              onClose={handleCloseHistoryPicker}
+              onApply={handleApplyHistorySessions}
+            />
+            <MyAgentsPicker
+              open={showAgentsPicker}
+              onClose={handleCloseAgentsPicker}
+              onApply={handleApplyAgentSessions}
+            />
+            <QuestionBankPicker
+              open={showQuestionBankPicker}
+              onClose={handleCloseQuestionBankPicker}
+              onApply={handleApplyQuestionEntries}
+            />
+            <MemoryPicker
+              open={showMemoryPicker}
+              initialFiles={selectedMemoryFiles}
+              onClose={handleCloseMemoryPicker}
+              onApply={handleApplyMemoryFiles}
+            />
+            <SaveToNotebookModal
+              open={showSaveModal}
+              payload={chatSavePayload}
+              messages={chatSaveMessages}
+              onClose={handleCloseSaveModal}
+            />
+            <FilePreviewDrawer
+              open={previewSource !== null}
+              source={previewSource}
+              onClose={handleClosePreview}
+            />
+            <SessionViewerPanel
+              ref={viewerPanelRef}
+              open={viewerPanelOpen && previewSource === null}
+              sessionId={state.sessionId}
+              activity={sessionActivity}
+              configSection={capabilityConfigSection}
+              onClose={() => setViewerOpen(false)}
+              onAutoOpen={() => setViewerOpen(true)}
             />
           </div>
-          <NotebookRecordPicker
-            open={showNotebookPicker}
-            onClose={handleCloseNotebookPicker}
-            onApply={handleApplyNotebookRecords}
-          />
-          <BookReferencePicker
-            open={showBookPicker}
-            initialReferences={selectedBookReferences}
-            onClose={handleCloseBookPicker}
-            onApply={handleApplyBookReferences}
-          />
-          <HistorySessionPicker
-            open={showHistoryPicker}
-            onClose={handleCloseHistoryPicker}
-            onApply={handleApplyHistorySessions}
-          />
-          <MyAgentsPicker
-            open={showAgentsPicker}
-            onClose={handleCloseAgentsPicker}
-            onApply={handleApplyAgentSessions}
-          />
-          <QuestionBankPicker
-            open={showQuestionBankPicker}
-            onClose={handleCloseQuestionBankPicker}
-            onApply={handleApplyQuestionEntries}
-          />
-          <MemoryPicker
-            open={showMemoryPicker}
-            initialFiles={selectedMemoryFiles}
-            onClose={handleCloseMemoryPicker}
-            onApply={handleApplyMemoryFiles}
-          />
-          <SaveToNotebookModal
-            open={showSaveModal}
-            payload={chatSavePayload}
-            messages={chatSaveMessages}
-            onClose={handleCloseSaveModal}
-          />
-          <FilePreviewDrawer
-            open={previewSource !== null}
-            source={previewSource}
-            onClose={handleClosePreview}
-          />
-          <SessionViewerPanel
-            ref={viewerPanelRef}
-            open={viewerPanelOpen && previewSource === null}
-            sessionId={state.sessionId}
-            activity={sessionActivity}
-            configSection={capabilityConfigSection}
-            onClose={() => setViewerOpen(false)}
-            onAutoOpen={() => setViewerOpen(true)}
-          />
         </div>
-      </KgTabProvider>
+      </GeogebraTabProvider>
     </QuizFollowupProvider>
-    </Suspense>
   );
 }
 
@@ -2528,20 +2714,20 @@ function QuizFollowupBridge({
 }
 
 /**
- * Same shape as QuizFollowupBridge, for the K12-KGraph browser tab opener
- * exposed to in-message kgraph CTAs (the fence card calls
- * controller.openTab(...) here).
+ * Same shape as QuizFollowupBridge, for the GeoGebra-tab opener exposed
+ * to in-message CTAs (the ``ggbscript`` markdown fence becomes a card
+ * that calls ``controller.openTab(...)`` here).
  */
-function KgTabBridge({
+function GeogebraTabBridge({
   viewerPanelRef,
 }: {
   viewerPanelRef: React.MutableRefObject<SessionViewerPanelHandle | null>;
 }) {
-  const controller = useKgTabOpener();
+  const controller = useGeogebraTabOpener();
   useEffect(() => {
     if (!controller) return;
     controller.setOpenHandler((payload) => {
-      viewerPanelRef.current?.openKgTab(payload.concept);
+      viewerPanelRef.current?.openGeogebraTab(payload);
     });
     return () => controller.setOpenHandler(null);
   }, [controller, viewerPanelRef]);

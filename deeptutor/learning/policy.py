@@ -50,6 +50,26 @@ QUALITATIVE_TYPES: frozenset[KnowledgeType] = frozenset(
 _QUALITATIVE_PASS_DISPLAY = 1.0
 
 
+def path_display_name(progress: LearningProgress) -> str:
+    """What to call this path, everywhere it is named.
+
+    A path's own :attr:`~deeptutor.learning.models.LearningProgress.name` wins.
+    Without one the first module's name stands in, and failing that the storage
+    id — the behaviour every surface implemented separately before this
+    function existed, which is why rebuilding a map used to rename the path
+    (``mastery_build`` replaces module one) and why three surfaces could
+    disagree about the same path.
+
+    Derivation is the fallback, never the record: a named path keeps its name
+    across every rebuild.
+    """
+    named = str(progress.name or "").strip()
+    if named:
+        return named
+    first_module = progress.modules[0].name.strip() if progress.modules else ""
+    return first_module or progress.book_id
+
+
 # [KGRAPH-EXT] Hook: a ``_local`` overlay (e.g. the KGraph bridge) may override
 # per-module KP selection order with dependency-aware ordering. When ``None``,
 # ``next_objective`` falls back to the original linear module->KP scan, so
