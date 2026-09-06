@@ -30,7 +30,7 @@ def apply_llm_config(pipeline: Any, cfg: "Any") -> None:
     assignments below already changed ``pipeline.model`` (the request body would
     name the VLM while the client still targets the primary provider).
     """
-    from deeptutor.core.agentic import LLMClientConfig
+    from deeptutor.runtime.agentic import LLMClientConfig
 
     pipeline.llm_config = cfg
     pipeline.binding = getattr(cfg, "binding", None) or "openai"

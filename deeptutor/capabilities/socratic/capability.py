@@ -24,7 +24,7 @@ import os
 from deeptutor.agents.chat.agentic_pipeline import AgenticChatPipeline
 from deeptutor.core.capability_protocol import BaseCapability, CapabilityManifest
 from deeptutor.core.context import UnifiedContext
-from deeptutor.core.stream_bus import StreamBus
+from deeptutor.runtime.stream_bus import StreamBus
 
 
 def _socratic_enabled() -> bool:
