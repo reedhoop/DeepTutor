@@ -49,6 +49,7 @@ const SERVICE_LABEL: Record<ServiceName, { en: string; zh: string }> = {
   stt: { en: "Speech-to-Text", zh: "语音识别" },
   imagegen: { en: "Image", zh: "文生图" },
   videogen: { en: "Video", zh: "文生视频" },
+  vlm: { en: "VLM", zh: "VLM" },
 };
 
 const SERVICE_HREF: Record<ServiceName, string> = {
@@ -60,6 +61,7 @@ const SERVICE_HREF: Record<ServiceName, string> = {
   stt: "/settings#stt",
   imagegen: "/settings#imagegen",
   videogen: "/settings#videogen",
+  vlm: "/settings#vlm",
 };
 
 type ServiceLink = { service: ServiceName; profileId: string };

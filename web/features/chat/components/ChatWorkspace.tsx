@@ -9,24 +9,11 @@ import {
   useRef,
   useState,
 } from "react";
-import { useParams, useRouter } from "next/navigation";
+import { useChatRouteSession } from "@/features/chat/controllers/useChatRouteSession";
 
 import {
-  BarChart3,
-  BookOpenText,
-  BrainCircuit,
-  CircleHelp,
-  Clapperboard,
-  Code2,
-  Compass,
-  Database,
-  FileSearch,
-  Globe,
   GraduationCap,
-  Image as ImageIcon,
-  Lightbulb,
-  MessageSquare,
-  Microscope,
+  NotebookPen,
   PenLine,
   type LucideIcon,
 } from "lucide-react";
@@ -44,7 +31,6 @@ import {
   shouldSurfaceLoadFailure,
 } from "@/lib/session-load";
 import StarterSuggestions from "@/components/chat/home/StarterSuggestions";
-import MasteryPathStrip from "@/components/chat/home/MasteryPathStrip";
 // Imported eagerly so the drawer shell is always mounted off-screen —
 // clicking a chip becomes a single CSS class flip, no chunk fetch + double
 // render. The heavy renderers inside still load lazily.
@@ -70,20 +56,28 @@ import {
 } from "@/features/chat/ChatStateAdapter";
 import { useAppShell } from "@/context/AppShellContext";
 
-import { READER_ASK_EVENT, ReaderPane } from "@/components/reading/ReaderPane";
+import {
+  WATCHING_ASK_EVENT,
+  WatchingPane,
+} from "@/components/watching/WatchingPane";
 import type { FilePreviewSource } from "@/components/chat/preview/previewerFor";
 import type { LLMSelection, StreamEvent } from "@/features/chat/model/protocol";
 import {
   extractBase64FromDataUrl,
   readFileAsDataUrl,
 } from "@/lib/file-attachments";
-import { classifyFile, isSvgFilename } from "@/lib/doc-attachments";
+import {
+  fileToPendingAttachment,
+  selectAttachmentFiles,
+  type PendingAttachment,
+} from "@/features/chat/controllers/pending-attachments";
 import { readChatLaunchIntent } from "@/lib/chat-launch-intent";
 import { useAttachmentLimits } from "@/lib/attachment-limits";
 import { hasPendingAskUser } from "@/lib/ask-user-state";
 import { useChatAutoScroll } from "@/hooks/useChatAutoScroll";
 import { useMeasuredHeight } from "@/hooks/useMeasuredHeight";
 import { useSetupSync } from "@/hooks/useSetupSync";
+import { listCourses, type StudyCourse } from "@/lib/courses-api";
 import { consumePendingPrompt } from "@/lib/pending-prompt";
 import {
   fetchSessionAskHint,
@@ -130,9 +124,15 @@ import {
   type SelectedBookReference,
 } from "@/lib/book-references";
 import {
+  selectedReadingsToPayload,
+  type SelectedReadingReference,
+} from "@/lib/reading-references";
+import {
   normalizeSelectedText,
+  textFromDomSelection,
   type SelectionTutorContext,
 } from "@/lib/selection-tutor";
+import { shouldReturnToChatAfterResearch } from "@/lib/deep-research-report";
 
 const NotebookRecordPicker = dynamic(
   () => import("@/components/notebook/NotebookRecordPicker"),
@@ -209,145 +209,6 @@ const ResearchConfigPanel = dynamic(
 /*  Type & data definitions                                           */
 /* ------------------------------------------------------------------ */
 
-type ToolName =
-  | "brainstorm"
-  | "geogebra_analysis"
-  | "web_search"
-  | "code_execution"
-  | "reason"
-  | "paper_search"
-  | "imagegen"
-  | "videogen";
-
-interface ToolDef {
-  name: ToolName;
-  label: string;
-  icon: LucideIcon;
-}
-
-const ALL_TOOLS: ToolDef[] = [
-  { name: "brainstorm", label: "Brainstorm", icon: Lightbulb },
-  { name: "geogebra_analysis", label: "GeoGebra", icon: Compass },
-  { name: "web_search", label: "Web Search", icon: Globe },
-  { name: "code_execution", label: "Code", icon: Code2 },
-  { name: "reason", label: "Reason", icon: Sparkles },
-  { name: "paper_search", label: "Arxiv Search", icon: FileSearch },
-  { name: "imagegen", label: "Image Gen", icon: ImageIcon },
-  { name: "videogen", label: "Video Gen", icon: Clapperboard },
-];
-
-interface CapabilityDef {
-  value: string;
-  label: string;
-  description: string;
-  icon: LucideIcon;
-  allowedTools: ToolName[];
-  defaultTools: ToolName[];
-  /**
-   * Collapse this capability into the picker's "More" flyout instead of listing
-   * it directly.
-   *
-   * Purely about presentation — which handful of modes deserve to be one click
-   * away. It used to key off whether a capability ran on the chat agent loop,
-   * which conflated an implementation detail with menu order and meant the menu
-   * could not be reordered without lying about the engine.
-   */
-  secondary?: boolean;
-}
-
-const CAPABILITIES: CapabilityDef[] = [
-  {
-    value: "",
-    label: "Chat",
-    description: "Flexible conversation with any tool",
-    icon: MessageSquare,
-    allowedTools: [
-      "brainstorm",
-      "geogebra_analysis",
-      "web_search",
-      "code_execution",
-      "reason",
-      "paper_search",
-      "imagegen",
-      "videogen",
-    ],
-    defaultTools: [],
-  },
-  {
-    value: "deep_solve",
-    label: "Solve",
-    description: "Multi-step reasoning & problem solving",
-    icon: BrainCircuit,
-    allowedTools: ["web_search", "code_execution", "reason"],
-    defaultTools: ["web_search", "code_execution", "reason"],
-    secondary: true,
-  },
-  {
-    value: "ask_questions",
-    label: "Ask Questions",
-    description: "Let the model ask you questions to fill in missing context",
-    icon: CircleHelp,
-    allowedTools: [
-      "brainstorm",
-      "geogebra_analysis",
-      "web_search",
-      "code_execution",
-      "reason",
-      "paper_search",
-      "imagegen",
-      "videogen",
-    ],
-    defaultTools: [],
-  },
-  {
-    value: "deep_question",
-    label: "Quiz",
-    description: "Auto-validated question generation",
-    icon: PenLine,
-    allowedTools: ["web_search", "code_execution"],
-    defaultTools: ["web_search", "code_execution"],
-  },
-  {
-    value: "deep_research",
-    label: "Research",
-    description: "Comprehensive multi-agent research",
-    icon: Microscope,
-    allowedTools: ["web_search", "paper_search", "code_execution"],
-    defaultTools: ["web_search", "paper_search", "code_execution"],
-    secondary: true,
-  },
-  {
-    value: "visualize",
-    label: "Visualize",
-    description:
-      "Generate charts, diagrams, interactive pages, or math animations",
-    icon: BarChart3,
-    allowedTools: [],
-    defaultTools: [],
-  },
-  {
-    value: "mastery_path",
-    label: "Mastery Path",
-    description: "Mastery-based tutoring with a hard gate",
-    icon: GraduationCap,
-    // The mastery tools (status/quiz/grade/assess/build) auto-mount server-side
-    // when this capability is active; rag auto-mounts when a KB is attached.
-    // These are only the extra optional tools the tutor may also reach for.
-    allowedTools: ["web_search", "code_execution"],
-    defaultTools: [],
-  },
-  {
-    value: "immersive_reading",
-    label: "Immersive Reading",
-    description: "Read a document with the assistant, cited line by line",
-    icon: BookOpenText,
-    // The five reading tools auto-mount server-side once a document is open;
-    // these are the extra tools the assistant may also reach for while reading.
-    allowedTools: ["web_search", "code_execution", "reason"],
-    defaultTools: [],
-  },
-];
-
 interface KnowledgeBase {
   name: string;
   is_default?: boolean;
@@ -363,22 +224,9 @@ interface KnowledgeBase {
   };
 }
 
-interface PendingAttachment {
-  type: string;
-  filename: string;
-  base64?: string;
-  previewUrl?: string;
-  size?: number;
-  mimeType?: string;
-}
-
 /* ------------------------------------------------------------------ */
 /*  Helpers                                                           */
 /* ------------------------------------------------------------------ */
-
-function getCapability(value: string | null): CapabilityDef {
-  return CAPABILITIES.find((c) => c.value === (value || "")) ?? CAPABILITIES[0];
-}
 
 /**
  * Read the context-window measurement a finished turn attached to its
@@ -412,11 +260,14 @@ function readContextBudget(
 /*  Chat page                                                         */
 /* ------------------------------------------------------------------ */
 
-export default function ChatPage() {
-  const params = useParams<{ sessionId?: string[] }>();
-  const router = useRouter();
+export default function ChatWorkspace() {
+  const { router, sessionId: sessionIdParam } = useChatRouteSession();
   const { t } = useTranslation();
-  const sessionIdParam = params.sessionId?.[0] ?? null;
+  const {
+    capabilities,
+    visibleCapabilities,
+    isLoading: isCapabilityCatalogLoading,
+  } = useCapabilityCatalog();
   const { setActiveSessionId, language: appLanguage } = useAppShell();
 
   const {
@@ -425,7 +276,6 @@ export default function ChatPage() {
     setCapability,
     setKBs,
     setLLMSelection,
-    setMasteryPathId,
     setPersonaSelection,
     sendMessage,
     cancelStreamingTurn,
@@ -438,7 +288,8 @@ export default function ChatPage() {
     loadSession,
     showCachedSession,
     renameSessionTitle,
-  } = useUnifiedChat();
+    setCourseId,
+  } = useChatStateAdapter();
 
   const [knowledgeBases, setKnowledgeBases] = useState<KnowledgeBase[]>([]);
   const [knowledgeBasesLoaded, setKnowledgeBasesLoaded] = useState(false);
@@ -449,7 +300,7 @@ export default function ChatPage() {
   // A connected agent to preselect once it loads, from `?agent=<name>` on the
   // URL (the partner list page links here to drop straight into a chat with a
   // partner). Captured once at first client render — the URL is rewritten to
-  // `/home/<sessionId>` as soon as the new session is created, dropping the
+  // `/chat/<sessionId>` as soon as the new session is created, dropping the
   // query — so we can't read it later from the live search params.
   const pendingAgentRef = useRef<string | null | undefined>(undefined);
   if (pendingAgentRef.current === undefined) {
@@ -458,14 +309,26 @@ export default function ChatPage() {
         ? null
         : new URLSearchParams(window.location.search).get("agent");
   }
-  // A course-page "New course chat" link carries the destination only until
-  // the first turn creates its durable session. Consume it once so later
-  // messages cannot undo an explicit move made from the sidebar.
-  const pendingCourseRef = useRef<string | null | undefined>(undefined);
+  // Which course this conversation belongs to. Lives in chat state (not a
+  // one-shot ref) because the binding is now visible and changeable in the
+  // composer for the whole life of the conversation, not only on the turn that
+  // created it: a `?course=` link seeds it, the pill edits it, and the server's
+  // session preferences are the truth whenever an existing session is opened.
+  const courseId = state.courseId;
+  const [courses, setCourses] = useState<StudyCourse[]>([]);
+  // The course this conversation was *launched* into, and whether its defaults
+  // have been applied. A course declares the mode and persona its conversations
+  // start in; applying them to an existing transcript would silently rewrite
+  // how an ongoing conversation behaves, so they only ever seed a fresh one.
+  const launchCourseRef = useRef<string | null>(null);
+  const launchIntentAppliedRef = useRef(false);
+  const courseDefaultsAppliedRef = useRef(false);
   useEffect(() => {
-    pendingCourseRef.current = new URLSearchParams(window.location.search).get(
-      "course",
-    );
+    void listCourses()
+      .then(setCourses)
+      // No courses to offer is a legitimate answer, and the pill degrades to
+      // an empty menu with a link to make one.
+      .catch(() => setCourses([]));
   }, []);
   const agentPreselectDoneRef = useRef(false);
   const {
@@ -475,9 +338,7 @@ export default function ChatPage() {
     error: llmOptionsError,
     refresh: refreshLLMOptions,
   } = useLLMOptions();
-  const [capabilityConfigs, setCapabilityConfigs] =
-    useState<CapabilityPlaygroundConfigMap>({});
-  // User-toggleable tools the user has enabled in /settings/tools. This is
+  // User-toggleable tools the user has enabled in /settings#tools. This is
   // the single source of truth for which optional tools the chat agent may
   // use; the chat composer no longer exposes a picker.
   const [userEnabledTools, setUserEnabledTools] = useState<string[] | null>(
@@ -704,7 +565,9 @@ export default function ChatPage() {
   // ref and drop the message silently — the user arrives from Settings at an
   // empty box with no idea the button did anything.
   useEffect(() => {
-    const pending = consumePendingPrompt();
+    // Two producers: the Settings hub writes the unscoped slot, and a Course
+    // Study hand-off to chat writes the "chat" one.
+    const pending = consumePendingPrompt() || consumePendingPrompt("chat");
     if (!pending) return;
     let attempts = 0;
     let timer: ReturnType<typeof setTimeout>;
@@ -732,28 +595,26 @@ export default function ChatPage() {
     return () => window.removeEventListener("dt:visualize-prompt", onVizPrompt);
   }, [handlePrefillComposer]);
 
-  // "Ask about this" on a reader selection. Prefilled rather than sent, and
-  // shaped as a quote plus a locator so the model can verify it against the
-  // document instead of taking the user's paraphrase on faith.
   useEffect(() => {
-    const onReaderAsk = (event: Event) => {
+    const onWatchingAsk = (event: Event) => {
       const detail = (
-        event as CustomEvent<{
-          quote?: string;
-          locator?: number;
-          unit?: string;
-        }>
+        event as CustomEvent<{ timeSeconds?: number; text?: string }>
       ).detail;
-      const quote = (detail?.quote || "").trim();
-      if (!quote) return;
-      const unit = detail?.unit || "page";
-      const where = detail?.locator ? ` (${unit} ${detail.locator})` : "";
+      const text = (detail?.text || "").trim();
+      if (!text) return;
+      const total = Math.max(0, Math.floor(Number(detail?.timeSeconds) || 0));
+      const hours = Math.floor(total / 3600);
+      const minutes = Math.floor((total % 3600) / 60);
+      const seconds = total % 60;
+      const timestamp = hours
+        ? `${hours}:${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`
+        : `${minutes}:${String(seconds).padStart(2, "0")}`;
       handlePrefillComposer(
-        `> ${quote}\n\n${t("Explain this passage")}${where}: `,
+        `> [${timestamp}] ${text}\n\n${t("Explain this part of the video")}: `,
       );
     };
-    window.addEventListener(READER_ASK_EVENT, onReaderAsk);
-    return () => window.removeEventListener(READER_ASK_EVENT, onReaderAsk);
+    window.addEventListener(WATCHING_ASK_EVENT, onWatchingAsk);
+    return () => window.removeEventListener(WATCHING_ASK_EVENT, onWatchingAsk);
   }, [handlePrefillComposer, t]);
 
   const activeCap = useMemo(
@@ -766,7 +627,7 @@ export default function ChatPage() {
   const isQuizMode = activeCap.value === "deep_question";
   const isVisualizeMode = activeCap.value === "visualize";
   const isResearchMode = activeCap.value === "deep_research";
-  const isReadingMode = activeCap.value === "immersive_reading";
+  const isWatchingMode = activeCap.value === "immersive_watching";
   const capabilityNeedsConfig = isQuizMode || isVisualizeMode || isResearchMode;
   const returnedResearchTurnRef = useRef<string | null>(null);
 
@@ -1185,7 +1046,7 @@ export default function ChatPage() {
    *
    * The wait is bounded. A fetch that never settles used to leave the overlay
    * spinning forever with no way out but abandoning the conversation, and a
-   * fetch that *failed* used to replace the URL with /home — dropping the
+   * fetch that *failed* used to replace the URL with /chat — dropping the
    * session id, so a transient error read as "my history is gone". Both now
    * end in the same terminal, retryable state with the id still in the URL.
    */
@@ -1374,7 +1235,7 @@ export default function ChatPage() {
     const refresh = () => {
       void refreshKnowledgeBases({ force: true });
       void refreshLLMOptions({ force: true, background: true });
-      // Picks up toggles the user changed in another tab (/settings/tools).
+      // Picks up toggles the user changed in another tab (/settings#tools).
       invalidateEnabledOptionalToolsCache();
       void refreshUserEnabledTools({ force: true });
     };
@@ -1394,16 +1255,19 @@ export default function ChatPage() {
   /* Composer setup requested by the URL that opened this page. Runs once:
      from here on the composer is the user's to change. */
   useEffect(() => {
-    setCapabilityConfigs(loadCapabilityPlaygroundConfigs());
-  }, []);
-
-  /* Composer setup requested by the URL that opened this page (capability,
-     tools, persistent mastery path). Runs once: from here on the composer is
-     the user's to change. */
-  useEffect(() => {
-    if (typeof window === "undefined") return;
+    if (typeof window === "undefined" || launchIntentAppliedRef.current) return;
     const intent = readChatLaunchIntent(window.location.search);
-    if (intent.masteryPathId) setMasteryPathId(intent.masteryPathId);
+    const launchCourse = new URLSearchParams(window.location.search)
+      .get("course")
+      ?.trim();
+    if (launchCourse) {
+      setCourseId(launchCourse);
+      launchCourseRef.current = launchCourse;
+    }
+    // Capability identity is backend-owned. Do not resolve a deep link against
+    // the temporary chat-only fallback while the catalog request is in flight.
+    if (intent.capability !== null && isCapabilityCatalogLoading) return;
+    launchIntentAppliedRef.current = true;
     if (intent.capability !== null) handleSelectCapability(intent.capability);
     else if (intent.tools.length) {
       const valid = intent.tools.filter((t): t is ToolName =>
@@ -1764,7 +1628,7 @@ export default function ChatPage() {
       setSelectionTutorPrompt(null);
       return;
     }
-    const text = normalizeSelectedText(selection.toString());
+    const text = textFromDomSelection(selection);
     if (text.length < 2) {
       setSelectionTutorPrompt(null);
       return;
@@ -1831,6 +1695,26 @@ export default function ChatPage() {
     setSelectionTutorPrompt(null);
     window.getSelection()?.removeAllRanges();
   }, [selectionTutorPrompt, state.language, state.sessionId]);
+
+  const handleMessagesCopy = useCallback(
+    (event: React.ClipboardEvent<HTMLDivElement>) => {
+      const selection = window.getSelection();
+      const container = messagesContainerRef.current;
+      if (!selection || !container || selection.isCollapsed) return;
+      if (
+        !selection.rangeCount ||
+        !container.contains(selection.getRangeAt(0).commonAncestorContainer)
+      ) {
+        return;
+      }
+      const remapped = textFromDomSelection(selection);
+      const raw = normalizeSelectedText(selection.toString());
+      if (!remapped || remapped === raw) return;
+      event.clipboardData.setData("text/plain", remapped);
+      event.preventDefault();
+    },
+    [messagesContainerRef],
+  );
 
   const handleClosePreview = useCallback(() => {
     setPreviewSource(null);
@@ -1992,16 +1876,18 @@ export default function ChatPage() {
       if (selectedAgent && subagentBudget) {
         config = { ...(config ?? {}), subagent_consult_budget: subagentBudget };
       }
-      const launchCourseId = pendingCourseRef.current?.trim();
-      if (launchCourseId) {
-        config = { ...(config ?? {}), _course_id: launchCourseId };
-      }
+      // Sent on every turn, including empty to mean "not in a course". The
+      // server treats the key's presence as explicit and writes it to the
+      // session's preferences, so the pill's state and the conversation's real
+      // binding can never drift apart — and detaching actually detaches.
+      config = { ...(config ?? {}), _course_id: courseId };
 
       const memoryPayload = [...memoryReferencesPayload];
       const messageContent =
         content ||
         (selectedNotebookRecords.length ||
         selectedBookReferences.length ||
+        selectedReadingReferences.length ||
         selectedHistorySessions.length ||
         selectedAgentSessions.length ||
         selectedQuestionEntries.length ||
@@ -2020,15 +1906,18 @@ export default function ChatPage() {
         config,
         notebookReferencesPayload,
         historyReferencesPayload,
-        { bookReferences: bookReferencesPayload },
+        {
+          bookReferences: bookReferencesPayload,
+          readingReferences: readingReferencesPayload,
+        },
         questionNotebookReferencesPayload,
         undefined,
         memoryPayload,
       );
-      pendingCourseRef.current = null;
       shouldAutoScrollRef.current = true;
       setAttachments([]);
       setSelectedBookReferences([]);
+      setSelectedReadingReferences([]);
       setSelectedNotebookRecords([]);
       setSelectedHistorySessions([]);
       setSelectedAgentSessions([]);
@@ -2038,6 +1927,8 @@ export default function ChatPage() {
     [
       attachments,
       bookReferencesPayload,
+      courseId,
+      readingReferencesPayload,
       historyReferencesPayload,
       isQuizMode,
       isResearchMode,
@@ -2049,11 +1940,13 @@ export default function ChatPage() {
       quizPdf,
       researchConfig,
       researchValidation,
+      ensureActivityPanelOpen,
       selectedAgent,
       selectedHistorySessions.length,
       selectedAgentSessions.length,
       selectedMemoryFiles.length,
       selectedBookReferences.length,
+      selectedReadingReferences.length,
       selectedNotebookRecords.length,
       selectedQuestionEntries.length,
       sendMessage,
@@ -2100,6 +1993,7 @@ export default function ChatPage() {
           persistUserMessage: false,
           requestSnapshotOverride,
           bookReferences: originalSnapshot?.bookReferences,
+          readingReferences: originalSnapshot?.readingReferences,
         },
         originalSnapshot?.questionNotebookReferences,
         originalSnapshot?.persona,
@@ -2178,6 +2072,9 @@ export default function ChatPage() {
   const handleSelectBookPicker = useCallback(() => {
     setShowBookPicker(true);
   }, []);
+  const handleSelectReadingPicker = useCallback(() => {
+    setShowReadingPicker(true);
+  }, []);
   const handleSelectHistoryPicker = useCallback(() => {
     setShowHistoryPicker(true);
   }, []);
@@ -2214,6 +2111,11 @@ export default function ChatPage() {
       prev.filter((record) => record.bookId !== bookId),
     );
   }, []);
+  const handleRemoveReadingReference = useCallback((materialId: string) => {
+    setSelectedReadingReferences((previous) =>
+      previous.filter((record) => record.materialId !== materialId),
+    );
+  }, []);
   const handleRemoveQuestion = useCallback((entryId: number) => {
     setSelectedQuestionEntries((prev) =>
       prev.filter((entry) => entry.id !== entryId),
@@ -2237,9 +2139,18 @@ export default function ChatPage() {
   const handleCloseBookPicker = useCallback(() => {
     setShowBookPicker(false);
   }, []);
+  const handleCloseReadingPicker = useCallback(() => {
+    setShowReadingPicker(false);
+  }, []);
   const handleApplyBookReferences = useCallback(
     (references: SelectedBookReference[]) => {
       setSelectedBookReferences(references);
+    },
+    [],
+  );
+  const handleApplyReadingReferences = useCallback(
+    (references: SelectedReadingReference[]) => {
+      setSelectedReadingReferences(references);
     },
     [],
   );
@@ -2305,20 +2216,19 @@ export default function ChatPage() {
           messages={state.messages}
           viewerPanelRef={viewerPanelRef}
         />
-        {/* Positioning context for the reader pane. AppShell's own content box
-            is not positioned, so without this the absolutely-positioned pane
-            would escape and cover the sidebar. */}
         <div className="relative h-full overflow-hidden">
-          {/* The reader slides in from the left and the chat column shrinks to
+          {/* The video panel slides in from the left and the chat column shrinks to
             make room. Rendered as a sibling with its own transform rather than
             wrapping the chat, so switching modes never remounts the chat tree —
             a remount would refetch every piece of session metadata and stall the
             UI for seconds (the regression behind the slow session-open bug). */}
           <div
-            data-reader-open={isReadingMode ? "true" : "false"}
-            className="dt-reader-shell"
+            data-watching-open={isWatchingMode ? "true" : "false"}
+            className="dt-watching-shell"
           >
-            {isReadingMode && <ReaderPane onClose={() => setCapability("")} />}
+            {isWatchingMode && (
+              <WatchingPane onClose={() => setCapability("")} />
+            )}
           </div>
           <div
             // When the preview drawer is open AND the viewport is wide enough,
@@ -2330,7 +2240,7 @@ export default function ChatPage() {
             // hand-tune it without fighting Tailwind's arbitrary-value parser.
             data-preview-open={previewSource ? "true" : "false"}
             data-viewer-open={viewerPanelOpen ? "true" : "false"}
-            data-reader-open={isReadingMode ? "true" : "false"}
+            data-watching-open={isWatchingMode ? "true" : "false"}
             className="chat-preview-shell flex h-full flex-col overflow-hidden bg-[var(--background)]"
           >
             <div className="mx-auto flex w-full max-w-[960px] flex-wrap items-center justify-between gap-x-3 gap-y-1.5 px-6 pt-3 pb-0">
@@ -2393,6 +2303,12 @@ export default function ChatPage() {
                   title={t("Download chat history as Markdown")}
                 />
                 <HeaderActionButton
+                  onClick={() => viewerPanelRef.current?.openMarkdownNoteTab()}
+                  icon={NotebookPen}
+                  label={t("Markdown note")}
+                  title={t("Write Markdown in chat")}
+                />
+                <HeaderActionButton
                   onClick={toggleViewerPanel}
                   active={viewerPanelOpen}
                   icon={PanelRight}
@@ -2442,6 +2358,7 @@ export default function ChatPage() {
                       handleMessagesScroll();
                     }}
                     onClick={handleMessagesClick}
+                    onCopy={handleMessagesCopy}
                     onMouseUp={handleMessagesSelection}
                     onKeyUp={handleMessagesSelection}
                     // `both-edges` reserves the scrollbar gutter on both sides so
@@ -2524,14 +2441,6 @@ export default function ChatPage() {
                 </div>
               )}
 
-              {/* Anchors the conversation to the path it is advancing. Only when
-                the mastery capability is actually driving this turn — a stale
-                path id on a plain chat would be a lie. */}
-              {state.activeCapability === "mastery_path" &&
-                state.masteryPathId && (
-                  <MasteryPathStrip pathId={state.masteryPathId} />
-                )}
-
               <ChatComposer
                 composerRef={composerRef}
                 capMenuRef={capMenuRef}
@@ -2541,6 +2450,11 @@ export default function ChatPage() {
                 dragCounter={dragCounter}
                 dragging={dragging}
                 capMenuOpen={capMenuOpen}
+                courses={courses}
+                courseId={courseId}
+                // onSelectCourse intentionally omitted: hides the CoursePill
+                // entry point while courseId keeps flowing to the backend for
+                // conversations already bound (e.g. via a course deep link).
                 spaceMenuOpen={spaceMenuOpen}
                 hasMessages={hasMessages}
                 attachments={attachments}
@@ -2562,6 +2476,7 @@ export default function ChatPage() {
                 }
                 contextBudget={contextBudget}
                 selectedBookReferences={selectedBookReferences}
+                selectedReadingReferences={selectedReadingReferences}
                 selectedNotebookRecords={selectedNotebookRecords}
                 selectedHistorySessions={selectedHistorySessions}
                 selectedAgentSessions={selectedAgentSessions}
@@ -2575,13 +2490,14 @@ export default function ChatPage() {
                 capabilityNeedsConfig={capabilityNeedsConfig}
                 capabilityConfigConfirmed={capabilityConfigConfirmed}
                 onRequestConfigConfirm={ensureActivityPanelOpen}
-                capabilities={CAPABILITIES}
+                capabilities={visibleCapabilities}
                 onSetCapMenuOpen={setCapMenuOpen}
                 onSetSpaceMenuOpen={setSpaceMenuOpen}
                 onToggleKB={handleToggleKB}
                 onSelectLLM={setLLMSelection}
                 onSelectNotebookPicker={handleSelectNotebookPicker}
                 onSelectBookPicker={handleSelectBookPicker}
+                onSelectReadingPicker={handleSelectReadingPicker}
                 onSelectHistoryPicker={handleSelectHistoryPicker}
                 onSelectAgentsPicker={handleSelectAgentsPicker}
                 onSelectQuestionBankPicker={handleSelectQuestionBankPicker}
@@ -2600,6 +2516,7 @@ export default function ChatPage() {
                 onRemoveHistory={handleRemoveHistory}
                 onRemoveAgent={handleRemoveAgent}
                 onRemoveBookReference={handleRemoveBookReference}
+                onRemoveReadingReference={handleRemoveReadingReference}
                 onRemoveNotebook={handleRemoveNotebook}
                 onRemoveQuestion={handleRemoveQuestion}
                 onDragEnter={handleDragEnter}
@@ -2611,6 +2528,8 @@ export default function ChatPage() {
                 onSelectCapability={handleSelectCapability}
                 onCancelStreaming={cancelStreamingTurn}
                 prefillInputRef={prefillInputRef}
+                inputPlaceholder={askHint || undefined}
+                inputPlaceholderCompletion={askHint}
               />
               {/* Starter chips sit between the composer and the spacer, so they
                 ride up with the composer on the empty screen and disappear the
@@ -2643,6 +2562,12 @@ export default function ChatPage() {
               initialReferences={selectedBookReferences}
               onClose={handleCloseBookPicker}
               onApply={handleApplyBookReferences}
+            />
+            <ReadingReferencePicker
+              open={showReadingPicker}
+              initialReferences={selectedReadingReferences}
+              onClose={handleCloseReadingPicker}
+              onApply={handleApplyReadingReferences}
             />
             <HistorySessionPicker
               open={showHistoryPicker}

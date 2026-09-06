@@ -154,6 +154,7 @@ const INLINE_CODE_SPAN_REGEX = /`[^`\n]*`/g;
 // two delimiters the author meant to pair (see repairStrongEmphasisLine).
 const MALFORMED_STRONG_EMPHASIS_REGEX =
   /(?<!\S)\*\*(?=\S)([^*\n]*?[:：])[ \t]+\*\*(?=\S)/g;
+const ESCAPED_UNICODE_RUN_REGEX = /(?:\\u[0-9a-fA-F]{4}){3,}/g;
 const INDENTED_CODE_LINE_REGEX = /^(?: {4}|\t)/;
 const PROTECTED_SPAN_REGEX = /```[\s\S]*?```|`[^`\n]*`/g;
 const PROTECTED_PLACEHOLDER_REGEX = /\u0000PROTECTED_(\d+)\u0000/g;

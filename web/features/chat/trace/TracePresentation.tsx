@@ -14,87 +14,38 @@ import { formatTurnDuration, getTurnDurationSeconds } from "@/lib/trace-timing";
 import { describeProviderTool, type ToolProvider } from "@/lib/trace-tools";
 import type { StreamEvent } from "@/features/chat/model/protocol";
 import {
-  describeProviderTool,
-  formatProgressLabel,
-  type ToolProvider,
-} from "@/lib/trace-tools";
-import type { StreamEvent } from "@/lib/unified-ws";
-
-type TraceMetadata = {
-  call_id?: string;
-  phase?: string;
-  label?: string;
-  call_kind?: string;
-  trace_role?: string;
-  trace_group?: string;
-  trace_kind?: string;
-  trace_id?: string;
-  call_state?: string;
-  // Set on the per-round ``call_status`` marker by the chat single loop:
-  // "narration" = a tool-calling round's text (stays in the trace),
-  // "finish"    = the final, tool-less round's text (the bubble answer).
-  // The "finish" marker is the signal that the turn entered its final
-  // answer phase.
-  call_role?: string;
-  // A tool-calling round can explicitly keep its content in the answer rather
-  // than demoting it to trace-only narration.
-  answer_visible?: boolean;
-  // Set by the chat pipeline on the final iteration's reasoning sub-trace.
-  // Marks "this sub-trace's text has been re-emitted as the final-response
-  // CONTENT event in the same turn, so don't render it as a duplicate row."
-  absorbed_into_final?: boolean;
-  step_id?: string;
-  round?: number;
-  query?: string;
-  tool_name?: string;
-  // Which external provider is running, stamped by the tool dispatcher from the
-  // tool object itself. `"mcp"` or `"cli"`; absent for a built-in. Read rather
-  // than parsed out of the tool name: `mcp_<server>_<tool>` is ambiguous the
-  // moment a server's own name contains an underscore.
-  tool_source?: string;
-  tool_provider?: string;
-  // On a `trace_kind="tool_progress"` event: how far along the provider says it
-  // is (0–1), and how long a CLI app has been running.
-  progress_fraction?: number;
-  elapsed_s?: number;
-  block_id?: string;
-  trace_layer?: string;
-  output_mode?: string;
-  quality?: string;
-  sources?: Array<Record<string, unknown>>;
-  // Set by deep_question's QuestionPipeline on per-question content events
-  // (call_kind="quiz_question_emitted"). 0-based; display as 1-based.
-  question_index?: number;
-  total_questions?: number;
-  qa_pair?: Record<string, unknown>;
-  // Set by deep_research so the top-level trace row can show the active
-  // research/reporting sub-state instead of generic reasoning/tool labels.
-  research_status_key?: string;
-  topic_index?: number | string;
-  topic_title?: string;
-  report_part?: string;
-  section_index?: number | string;
-  section_count?: number | string;
-  section_title?: string;
-  // Set on each native event streamed from a connected subagent
-  // (trace_kind="subagent_event"): the channel it came from and which consult.
-  subagent_channel?: string;
-  subagent_kind?: string;
-  subagent_name?: string;
-  consult_index?: number;
-  // Correlates a fill-in tool's start/finish events (e.g. a web search) so the
-  // transcript collapses them into one evolving row.
-  subagent_merge_id?: string;
-};
-
-type ResearchStageId = "understand" | "decompose" | "evidence" | "result";
-
-type ResearchStageCard = {
-  id: ResearchStageId;
-  title: string;
-  hint: string;
-  events: StreamEvent[];
-};
+  ActivityDetailGrid,
+  ActivityDivider,
+  ActivityHeader,
+  ActivityRow,
+  ActivityStack,
+  argumentRows,
+  type ActivityState,
+  type DetailRow,
+} from "@/components/activity";
+import { MODE_SPEED, MODE_TO_ORB } from "./ActivityOrb";
+import type {
+  ResearchStageCard,
+  ResearchStageId,
+  TraceDisplayItem,
+  TraceItem,
+  TraceMetadata,
+} from "./model";
+import {
+  getCallProvider,
+  getLatestToolProgress,
+  getToolProvider,
+  getTraceCallKind,
+  getTraceGroup,
+  getTraceMeta,
+  getTraceRole,
+  groupTraceEvents,
+  hasRenderableCallTrace as selectHasRenderableCallTrace,
+  isChatLoopAnswerContent,
+  isNarrationRound,
+  isTracePending,
+  selectTraceDisplayItems,
+} from "./selectors";
 
 // `title` and `hint` are i18n keys resolved via `t(...)` at render time so the
 // stage banner follows the active UI language instead of being locked to one.
@@ -176,10 +127,6 @@ type ToolDescriptor = {
   chip: string | null;
   /** Render the chip in a mono face (code / paths / commands). */
   mono: boolean;
-  /** Optional secondary label (e.g. query type) rendered after chip. */
-  subLabel?: string | null;
-  /** Optional grade/semester badge for K12 context. */
-  gradeBadge?: string | null;
 };
 
 /**
@@ -377,23 +324,7 @@ function describeToolCall(
         mono: false,
       };
     case "math_animator":
-      return { Icon: FrameMark, verb: t("Animating"), chip: null, mono: false };
-    case "curriculum_knowledge": {
-      const concept = str(a.concept) || "";
-      const queryType = str(a.query_type) || "";
-      // The K12 grade/semester badge is rendered from the tool's *source*
-      // payload (which carries grade_semester), not from the call args — the
-      // args never include a grade, so we don't read it here.
-      const chipText = concept || null;
-      // Sub-label shows query type when concept is already in chip
-      return {
-        Icon: KnowledgeMark,
-        verb: t("Querying course knowledge"),
-        chip: chipText,
-        mono: false,
-        subLabel: queryType || null,
-      };
-    }
+      return { verb: t("Animating"), chip: null, mono: false };
     default:
       return {
         verb: titleCase(toolName),
@@ -525,33 +456,6 @@ function getTraceHeader(
 //   - a FINISH round (the round ended with no tool call) → its text IS the
 //     answer bubble; keep it out of the trace to avoid duplication.
 // The differentiator is the round's own ``call_status`` marker (call_role).
-function isChatLoopAnswerContent(event: StreamEvent): boolean {
-  return (
-    event.type === "content" &&
-    String(getTraceMeta(event).call_kind || "") === "agent_loop_round"
-  );
-}
-
-/**
- * A chat-loop round whose ``call_status`` marker is tagged ``narration``:
- * the round produced text and then called a tool, so its text is trace
- * commentary (it is NOT in the answer bubble). The marker lives on the same
- * call_id group, so this is decidable per-group without any global state.
- */
-function isNarrationRound(events: StreamEvent[]): boolean {
-  // Mirror `collectNarrationCallIds` in lib/stream.ts so the trace and the
-  // answer bubble agree on exactly which rounds are narration.
-  return events.some((event) => {
-    const meta = getTraceMeta(event);
-    return (
-      meta.trace_kind === "call_status" &&
-      meta.call_state === "complete" &&
-      meta.call_role === "narration" &&
-      meta.answer_visible !== true
-    );
-  });
-}
-
 function getTraceText(
   events: StreamEvent[],
   eventTypes: Array<StreamEvent["type"]>,
@@ -626,38 +530,10 @@ function renderNiceToolArgs(
   toolName: string | undefined,
   rawArgs: unknown,
 ): ReactNode | null {
-  if (!rawArgs || typeof rawArgs !== "object") return null;
-  const obj = rawArgs as Record<string, unknown>;
-
-  // curriculum_knowledge: render as structured key-value pairs. The grade is
-  // surfaced from the tool's *source* payload (which carries grade_semester),
-  // not from these call args, so it is intentionally not listed here.
-  if (toolName === "curriculum_knowledge") {
-    const fields: { key: string; value: string }[] = [];
-    const concept = String(obj.concept ?? "");
-    const qt = String(obj.query_type ?? "");
-    const subject = String(obj.subject ?? "");
-    if (concept) fields.push({ key: "概念", value: concept });
-    if (qt) fields.push({ key: "查询类型", value: qt });
-    if (subject) fields.push({ key: "学科", value: subject });
-    if (fields.length === 0) return null;
-    return (
-      <ul className="ml-3 mt-0.5 space-y-0.5 text-[10.5px] leading-[1.5] not-italic">
-        {fields.map((f) => (
-          <li key={f.key} className="flex items-start gap-1.5 text-[var(--muted-foreground)]">
-            <span className="shrink-0 opacity-50">{f.key}:</span>
-            <span className={f.key === "年级" ? "font-medium text-[var(--primary)]/80" : ""}>
-              {f.value}
-            </span>
-          </li>
-        ))}
-      </ul>
-    );
-  }
-
-  if (toolName !== "ask_user") {
+  if (toolName !== "ask_user" || !rawArgs || typeof rawArgs !== "object") {
     return null;
   }
+  const obj = rawArgs as Record<string, unknown>;
   const questions = Array.isArray(obj.questions)
     ? (obj.questions as Array<Record<string, unknown>>)
     : [];
@@ -810,91 +686,6 @@ function ToolExchangeDetail({
 /* ------------------------------------------------------------------ */
 /*  Display-item grouping (step-level)                                 */
 /* ------------------------------------------------------------------ */
-
-// Whether a call's events carry anything worth a trace row: reasoning, a tool
-// call/result, an error, or a non-status progress line. Chat-loop user text
-// (`isChatLoopAnswerContent`) does not count — it belongs to the answer bubble.
-function groupHasTraceSubstance(events: StreamEvent[]): boolean {
-  // Narration rounds carry trace-worthy commentary in their `content`; a
-  // finish round's content is the answer bubble and never counts here.
-  const narration = isNarrationRound(events);
-  return events.some((event) => {
-    if (
-      event.type === "tool_call" ||
-      event.type === "tool_result" ||
-      event.type === "error"
-    ) {
-      return true;
-    }
-    if (event.type === "thinking" || event.type === "observation") {
-      return event.content.trim().length > 0;
-    }
-    if (event.type === "progress") {
-      const traceKind = String(getTraceMeta(event).trace_kind || "");
-      return traceKind !== "call_status" && event.content.trim().length > 0;
-    }
-    if (event.type === "content") {
-      const isTraceText = narration || !isChatLoopAnswerContent(event);
-      return isTraceText && event.content.trim().length > 0;
-    }
-    if (event.type === "sources") {
-      const srcs = getTraceMeta(event).sources;
-      return Array.isArray(srcs) && srcs.length > 0;
-    }
-    return false;
-  });
-}
-
-function buildDisplayItems(traceGroups: TraceItem[]): DisplayItem[] {
-  const items: DisplayItem[] = [];
-  let stepId_: string | null = null;
-  let stepTraces: TraceItem[] = [];
-
-  function flushStep() {
-    if (stepId_ !== null && stepTraces.length > 0) {
-      items.push({ kind: "step", stepId: stepId_, traces: stepTraces });
-    }
-    stepId_ = null;
-    stepTraces = [];
-  }
-
-  for (const group of traceGroups) {
-    const meta = getTraceMeta(group.events[0]);
-    const groupType = getTraceGroup(group.events);
-    const stepId = meta.step_id ? String(meta.step_id) : "";
-    const kind = getTraceCallKind(group.events);
-
-    if (kind === "llm_final_response") continue;
-    // Some pipelines keep a hidden sub-trace for text that is also emitted as
-    // final response content. Drop those absorbed rows so the answer does not
-    // appear twice.
-    if (group.events.some((e) => getTraceMeta(e).absorbed_into_final === true))
-      continue;
-
-    // A chat-loop round whose only substance is its user-facing `content`
-    // (the finish answer → bubble, or a suppressed narration line) carries
-    // nothing to show in the trace — skip it so no empty "Exploring" card
-    // appears. Rounds with reasoning, tool calls, progress, or errors stay.
-    if (!groupHasTraceSubstance(group.events)) continue;
-
-    if (groupType === "react_round" && stepId) {
-      if (stepId_ === stepId) {
-        stepTraces.push(group);
-      } else {
-        flushStep();
-        stepId_ = stepId;
-        stepTraces = [group];
-      }
-    } else if (stepId_ !== null && kind !== "llm_generation") {
-      stepTraces.push(group);
-    } else {
-      flushStep();
-      items.push({ kind: "trace", trace: group });
-    }
-  }
-  flushStep();
-  return items;
-}
 
 /* ------------------------------------------------------------------ */
 /*  Primitive UI pieces                                                */
@@ -1116,22 +907,12 @@ function TraceRowBody({
       {inlineSources.length > 0 && (
         <div className="mt-1 opacity-50">
           {t("Sources")}:{" "}
-          {inlineSources.map((source, idx) => {
-            const s = source as any;
-            const grade = s.grade_semester ? `（${s.grade_semester}）` : "";
-            const label =
-              s.type === "course_kb"
-                ? `K12-KGraph 课程知识图谱${s.title ? "：" + s.title : ""}${grade}`
-                : s.type === "k12_kg"
-                  ? `K12-KGraph 课程知识图谱${s.concept ? "：" + s.concept : ""}${grade}`
-                  : String(s.title || s.query || s.type || "source");
-            return (
-              <span key={`${callId}-source-${idx}`}>
-                {idx > 0 && " · "}
-                {label}
-              </span>
-            );
-          })}
+          {inlineSources.map((source, idx) => (
+            <span key={`${callId}-source-${idx}`}>
+              {idx > 0 && " · "}
+              {String(source.title || source.query || source.type || "source")}
+            </span>
+          ))}
         </div>
       )}
 
@@ -1363,137 +1144,49 @@ function TraceRowItem({
     : [thoughtText || contentText].filter(Boolean);
 
   return (
-    <div className="group/row">
-      <div
-        role={canToggle ? "button" : undefined}
-        aria-expanded={canToggle ? open : undefined}
-        onClick={canToggle ? () => setUserOpen(!open) : undefined}
-        className={`flex items-start gap-2.5 py-1.5 text-[14px] leading-[1.5] text-[var(--muted-foreground)] ${
-          canToggle
-            ? "cursor-pointer transition-colors hover:text-[var(--foreground)]"
-            : ""
-        }`}
-      >
-        {/* While the row is live the mark pulses (and tints primary) like the
-            status header's own mark, so activity reads at a glance without a
-            separate spinner; settled rows fade to a quiet monochrome glyph. */}
-        <span
-          className={`mt-0.5 shrink-0 transition-colors ${
-            active
-              ? "text-[var(--primary)]/85"
-              : "text-[var(--muted-foreground)]/55 group-hover/row:text-[var(--muted-foreground)]/80"
-          }`}
-        >
-          <glyph.Icon
-            size={15}
-            strokeWidth={1.5}
-            className={`shrink-0 ${active ? "dt-mark-pulse" : ""}`}
-          />
-        </span>
-        <div className="min-w-0 flex-1">
-          {showChatBody ? (
-            <div className="space-y-1.5 italic leading-[1.6]">
-              {thoughtText ? (
-                <MarkdownRenderer content={thoughtText} variant="trace" />
-              ) : null}
-              {contentText ? (
-                <MarkdownRenderer content={contentText} variant="trace" />
-              ) : null}
-            </div>
-          ) : isThinking ? (
-            // Pipeline "Thought"/"Plan" rounds: a quiet label, then the
-            // model's reasoning streamed inline below it — never folded. The
-            // body sits at the row's own 14px for comfortable reading, the
-            // label one notch heavier so the two read as label + prose.
-            <>
-              <span
-                className={`block font-medium ${active ? "dt-breathing-text" : ""}`}
-              >
-                {headline}
-              </span>
-              {thoughtText || contentText ? (
-                <div className="mt-1 leading-[1.6]">
-                  <MarkdownRenderer
-                    content={thoughtText || contentText}
-                    variant="trace"
-                  />
-                </div>
-              ) : null}
-            </>
-          ) : (
-            <>
-              {chip ? (
-                // Action verb + its artifact collapse onto a single line: the
-                // verb anchors (never truncates, always legible) while the
-                // dimmer query trails and ellipsizes. Reads "读取技能 pdf" /
-                // "联网搜索 …" at a glance — the colour drop is the only cue
-                // separating the two, no pill chrome.
-                <div className="flex items-baseline flex-wrap gap-1.5">
-                  <span
-                    className={`shrink-0 ${active ? "dt-breathing-text" : ""}`}
-                  >
-                    {headline}
-                  </span>
-                  <span
-                    className={`min-w-0 truncate text-[var(--muted-foreground)]/55 ${
-                      chip.mono ? "font-mono text-[12.5px]" : ""
-                    }`}
-                  >
-                    {chip.text}
-                  </span>
-                  {/* Sub-label (e.g. query type: definition / evidence) */}
-                  {descriptor?.subLabel ? (
-                    <span className="shrink-0 text-[11px] text-[var(--muted-foreground)]/40 bg-[var(--accent)]/5 px-1.5 py-0.5 rounded">
-                      {descriptor.subLabel}
-                    </span>
-                  ) : null}
-                  {/* Grade badge for K12-KGraph tools */}
-                  {descriptor?.gradeBadge && !chip.text?.includes(descriptor.gradeBadge) ? (
-                    <span className="shrink-0 text-[11px] font-medium text-[var(--primary)]/70 bg-[var(--primary)]/6 px-1.5 py-0.5 rounded-full">
-                      {descriptor.gradeBadge}
-                    </span>
-                  ) : null}
-                </div>
-              ) : (
-                <span
-                  className={`block ${active ? "dt-breathing-text" : ""} ${
-                    isChatRound ? "line-clamp-3 italic" : "line-clamp-2"
-                  }`}
-                >
-                  {headline}
-                </span>
-              )}
-            </>
-          )}
-        </div>
-        {/* No trailing spinner while active — the pulsing leading mark carries
-            that signal. A faint chevron surfaces on hover for any expandable
-            row (live or settled) so the detail is always one click away. */}
-        {canToggle ? (
-          <ChevronDown
-            size={13}
-            className={`mt-1 shrink-0 text-[var(--muted-foreground)]/40 opacity-0 transition-[transform,opacity] duration-150 group-hover/row:opacity-100 ${
-              open ? "" : "-rotate-90"
-            }`}
-          />
-        ) : null}
-      </div>
-      {showDetailBody ? (
-        <ScrollableTraceBody
-          autoScroll={active}
-          className="ml-[26px] mr-2 mt-0.5 max-h-[260px] overflow-y-auto pr-1"
-        >
-          <TraceRowBody
-            callId={callId}
-            callEvents={callEvents}
-            group={group}
-            role={role}
-            kind={kind}
-            t={t}
-          />
-        </ScrollableTraceBody>
-      ) : null}
-    </div>
+    <ActivityRow
+      state={rowState}
+      // Every row is one line: an action, then what it acted on. For a tool
+      // that is verb + query; for deliberation it is the phase label + the
+      // opening of the reasoning. The full text is level two.
+      title={headline}
+      detail={
+        chip?.text ??
+        (isThinking && deliberation.length
+          ? plainPreview(deliberation[0])
+          : undefined)
+      }
+      detailMono={chip?.mono ?? false}
+      breathing={active}
+      followOpen={autoOpen}
+      autoScrollDetail={active}
+      className={isChatRound ? "italic" : ""}
+    >
+      {isThinking ? (
+        deliberation.length ? (
+          <div
+            className={`space-y-1.5 leading-[1.6] ${isChatRound ? "italic" : ""}`}
+          >
+            {deliberation.map((text, idx) => (
+              <MarkdownRenderer
+                key={`${callId}-say-${idx}`}
+                content={text}
+                variant="trace"
+              />
+            ))}
+          </div>
+        ) : null
+      ) : (
+        <TraceRowBody
+          callId={callId}
+          callEvents={callEvents}
+          group={group}
+          role={role}
+          kind={kind}
+          t={t}
+        />
+      )}
+    </ActivityRow>
   );
 }
 
@@ -1948,7 +1641,7 @@ export function NestedTraceFlow({
   isStreaming?: boolean;
 }) {
   return (
-    <div className="ml-[11px] border-l border-[var(--border)]/45 pl-[13px] pt-2 [&>div]:mb-0">
+    <div className="pt-2 [&>div]:mb-0">
       <TraceFlow events={events} isStreaming={isStreaming} />
     </div>
   );

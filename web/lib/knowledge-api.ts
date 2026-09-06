@@ -36,8 +36,6 @@ export interface RagProviderSummary {
   default_mode?: string;
   /** Whether an existing index for this engine can be linked in place. */
   linkable?: boolean;
-  /** The engine works, but reusable defaults have not been configured yet. */
-  setup_required?: boolean;
 }
 
 export interface PageIndexConfig {
@@ -60,15 +58,6 @@ export interface LlamaIndexConfig {
   top_k: number;
   vector_top_k_multiplier: number;
   bm25_top_k_multiplier: number;
-  /** Optional Hugging Face cross-encoder model; empty disables reranking. */
-  reranker_model: string;
-  /** First-stage candidates scored by the optional cross-encoder. */
-  rerank_top_k: number;
-  /** Vector index type used by the next full index build. */
-  vector_index_type: "flat" | "hnsw";
-  hnsw_m: number;
-  hnsw_ef_construction: number;
-  hnsw_ef_search: number;
   /** Chunk geometry — applies to documents indexed after the change. */
   chunk_size: number;
   chunk_overlap: number;
@@ -88,21 +77,12 @@ export interface LightRagConfig {
   version: number;
   top_k: number;
   response_type: string;
-  /** Frozen documents LightRAG parses in parallel while indexing. */
+  /** Files RAG-Anything processes in parallel while indexing. */
   max_concurrent_files: number;
   /** Concurrent LLM calls LightRAG's internal queue issues. */
   llm_model_max_async: number;
   /** Extra extraction passes per chunk, to recover missed entities. */
   entity_extract_max_gleaning: number;
-  /** Stable catalog reference, or empty strings for the global active chat model. */
-  llm_profile_id: string;
-  llm_model_id: string;
-}
-
-export interface LightRagServerConfig {
-  server_url: string;
-  api_key_set: boolean;
-  configured: boolean;
 }
 
 export interface PreflightCheck {
@@ -150,7 +130,6 @@ export interface KnowledgeUploadPolicy {
   extensions: string[];
   accept: string;
   max_file_size_bytes: number;
-  allow_any_extension?: boolean;
 }
 
 export interface KnowledgeBaseFile {
@@ -185,15 +164,10 @@ const IMAGE_UPLOAD_MIME_TYPES = [
 
 function normalizeUploadPolicy(data: unknown): KnowledgeUploadPolicy {
   const payload = data as Partial<KnowledgeUploadPolicy> | null | undefined;
-  const allowAnyExtension = payload?.allow_any_extension === true;
   const extensions = Array.from(
     new Set([
-      ...(allowAnyExtension
-        ? []
-        : Array.isArray(payload?.extensions)
-          ? payload.extensions
-          : []),
-      ...(allowAnyExtension ? [] : IMAGE_UPLOAD_EXTENSIONS),
+      ...(Array.isArray(payload?.extensions) ? payload.extensions : []),
+      ...IMAGE_UPLOAD_EXTENSIONS,
     ]),
   ).sort();
   const serverAccept =
@@ -203,16 +177,13 @@ function normalizeUploadPolicy(data: unknown): KnowledgeUploadPolicy {
           .map((item) => item.trim())
           .filter(Boolean)
       : [];
-  const accept = allowAnyExtension
-    ? ""
-    : Array.from(
-        new Set([...serverAccept, ...extensions, ...IMAGE_UPLOAD_MIME_TYPES]),
-      ).join(",");
+  const accept = Array.from(
+    new Set([...serverAccept, ...extensions, ...IMAGE_UPLOAD_MIME_TYPES]),
+  ).join(",");
 
   return {
     extensions,
     accept,
-    allow_any_extension: allowAnyExtension,
     max_file_size_bytes:
       typeof payload?.max_file_size_bytes === "number"
         ? payload.max_file_size_bytes
@@ -224,7 +195,7 @@ export async function listKnowledgeBases(options?: { force?: boolean }) {
   return withClientCache<KnowledgeBaseSummary[]>(
     `${KNOWLEDGE_CACHE_PREFIX}list`,
     async () => {
-      const response = await apiFetch(apiUrl("/api/knowledge-bases"), {
+      const response = await apiFetch(apiUrl("/api/v1/knowledge/list"), {
         cache: "no-store",
       });
       if (!response.ok) {
@@ -250,7 +221,7 @@ export async function listRagProviders(options?: { force?: boolean }) {
     `${KNOWLEDGE_CACHE_PREFIX}providers`,
     async () => {
       const response = await apiFetch(
-        apiUrl("/api/knowledge-bases/rag-providers"),
+        apiUrl("/api/v1/knowledge/rag-providers"),
         {
           cache: "no-store",
         },
@@ -274,7 +245,7 @@ export async function getKnowledgeUploadPolicy(options?: { force?: boolean }) {
     `${KNOWLEDGE_CACHE_PREFIX}upload-policy`,
     async () => {
       const response = await apiFetch(
-        apiUrl("/api/knowledge-bases/supported-file-types"),
+        apiUrl("/api/v1/knowledge/supported-file-types"),
         {
           cache: "no-store",
         },
@@ -298,7 +269,7 @@ export function invalidateKnowledgeCaches() {
 }
 
 const PAGEINDEX_CONFIG_PATH =
-  "/api/knowledge-bases/rag-pipelines/pageindex/config";
+  "/api/v1/knowledge/rag-pipelines/pageindex/config";
 
 export async function getPageIndexConfig(options?: {
   force?: boolean;
@@ -339,7 +310,7 @@ export async function updatePageIndexConfig(payload: {
   return (await res.json()) as PageIndexConfig;
 }
 
-const IMA_CONFIG_PATH = "/api/knowledge-bases/rag-pipelines/ima/config";
+const IMA_CONFIG_PATH = "/api/v1/knowledge/rag-pipelines/ima/config";
 
 export async function getImaConfig(options?: {
   force?: boolean;
@@ -382,7 +353,7 @@ export async function updateImaConfig(payload: {
 }
 
 const LLAMAINDEX_CONFIG_PATH =
-  "/api/knowledge-bases/rag-pipelines/llamaindex/config";
+  "/api/v1/knowledge/rag-pipelines/llamaindex/config";
 
 export async function getLlamaIndexConfig(options?: {
   force?: boolean;
@@ -430,7 +401,7 @@ async function getEngineConfig<T>(
     `${KNOWLEDGE_CACHE_PREFIX}${cacheKey}`,
     async () => {
       const response = await apiFetch(
-        apiUrl(`/api/knowledge-bases/rag-pipelines/${provider}/config`),
+        apiUrl(`/api/v1/knowledge/rag-pipelines/${provider}/config`),
         { cache: "no-store" },
       );
       if (!response.ok) {
@@ -449,7 +420,7 @@ async function updateEngineConfig<T>(
   payload: Record<string, unknown>,
 ): Promise<T> {
   const res = await apiFetch(
-    apiUrl(`/api/knowledge-bases/rag-pipelines/${provider}/config`),
+    apiUrl(`/api/v1/knowledge/rag-pipelines/${provider}/config`),
     {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
@@ -477,27 +448,12 @@ export const updateLightRagConfig = (
   payload: Partial<Omit<LightRagConfig, "version">>,
 ) => updateEngineConfig<LightRagConfig>("lightrag", payload);
 
-export const getLightRagServerConfig = (options?: { force?: boolean }) =>
-  getEngineConfig<LightRagServerConfig>(
-    "lightrag-server",
-    "lightrag-server-config",
-    options,
-  );
-
-export const updateLightRagServerConfig = (payload: {
-  server_url?: string;
-  /** Omit to keep the stored key; empty clears it. */
-  api_key?: string;
-}) => updateEngineConfig<LightRagServerConfig>("lightrag-server", payload);
-
 export async function getEnginePreflight(
   provider: string,
 ): Promise<EnginePreflight> {
   const res = await apiFetch(
-    apiUrl(`/api/knowledge-bases/rag-pipelines/${provider}/preflight`),
-    {
-      cache: "no-store",
-    },
+    apiUrl(`/api/v1/knowledge/rag-pipelines/${provider}/preflight`),
+    { cache: "no-store" },
   );
   if (!res.ok) {
     throw new Error(await readErrorDetail(res, "Failed to check environment"));
@@ -510,7 +466,9 @@ export async function getEngineModelOptions(
 ): Promise<ModelOptionsByKind> {
   const res = await apiFetch(
     apiUrl(
-      `/api/knowledge-bases/rag-pipelines/model-options?kinds=${encodeURIComponent(kinds.join(","))}`,
+      `/api/v1/knowledge/rag-pipelines/model-options?kinds=${encodeURIComponent(
+        kinds.join(","),
+      )}`,
     ),
     { cache: "no-store" },
   );
@@ -525,7 +483,7 @@ export async function testGraphRagModelCompatibility(
   modelId: string,
 ): Promise<GraphRagModelCompatibility> {
   const res = await apiFetch(
-    apiUrl("/api/knowledge-bases/rag-pipelines/graphrag/model-compatibility"),
+    apiUrl("/api/v1/knowledge/rag-pipelines/graphrag/model-compatibility"),
     {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -546,7 +504,7 @@ export async function setEngineActiveModel(
   modelId: string,
 ): Promise<ModelKindOptions> {
   const res = await apiFetch(
-    apiUrl("/api/knowledge-bases/rag-pipelines/active-model"),
+    apiUrl("/api/v1/knowledge/rag-pipelines/active-model"),
     {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
@@ -566,7 +524,7 @@ export async function updateRagProviderMode(
 ): Promise<{ provider: string; mode: string }> {
   const res = await apiFetch(
     apiUrl(
-      `/api/knowledge-bases/rag-providers/${encodeURIComponent(provider)}/mode`,
+      `/api/v1/knowledge/rag-providers/${encodeURIComponent(provider)}/mode`,
     ),
     {
       method: "PUT",
@@ -603,7 +561,7 @@ export async function listKnowledgeBaseFiles(
     `${KNOWLEDGE_CACHE_PREFIX}files:${name}`,
     async () => {
       const response = await apiFetch(
-        apiUrl(`/api/knowledge-bases/${encodeURIComponent(name)}/files`),
+        apiUrl(`/api/v1/knowledge/${encodeURIComponent(name)}/files`),
         { cache: "no-store" },
       );
       if (!response.ok) {
@@ -626,23 +584,23 @@ export async function listKnowledgeBaseFiles(
   );
 }
 
-/** Build the `/api/...` path for a raw KB file (caller can pass to apiUrl()). */
+/** Build the `/api/v1/...` path for a raw KB file (caller can pass to apiUrl()). */
 export function knowledgeBaseFilePath(
   kbName: string,
   filename: string,
 ): string {
-  return `/api/knowledge-bases/${encodeURIComponent(kbName)}/files/${filename
+  return `/api/v1/knowledge/${encodeURIComponent(kbName)}/files/${filename
     .split("/")
     .map(encodeURIComponent)
     .join("/")}`;
 }
 
-/** Build the `/api/...` path for extracted plain-text preview of a raw KB file. */
+/** Build the `/api/v1/...` path for extracted plain-text preview of a raw KB file. */
 export function knowledgeBaseFilePreviewTextPath(
   kbName: string,
   filename: string,
 ): string {
-  return `/api/knowledge-bases/${encodeURIComponent(kbName)}/file-preview-text/${filename
+  return `/api/v1/knowledge/${encodeURIComponent(kbName)}/file-preview-text/${filename
     .split("/")
     .map(encodeURIComponent)
     .join("/")}`;
@@ -682,7 +640,6 @@ export async function createKnowledgeBase(payload: {
   provider: string;
   files: File[];
   pageindexMode?: "flash" | "standard";
-  searchMode?: string;
 }): Promise<KnowledgeTaskResponse> {
   const form = new FormData();
   form.append("name", payload.name);
@@ -690,10 +647,9 @@ export async function createKnowledgeBase(payload: {
   if (payload.pageindexMode) {
     form.append("pageindex_mode", payload.pageindexMode);
   }
-  if (payload.searchMode) form.append("search_mode", payload.searchMode);
   appendFilesWithPaths(form, payload.files);
 
-  const res = await apiFetch(apiUrl("/api/knowledge-bases"), {
+  const res = await apiFetch(apiUrl("/api/v1/knowledge/create"), {
     method: "POST",
     body: form,
   });
@@ -710,7 +666,7 @@ export async function connectObsidianVault(payload: {
   name: string;
   vaultPath: string;
 }): Promise<{ status: string; name: string; vault_path: string }> {
-  const res = await apiFetch(apiUrl("/api/knowledge-bases/connect-obsidian"), {
+  const res = await apiFetch(apiUrl("/api/v1/knowledge/connect-obsidian"), {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ name: payload.name, vault_path: payload.vaultPath }),
@@ -732,20 +688,17 @@ export async function connectMarginNote4Library(payload: {
   name: string;
   description?: string;
 }): Promise<{ status: string; name: string; db_path?: string }> {
-  const res = await apiFetch(
-    apiUrl("/api/knowledge-bases/connect-marginnote4"),
-    {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      // `db_path` is deliberately not sent: leaving it blank keeps one rule for
-      // where the store lives (derived from the name), which is what lets the
-      // pairing endpoints, the Add-on's syncs and the capability binding agree.
-      body: JSON.stringify({
-        name: payload.name,
-        description: payload.description ?? "",
-      }),
-    },
-  );
+  const res = await apiFetch(apiUrl("/api/v1/knowledge/connect-marginnote4"), {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    // `db_path` is deliberately not sent: leaving it blank keeps one rule for
+    // where the store lives (derived from the name), which is what lets the
+    // pairing endpoints, the Add-on's syncs and the capability binding agree.
+    body: JSON.stringify({
+      name: payload.name,
+      description: payload.description ?? "",
+    }),
+  });
   if (!res.ok) {
     throw new Error(
       await readErrorDetail(res, "Failed to connect MarginNote 4 library"),
@@ -781,7 +734,7 @@ export async function probeLinkedFolder(payload: {
   folderPath: string;
   provider: string;
 }): Promise<LinkedFolderProbe> {
-  const res = await apiFetch(apiUrl("/api/knowledge-bases/probe-folder"), {
+  const res = await apiFetch(apiUrl("/api/v1/knowledge/probe-folder"), {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
@@ -806,7 +759,7 @@ export async function connectLinkedFolder(payload: {
   rag_provider: string;
   warnings: string[];
 }> {
-  const res = await apiFetch(apiUrl("/api/knowledge-bases/connect-folder"), {
+  const res = await apiFetch(apiUrl("/api/v1/knowledge/connect-folder"), {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
@@ -841,17 +794,6 @@ export interface LightRagServerProbe {
   error: string | null;
 }
 
-export interface WeKnoraProbe {
-  ok: boolean;
-  base_url: string;
-  knowledge_base_id: string;
-  reachable: boolean;
-  credentials_ok: boolean;
-  knowledge_base_found: boolean;
-  knowledge_base_name: string | null;
-  error: string | null;
-}
-
 export interface ImaKnowledgeBasePage {
   knowledge_bases: ImaKnowledgeBaseOption[];
   next_cursor: string;
@@ -874,7 +816,7 @@ export async function listImaKnowledgeBases(payload: {
   cursor?: string;
   limit?: number;
 }): Promise<ImaKnowledgeBasePage> {
-  const res = await apiFetch(apiUrl("/api/knowledge-bases/list-ima"), {
+  const res = await apiFetch(apiUrl("/api/v1/knowledge/list-ima"), {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
@@ -898,7 +840,7 @@ export async function probeImaKnowledgeBase(payload: {
   apiKey?: string;
   knowledgeBaseId: string;
 }): Promise<ImaProbe> {
-  const res = await apiFetch(apiUrl("/api/knowledge-bases/probe-ima"), {
+  const res = await apiFetch(apiUrl("/api/v1/knowledge/probe-ima"), {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
@@ -928,7 +870,7 @@ export async function connectImaKnowledgeBase(payload: {
   knowledge_base_id: string;
   rag_provider: string;
 }> {
-  const res = await apiFetch(apiUrl("/api/knowledge-bases/connect-ima"), {
+  const res = await apiFetch(apiUrl("/api/v1/knowledge/connect-ima"), {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
@@ -959,17 +901,15 @@ export async function connectImaKnowledgeBase(payload: {
 export async function probeLightRagServer(payload: {
   serverUrl: string;
   apiKey?: string;
-  useSavedApiKey?: boolean;
 }): Promise<LightRagServerProbe> {
   const res = await apiFetch(
-    apiUrl("/api/knowledge-bases/probe-lightrag-server"),
+    apiUrl("/api/v1/knowledge/probe-lightrag-server"),
     {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         server_url: payload.serverUrl,
         api_key: payload.apiKey ?? "",
-        use_saved_api_key: payload.useSavedApiKey ?? false,
       }),
     },
   );
@@ -993,7 +933,7 @@ export async function connectLightRagServer(payload: {
   rag_provider: string;
 }> {
   const res = await apiFetch(
-    apiUrl("/api/knowledge-bases/connect-lightrag-server"),
+    apiUrl("/api/v1/knowledge/connect-lightrag-server"),
     {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -1019,61 +959,6 @@ export async function connectLightRagServer(payload: {
   };
 }
 
-export async function probeWeKnora(payload: {
-  serverUrl: string;
-  apiKey: string;
-  knowledgeBaseId: string;
-}): Promise<WeKnoraProbe> {
-  const res = await apiFetch(apiUrl("/api/knowledge-bases/probe-weknora"), {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      server_url: payload.serverUrl,
-      api_key: payload.apiKey,
-      knowledge_base_id: payload.knowledgeBaseId,
-    }),
-  });
-  if (!res.ok) {
-    throw new Error(await readErrorDetail(res, "Failed to reach WeKnora"));
-  }
-  return (await res.json()) as WeKnoraProbe;
-}
-
-export async function connectWeKnora(payload: {
-  name: string;
-  serverUrl: string;
-  apiKey: string;
-  knowledgeBaseId: string;
-}): Promise<{
-  status: string;
-  name: string;
-  server_url: string;
-  knowledge_base_id: string;
-  rag_provider: string;
-}> {
-  const res = await apiFetch(apiUrl("/api/knowledge-bases/connect-weknora"), {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      name: payload.name,
-      server_url: payload.serverUrl,
-      api_key: payload.apiKey,
-      knowledge_base_id: payload.knowledgeBaseId,
-    }),
-  });
-  if (!res.ok) {
-    throw new Error(await readErrorDetail(res, "Failed to connect WeKnora"));
-  }
-  invalidateKnowledgeCaches();
-  return (await res.json()) as {
-    status: string;
-    name: string;
-    server_url: string;
-    knowledge_base_id: string;
-    rag_provider: string;
-  };
-}
-
 export async function uploadKnowledgeBaseFiles(
   name: string,
   files: File[],
@@ -1088,11 +973,8 @@ export async function uploadKnowledgeBaseFiles(
   if (options?.destSubdir) form.append("dest_subdir", options.destSubdir);
 
   const res = await apiFetch(
-    apiUrl(`/api/knowledge-bases/${encodeURIComponent(name)}/upload`),
-    {
-      method: "POST",
-      body: form,
-    },
+    apiUrl(`/api/v1/knowledge/${encodeURIComponent(name)}/upload`),
+    { method: "POST", body: form },
   );
   if (!res.ok) {
     throw new Error(await readErrorDetail(res, "Failed to upload files"));
@@ -1106,7 +988,7 @@ export async function createKbFolder(
   path: string,
 ): Promise<void> {
   const res = await apiFetch(
-    apiUrl(`/api/knowledge-bases/${encodeURIComponent(name)}/folders`),
+    apiUrl(`/api/v1/knowledge/${encodeURIComponent(name)}/folders`),
     {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -1125,7 +1007,7 @@ export async function moveKbFile(
   destFolder: string,
 ): Promise<void> {
   const res = await apiFetch(
-    apiUrl(`/api/knowledge-bases/${encodeURIComponent(name)}/files/move`),
+    apiUrl(`/api/v1/knowledge/${encodeURIComponent(name)}/files/move`),
     {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -1160,10 +1042,8 @@ export async function deleteKbFile(
 
 export async function setDefaultKnowledgeBase(name: string): Promise<void> {
   const res = await apiFetch(
-    apiUrl(`/api/knowledge-bases/default/${encodeURIComponent(name)}`),
-    {
-      method: "PUT",
-    },
+    apiUrl(`/api/v1/knowledge/default/${encodeURIComponent(name)}`),
+    { method: "PUT" },
   );
   if (!res.ok) {
     throw new Error(await readErrorDetail(res, "Failed to set default"));
@@ -1175,10 +1055,8 @@ export async function reindexKnowledgeBase(
   name: string,
 ): Promise<KnowledgeTaskResponse> {
   const res = await apiFetch(
-    apiUrl(`/api/knowledge-bases/${encodeURIComponent(name)}/reindex`),
-    {
-      method: "POST",
-    },
+    apiUrl(`/api/v1/knowledge/${encodeURIComponent(name)}/reindex`),
+    { method: "POST" },
   );
   if (!res.ok) {
     const detail = await readErrorDetail(
@@ -1197,10 +1075,8 @@ export async function retryKnowledgeBase(
   name: string,
 ): Promise<KnowledgeTaskResponse> {
   const res = await apiFetch(
-    apiUrl(`/api/knowledge-bases/${encodeURIComponent(name)}/retry`),
-    {
-      method: "POST",
-    },
+    apiUrl(`/api/v1/knowledge/${encodeURIComponent(name)}/retry`),
+    { method: "POST" },
   );
   if (!res.ok) {
     const detail = await readErrorDetail(res, `Retry failed (${res.status})`);
@@ -1214,10 +1090,8 @@ export async function retryKnowledgeBase(
 
 export async function deleteKnowledgeBase(name: string): Promise<void> {
   const res = await apiFetch(
-    apiUrl(`/api/knowledge-bases/${encodeURIComponent(name)}`),
-    {
-      method: "DELETE",
-    },
+    apiUrl(`/api/v1/knowledge/${encodeURIComponent(name)}`),
+    { method: "DELETE" },
   );
   if (!res.ok) {
     throw new Error(
@@ -1266,7 +1140,7 @@ export async function listGitHubSources(
   kbName: string,
 ): Promise<GitHubSource[]> {
   const res = await apiFetch(
-    apiUrl(`/api/knowledge-bases/${encodeURIComponent(kbName)}/github-sources`),
+    apiUrl(`/api/v1/knowledge/${encodeURIComponent(kbName)}/github-sources`),
   );
   if (!res.ok) {
     throw new Error(
@@ -1284,7 +1158,7 @@ export async function addGitHubSource(
   payload: AddGitHubSourcePayload,
 ): Promise<GitHubSource> {
   const res = await apiFetch(
-    apiUrl(`/api/knowledge-bases/${encodeURIComponent(kbName)}/github-source`),
+    apiUrl(`/api/v1/knowledge/${encodeURIComponent(kbName)}/github-source`),
     {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -1311,7 +1185,7 @@ export async function removeGitHubSource(
 ): Promise<void> {
   const res = await apiFetch(
     apiUrl(
-      `/api/knowledge-bases/${encodeURIComponent(kbName)}/github-source/${encodeURIComponent(sourceId)}`,
+      `/api/v1/knowledge/${encodeURIComponent(kbName)}/github-source/${encodeURIComponent(sourceId)}`,
     ),
     { method: "DELETE" },
   );
@@ -1330,7 +1204,7 @@ export async function syncGitHubSources(
   kbName: string,
 ): Promise<GitHubSyncResult[]> {
   const res = await apiFetch(
-    apiUrl(`/api/knowledge-bases/${encodeURIComponent(kbName)}/sync-github`),
+    apiUrl(`/api/v1/knowledge/${encodeURIComponent(kbName)}/sync-github`),
     { method: "POST" },
   );
   if (!res.ok) {
@@ -1386,7 +1260,7 @@ export async function listWebSources(
   options?: { signal?: AbortSignal },
 ): Promise<WebSource[]> {
   const res = await apiFetch(
-    apiUrl(`/api/knowledge-bases/${encodeURIComponent(kbName)}/web-sources`),
+    apiUrl(`/api/v1/knowledge/${encodeURIComponent(kbName)}/web-sources`),
     { signal: options?.signal },
   );
   if (!res.ok) {
@@ -1402,7 +1276,7 @@ export async function addWebSource(
   payload: AddWebSourcePayload,
 ): Promise<WebSource> {
   const res = await apiFetch(
-    apiUrl(`/api/knowledge-bases/${encodeURIComponent(kbName)}/web-source`),
+    apiUrl(`/api/v1/knowledge/${encodeURIComponent(kbName)}/web-source`),
     {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -1428,7 +1302,7 @@ export async function removeWebSource(
 ): Promise<void> {
   const res = await apiFetch(
     apiUrl(
-      `/api/knowledge-bases/${encodeURIComponent(kbName)}/web-source/${encodeURIComponent(sourceId)}`,
+      `/api/v1/knowledge/${encodeURIComponent(kbName)}/web-source/${encodeURIComponent(sourceId)}`,
     ),
     { method: "DELETE" },
   );
@@ -1442,10 +1316,8 @@ export async function removeWebSource(
 
 export async function syncWebSources(kbName: string): Promise<WebSyncResult> {
   const res = await apiFetch(
-    apiUrl(`/api/knowledge-bases/${encodeURIComponent(kbName)}/sync-web`),
-    {
-      method: "POST",
-    },
+    apiUrl(`/api/v1/knowledge/${encodeURIComponent(kbName)}/sync-web`),
+    { method: "POST" },
   );
   if (!res.ok) {
     throw new Error(
@@ -1453,4 +1325,86 @@ export async function syncWebSources(kbName: string): Promise<WebSyncResult> {
     );
   }
   return (await res.json()) as WebSyncResult;
+}
+
+/* ------------------------------------------------------------------ */
+/*  K12-KGraph curriculum knowledge browser                            */
+/* ------------------------------------------------------------------ */
+
+export interface KgCandidate {
+  id: string;
+  name: string;
+  label: string;
+  score: number;
+  method: string;
+}
+
+export interface KgLiteConcept {
+  id: string;
+  name: string;
+  label: string;
+}
+
+export interface KgPathEntry {
+  id: string;
+  name: string;
+  label: string;
+  relation: string;
+}
+
+export interface KgConcept {
+  id: string;
+  name: string;
+  label: string;
+  available: boolean;
+  definition: string;
+  aliases: string[];
+  importance: string;
+  examples: string[];
+  prerequisites: KgLiteConcept[];
+  path: KgPathEntry[];
+  evidence: { evidences: string[]; relations: string[] };
+}
+
+export async function kgAvailable(): Promise<{
+  available: boolean;
+  node_count: number;
+}> {
+  const res = await apiFetch(apiUrl("/api/v1/kg/available"));
+  if (!res.ok) {
+    throw new Error(await readErrorDetail(res, `KG status failed (${res.status})`));
+  }
+  return (await res.json()) as { available: boolean; node_count: number };
+}
+
+export async function kgSearch(
+  q: string,
+  options?: { subject?: string; top_k?: number },
+): Promise<{ query: string; candidates: KgCandidate[]; available: boolean }> {
+  const params = new URLSearchParams();
+  params.set("q", q);
+  if (options?.subject) params.set("subject", options.subject);
+  if (options?.top_k) params.set("top_k", String(options.top_k));
+  const res = await apiFetch(apiUrl(`/api/v1/kg/search?${params.toString()}`));
+  if (!res.ok) {
+    throw new Error(await readErrorDetail(res, `KG search failed (${res.status})`));
+  }
+  const data = (await res.json()) as {
+    query: string;
+    candidates: KgCandidate[];
+    available: boolean;
+  };
+  return {
+    query: data.query,
+    candidates: data.candidates ?? [],
+    available: data.available,
+  };
+}
+
+export async function kgConcept(id: string): Promise<KgConcept> {
+  const res = await apiFetch(apiUrl(`/api/v1/kg/concept/${encodeURIComponent(id)}`));
+  if (!res.ok) {
+    throw new Error(await readErrorDetail(res, `KG concept failed (${res.status})`));
+  }
+  return (await res.json()) as KgConcept;
 }

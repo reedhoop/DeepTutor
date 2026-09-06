@@ -1,13 +1,6 @@
 "use client";
 
-import React, {
-  useCallback,
-  useContext,
-  useEffect,
-  useRef,
-  useState,
-  useTransition,
-} from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { CheckCircle2, Download, Loader2, XCircle } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
@@ -15,6 +8,7 @@ import {
   SettingRow,
   SettingSection,
   SettingsPageHeader,
+  inputClass,
   nativeSelectClass,
   selectOptionClass,
 } from "@/components/settings/shared";
@@ -22,37 +16,24 @@ import { MinerUEngineSettings } from "@/components/settings/MinerUEngineSettings
 import { Toggle } from "@/components/settings/Toggle";
 import { apiFetch, apiUrl } from "@/lib/api";
 
-// Our customizations live in the document-parsing-ext folder (owned by us,
-// rebase-safe). The page only imports and mounts them below.
-import { BusyContext, useBusy } from "@/components/settings/document-parsing-ext/busy";
-import {
-  EngineReadyBadge,
-  EngineVersionBadge,
-} from "@/components/settings/document-parsing-ext/badges";
-import { VLMPanel } from "@/components/settings/document-parsing-ext/VLMPanel";
-import { PPStructureV3Panel } from "@/components/settings/document-parsing-ext/PPStructureV3Panel";
-
 type EngineMeta = {
   id: string;
   name: string;
   description: string;
   needs_local_models: boolean;
   available: boolean;
-  ready?: boolean;
-  version?: string | null;
 };
 
 type Readiness = { ready: boolean; reason: string; message: string };
 
 type DocumentParsingPayload = {
   engine: string;
-  routing_mode?: string;
-  fallback_engine?: string;
   engines: Record<string, Record<string, unknown>>;
   available_engines: EngineMeta[];
   readiness: Record<string, Readiness>;
   installable: string[];
   mineru: { api_token_set: boolean; local_cli?: unknown };
+  docling?: { api_token_set: boolean };
 };
 
 const PIP_HINT: Record<string, string> = {
@@ -60,7 +41,6 @@ const PIP_HINT: Record<string, string> = {
   markitdown: "pip install deeptutor[parse-markitdown]",
   pymupdf4llm: "pip install deeptutor[parse-pymupdf4llm]",
   liteparse: "pip install deeptutor[parse-liteparse]",
-  pp_structurev3: "pip install deeptutor[parse-pp-structurev3]",
 };
 
 // Engine names and descriptions are returned by the backend so unknown or
@@ -85,73 +65,13 @@ const ENGINE_DESCRIPTION_KEYS: Record<string, string> = {
     "Fast, lightweight PDF parser with spatial text extraction. Markdown output, optional image extraction. No model downloads. Developed by LlamaIndex.",
   tika: "Remote Apache Tika server. Broad format support, no local install or model downloads. Point at an existing tika-server container.",
 };
-/* ── Engine card ── */
-
-function EngineCard({
-  engine,
-  active,
-  onSelect,
-  t,
-}: {
-  engine: EngineMeta;
-  active: boolean;
-  onSelect: (id: string) => void;
-  t: (key: string) => string;
-}) {
-  const busy = useBusy();
-  return (
-    <button
-      type="button"
-      disabled={busy || active}
-      onClick={() => !active && onSelect(engine.id)}
-      className={`flex items-start justify-between gap-4 rounded-xl border px-4 py-3 text-left transition-colors disabled:opacity-60 ${
-        active
-          ? "border-[var(--foreground)] bg-[var(--card)]"
-          : "border-[var(--border)] hover:border-[var(--foreground)]/40"
-      }`}
-    >
-      <div className="min-w-0">
-        <div className="flex items-center gap-2">
-          <span className="text-[13px] font-medium text-[var(--foreground)]">
-            {engine.name}
-          </span>
-          {active && (
-            <span className="rounded-full bg-[var(--foreground)] px-2 py-0.5 text-[10px] font-medium text-[var(--background)]">
-              {t("Active")}
-            </span>
-          )}
-          {!engine.available && (
-            <span className="rounded-full border border-[var(--border)] px-2 py-0.5 text-[10px] text-[var(--muted-foreground)]">
-              {t("Not installed")}
-            </span>
-          )}
-          <EngineReadyBadge available={engine.available} ready={engine.ready} />
-          <EngineVersionBadge version={engine.version} />
-        </div>
-        <p className="mt-1 text-[12px] text-[var(--muted-foreground)]">
-          {engine.description}
-        </p>
-      </div>
-    </button>
-  );
-}
 
 export default function DocumentParsingSettingsPage() {
   const { t } = useTranslation();
   const [data, setData] = useState<DocumentParsingPayload | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  // busy as ref — changing it must NOT re-render EngineCards.
-  // A context snapshot is forced only when we need a visual spin indicator.
-  const [, forceTick] = useState(0);
-  const busyRef = useRef(false);
-  const [, startTransition] = useTransition();
-
-  const setBusy = useCallback((v: boolean) => {
-    busyRef.current = v;
-    // Force a re-render so panels (which read busyRef directly) see the new value.
-    forceTick((n) => n + 1);
-  }, []);
+  const [busy, setBusy] = useState(false);
 
   const load = useCallback(async () => {
     setError(null);
@@ -183,12 +103,6 @@ export default function DocumentParsingSettingsPage() {
     async (body: Record<string, unknown>) => {
       setBusy(true);
       setError(null);
-      // Optimistic update for engine switch — reflect selection immediately.
-      if ("engine" in body && typeof body.engine === "string") {
-        setData((prev) =>
-          prev ? { ...prev, engine: body.engine as string } : prev,
-        );
-      }
       try {
         const response = await apiFetch(
           apiUrl("/api/settings/document-parsing"),
@@ -208,42 +122,17 @@ export default function DocumentParsingSettingsPage() {
               : t("Failed to save document parsing settings."),
           );
         }
-        // Server response is the source of truth — replace optimistic state.
-        startTransition(() => {
-          setData(payload as DocumentParsingPayload);
-        });
+        setData(payload as DocumentParsingPayload);
+        return true;
       } catch (err) {
-        const msg = err instanceof Error ? err.message : String(err);
-        // Rollback: silently re-fetch server state so UI matches reality
-        // (the optimistic engine switch may not have been persisted).
-        try {
-          const r = await apiFetch(
-            apiUrl("/api/v1/settings/document-parsing"),
-          );
-          if (r.ok) {
-            const p = (await r.json()) as DocumentParsingPayload;
-            setData(p);
-          }
-        } catch {
-          // Ignore rollback fetch errors — the original error matters more.
-        }
-        setError(msg);
+        setError(err instanceof Error ? err.message : String(err));
+        return false;
       } finally {
         setBusy(false);
       }
     },
-    [t, setBusy],
+    [t],
   );
-
-  const handleSelectEngine = (id: string) =>
-    putDocumentParsing({ engine: id });
-
-  // Routing settings are scalar fields; optimistic-update them locally and
-  // persist via the same PUT endpoint (server response replaces state).
-  const putRouting = (patch: Record<string, unknown>) => {
-    setData((prev) => (prev ? { ...prev, ...patch } : prev));
-    void putDocumentParsing(patch);
-  };
 
   return (
     <div>
@@ -276,73 +165,55 @@ export default function DocumentParsingSettingsPage() {
               </h2>
               <p className="mt-1 text-[12.5px] leading-relaxed text-[var(--muted-foreground)]">
                 {t(
-                  "The active engine handles all parsing. Text-only is built in and extracts plain text; markitdown is lightweight and optional; MinerU and Docling produce richer structure but may need local models or a hosted API.",
+                  "The active engine handles all parsing. Text-only is built in and extracts plain text; markitdown is lightweight and optional; MinerU and Docling produce richer structure, while Tika provides broad remote text extraction.",
                 )}
               </p>
             </header>
-            <div className="mb-4 rounded-xl border border-[var(--border)] bg-[var(--card)] px-4 py-3">
-              <div className="flex flex-wrap items-center justify-between gap-3">
-                <div className="min-w-0">
-                  <div className="text-[13px] font-medium text-[var(--foreground)]">
-                    {t("Parsing route", "解析路由")}
-                  </div>
-                  <p className="mt-0.5 text-[12px] text-[var(--muted-foreground)]">
-                    {t(
-                      "routing_desc",
-                      "Auto 按文档类型(扫描图/图文/文本)自动选最匹配的引擎；Manual 始终用上方选中的引擎。",
-                    )}
-                  </p>
-                </div>
-                <select
-                  value={data.routing_mode || "manual"}
-                  onChange={(e) => putRouting({ routing_mode: e.target.value })}
-                  className={nativeSelectClass}
-                >
-                  <option value="manual">
-                    {t("Manual (active engine)", "手动（当前引擎）")}
-                  </option>
-                  <option value="auto">
-                    {t("Auto (per-document)", "自动（按文档）")}
-                  </option>
-                </select>
-              </div>
-              {data.routing_mode === "auto" && (
-                <div className="mt-3 flex flex-wrap items-center justify-between gap-3 border-t border-[var(--border)] pt-3">
-                  <span className="text-[12px] text-[var(--muted-foreground)]">
-                    {t("Fallback engine", "回退引擎")}
-                  </span>
-                  <select
-                    value={data.fallback_engine || ""}
-                    onChange={(e) =>
-                      putRouting({ fallback_engine: e.target.value })
-                    }
-                    className={nativeSelectClass}
-                  >
-                    <option value="">
-                      {t("Active engine (default)", "当前引擎（默认）")}
-                    </option>
-                    {data.available_engines.map((e) => (
-                      <option key={e.id} value={e.id}>
-                        {e.name}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-              )}
-            </div>
-            <BusyContext.Provider value={busyRef.current}>
             <div className="flex flex-col gap-2">
-              {data.available_engines.map((engine) => (
-                <EngineCard
-                  key={engine.id}
-                  engine={engine}
-                  active={engine.id === data.engine}
-                  onSelect={handleSelectEngine}
-                  t={t}
-                />
-              ))}
+              {data.available_engines.map((engine) => {
+                const active = engine.id === data.engine;
+                const nameKey = ENGINE_NAME_KEYS[engine.id];
+                const descriptionKey = ENGINE_DESCRIPTION_KEYS[engine.id];
+                return (
+                  <button
+                    key={engine.id}
+                    type="button"
+                    disabled={busy}
+                    onClick={() =>
+                      !active && putDocumentParsing({ engine: engine.id })
+                    }
+                    className={`flex items-start justify-between gap-4 rounded-xl border px-4 py-3 text-left transition-colors disabled:opacity-60 ${
+                      active
+                        ? "border-[var(--foreground)] bg-[var(--card)]"
+                        : "border-[var(--border)] hover:border-[var(--foreground)]/40"
+                    }`}
+                  >
+                    <div className="min-w-0">
+                      <div className="flex items-center gap-2">
+                        <span className="text-[13px] font-medium text-[var(--foreground)]">
+                          {nameKey ? t(nameKey) : engine.name}
+                        </span>
+                        {active && (
+                          <span className="rounded-full bg-[var(--foreground)] px-2 py-0.5 text-[10px] font-medium text-[var(--background)]">
+                            {t("Active")}
+                          </span>
+                        )}
+                        {!engine.available && (
+                          <span className="rounded-full border border-[var(--border)] px-2 py-0.5 text-[10px] text-[var(--muted-foreground)]">
+                            {t("Not installed")}
+                          </span>
+                        )}
+                      </div>
+                      <p className="mt-1 text-[12px] text-[var(--muted-foreground)]">
+                        {descriptionKey
+                          ? t(descriptionKey)
+                          : engine.description}
+                      </p>
+                    </div>
+                  </button>
+                );
+              })}
             </div>
-            </BusyContext.Provider>
           </section>
 
           {data.engine === "text_only" && <TextOnlyPanel />}
@@ -357,8 +228,9 @@ export default function DocumentParsingSettingsPage() {
                 data.available_engines.find((e) => e.id === "docling")
                   ?.available ?? false
               }
-              busy={busyRef.current}
+              busy={busy}
               onInstalled={load}
+              tokenSet={data.docling?.api_token_set ?? false}
               onSave={(patch) =>
                 putDocumentParsing({ engines: { docling: patch } })
               }
@@ -372,7 +244,7 @@ export default function DocumentParsingSettingsPage() {
                 data.available_engines.find((e) => e.id === "markitdown")
                   ?.available ?? false
               }
-              busy={busyRef.current}
+              busy={busy}
               onInstalled={load}
               onSave={(patch) =>
                 putDocumentParsing({ engines: { markitdown: patch } })
@@ -387,7 +259,7 @@ export default function DocumentParsingSettingsPage() {
                 data.available_engines.find((e) => e.id === "pymupdf4llm")
                   ?.available ?? false
               }
-              busy={busyRef.current}
+              busy={busy}
               onInstalled={load}
               onSave={(patch) =>
                 putDocumentParsing({ engines: { pymupdf4llm: patch } })
@@ -402,7 +274,7 @@ export default function DocumentParsingSettingsPage() {
                 data.available_engines.find((e) => e.id === "liteparse")
                   ?.available ?? false
               }
-              busy={busyRef.current}
+              busy={busy}
               onInstalled={load}
               onSave={(patch) =>
                 putDocumentParsing({ engines: { liteparse: patch } })
@@ -410,44 +282,14 @@ export default function DocumentParsingSettingsPage() {
             />
           )}
 
-          {data.engine === "ovisocr2" && (
-            <VLMPanel
-              engineId="ovisocr2"
-              label="OvisOCR2"
-              slice={data.engines.ovisocr2 || {}}
-              busy={busyRef.current}
+          {data.engine === "tika" && (
+            <TikaPanel
+              slice={data.engines.tika || {}}
+              readiness={data.readiness.tika}
+              busy={busy}
               onSave={(patch) =>
-                putDocumentParsing({ engines: { ovisocr2: patch } })
+                putDocumentParsing({ engines: { tika: patch } })
               }
-            />
-          )}
-
-          {data.engine === "paddleocr_vl" && (
-            <VLMPanel
-              engineId="paddleocr_vl"
-              label="PaddleOCR-VL"
-              slice={data.engines.paddleocr_vl || {}}
-              busy={busyRef.current}
-              onSave={(patch) =>
-                putDocumentParsing({ engines: { paddleocr_vl: patch } })
-              }
-            />
-          )}
-
-          {data.engine === "pp_structurev3" && (
-            <PPStructureV3Panel
-              slice={data.engines.pp_structurev3 || {}}
-              readiness={data.readiness.pp_structurev3}
-              available={
-                data.available_engines.find((e) => e.id === "pp_structurev3")
-                  ?.available ?? false
-              }
-              busy={busyRef.current}
-              onInstalled={load}
-              onSave={(patch) =>
-                putDocumentParsing({ engines: { pp_structurev3: patch } })
-              }
-              NotInstalledSection={NotInstalledSection}
             />
           )}
         </>
@@ -523,11 +365,16 @@ function ReadinessNotice({ readiness }: { readiness?: Readiness }) {
   );
 }
 
+const DOCLING_MODES = ["local", "remote"] as const;
+const DEFAULT_DOCLING_URL = "http://localhost:5001";
+const TOKEN_MASK = "••••••••••••";
+
 function DoclingPanel({
   slice,
   readiness,
   available,
   busy,
+  tokenSet,
   onInstalled,
   onSave,
 }: {
@@ -535,10 +382,18 @@ function DoclingPanel({
   readiness?: Readiness;
   available: boolean;
   busy: boolean;
+  tokenSet: boolean;
   onInstalled: () => void;
-  onSave: (patch: Record<string, unknown>) => void;
+  onSave: (patch: Record<string, unknown>) => Promise<boolean>;
 }) {
   const { t } = useTranslation();
+  const mode =
+    slice.mode === "remote"
+      ? "remote"
+      : slice.mode === "local"
+        ? "local"
+        : "local";
+  const isRemote = mode === "remote";
   const doOcr = Boolean(slice.do_ocr);
   const doTables = slice.do_table_structure !== false;
   const allowDownload = Boolean(slice.allow_local_model_download);
@@ -939,53 +794,75 @@ function TikaPanel({
 
   return (
     <SettingSection
-      title={t("Docling")}
+      title={t("Tika")}
       description={t(
-        "Structured conversion of PDF/Office/HTML/images. Downloads layout/table models on first run.",
+        "Point at an Apache Tika server (e.g. the apache/tika docker image). No local install or models needed.",
       )}
     >
       <ReadinessNotice readiness={readiness} />
-      {readiness && !readiness.ready && (
-        <ModelDownloadRow
-          engineId="docling"
-          title={t("Docling")}
-          onDownloaded={onInstalled}
-        />
-      )}
       <SettingRow
-        title={t("Allow automatic model download")}
-        description={t(
-          "Off by default. When off, parsing fails with guidance instead of silently downloading models. Or pre-fetch with `docling-tools models download`.",
-        )}
+        title={t("Server base URL")}
         control={
-          <Toggle
-            checked={allowDownload}
-            disabled={busy}
-            onChange={(v) => onSave({ allow_local_model_download: v })}
+          <input
+            className={`${inputClass} w-[320px] max-w-[48vw] font-mono text-[12px]`}
+            placeholder={DEFAULT_TIKA_URL}
+            value={draftUrl}
+            onChange={(e) => {
+              setDraftUrl(e.target.value);
+              setTestResult(null);
+            }}
           />
         }
       />
       <SettingRow
-        title={t("Recognize tables")}
+        title={t("Test connection")}
+        description={t("Pings the server /version endpoint.")}
         control={
-          <Toggle
-            checked={doTables}
-            disabled={busy}
-            onChange={(v) => onSave({ do_table_structure: v })}
-          />
+          <div className="flex items-center gap-3">
+            {testResult && (
+              <span
+                className={`inline-flex max-w-[40vw] items-center gap-1 text-[12px] ${
+                  testResult.ok
+                    ? "text-emerald-600 dark:text-emerald-400"
+                    : "text-red-600 dark:text-red-400"
+                }`}
+              >
+                {testResult.ok ? (
+                  <CheckCircle2 className="h-3.5 w-3.5 shrink-0" />
+                ) : (
+                  <XCircle className="h-3.5 w-3.5 shrink-0" />
+                )}
+                {testResult.message}
+              </span>
+            )}
+            <button
+              type="button"
+              onClick={testConnection}
+              disabled={testing || saving || busy}
+              className="inline-flex items-center gap-1.5 rounded-lg border border-[var(--border)] px-3 py-1.5 text-[12px] font-medium text-[var(--foreground)] transition-opacity hover:opacity-80 disabled:opacity-40"
+            >
+              {testing && <Loader2 className="h-3 w-3 animate-spin" />}
+              {t("Test")}
+            </button>
+            <button
+              type="button"
+              onClick={save}
+              disabled={saving || busy}
+              className="inline-flex items-center gap-1.5 rounded-lg bg-[var(--foreground)] px-3 py-1.5 text-[12px] font-medium text-[var(--background)] transition-opacity hover:opacity-80 disabled:opacity-40"
+            >
+              {saving && <Loader2 className="h-3 w-3 animate-spin" />}
+              {t("Save Tika server")}
+            </button>
+          </div>
         }
       />
-      <SettingRow
-        title={t("OCR scanned pages")}
-        description={t("Slower; enable for image-only PDFs.")}
-        control={
-          <Toggle
-            checked={doOcr}
-            disabled={busy}
-            onChange={(v) => onSave({ do_ocr: v })}
-          />
-        }
-      />
+      <div className="px-1 pb-4">
+        <span className="text-[12px] text-[var(--muted-foreground)]">
+          {t(
+            "Settings are written to data/user/settings/document_parsing.json.",
+          )}
+        </span>
+      </div>
     </SettingSection>
   );
 }
@@ -1524,4 +1401,3 @@ function ModelDownloadRow({
     </>
   );
 }
-

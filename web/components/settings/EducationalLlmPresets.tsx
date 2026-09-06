@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { CheckCircle2, Loader2, Plus, Sparkles } from "lucide-react";
 
 import { apiFetch, apiUrl } from "@/lib/api";
-import { useSettings } from "./SettingsContext";
+import { useSettings } from "@/features/settings/store/SettingsStore";
 
 type Preset = {
   id: string;
