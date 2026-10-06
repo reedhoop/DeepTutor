@@ -51,9 +51,14 @@ import type {
   MessageRequestSnapshot,
 } from "@/features/chat/ChatStateAdapter";
 import { apiFetch, apiUrl } from "@/lib/api";
+import { notify } from "@/lib/notifications";
 import { docIconFor } from "@/lib/doc-attachments";
 import { useVoiceAutoplay } from "@/hooks/useVoiceAutoplay";
 import { useTtsVoicePreference } from "@/hooks/useTtsVoices";
+import {
+  SPEECH_PLAYBACK_FAILURE_MESSAGE,
+  SPEECH_TIMEOUT_MESSAGE,
+} from "@/lib/voice-settings";
 import { extractMathAnimatorResult } from "@/lib/math-animator-types";
 import {
   extractQuizQuestions,
@@ -1307,10 +1312,24 @@ export function CopyActionButton({
   );
 }
 
-// Speaker button: synthesizes the reply via the configured TTS provider and
-// plays it. On the first manual play of a session it offers to auto-play the
-// rest; `autoPlayFresh` triggers playback automatically for a reply that just
-// finished generating when auto-play is on.
+// Speaker button: synthesizes this one reply and plays it. Auto-play of later
+// replies is a Settings preference (`autoPlayFresh`), not a first-click prompt.
+let activePlayback: { owner: object; stop: () => void } | null = null;
+
+async function ttsErrorMessage(resp: Response): Promise<string> {
+  try {
+    const body = (await resp.json()) as { detail?: unknown };
+    if (typeof body.detail === "string" && body.detail.trim()) return body.detail;
+    if (Array.isArray(body.detail)) {
+      const first = body.detail[0] as { msg?: string } | undefined;
+      if (typeof first?.msg === "string" && first.msg.trim()) return first.msg;
+    }
+  } catch {
+    /* non-JSON error body */
+  }
+  return "";
+}
+
 export function PlayAudioButton({
   content,
   conversationKey,
@@ -1321,22 +1340,21 @@ export function PlayAudioButton({
   autoPlayFresh: boolean;
 }) {
   const { t } = useTranslation();
-  const {
-    autoplayEnabled,
-    enableForSession,
-    markPrompted,
-    shouldPromptOnFirstPlay,
-  } = useVoiceAutoplay(conversationKey);
+  const { autoplayEnabled } = useVoiceAutoplay(conversationKey);
+  // [FORK-EXT] Honor the learner's saved TTS voice so playback uses the
+  // provider/voice they picked in Settings instead of the server default.
   const { value: ttsVoice } = useTtsVoicePreference();
   const [state, setState] = useState<"idle" | "loading" | "playing">("idle");
-  const [error, setError] = useState<string | null>(null);
-  const errorTimerRef = useRef<number | null>(null);
-  const [showPrompt, setShowPrompt] = useState(false);
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const urlRef = useRef<string | null>(null);
+  const abortRef = useRef<AbortController | null>(null);
+  const genRef = useRef(0);
   const autoPlayedRef = useRef(false);
+  const playbackOwnerRef = useRef<object>({});
 
   const cleanup = useCallback(() => {
+    abortRef.current?.abort();
+    abortRef.current = null;
     if (audioRef.current) {
       audioRef.current.pause();
       audioRef.current = null;
@@ -1345,89 +1363,89 @@ export function PlayAudioButton({
       URL.revokeObjectURL(urlRef.current);
       urlRef.current = null;
     }
-    if (errorTimerRef.current !== null) {
-      window.clearTimeout(errorTimerRef.current);
-      errorTimerRef.current = null;
-    }
   }, []);
 
-  // Show a transient error hint next to the speaker button. Without this, a
-  // provider / config failure (e.g. invalid API token) just snaps the button
-  // back to idle and the user is left wondering why nothing played.
-  const flashError = useCallback((message: string) => {
-    if (errorTimerRef.current !== null) {
-      window.clearTimeout(errorTimerRef.current);
-    }
-    setError(message);
-    errorTimerRef.current = window.setTimeout(() => {
-      setError(null);
-      errorTimerRef.current = null;
-    }, 5000);
-  }, []);
+  const stop = useCallback(() => {
+    genRef.current += 1;
+    cleanup();
+    setState("idle");
+    if (activePlayback?.owner === playbackOwnerRef.current) activePlayback = null;
+  }, [cleanup]);
 
   const play = useCallback(async () => {
+    activePlayback?.stop();
+    const gen = ++genRef.current;
+    abortRef.current?.abort();
+    const ac = new AbortController();
+    abortRef.current = ac;
+    activePlayback = { owner: playbackOwnerRef.current, stop };
     setState("loading");
     try {
       const resp = await apiFetch(apiUrl("/api/voice/tts"), {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ text: content, voice: ttsVoice || undefined }),
+        signal: ac.signal,
       });
+      if (gen !== genRef.current) return;
       if (!resp.ok) {
-        // Surface provider / config errors instead of silently going back to idle.
-        let detail = t("Voice playback failed");
-        try {
-          const raw = await resp.text();
-          const parsed = JSON.parse(raw);
-          if (parsed && typeof parsed.detail === "string") detail = parsed.detail;
-          else if (raw) detail = raw;
-        } catch {
-          // body wasn't JSON or empty; fall back to the default detail
-        }
-        flashError(detail);
-        cleanup();
-        setState("idle");
+        const detail = await ttsErrorMessage(resp);
+        if (gen !== genRef.current) return;
+        notify(
+          t(detail || (resp.status === 504 ? SPEECH_TIMEOUT_MESSAGE : SPEECH_PLAYBACK_FAILURE_MESSAGE)),
+          { tone: "error" },
+        );
+        stop();
         return;
       }
       const blob = await resp.blob();
-      cleanup();
+      if (gen !== genRef.current) return;
+      if (urlRef.current) {
+        URL.revokeObjectURL(urlRef.current);
+        urlRef.current = null;
+      }
       const url = URL.createObjectURL(blob);
       urlRef.current = url;
       const audio = new Audio(url);
       audioRef.current = audio;
       audio.onended = () => {
+        if (gen !== genRef.current) return;
         setState("idle");
         cleanup();
+        if (activePlayback?.owner === playbackOwnerRef.current) activePlayback = null;
       };
       audio.onerror = () => {
-        setState("idle");
-        cleanup();
+        if (gen !== genRef.current) return;
+        notify(t(SPEECH_PLAYBACK_FAILURE_MESSAGE), {
+          tone: "error",
+        });
+        stop();
       };
       await audio.play();
+      if (gen !== genRef.current) {
+        audio.pause();
+        return;
+      }
       setState("playing");
     } catch (err) {
-      cleanup();
-      setState("idle");
-      flashError(err instanceof Error ? err.message : t("Voice playback failed"));
+      if (gen !== genRef.current) return;
+      if (err instanceof Error && err.name === "AbortError") return;
+      notify(t(SPEECH_PLAYBACK_FAILURE_MESSAGE), {
+        tone: "error",
+      });
+      stop();
     }
-  }, [cleanup, content, ttsVoice]);
+  }, [cleanup, content, stop, t, ttsVoice]);
 
   const handleClick = useCallback(() => {
     if (state === "playing" || state === "loading") {
-      cleanup();
-      setState("idle");
+      stop();
       return;
     }
-    const willPrompt = shouldPromptOnFirstPlay();
     void play();
-    if (willPrompt) {
-      markPrompted();
-      setShowPrompt(true);
-    }
-  }, [cleanup, markPrompted, play, shouldPromptOnFirstPlay, state]);
+  }, [play, state, stop]);
 
-  // Auto-play a freshly-generated reply when enabled, exactly once. Deferred
-  // to a timer so synthesis (which sets state) starts off the effect body.
+  // Auto-play a freshly-generated reply when Settings auto-play is on.
   useEffect(() => {
     if (!autoPlayFresh || !autoplayEnabled) return;
     if (autoPlayedRef.current) return;
@@ -1437,7 +1455,11 @@ export function PlayAudioButton({
     return () => window.clearTimeout(id);
   }, [autoPlayFresh, autoplayEnabled, content, play]);
 
-  useEffect(() => cleanup, [cleanup]);
+  useEffect(() => () => {
+    genRef.current += 1;
+    cleanup();
+    if (activePlayback?.owner === playbackOwnerRef.current) activePlayback = null;
+  }, [cleanup]);
 
   return (
     <div className="relative inline-flex">
@@ -1464,45 +1486,9 @@ export function PlayAudioButton({
           )}
         </button>
       </Tooltip>
-      {error && (
-        <div
-          role="alert"
-          className="absolute bottom-full left-0 z-30 mb-1.5 flex w-72 items-start gap-1.5 rounded-md border border-[var(--destructive)]/40 bg-[var(--destructive)]/10 px-2 py-1.5 text-[11.5px] leading-snug text-[var(--destructive)] shadow-sm"
-        >
-          <AlertCircle size={12} className="mt-0.5 shrink-0" strokeWidth={1.8} />
-          <span className="break-words">{error}</span>
-        </div>
-      )}
-      {showPrompt && (
-        <div className="absolute bottom-full left-0 z-30 mb-2 w-60 rounded-lg border border-[var(--border)] bg-[var(--card)] p-3 shadow-lg">
-          <p className="text-[12px] leading-relaxed text-[var(--foreground)]">
-            {t("Auto-play replies in this conversation?")}
-          </p>
-          <div className="mt-2.5 flex justify-end gap-2">
-            <button
-              type="button"
-              onClick={() => setShowPrompt(false)}
-              className="rounded-md px-2.5 py-1 text-[11.5px] text-[var(--muted-foreground)] hover:bg-[var(--muted)]/50 hover:text-[var(--foreground)]"
-            >
-              {t("Not now")}
-            </button>
-            <button
-              type="button"
-              onClick={() => {
-                enableForSession();
-                setShowPrompt(false);
-              }}
-              className="rounded-md bg-[var(--primary)] px-2.5 py-1 text-[11.5px] font-medium text-[var(--primary-foreground)] hover:bg-[var(--primary)]/90"
-            >
-              {t("Turn on")}
-            </button>
-          </div>
-        </div>
-      )}
     </div>
   );
 }
-
 function BranchNavigator({
   info,
   onSwitch,
@@ -1591,6 +1577,7 @@ export const UserMessage = memo(function UserMessage({
   siblingInfo,
   onSwitchBranch,
   availableKbNames,
+  kbDisplayNames,
   showModeBadge,
   onOpenConsultation,
 }: {
@@ -1604,6 +1591,9 @@ export const UserMessage = memo(function UserMessage({
   onSwitchBranch?: (parentMessageId: number | null, childId: number) => void;
   /** Names of KBs confirmed to exist. Omitted when the KB list is unavailable. */
   availableKbNames?: Set<string>;
+  /** Qualified KB ref -> display name from the selection catalog; the chip
+   *  label falls back to the raw ref when no entry matches. */
+  kbDisplayNames?: Record<string, string>;
   /** Label the bubble with its capability. A single-capability surface
    *  already names the mode in its own chrome. */
   showModeBadge?: boolean;
@@ -1694,7 +1684,7 @@ export const UserMessage = memo(function UserMessage({
           key: `kb-${name}`,
           icon: Database,
           kind: t("Knowledge"),
-          label: name,
+          label: kbDisplayNames?.[name] ?? name,
         };
       }),
     ...(snap?.bookReferences ?? []).map((ref): ContextTreeItem => ({
@@ -1939,6 +1929,7 @@ export const ChatMessageList = memo(function ChatMessageList({
   onEditMessage,
   onSwitchBranch,
   availableKbNames,
+  kbDisplayNames,
   onSubmitUserReply,
   onAnswerMasteryQuestion,
   onSkipMasteryQuestion,
@@ -2000,8 +1991,12 @@ export const ChatMessageList = memo(function ChatMessageList({
   ) => void | boolean | Promise<void | boolean>;
   /** Names of KBs confirmed to exist. Omitted when the KB list is unavailable. */
   availableKbNames?: Set<string>;
+  /** Qualified KB ref -> display name, from the same catalog the composer
+   *  resolves against. Snapshots store the ref; only the chip label should
+   *  show the human-readable name (falls back to the ref when unmapped). */
+  kbDisplayNames?: Record<string, string>;
   /** Label each user bubble with its capability. Off on surfaces that run a
-   *  single capability and already name it in their own chrome. */
+   *  single capability and already name it in its own chrome. */
   showModeBadge?: boolean;
   onLoadMessageTrace?: (messageId: number) => Promise<void>;
   onReleaseMessageTrace?: (messageId: number) => void;
@@ -2234,6 +2229,7 @@ export const ChatMessageList = memo(function ChatMessageList({
                 siblingInfo={sib}
                 onSwitchBranch={onSwitchBranch}
                 availableKbNames={availableKbNames}
+                kbDisplayNames={kbDisplayNames}
                 showModeBadge={showModeBadge}
                 onOpenConsultation={consultationEvents.length && onOpenConsultation
                   ? () => onOpenConsultation(consultationEvents)

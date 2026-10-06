@@ -202,6 +202,7 @@ export function providerProbeInput(source: ProviderSource, fallbackUrl = "") {
     api_version: s.api_version,
     api_format: s.api_format || "auto",
     extra_headers: s.extra_headers,
+    proxy: s.proxy || "",
     service: source.service || (s as CatalogConnection).source_service || "llm",
   };
 }

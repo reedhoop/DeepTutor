@@ -892,6 +892,29 @@ class AgenticLoopPipeline:
         ]
         return "\n\n".join(seed for seed in seeds if seed)
 
+    def _capability_skips_kb_seed(self, context: UnifiedContext) -> bool:
+        """Let an active capability say this turn's message is not a query.
+
+        The KB seed searches the raw user message. That is right for a
+        question, and wrong for a quiz pick like "A": the search has no
+        context and short-query backends reject it (#1624). The KBs stay
+        mounted, so the model can still retrieve with a real query.
+        """
+        for cap in self._active_loop_capabilities(context):
+            hook = getattr(cap, "skip_kb_seed", None)
+            if not callable(hook):
+                continue
+            try:
+                if hook(context):
+                    return True
+            except Exception:
+                logger.warning(
+                    "kb seed hook failed for capability %s",
+                    getattr(cap, "name", "?"),
+                    exc_info=True,
+                )
+        return False
+
     def _capability_finish_instruction(self, context: UnifiedContext, final_text: str) -> str:
         """Let an active capability reject a narrow tool-less finish once.
 
@@ -1511,7 +1534,13 @@ class AgenticLoopPipeline:
         owned = self._capability_owned_kbs(context)
         kbs = [kb for kb in self._selected_kbs(context) if kb not in owned]
         query = (context.user_message or "").strip()
-
+        if not kbs or not query:
+            return ""
+        if self._capability_skips_kb_seed(context):
+            return ""
+        if len(kbs) > KB_SEED_MAX_KBS:
+            kbs = kbs[:KB_SEED_MAX_KBS]
+        results = await asyncio.gather(*(self._seed_search_one_kb(kb, query, stream) for kb in kbs))
         sections: list[str] = []
         sources: list[dict[str, Any]] = []
 
