@@ -14,6 +14,9 @@ from deeptutor.agents.research.request_config import (
     DeepResearchRequestConfig,
     validate_research_request_config,
 )
+from deeptutor.capabilities.audio_overview.request_config import (
+    AudioOverviewRequestConfig,
+)
 from deeptutor.runtime.capability_catalog import EmptyConfig
 
 
@@ -42,6 +45,14 @@ class CourseStudyRequestConfig(EmptyConfig):
 
 
 class ImmersiveWatchingRequestConfig(EmptyConfig):
+    pass
+
+
+class SocraticTutorRequestConfig(EmptyConfig):
+    pass
+
+
+class FeynmanTutorRequestConfig(EmptyConfig):
     pass
 
 
@@ -149,6 +160,7 @@ CAPABILITY_CONFIG_VALIDATORS: dict[str, Callable[[dict[str, Any] | None], Any]] 
 }
 
 CAPABILITY_CONFIG_MODELS: dict[str, type[BaseModel]] = {
+    "audio_overview": AudioOverviewRequestConfig,
     "chat": ChatRequestConfig,
     "ask_questions": AskQuestionsRequestConfig,
     "deep_solve": DeepSolveRequestConfig,
@@ -160,6 +172,8 @@ CAPABILITY_CONFIG_MODELS: dict[str, type[BaseModel]] = {
     "immersive_reading": ImmersiveReadingRequestConfig,
     "course_study": CourseStudyRequestConfig,
     "immersive_watching": ImmersiveWatchingRequestConfig,
+    "socratic_tutor": SocraticTutorRequestConfig,
+    "feynman_tutor": FeynmanTutorRequestConfig,
 }
 
 
@@ -209,6 +223,7 @@ __all__ = [
     "CAPABILITY_CONFIG_VALIDATORS",
     "CAPABILITY_CONFIG_MODELS",
     "CAPABILITY_REQUEST_SCHEMAS",
+    "AudioOverviewRequestConfig",
     "AskQuestionsRequestConfig",
     "ChatRequestConfig",
     "CourseStudyRequestConfig",

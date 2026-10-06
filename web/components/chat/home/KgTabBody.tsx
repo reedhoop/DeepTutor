@@ -21,7 +21,7 @@ import {
   type KgCandidate,
   type KgConcept,
   type KgLiteConcept,
-} from "@/lib/knowledge-api";
+} from "@/features/knowledge/api/kgraph";
 
 interface KgTabBodyProps {
   /** Optional concept name to focus the browser on when the tab opens. */

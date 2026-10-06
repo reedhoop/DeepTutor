@@ -364,22 +364,24 @@ async def test_mastery_quiz_grade_has_empty_analysis(path_id):
         (await MasteryStatusTool().execute(_mastery_path_id=path_id)).content
     )["next"]["knowledge_point_id"]
 
-    quiz = json.loads(
-        (
-            await MasteryQuizTool().execute(
-                _mastery_path_id=path_id,
-                knowledge_point_id=kp_id,
-                question="Pick a colour",
-                expected_answer="blue",
-                question_type="short",
-            )
-        ).content
+    # Upstream v1.6.12: mastery_quiz now returns a turn-ending notice instead
+    # of a JSON payload (the payload moved to ``metadata["mastery_quiz"]``), so
+    # the question_id is read back from the store like the grade test above.
+    await MasteryQuizTool().execute(
+        _mastery_path_id=path_id,
+        knowledge_point_id=kp_id,
+        question="Pick a colour",
+        expected_answer="blue",
+        question_type="short",
     )
+    from deeptutor.learning.storage import LearningStore
+
+    pending = LearningStore().load(path_id).pending_question
     grade = json.loads(
         (
             await MasteryGradeTool().execute(
                 _mastery_path_id=path_id,
-                question_id=quiz["question_id"],
+                question_id=pending.question_id,
                 answer="blue",
             )
         ).content
