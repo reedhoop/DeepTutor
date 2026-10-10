@@ -229,7 +229,6 @@ export default function NotebooksSection() {
   return (
     <div className="space-y-6">
       <SpaceSectionHeader
-        icon={NotebookPen}
         title={t("Notebooks")}
         description={t(
           "Save and organize outputs from chat, research, and Co-Writer sessions into a personal library.",

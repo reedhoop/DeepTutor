@@ -1662,9 +1662,6 @@ function ProfileFields({
               ) {
                 updateModelField(service, "model", match.default_model);
               }
-              if (service === "tts" && match?.default_voice) {
-                updateModelField(service, "voice", match.default_voice);
-              }
             }}
           >
             <option className={selectOptionClass} value="">

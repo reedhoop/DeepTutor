@@ -1,5 +1,7 @@
 "use client";
 
+import TaskPanelSection from "@/components/tasks/TaskPanelSection";
+
 import { browserStorage } from "@/shared/storage";
 
 /**
@@ -220,6 +222,8 @@ export interface SessionViewerPanelProps {
   activity: SessionActivity;
   /** Optional capability-config card appended below the activity sections. */
   configSection?: ReactNode;
+  taskDraftIds?: string[];
+  onTaskDraftChange?: (ids: string[]) => void;
 }
 
 function fileTabIdFor(a: MessageAttachment, fallback: number): string {
@@ -288,6 +292,8 @@ function SessionViewerPanelInner(
     onAutoOpen,
     activity,
     configSection,
+    taskDraftIds,
+    onTaskDraftChange,
   }: SessionViewerPanelProps,
   ref: React.Ref<SessionViewerPanelHandle>,
 ) {
@@ -817,6 +823,9 @@ function SessionViewerPanelInner(
           <KgTabBody key={activeTab.id} concept={activeTab.concept} />
         ) : (
           <ActivityHome
+            sessionId={sessionId}
+            taskDraftIds={taskDraftIds}
+            onTaskDraftChange={onTaskDraftChange}
             activity={activity}
             open={visible}
             configSection={configSection}
@@ -984,6 +993,9 @@ function TabBar({
  * this same panel.
  */
 function ActivityHome({
+  sessionId,
+  taskDraftIds,
+  onTaskDraftChange,
   activity,
   open,
   configSection,
@@ -991,6 +1003,9 @@ function ActivityHome({
   onOpenWebTab,
   onOpenLocalFile,
 }: {
+  sessionId: string | null;
+  taskDraftIds?: string[];
+  onTaskDraftChange?: (ids: string[]) => void;
   activity: SessionActivity;
   open: boolean;
   configSection?: ReactNode;
@@ -1000,6 +1015,11 @@ function ActivityHome({
 }) {
   return (
     <div className="h-full space-y-5 overflow-y-auto px-3 pb-8 pt-1 sm:px-3.5">
+      <TaskPanelSection
+        sessionId={sessionId}
+        draftTaskIds={taskDraftIds}
+        onDraftChange={onTaskDraftChange}
+      />
       <ActivityBody
         activity={activity}
         open={open}

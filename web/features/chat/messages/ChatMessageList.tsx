@@ -659,6 +659,7 @@ export const AssistantMessage = memo(function AssistantMessage({
   onSubmitUserReply,
   onAnswerMasteryQuestion,
   onSkipMasteryQuestion,
+  onChallengeMasteryQuestion,
   researchRequestSnapshot,
   onTraceToggle,
   masteryGrades,
@@ -726,6 +727,7 @@ export const AssistantMessage = memo(function AssistantMessage({
   onSkipMasteryQuestion?: (
     questionId: string,
   ) => void | boolean | Promise<void | boolean>;
+  onChallengeMasteryQuestion?: (questionId: string) => void | boolean | Promise<void | boolean>;
 }) {
   const { t } = useTranslation();
   const events = useMemo(() => msg.events ?? [], [msg.events]);
@@ -835,6 +837,7 @@ export const AssistantMessage = memo(function AssistantMessage({
               : false
           }
           onSkip={onSkipMasteryQuestion}
+          onChallenge={onChallengeMasteryQuestion}
         />
       );
     },
@@ -843,6 +846,7 @@ export const AssistantMessage = memo(function AssistantMessage({
       masterySkips,
       onAnswerMasteryQuestion,
       onSkipMasteryQuestion,
+  onChallengeMasteryQuestion,
     ],
   );
   // Set by ``request_credential`` when a configuration step needs a secret the
@@ -1859,8 +1863,12 @@ export const UserMessage = memo(function UserMessage({
             />
           </div>
         )}
+        {/* Branch navigation is the only way back to the pre-edit branch
+            after an edit forks the transcript (#1410): it stays on this
+            action row, outside the hover reveal that gates Copy/Edit, so
+            the way back to history is visible without hovering. */}
         {!editing && (onCopy || canEdit || siblingInfo) && msg.content && (
-          <div className="flex h-7 items-center justify-end gap-1 opacity-0 transition-opacity group-hover:opacity-100 focus-within:opacity-100">
+          <div className="flex h-7 items-center justify-end gap-1">
             {siblingInfo && siblingInfo.total > 1 && (
               <BranchNavigator
                 info={siblingInfo}
@@ -1869,15 +1877,19 @@ export const UserMessage = memo(function UserMessage({
                 }
               />
             )}
-            {onCopy && (
-              <CopyActionButton content={msg.content} onCopy={onCopy} />
-            )}
-            {canEdit && (
-              <RoughActionButton
-                icon={Pencil}
-                label={t("Edit")}
-                onClick={startEdit}
-              />
+            {(onCopy || canEdit) && (
+              <div className="flex items-center gap-1 opacity-0 transition-opacity group-hover:opacity-100 focus-within:opacity-100">
+                {onCopy && (
+                  <CopyActionButton content={msg.content} onCopy={onCopy} />
+                )}
+                {canEdit && (
+                  <RoughActionButton
+                    icon={Pencil}
+                    label={t("Edit")}
+                    onClick={startEdit}
+                  />
+                )}
+              </div>
             )}
           </div>
         )}
@@ -1933,6 +1945,7 @@ export const ChatMessageList = memo(function ChatMessageList({
   onSubmitUserReply,
   onAnswerMasteryQuestion,
   onSkipMasteryQuestion,
+  onChallengeMasteryQuestion,
   showModeBadge = true,
   onLoadMessageTrace,
   onReleaseMessageTrace,
@@ -1989,6 +2002,7 @@ export const ChatMessageList = memo(function ChatMessageList({
   onSkipMasteryQuestion?: (
     questionId: string,
   ) => void | boolean | Promise<void | boolean>;
+  onChallengeMasteryQuestion?: (questionId: string) => void | boolean | Promise<void | boolean>;
   /** Names of KBs confirmed to exist. Omitted when the KB list is unavailable. */
   availableKbNames?: Set<string>;
   /** Qualified KB ref -> display name, from the same catalog the composer
@@ -2324,6 +2338,7 @@ export const ChatMessageList = memo(function ChatMessageList({
                 onSubmitUserReply={onSubmitUserReply}
                 onAnswerMasteryQuestion={onAnswerMasteryQuestion}
                 onSkipMasteryQuestion={onSkipMasteryQuestion}
+                onChallengeMasteryQuestion={onChallengeMasteryQuestion}
                 researchRequestSnapshot={
                   pairedUserMessage?.requestSnapshot ?? null
                 }

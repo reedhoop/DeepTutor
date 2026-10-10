@@ -11,7 +11,12 @@ import types
 
 import pytest
 
-from deeptutor.agents.chat import agentic_pipeline as ap
+# [FORK-EXT] Re-anchored: the capability gate lives on the loop pipeline, and
+# ``agents/chat/agentic_pipeline.py`` is now only a re-export shim that does NOT
+# re-export ``active_loop_capabilities``. Patching the shim therefore raised
+# AttributeError and the patch would not have reached the gate anyway — the
+# method resolves the name from *this* module's globals.
+from deeptutor.agents.loop import pipeline as ap
 from deeptutor.core.context import UnifiedContext
 
 
@@ -30,7 +35,7 @@ def test_seed_blocked_under_socratic(monkeypatch):
         "active_loop_capabilities",
         lambda ctx: [_FakeCap("socratic_tutor")],
     )
-    assert ap.AgenticChatPipeline._course_kb_seed_blocked_by_capability(_ctx()) is True
+    assert ap.AgenticLoopPipeline._course_kb_seed_blocked_by_capability(_ctx()) is True
 
 
 def test_seed_blocked_under_socratic_cli_name(monkeypatch):
@@ -39,7 +44,7 @@ def test_seed_blocked_under_socratic_cli_name(monkeypatch):
         "active_loop_capabilities",
         lambda ctx: [_FakeCap("socratic")],
     )
-    assert ap.AgenticChatPipeline._course_kb_seed_blocked_by_capability(_ctx()) is True
+    assert ap.AgenticLoopPipeline._course_kb_seed_blocked_by_capability(_ctx()) is True
 
 
 def test_seed_not_blocked_for_chat(monkeypatch):
@@ -48,7 +53,7 @@ def test_seed_not_blocked_for_chat(monkeypatch):
         "active_loop_capabilities",
         lambda ctx: [_FakeCap("chat")],
     )
-    assert ap.AgenticChatPipeline._course_kb_seed_blocked_by_capability(_ctx()) is False
+    assert ap.AgenticLoopPipeline._course_kb_seed_blocked_by_capability(_ctx()) is False
 
 
 def test_curriculum_tool_mount_flag():

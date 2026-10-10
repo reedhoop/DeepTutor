@@ -492,7 +492,7 @@ async def selective_access_log(request, call_next):
         and response.status_code in {401, 403}
     ):
         response = RedirectResponse(
-            "/watching?account=authorization_login_required",
+            "/reading?account=authorization_login_required",
             status_code=303,
             headers={"Cache-Control": "no-store", "Referrer-Policy": "no-referrer"},
         )
@@ -552,6 +552,7 @@ from deeptutor.api.routers import (
     kg,
     kgraph_textbook,
     knowledge,
+    learning_journal,
     marginnote4,
     mastery_path,
     mcp_settings,
@@ -561,6 +562,7 @@ from deeptutor.api.routers import (
     partner_groups,
     partners,
     personas,
+    plugins,
     practice,
     question,
     question_notebook,
@@ -716,6 +718,12 @@ app.include_router(
     dependencies=_auth,
 )
 app.include_router(
+    learning_journal.router,
+    prefix="/api/learning-journal",
+    tags=["learning-journal"],
+    dependencies=_auth,
+)
+app.include_router(
     capabilities_settings.router,
     prefix="/api/capabilities",
     tags=["capabilities"],
@@ -807,6 +815,7 @@ app.include_router(
     subagents.router, prefix="/api/subagents", tags=["subagents"], dependencies=_auth
 )
 app.include_router(personas.router, prefix="/api", tags=["personas"], dependencies=_auth)
+app.include_router(plugins.router, prefix="/api/plugins", tags=["plugins"])
 app.include_router(tools_router.router, prefix="/api/tools", tags=["tools"], dependencies=_auth)
 app.include_router(system.router, prefix="/api/system", tags=["system"], dependencies=_auth)
 app.include_router(voice.router, prefix="/api/voice", tags=["voice"], dependencies=_auth)

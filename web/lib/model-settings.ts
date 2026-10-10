@@ -114,6 +114,7 @@ export function modelTestFingerprint(
           "api_format",
           "wire_api",
           "proxy",
+          "service_overrides",
         ].map((key) => [key, Reflect.get(providerSource, key)]),
       )
     : undefined;

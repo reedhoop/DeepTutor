@@ -44,10 +44,7 @@ class CourseStudyRequestConfig(EmptyConfig):
     pass
 
 
-class ImmersiveWatchingRequestConfig(EmptyConfig):
-    pass
-
-
+# [FORK-EXT] Fork-only tutoring capabilities.
 class SocraticTutorRequestConfig(EmptyConfig):
     pass
 
@@ -171,7 +168,7 @@ CAPABILITY_CONFIG_MODELS: dict[str, type[BaseModel]] = {
     "mastery_path": MasteryPathRequestConfig,
     "immersive_reading": ImmersiveReadingRequestConfig,
     "course_study": CourseStudyRequestConfig,
-    "immersive_watching": ImmersiveWatchingRequestConfig,
+    # [FORK-EXT] Fork-only tutoring capabilities.
     "socratic_tutor": SocraticTutorRequestConfig,
     "feynman_tutor": FeynmanTutorRequestConfig,
 }
@@ -230,7 +227,6 @@ __all__ = [
     "DeepQuestionRequestConfig",
     "DeepSolveRequestConfig",
     "ImmersiveReadingRequestConfig",
-    "ImmersiveWatchingRequestConfig",
     "MasteryPathRequestConfig",
     "VisualizeRequestConfig",
     "build_request_schema",
